@@ -54,8 +54,8 @@ var Game;
             deleteBeing(msg);
         });
         socket.on('its-your-turn', function (msg) {
-            console.log('its my turn lo');
             isMyTurn = true;
+            log("It's your turn");
         });
     }
     function deleteBeing(data) {
@@ -74,7 +74,14 @@ var Game;
             }
             delete beings[id];
         }
+        log("Player #" + being.getId() + " just disconnected");
         draw();
+    }
+    function log(message) {
+        var node = document.createElement("li"); // Create a <li> node
+        var textnode = document.createTextNode(message); // Create a text node
+        node.appendChild(textnode);
+        document.getElementById('game-log').insertBefore(node);
     }
     function moveBeing(being, x, y) {
         var posKey = being.getX() + ',' + being.getY();
@@ -89,11 +96,14 @@ var Game;
         beings = new Array();
         beingMapLayer = {};
         for (var i in serializedBeings) {
-            createBeing(serializedBeings[i]);
+            if (serializedBeings.hasOwnProperty(i)) {
+                createBeing(serializedBeings[i]);
+            }
         }
     }
     function createBeing(serializedBeing) {
         var being = new Being(parseInt(serializedBeing.id), parseInt(serializedBeing.x), parseInt(serializedBeing.y));
+        log("Player #" + being.getId() + " just connected");
         beings[being.getId()] = being;
         beingMapLayer[being.getX() + ',' + being.getY()] = being;
     }
@@ -142,6 +152,7 @@ var Game;
     }
     function handlePlayerEvent(e) {
         if (!isMyTurn) {
+            log("It's not your turn yet!");
             return;
         }
         var code = e.keyCode;
