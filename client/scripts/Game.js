@@ -19,9 +19,12 @@ var Game;
     }
     Game.init = init;
     function initiateSocket() {
-        var url = document.URL;
-        if (url.indexOf('file:///') !== -1) {
+        var url = '';
+        if (document.location.protocol === 'file:') {
             url = 'http://localhost';
+        }
+        else {
+            url = 'http://' + document.location.hostname;
         }
         socket = io.connect(url + ':3000');
         socket.on('debug', function (msg) {
