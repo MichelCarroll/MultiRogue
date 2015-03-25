@@ -16,7 +16,7 @@ import Being = require('./Being');
 
 var map = {};
 var freeCells = new Array();
-var beings = {};
+var beings = new Object();;
 
 (new ROT.Map.Digger()).create(function(x, y, value) {
     if (value) { return; } /* do not store walls */
@@ -25,6 +25,17 @@ var beings = {};
     freeCells.push(key);
     map[key] = ".";
 });
+
+var scheduler = new ROT.Scheduler.Simple();
+var currentPlayer = null;
+
+function nextTurn() {
+    currentPlayer = scheduler.next();
+    if(currentPlayer) {
+        currentPlayer.askToTakeTurn();
+        console.log('waiting for #'+currentPlayer.getId());
+    }
+}
 
 io.on('connection', function(socket) {
 
@@ -41,11 +52,15 @@ io.on('connection', function(socket) {
         'beings': beingSerialized
     });
 
-
     socket.on('disconnect', function() {
+        console.log('ID ' + player.getId() + ' disconnected');
         if(player) {
             delete beings[player.getId()];
             socket.broadcast.emit('being-left', player.serialize());
+            scheduler.remove(player);
+            if(currentPlayer === player) {
+                nextTurn();
+            }
         }
     });
 
@@ -53,17 +68,29 @@ io.on('connection', function(socket) {
         var index = Math.floor(ROT.RNG.getUniform() * freeCells.length);
         var key = freeCells.splice(index, 1)[0];
         var parts = key.split(",");
-        player = new Being(parts[0], parts[1], function(){});
+        player = new Being(parts[0], parts[1], function() {
+            socket.emit('its-your-turn');
+        });
         beings[player.getId()] = player;
 
-        socket.emit('position-player', {
-            'player': player.serialize()
-        });
-
+        socket.emit('position-player', { 'player': player.serialize() });
         socket.broadcast.emit('being-came', player.serialize());
+
+        console.log('ID ' + player.getId() + ' connected');
+
+        scheduler.add(player, true);
+        if(!currentPlayer) {
+            nextTurn();
+        }
     });
 
     socket.on('being-moved', function(data) {
+
+        if(currentPlayer !== player) {
+            console.log('invalid move');
+            return;
+        }
+
         var id = parseInt(data.id);
         var x = parseInt(data.x);
         var y = parseInt(data.y);
@@ -71,9 +98,10 @@ io.on('connection', function(socket) {
         being.setX(x);
         being.setY(y);
         socket.broadcast.emit('being-moved', being.serialize());
+        nextTurn();
     });
 });
 
 http.listen(3000, function(){
-    console.log('listening on *:3000');
+    console.log('listening on port 3000');
 });

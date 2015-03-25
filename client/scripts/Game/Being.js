@@ -3,10 +3,9 @@
  */
 /// <reference path="../../bower_components/rot.js-TS/rot.d.ts"/>
 var Being = (function () {
-    function Being(id, x, y, handleAct) {
+    function Being(id, x, y) {
         this.x = x;
         this.y = y;
-        this.handleAct = handleAct;
         this.id = id;
     }
     Being.prototype.getId = function () {
@@ -29,9 +28,6 @@ var Being = (function () {
     };
     Being.prototype.getColor = function () {
         return '#888';
-    };
-    Being.prototype.act = function () {
-        this.handleAct(this);
     };
     return Being;
 })();

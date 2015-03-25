@@ -10,10 +10,9 @@ var Game;
     var beingMapLayer;
     var player;
     var beings;
-    var engine;
-    var currentActor;
     var fov;
     var socket;
+    var isMyTurn;
     function init() {
         initiateSocket();
     }
@@ -54,6 +53,10 @@ var Game;
         socket.on('being-left', function (msg) {
             deleteBeing(msg);
         });
+        socket.on('its-your-turn', function (msg) {
+            console.log('its my turn lo');
+            isMyTurn = true;
+        });
     }
     function deleteBeing(data) {
         var id = parseInt(data.id);
@@ -90,20 +93,16 @@ var Game;
         }
     }
     function createBeing(serializedBeing) {
-        var being = new Being(parseInt(serializedBeing.id), parseInt(serializedBeing.x), parseInt(serializedBeing.y), function () {
-        });
+        var being = new Being(parseInt(serializedBeing.id), parseInt(serializedBeing.x), parseInt(serializedBeing.y));
         beings[being.getId()] = being;
         beingMapLayer[being.getX() + ',' + being.getY()] = being;
     }
     function startGame() {
-        var scheduler = new ROT.Scheduler.Simple();
-        engine = new ROT.Engine(scheduler);
         display = new ROT.Display();
         document.body.appendChild(display.getContainer());
-        scheduler.add(player, true);
         initiateFov();
         draw();
-        engine.start();
+        window.addEventListener("keydown", handlePlayerEvent);
     }
     function draw() {
         display.clear();
@@ -117,7 +116,7 @@ var Game;
         var x = parseInt(data.x);
         var y = parseInt(data.y);
         var id = parseInt(data.id);
-        player = new Player(id, x, y, Game.playerAct);
+        player = new Player(id, x, y);
     }
     function drawMap() {
         fov.compute(player.getX(), player.getY(), 5, function (x, y, r, visibility) {
@@ -132,12 +131,6 @@ var Game;
             }
         });
     }
-    function playerAct(player) {
-        engine.lock();
-        currentActor = player;
-        window.addEventListener("keydown", handlePlayerEvent);
-    }
-    Game.playerAct = playerAct;
     function initiateFov() {
         fov = new ROT.FOV.PreciseShadowcasting(function (x, y) {
             var key = x + "," + y;
@@ -148,6 +141,9 @@ var Game;
         });
     }
     function handlePlayerEvent(e) {
+        if (!isMyTurn) {
+            return;
+        }
         var code = e.keyCode;
         if (code == ROT.VK_RETURN || code == ROT.VK_SPACE) {
             //checkBox();
@@ -162,21 +158,19 @@ var Game;
             return;
         }
         var diff = ROT.DIRS[4][keyMap[code]];
-        var newX = currentActor.getX() + diff[0];
-        var newY = currentActor.getY() + diff[1];
+        var newX = player.getX() + diff[0];
+        var newY = player.getY() + diff[1];
         var newKey = newX + "," + newY;
         if (!(newKey in map)) {
             return;
         } /* cannot move in direction */
         movePlayer(newX, newY);
         draw();
-        window.removeEventListener("keydown", handlePlayerEvent);
-        currentActor = null;
-        engine.unlock();
+        isMyTurn = false;
     }
     function movePlayer(x, y) {
-        currentActor.setX(x);
-        currentActor.setY(y);
+        player.setX(x);
+        player.setY(y);
         socket.emit('being-moved', {
             'id': player.getId(),
             'x': player.getX(),

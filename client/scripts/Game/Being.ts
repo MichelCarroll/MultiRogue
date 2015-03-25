@@ -5,17 +5,15 @@
 /// <reference path="../../bower_components/rot.js-TS/rot.d.ts"/>
 
 
-class Being implements ROT.IActor {
+class Being {
 
     private x:number;
     private y:number;
     private id:number;
-    private handleAct:(being:Being) => void;
 
-    constructor(id:number, x:number, y:number, handleAct:(being:Being) => void) {
+    constructor(id:number, x:number, y:number) {
         this.x = x;
         this.y = y;
-        this.handleAct = handleAct;
         this.id = id;
     }
 
@@ -45,9 +43,5 @@ class Being implements ROT.IActor {
 
     public getColor():string {
         return '#888';
-    }
-
-    public act() {
-        this.handleAct(this);
     }
 }

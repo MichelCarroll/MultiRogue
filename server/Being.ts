@@ -1,12 +1,13 @@
 
 ///<reference path='./bower_components/rot.js-TS/rot.d.ts' />
 
-class Being implements ROT.IActor {
+class Being
+{
 
     private x:number;
     private y:number;
     private id:number;
-    private handleAct:(being:Being) => void;
+    private callForTurn:()=>void;
 
     static lastId = 1;
     static getNextId()
@@ -14,10 +15,10 @@ class Being implements ROT.IActor {
         return this.lastId++;
     }
 
-    constructor(x:number, y:number, handleAct:(being:Being) => void) {
+    constructor(x:number, y:number, callForTurn:() => void) {
         this.x = x;
         this.y = y;
-        this.handleAct = handleAct;
+        this.callForTurn = callForTurn;
         this.id = Being.getNextId();
     }
 
@@ -49,8 +50,8 @@ class Being implements ROT.IActor {
         return '#888';
     }
 
-    public act() {
-        this.handleAct(this);
+    public askToTakeTurn() {
+        this.callForTurn();
     }
 
     public serialize()
