@@ -23,6 +23,7 @@ var beings = {};
     map[key] = ".";
 });
 io.on('connection', function (socket) {
+    var player = null;
     var beingSerialized = new Array();
     for (var index in beings) {
         var being = beings[index];
@@ -32,16 +33,23 @@ io.on('connection', function (socket) {
         'map': map,
         'beings': beingSerialized
     });
+    socket.on('disconnect', function () {
+        if (player) {
+            delete beings[player.getId()];
+            socket.broadcast.emit('being-left', player.serialize());
+        }
+    });
     socket.on('position-my-player', function () {
         var index = Math.floor(ROT.RNG.getUniform() * freeCells.length);
         var key = freeCells.splice(index, 1)[0];
         var parts = key.split(",");
-        var player = new Being(parts[0], parts[1], function () {
+        player = new Being(parts[0], parts[1], function () {
         });
         beings[player.getId()] = player;
         socket.emit('position-player', {
             'player': player.serialize()
         });
+        socket.broadcast.emit('being-came', player.serialize());
     });
     socket.on('being-moved', function (data) {
         var id = parseInt(data.id);

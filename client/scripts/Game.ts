@@ -61,6 +61,36 @@ module Game {
                 moveBeing(being, parseInt(msg.x), parseInt(msg.y));
             }
         });
+        socket.on('being-came', function(msg:any) {
+            createBeing(msg);
+        });
+        socket.on('being-left', function(msg:any) {
+            deleteBeing(msg);
+        });
+    }
+
+    function deleteBeing(data) {
+        var id = parseInt(data.id);
+        var x = parseInt(data.x);
+        var y = parseInt(data.y);
+
+        var being = beings[id];
+        if(being) {
+            var newPosKey = x+','+y;
+            var oldPosKey = being.getX()+','+being.getY();
+
+            if(beingMapLayer[newPosKey] === being) {
+                delete beingMapLayer[newPosKey];
+            }
+
+            if(beingMapLayer[oldPosKey] === being) {
+                delete beingMapLayer[oldPosKey];
+            }
+
+            delete beings[id];
+        }
+
+        draw();
     }
 
     function moveBeing(being, x, y) {
