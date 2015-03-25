@@ -5,7 +5,7 @@
 /// <reference path="../bower_components/rot.js-TS/rot.d.ts"/>
 /// <reference path="./Game/Player.ts" />
 
-declare var io : {
+declare class SocketIO {
     connect(url: string): Socket;
 }
 
@@ -24,9 +24,15 @@ module Game {
     var fov:ROT.FOV.PreciseShadowcasting;
     var socket;
     var isMyTurn:boolean;
+    var gameArea;
+    var socketIo:SocketIO;
+    var logOnUI;
 
-    export function init()
+    export function init(_io, _gameArea, logCallback)
     {
+        socketIo = _io;
+        gameArea = _gameArea;
+        logOnUI = logCallback;
         initiateSocket();
     }
 
@@ -39,7 +45,7 @@ module Game {
             url = 'http://'+document.location.hostname;
         }
 
-        socket = io.connect(url+':3000');
+        socket = socketIo.connect(url+':3000');
         socket.on('debug', function(msg:any){
             console.log(msg);
         });
@@ -98,10 +104,7 @@ module Game {
     }
 
     function log(message) {
-        var node = document.createElement("li");                 // Create a <li> node
-        var textnode = document.createTextNode(message);         // Create a text node
-        node.appendChild(textnode);
-        document.getElementById('game-log').insertBefore(node);
+        logOnUI(message);
     }
 
     function moveBeing(being, x, y) {
@@ -139,7 +142,7 @@ module Game {
     function startGame()
     {
         display = new ROT.Display();
-        document.body.appendChild(display.getContainer());
+        gameArea.append(display.getContainer());
 
         initiateFov();
         draw();

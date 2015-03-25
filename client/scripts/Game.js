@@ -13,7 +13,13 @@ var Game;
     var fov;
     var socket;
     var isMyTurn;
-    function init() {
+    var gameArea;
+    var socketIo;
+    var logOnUI;
+    function init(_io, _gameArea, logCallback) {
+        socketIo = _io;
+        gameArea = _gameArea;
+        logOnUI = logCallback;
         initiateSocket();
     }
     Game.init = init;
@@ -25,7 +31,7 @@ var Game;
         else {
             url = 'http://' + document.location.hostname;
         }
-        socket = io.connect(url + ':3000');
+        socket = socketIo.connect(url + ':3000');
         socket.on('debug', function (msg) {
             console.log(msg);
         });
@@ -78,10 +84,7 @@ var Game;
         draw();
     }
     function log(message) {
-        var node = document.createElement("li"); // Create a <li> node
-        var textnode = document.createTextNode(message); // Create a text node
-        node.appendChild(textnode);
-        document.getElementById('game-log').insertBefore(node);
+        logOnUI(message);
     }
     function moveBeing(being, x, y) {
         var posKey = being.getX() + ',' + being.getY();
@@ -109,7 +112,7 @@ var Game;
     }
     function startGame() {
         display = new ROT.Display();
-        document.body.appendChild(display.getContainer());
+        gameArea.append(display.getContainer());
         initiateFov();
         draw();
         window.addEventListener("keydown", handlePlayerEvent);

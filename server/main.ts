@@ -95,6 +95,10 @@ io.on('connection', function(socket) {
         var x = parseInt(data.x);
         var y = parseInt(data.y);
         var being = beings[id];
+        if(!being) {
+            return;
+        }
+
         being.setX(x);
         being.setY(y);
         socket.broadcast.emit('being-moved', being.serialize());
