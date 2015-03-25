@@ -9,6 +9,10 @@
 
 class Player extends Being {
 
+    public getToken():string {
+        return '@';
+    }
+
     public getColor():string {
         return '#FF0';
     }

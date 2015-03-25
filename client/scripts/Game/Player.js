@@ -14,6 +14,9 @@ var Player = (function (_super) {
     function Player() {
         _super.apply(this, arguments);
     }
+    Player.prototype.getToken = function () {
+        return '@';
+    };
     Player.prototype.getColor = function () {
         return '#FF0';
     };

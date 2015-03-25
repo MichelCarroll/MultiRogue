@@ -1,14 +1,14 @@
-/**
- * Created by michelcarroll on 15-03-22.
- */
-/// <reference path="../../bower_components/rot.js-TS/rot.d.ts"/>
+///<reference path='./bower_components/rot.js-TS/rot.d.ts' />
 var Being = (function () {
-    function Being(id, x, y, handleAct) {
+    function Being(x, y, handleAct) {
         this.x = x;
         this.y = y;
         this.handleAct = handleAct;
-        this.id = id;
+        this.id = Being.getNextId();
     }
+    Being.getNextId = function () {
+        return this.lastId++;
+    };
     Being.prototype.getId = function () {
         return this.id;
     };
@@ -33,6 +33,17 @@ var Being = (function () {
     Being.prototype.act = function () {
         this.handleAct(this);
     };
+    Being.prototype.serialize = function () {
+        return {
+            'id': this.getId(),
+            'x': this.getX(),
+            'y': this.getY(),
+            'color': this.getColor(),
+            'token': this.getToken()
+        };
+    };
+    Being.lastId = 1;
     return Being;
 })();
+module.exports = Being;
 //# sourceMappingURL=Being.js.map

@@ -1,9 +1,5 @@
-/**
- * Created by michelcarroll on 15-03-22.
- */
 
-/// <reference path="../../bower_components/rot.js-TS/rot.d.ts"/>
-
+///<reference path='./bower_components/rot.js-TS/rot.d.ts' />
 
 class Being implements ROT.IActor {
 
@@ -12,11 +8,17 @@ class Being implements ROT.IActor {
     private id:number;
     private handleAct:(being:Being) => void;
 
-    constructor(id:number, x:number, y:number, handleAct:(being:Being) => void) {
+    static lastId = 1;
+    static getNextId()
+    {
+        return this.lastId++;
+    }
+
+    constructor(x:number, y:number, handleAct:(being:Being) => void) {
         this.x = x;
         this.y = y;
         this.handleAct = handleAct;
-        this.id = id;
+        this.id = Being.getNextId();
     }
 
     public getId():number {
@@ -50,4 +52,17 @@ class Being implements ROT.IActor {
     public act() {
         this.handleAct(this);
     }
+
+    public serialize()
+    {
+        return {
+            'id': this.getId(),
+            'x': this.getX(),
+            'y': this.getY(),
+            'color': this.getColor(),
+            'token': this.getToken()
+        };
+    }
 }
+
+export = Being;
