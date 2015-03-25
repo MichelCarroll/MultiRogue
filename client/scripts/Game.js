@@ -19,7 +19,7 @@ var Game;
     }
     Game.init = init;
     function initiateSocket() {
-        socket = io.connect('http://localhost:3000');
+        socket = io.connect('http://ec2-54-148-132-13.us-west-2.compute.amazonaws.com:3000');
         socket.on('debug', function (msg) {
             console.log(msg);
         });
