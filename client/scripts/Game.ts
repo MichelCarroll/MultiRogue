@@ -33,7 +33,12 @@ module Game {
 
     function initiateSocket()
     {
-        socket = io.connect('http://localhost:3000');
+        var url = document.URL;
+        if(url.indexOf('file:///') !== -1) {
+            url = 'http://localhost';
+        }
+
+        socket = io.connect(url+':3000');
         socket.on('debug', function(msg:any){
             console.log(msg);
         });
