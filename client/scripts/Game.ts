@@ -23,7 +23,7 @@ module Game {
     var beings:any;
     var fov:ROT.FOV.PreciseShadowcasting;
     var socket;
-    var isMyTurn:boolean;
+    var actionTurns:number;
     var gameArea;
     var socketIo:SocketIO;
     var logOnUI;
@@ -89,8 +89,8 @@ module Game {
         });
 
         socket.on('its-your-turn', function(msg:any) {
-            isMyTurn = true;
-            logOnUI("It's your turn");
+            actionTurns = parseInt(msg.turns);
+            logOnUI("It's your turn. You have "+actionTurns+" actions left.");
         });
     }
 
@@ -191,7 +191,7 @@ module Game {
 
     function handlePlayerEvent(e:KeyboardEvent)
     {
-        if(!isMyTurn) {
+        if(!actionTurns) {
             logOnUI("It's not your turn yet!");
             return;
         }
@@ -219,8 +219,9 @@ module Game {
         if (!(newKey in map)) { return; } /* cannot move in direction */
 
         movePlayer(newX, newY);
+        actionTurns--;
+        logOnUI("You have "+actionTurns+" actions left.");
         draw();
-        isMyTurn = false;
     }
 
     function movePlayer(x, y)

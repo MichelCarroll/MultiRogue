@@ -58,7 +58,8 @@ io.on('connection', function (socket) {
         var key = freeCells.splice(index, 1)[0];
         var parts = key.split(",");
         player = new Being(parts[0], parts[1], function () {
-            socket.emit('its-your-turn');
+            this.giveTurns(4);
+            socket.emit('its-your-turn', { turns: 4 });
         });
         beings[player.getId()] = player;
         socket.emit('position-player', { 'player': player.serialize() });
@@ -70,7 +71,7 @@ io.on('connection', function (socket) {
         }
     });
     socket.on('being-moved', function (data) {
-        if (currentPlayer !== player) {
+        if (currentPlayer !== player || !player.getRemainingTurns()) {
             console.log('invalid move');
             return;
         }
@@ -84,7 +85,10 @@ io.on('connection', function (socket) {
         being.setX(x);
         being.setY(y);
         socket.broadcast.emit('being-moved', being.serialize());
-        nextTurn();
+        player.spendTurns(1);
+        if (!player.getRemainingTurns()) {
+            nextTurn();
+        }
     });
 });
 http.listen(3000, function () {

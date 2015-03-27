@@ -12,7 +12,7 @@ var Game;
     var beings;
     var fov;
     var socket;
-    var isMyTurn;
+    var actionTurns;
     var gameArea;
     var socketIo;
     var logOnUI;
@@ -68,8 +68,8 @@ var Game;
             logOnUI("Player #" + data.id + " just disconnected");
         });
         socket.on('its-your-turn', function (msg) {
-            isMyTurn = true;
-            logOnUI("It's your turn");
+            actionTurns = parseInt(msg.turns);
+            logOnUI("It's your turn. You have " + actionTurns + " actions left.");
         });
     }
     function deleteBeing(id) {
@@ -146,7 +146,7 @@ var Game;
         });
     }
     function handlePlayerEvent(e) {
-        if (!isMyTurn) {
+        if (!actionTurns) {
             logOnUI("It's not your turn yet!");
             return;
         }
@@ -171,8 +171,9 @@ var Game;
             return;
         } /* cannot move in direction */
         movePlayer(newX, newY);
+        actionTurns--;
+        logOnUI("You have " + actionTurns + " actions left.");
         draw();
-        isMyTurn = false;
     }
     function movePlayer(x, y) {
         player.setX(x);

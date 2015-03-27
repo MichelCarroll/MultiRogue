@@ -7,6 +7,7 @@ class Being
     private x:number;
     private y:number;
     private id:number;
+    private turns:number;
     private callForTurn:()=>void;
 
     static lastId = 1;
@@ -20,6 +21,7 @@ class Being
         this.y = y;
         this.callForTurn = callForTurn;
         this.id = Being.getNextId();
+        this.turns = 0;
     }
 
     public getId():number {
@@ -52,6 +54,21 @@ class Being
 
     public askToTakeTurn() {
         this.callForTurn();
+    }
+
+    public giveTurns(turns:number)
+    {
+        this.turns += turns;
+    }
+
+    public getRemainingTurns()
+    {
+        return this.turns;
+    }
+
+    public spendTurns(turns:number)
+    {
+        this.turns = Math.max(this.turns - turns, 0);
     }
 
     public serialize()

@@ -5,6 +5,7 @@ var Being = (function () {
         this.y = y;
         this.callForTurn = callForTurn;
         this.id = Being.getNextId();
+        this.turns = 0;
     }
     Being.getNextId = function () {
         return this.lastId++;
@@ -32,6 +33,15 @@ var Being = (function () {
     };
     Being.prototype.askToTakeTurn = function () {
         this.callForTurn();
+    };
+    Being.prototype.giveTurns = function (turns) {
+        this.turns += turns;
+    };
+    Being.prototype.getRemainingTurns = function () {
+        return this.turns;
+    };
+    Being.prototype.spendTurns = function (turns) {
+        this.turns = Math.max(this.turns - turns, 0);
     };
     Being.prototype.serialize = function () {
         return {
