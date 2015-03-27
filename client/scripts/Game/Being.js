@@ -27,7 +27,10 @@ var Being = (function () {
         return '@';
     };
     Being.prototype.getColor = function () {
-        return '#888';
+        return '#FF0';
+    };
+    Being.fromSerialization = function (data) {
+        return new Being(parseInt(data.id), parseInt(data.x), parseInt(data.y));
     };
     return Being;
 })();

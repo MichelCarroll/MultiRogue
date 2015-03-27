@@ -3,7 +3,7 @@
  */
 
 /// <reference path="../bower_components/rot.js-TS/rot.d.ts"/>
-/// <reference path="./Game/Player.ts" />
+/// <reference path="./Game/Being.ts" />
 
 declare class SocketIO {
     connect(url: string): Socket;
@@ -19,7 +19,7 @@ module Game {
     var display:ROT.Display;
     var map;
     var beingMapLayer;
-    var player:Player;
+    var player:Being;
     var beings:any;
     var fov:ROT.FOV.PreciseShadowcasting;
     var socket;
@@ -34,6 +34,7 @@ module Game {
         gameArea = _gameArea;
         logOnUI = logCallback;
         initiateSocket();
+        hookSocketEvents();
     }
 
     function initiateSocket()
@@ -46,78 +47,77 @@ module Game {
         }
 
         socket = socketIo.connect(url+':3000');
+    }
+
+    function hookSocketEvents()
+    {
         socket.on('debug', function(msg:any){
             console.log(msg);
         });
+
         socket.on('initiate-board', function(msg:any) {
             map = msg.map;
             createBeings(msg.beings);
             socket.emit('position-my-player', {});
         });
+
         socket.on('position-player', function(msg:any) {
             createPlayer(msg.player);
             startGame();
         });
-        socket.on('being-moved', function(msg:any) {
-            var being = beings[parseInt(msg.id)];
+
+        socket.on('being-moved', function(data:any) {
+            var being = beings[parseInt(data.id)];
             if(!being) {
-                createBeing(msg);
+                createBeing(data);
             } else {
-                moveBeing(being, parseInt(msg.x), parseInt(msg.y));
+                moveBeing(being, parseInt(data.x), parseInt(data.y));
             }
+            draw();
         });
-        socket.on('being-came', function(msg:any) {
-            createBeing(msg);
+
+        socket.on('being-came', function(data:any) {
+            createBeing(data);
+            draw();
+            logOnUI("Player #"+data.id+" just connected");
         });
-        socket.on('being-left', function(msg:any) {
-            deleteBeing(msg);
+
+        socket.on('being-left', function(data:any) {
+            deleteBeing(parseInt(data.id));
+            draw();
+            logOnUI("Player #"+data.id+" just disconnected");
         });
+
         socket.on('its-your-turn', function(msg:any) {
             isMyTurn = true;
-            log("It's your turn");
+            logOnUI("It's your turn");
         });
     }
 
-    function deleteBeing(data) {
-        var id = parseInt(data.id);
-        var x = parseInt(data.x);
-        var y = parseInt(data.y);
-
+    function deleteBeing(id)
+    {
         var being = beings[id];
         if(being) {
-            var newPosKey = x+','+y;
-            var oldPosKey = being.getX()+','+being.getY();
-
-            if(beingMapLayer[newPosKey] === being) {
-                delete beingMapLayer[newPosKey];
+            var posKey = being.getX()+','+being.getY();
+            if(beingMapLayer[posKey] === being) {
+                delete beingMapLayer[posKey];
             }
-
-            if(beingMapLayer[oldPosKey] === being) {
-                delete beingMapLayer[oldPosKey];
-            }
-
             delete beings[id];
         }
-        log("Player #"+being.getId()+" just disconnected");
-
-        draw();
     }
 
-    function log(message) {
-        logOnUI(message);
-    }
-
-    function moveBeing(being, x, y) {
+    function moveBeing(being, x, y)
+    {
         var posKey = being.getX()+','+being.getY();
         delete beingMapLayer[posKey];
         being.setX(x);
         being.setY(y);
         var posKey = being.getX()+','+being.getY();
         beingMapLayer[posKey] = being;
-        draw();
     }
 
-    function createBeings(serializedBeings:any) {
+    function createBeings(serializedBeings:any)
+    {
         beings = new Array();
         beingMapLayer = {};
         for(var i in serializedBeings) {
@@ -127,14 +127,9 @@ module Game {
         }
     }
 
-    function createBeing(serializedBeing:any) {
-        var being = new Being(
-            parseInt(serializedBeing.id),
-            parseInt(serializedBeing.x),
-            parseInt(serializedBeing.y)
-        );
-
-        log("Player #"+being.getId()+" just connected");
+    function createBeing(serializedBeing:any)
+    {
+        var being = Being.fromSerialization(serializedBeing);
         beings[being.getId()] = being;
         beingMapLayer[being.getX()+','+being.getY()] = being;
     }
@@ -162,10 +157,7 @@ module Game {
     }
 
     function createPlayer(data) {
-        var x = parseInt(data.x);
-        var y = parseInt(data.y);
-        var id = parseInt(data.id);
-        player = new Player(id, x, y);
+        player = Being.fromSerialization(data);
     }
 
     function drawMap()
@@ -174,10 +166,11 @@ module Game {
             if(!r) {
                 return;
             }
-            var color = (map[x+","+y] ? "#aa0": "#660");
-            display.draw(x, y, map[x+","+y], "#fff", color);
+            var posKey = x+","+y;
+            var color = (map[posKey] ? "#aa0": "#660");
+            display.draw(x, y, map[posKey], "#fff", color);
+            var being = beingMapLayer[posKey]
 
-            var being = beingMapLayer[x+","+y]
             if(being) {
                 display.draw(being.getX(),being.getY(),being.getToken(),being.getColor(), "#aa0");
             }
@@ -186,9 +179,11 @@ module Game {
 
     function initiateFov()
     {
-        fov = new ROT.FOV.PreciseShadowcasting( function(x, y) {
+        fov = new ROT.FOV.PreciseShadowcasting(function(x, y) {
             var key = x+","+y;
-            if (key in map) { return true; }
+            if (key in map) {
+                return true;
+            }
             return false;
         });
     }
@@ -197,7 +192,7 @@ module Game {
     function handlePlayerEvent(e:KeyboardEvent)
     {
         if(!isMyTurn) {
-            log("It's not your turn yet!");
+            logOnUI("It's not your turn yet!");
             return;
         }
 

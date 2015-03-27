@@ -42,6 +42,14 @@ class Being {
     }
 
     public getColor():string {
-        return '#888';
+        return '#FF0';
+    }
+
+    static fromSerialization(data) {
+        return new Being(
+            parseInt(data.id),
+            parseInt(data.x),
+            parseInt(data.y)
+        );
     }
 }

@@ -2,7 +2,7 @@
  * Created by michelcarroll on 15-03-22.
  */
 /// <reference path="../bower_components/rot.js-TS/rot.d.ts"/>
-/// <reference path="./Game/Player.ts" />
+/// <reference path="./Game/Being.ts" />
 var Game;
 (function (Game) {
     var display;
@@ -21,6 +21,7 @@ var Game;
         gameArea = _gameArea;
         logOnUI = logCallback;
         initiateSocket();
+        hookSocketEvents();
     }
     Game.init = init;
     function initiateSocket() {
@@ -32,6 +33,8 @@ var Game;
             url = 'http://' + document.location.hostname;
         }
         socket = socketIo.connect(url + ':3000');
+    }
+    function hookSocketEvents() {
         socket.on('debug', function (msg) {
             console.log(msg);
         });
@@ -44,47 +47,40 @@ var Game;
             createPlayer(msg.player);
             startGame();
         });
-        socket.on('being-moved', function (msg) {
-            var being = beings[parseInt(msg.id)];
+        socket.on('being-moved', function (data) {
+            var being = beings[parseInt(data.id)];
             if (!being) {
-                createBeing(msg);
+                createBeing(data);
             }
             else {
-                moveBeing(being, parseInt(msg.x), parseInt(msg.y));
+                moveBeing(being, parseInt(data.x), parseInt(data.y));
             }
+            draw();
         });
-        socket.on('being-came', function (msg) {
-            createBeing(msg);
+        socket.on('being-came', function (data) {
+            createBeing(data);
+            draw();
+            logOnUI("Player #" + data.id + " just connected");
         });
-        socket.on('being-left', function (msg) {
-            deleteBeing(msg);
+        socket.on('being-left', function (data) {
+            deleteBeing(parseInt(data.id));
+            draw();
+            logOnUI("Player #" + data.id + " just disconnected");
         });
         socket.on('its-your-turn', function (msg) {
             isMyTurn = true;
-            log("It's your turn");
+            logOnUI("It's your turn");
         });
     }
-    function deleteBeing(data) {
-        var id = parseInt(data.id);
-        var x = parseInt(data.x);
-        var y = parseInt(data.y);
+    function deleteBeing(id) {
         var being = beings[id];
         if (being) {
-            var newPosKey = x + ',' + y;
-            var oldPosKey = being.getX() + ',' + being.getY();
-            if (beingMapLayer[newPosKey] === being) {
-                delete beingMapLayer[newPosKey];
-            }
-            if (beingMapLayer[oldPosKey] === being) {
-                delete beingMapLayer[oldPosKey];
+            var posKey = being.getX() + ',' + being.getY();
+            if (beingMapLayer[posKey] === being) {
+                delete beingMapLayer[posKey];
             }
             delete beings[id];
         }
-        log("Player #" + being.getId() + " just disconnected");
-        draw();
-    }
-    function log(message) {
-        logOnUI(message);
     }
     function moveBeing(being, x, y) {
         var posKey = being.getX() + ',' + being.getY();
@@ -93,7 +89,6 @@ var Game;
         being.setY(y);
         var posKey = being.getX() + ',' + being.getY();
         beingMapLayer[posKey] = being;
-        draw();
     }
     function createBeings(serializedBeings) {
         beings = new Array();
@@ -105,8 +100,7 @@ var Game;
         }
     }
     function createBeing(serializedBeing) {
-        var being = new Being(parseInt(serializedBeing.id), parseInt(serializedBeing.x), parseInt(serializedBeing.y));
-        log("Player #" + being.getId() + " just connected");
+        var being = Being.fromSerialization(serializedBeing);
         beings[being.getId()] = being;
         beingMapLayer[being.getX() + ',' + being.getY()] = being;
     }
@@ -126,19 +120,17 @@ var Game;
         display.draw(player.getX(), player.getY(), player.getToken(), player.getColor(), "#aa0");
     }
     function createPlayer(data) {
-        var x = parseInt(data.x);
-        var y = parseInt(data.y);
-        var id = parseInt(data.id);
-        player = new Player(id, x, y);
+        player = Being.fromSerialization(data);
     }
     function drawMap() {
         fov.compute(player.getX(), player.getY(), 5, function (x, y, r, visibility) {
             if (!r) {
                 return;
             }
-            var color = (map[x + "," + y] ? "#aa0" : "#660");
-            display.draw(x, y, map[x + "," + y], "#fff", color);
-            var being = beingMapLayer[x + "," + y];
+            var posKey = x + "," + y;
+            var color = (map[posKey] ? "#aa0" : "#660");
+            display.draw(x, y, map[posKey], "#fff", color);
+            var being = beingMapLayer[posKey];
             if (being) {
                 display.draw(being.getX(), being.getY(), being.getToken(), being.getColor(), "#aa0");
             }
@@ -155,7 +147,7 @@ var Game;
     }
     function handlePlayerEvent(e) {
         if (!isMyTurn) {
-            log("It's not your turn yet!");
+            logOnUI("It's not your turn yet!");
             return;
         }
         var code = e.keyCode;

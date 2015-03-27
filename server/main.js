@@ -29,7 +29,6 @@ function nextTurn() {
     currentPlayer = scheduler.next();
     if (currentPlayer) {
         currentPlayer.askToTakeTurn();
-        console.log('waiting for #' + currentPlayer.getId());
     }
 }
 io.on('connection', function (socket) {
@@ -44,8 +43,8 @@ io.on('connection', function (socket) {
         'beings': beingSerialized
     });
     socket.on('disconnect', function () {
+        console.log('ID ' + player.getId() + ' disconnected');
         if (player) {
-            console.log('ID ' + player.getId() + ' disconnected');
             delete beings[player.getId()];
             socket.broadcast.emit('being-left', player.serialize());
             scheduler.remove(player);

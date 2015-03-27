@@ -33,7 +33,6 @@ function nextTurn() {
     currentPlayer = scheduler.next();
     if(currentPlayer) {
         currentPlayer.askToTakeTurn();
-        console.log('waiting for #'+currentPlayer.getId());
     }
 }
 
