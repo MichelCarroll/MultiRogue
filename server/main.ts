@@ -18,7 +18,7 @@ var map = {};
 var freeCells = new Array();
 var beings = new Object();;
 
-(new ROT.Map.Digger()).create(function(x, y, value) {
+(new ROT.Map.Digger(ROT.DEFAULT_WIDTH, ROT.DEFAULT_HEIGHT)).create(function(x, y, value) {
     if (value) { return; } /* do not store walls */
 
     var key = x+","+y;
@@ -52,8 +52,8 @@ io.on('connection', function(socket) {
     });
 
     socket.on('disconnect', function() {
-        console.log('ID ' + player.getId() + ' disconnected');
         if(player) {
+            console.log('ID ' + player.getId() + ' disconnected');
             delete beings[player.getId()];
             socket.broadcast.emit('being-left', player.serialize());
             scheduler.remove(player);
