@@ -5,7 +5,7 @@ $(document).ready(function() {
         $('#game-log').prepend('<li>'+message+'</li>');
     };
 
-    var game = new Game();
+    var game = new Herbs.Game();
     game.init(io, $('#game'), logCallback);
 
     $('#game-chat-button').click(function() {
