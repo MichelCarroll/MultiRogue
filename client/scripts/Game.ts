@@ -37,6 +37,19 @@ class Game {
         this.hookSocketEvents();
     }
 
+    public inputChat(text)
+    {
+        if(!this.actionTurns) {
+            return;
+        }
+
+        this.actionTurns--;
+        this.logOnUI("Player #"+this.player.getId()+" shouts \""+text+"\"!!");
+        this.socket.emit('shout', {
+            'text': text
+        });
+    }
+
     private initiateSocket()
     {
         var url = '';
@@ -92,6 +105,10 @@ class Game {
         this.socket.on('its-your-turn', function(msg:any) {
             self.actionTurns = parseInt(msg.turns);
             self.logOnUI("It's your turn. You have "+self.actionTurns+" actions left.");
+        });
+
+        this.socket.on('being-shouted', function(data:any) {
+            self.logOnUI("Player #"+data.id+" shouts \""+data.text+"\"!!");
         });
     }
 
@@ -210,20 +227,34 @@ class Game {
             return;
         }
 
+        switch(code) {
+            case ROT.VK_UP:
+            case ROT.VK_RIGHT:
+            case ROT.VK_DOWN:
+            case ROT.VK_LEFT:
+                this.attemptPlayerMove(code);
+                break;
+            default:
+                return;
+                break;
+        }
+    }
+
+    private attemptPlayerMove(code)
+    {
         var keyMap = {};
         keyMap[ROT.VK_UP] = 0;
         keyMap[ROT.VK_RIGHT] = 1;
         keyMap[ROT.VK_DOWN] = 2;
         keyMap[ROT.VK_LEFT] = 3;
 
-        if (!(code in keyMap)) { return; }
-
         var diff = ROT.DIRS[4][keyMap[code]];
         var newX = this.player.getX() + diff[0];
         var newY = this.player.getY() + diff[1];
 
-        var newKey = newX + "," + newY;
-        if (!(newKey in this.map)) { return; } /* cannot move in direction */
+        if (!((newX + "," + newY) in this.map)) {
+            return;
+        }
 
         this.movePlayer(newX, newY);
         this.actionTurns--;

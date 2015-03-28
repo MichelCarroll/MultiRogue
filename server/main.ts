@@ -84,6 +84,24 @@ io.on('connection', function(socket) {
         }
     });
 
+    socket.on('shout', function(data) {
+
+        if (currentPlayer !== player || !player.getRemainingTurns()) {
+            console.log('invalid move');
+            return;
+        }
+
+        socket.broadcast.emit('being-shouted', {
+            'id': player.getId(),
+            'text': data.text
+        });
+
+        player.spendTurns(1);
+        if(!player.getRemainingTurns()) {
+            nextTurn();
+        }
+    });
+
     socket.on('being-moved', function(data) {
 
         if(currentPlayer !== player || !player.getRemainingTurns()) {

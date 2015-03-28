@@ -5,6 +5,13 @@ $(document).ready(function() {
         $('#game-log').prepend('<li>'+message+'</li>');
     };
 
-    (new Game()).init(io, $('#game'), logCallback);
+    var game = new Game();
+    game.init(io, $('#game'), logCallback);
+
+    $('#game-chat-button').click(function() {
+        var text = $('#game-chat').val();
+        $('#game-chat').val('');
+        game.inputChat(text);
+    });
 
 });

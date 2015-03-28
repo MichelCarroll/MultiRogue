@@ -13,6 +13,16 @@ var Game = (function () {
         this.initiateSocket();
         this.hookSocketEvents();
     };
+    Game.prototype.inputChat = function (text) {
+        if (!this.actionTurns) {
+            return;
+        }
+        this.actionTurns--;
+        this.logOnUI("Player #" + this.player.getId() + " shouts \"" + text + "\"!!");
+        this.socket.emit('shout', {
+            'text': text
+        });
+    };
     Game.prototype.initiateSocket = function () {
         var url = '';
         if (document.location.protocol === 'file:') {
@@ -60,6 +70,9 @@ var Game = (function () {
         this.socket.on('its-your-turn', function (msg) {
             self.actionTurns = parseInt(msg.turns);
             self.logOnUI("It's your turn. You have " + self.actionTurns + " actions left.");
+        });
+        this.socket.on('being-shouted', function (data) {
+            self.logOnUI("Player #" + data.id + " shouts \"" + data.text + "\"!!");
         });
     };
     Game.prototype.deleteBeing = function (id) {
@@ -150,21 +163,30 @@ var Game = (function () {
             //checkBox();
             return;
         }
+        switch (code) {
+            case ROT.VK_UP:
+            case ROT.VK_RIGHT:
+            case ROT.VK_DOWN:
+            case ROT.VK_LEFT:
+                this.attemptPlayerMove(code);
+                break;
+            default:
+                return;
+                break;
+        }
+    };
+    Game.prototype.attemptPlayerMove = function (code) {
         var keyMap = {};
         keyMap[ROT.VK_UP] = 0;
         keyMap[ROT.VK_RIGHT] = 1;
         keyMap[ROT.VK_DOWN] = 2;
         keyMap[ROT.VK_LEFT] = 3;
-        if (!(code in keyMap)) {
-            return;
-        }
         var diff = ROT.DIRS[4][keyMap[code]];
         var newX = this.player.getX() + diff[0];
         var newY = this.player.getY() + diff[1];
-        var newKey = newX + "," + newY;
-        if (!(newKey in this.map)) {
+        if (!((newX + "," + newY) in this.map)) {
             return;
-        } /* cannot move in direction */
+        }
         this.movePlayer(newX, newY);
         this.actionTurns--;
         this.logOnUI("You have " + this.actionTurns + " actions left.");
