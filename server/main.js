@@ -40,11 +40,16 @@ io.on('connection', function (socket) {
         var being = beings[index];
         beingSerialized.push(being.serialize());
     }
+    var currentPlayerId = null;
+    if (currentPlayer) {
+        currentPlayerId = currentPlayer.getId();
+    }
     socket.emit('initiate-board', {
         'map': map,
         'beings': beingSerialized,
         'width': mapWidth,
-        'height': mapHeight
+        'height': mapHeight,
+        'current_player_id': currentPlayerId
     });
     socket.on('disconnect', function () {
         if (player) {
@@ -64,6 +69,10 @@ io.on('connection', function (socket) {
         player = new Being(parts[0], parts[1], function () {
             this.giveTurns(4);
             socket.emit('its-your-turn', { turns: 4 });
+            socket.broadcast.emit('its-another-player-turn', {
+                'id': player.getId(),
+                'turns': 4
+            });
         });
         beings[player.getId()] = player;
         socket.emit('position-player', { 'player': player.serialize() });

@@ -15,10 +15,11 @@ var Herbs;
     var Game = (function () {
         function Game() {
         }
-        Game.prototype.init = function (_io, _gameArea, logCallback) {
+        Game.prototype.init = function (_io, _gameArea, logCallback, _playerList) {
             this.socketIo = _io;
             this.gameArea = _gameArea;
             this.logOnUI = logCallback;
+            this.playerList = _playerList;
             this.initiateSocket();
             this.hookSocketEvents();
         };
@@ -49,21 +50,23 @@ var Herbs;
                 console.log(msg);
             });
             this.socket.on('initiate-board', function (data) {
-                self.actionTurns = 0;
-                self.map = new Herbs.Map();
-                self.beingsMap = new Herbs.Map();
-                self.beingRepository = new Herbs.BeingRepository(self.beingsMap);
+                self.initializeGame();
                 self.map.setTileMap(data.map);
                 self.mapWidth = parseInt(data.width);
                 self.mapHeight = parseInt(data.height);
                 self.createBeings(data.beings);
                 self.socket.emit('position-my-player', {});
                 self.recreateGameDisplay();
+                if (data.current_player_id) {
+                    var being = self.beingRepository.get(parseInt(data.current_player_id));
+                    self.highlightPlayer(being);
+                }
             });
             this.socket.on('position-player', function (data) {
-                self.logOnUI("You're now connected!", Herbs.CHAT_LOG_SUCCESS);
                 self.player = Herbs.Being.fromSerialization(data.player);
+                self.logOnUI("You're now connected as Player #" + self.player.getId() + "!", Herbs.CHAT_LOG_INFO);
                 self.beingRepository.add(self.player);
+                self.addPlayerToUI(self.player);
                 self.initiateFov();
                 self.draw();
             });
@@ -78,17 +81,26 @@ var Herbs;
                 self.draw();
             });
             this.socket.on('being-came', function (data) {
-                self.beingRepository.add(Herbs.Being.fromSerialization(data));
+                var being = Herbs.Being.fromSerialization(data);
+                self.beingRepository.add(being);
                 self.draw();
-                self.logOnUI("Player #" + data.id + " just connected");
+                self.logOnUI("Player #" + data.id + " just connected", Herbs.CHAT_LOG_INFO);
+                self.addPlayerToUI(being);
             });
             this.socket.on('being-left', function (data) {
                 self.beingRepository.remove(parseInt(data.id));
                 self.draw();
-                self.logOnUI("Player #" + data.id + " just disconnected");
+                self.logOnUI("Player #" + data.id + " just disconnected", Herbs.CHAT_LOG_INFO);
+                self.removePlayerFromUI(parseInt(data.id));
+            });
+            this.socket.on('its-another-player-turn', function (data) {
+                var being = self.beingRepository.get(parseInt(data.id));
+                self.highlightPlayer(being);
+                self.logOnUI("It's Player #" + being.getId() + "'s turn.");
             });
             this.socket.on('its-your-turn', function (msg) {
                 self.actionTurns = parseInt(msg.turns);
+                self.highlightPlayer(self.player);
                 self.logOnUI("It's your turn. You have " + self.actionTurns + " actions left.", Herbs.CHAT_LOG_SUCCESS);
             });
             this.socket.on('being-shouted', function (data) {
@@ -99,10 +111,29 @@ var Herbs;
                 self.clearGameDisplay();
             });
         };
+        Game.prototype.highlightPlayer = function (player) {
+            this.playerList.find('li.active').removeClass('active');
+            this.playerList.find('li[pid="' + player.getId() + '"]').addClass('active');
+        };
+        Game.prototype.removePlayerFromUI = function (id) {
+            this.playerList.find('li[pid="' + id + '"]').remove();
+        };
+        Game.prototype.addPlayerToUI = function (player) {
+            this.playerList.append('<li class="list-group-item" pid="' + player.getId() + '">' + 'Player #' + player.getId() + '</li>');
+        };
+        Game.prototype.initializeGame = function () {
+            this.playerList.empty();
+            this.actionTurns = 0;
+            this.map = new Herbs.Map();
+            this.beingsMap = new Herbs.Map();
+            this.beingRepository = new Herbs.BeingRepository(this.beingsMap);
+        };
         Game.prototype.createBeings = function (serializedBeings) {
             for (var i in serializedBeings) {
                 if (serializedBeings.hasOwnProperty(i)) {
-                    this.beingRepository.add(Herbs.Being.fromSerialization(serializedBeings[i]));
+                    var being = Herbs.Being.fromSerialization(serializedBeings[i]);
+                    this.beingRepository.add(being);
+                    this.addPlayerToUI(being);
                 }
             }
         };
@@ -191,8 +222,12 @@ var Herbs;
             }
         };
         Game.prototype.executeCommand = function (playerCommand) {
-            if (this.actionTurns - playerCommand.getTurnCost() < 0) {
-                this.logOnUI("You don't have enough turns to do this");
+            if (this.actionTurns == 0) {
+                this.logOnUI("It's not your turn!");
+                return;
+            }
+            else if (this.actionTurns - playerCommand.getTurnCost() < 0) {
+                this.logOnUI("You don't have enough turns to do this!");
                 return;
             }
             if (!playerCommand.execute()) {

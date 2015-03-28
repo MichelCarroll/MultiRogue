@@ -1,16 +1,11 @@
 
 .game-container {
     background: black;
-    height: 95%;
-    overflow-y: hidden;
+    height: 90%;
 }
 
 .chat-container {
     height: 5%;
-}
-
-.game-columns {
-    height: 100%;
 }
 
 #game {
@@ -33,6 +28,31 @@
     transform: translateY(-50%);
 }
 
+#game-side {
+    height: 100%;
+    position: relative;
+}
+
+#game-players-container {
+    margin-top:20%;
+    height: 30%;
+    overflow-y: auto;
+}
+
+#game-players {
+    margin: 5px 0;
+}
+
+#game-log-container {
+    height: 50%;
+    overflow-y: auto;
+}
+
 #game-log {
     margin: 5px 0;
+}
+
+.list-group-item {
+    padding-top: 3px;
+    padding-bottom: 3px;
 }
