@@ -36,19 +36,25 @@ module Herbs {
         private actionTurns:number;
         private gameArea;
         private socketIo:SocketIO;
-        private logOnUI;
         private mapWidth:number;
         private mapHeight:number;
-        private playerList;
 
-        public init(_io, _gameArea, logCallback, _playerList)
+        private clearPlayerList:() => void;
+        private logOnUI:(message:string, logTag?:string) => void;
+        private addPlayerToUI:(playerId:number) => void;
+        private highlightPlayer:(playerId:number) => void;
+        private removePlayerFromUI:(playerId:number) => void;
+
+        public init(_io, _gameArea)
         {
             this.socketIo = _io;
             this.gameArea = _gameArea;
-            this.logOnUI = logCallback;
-            this.playerList = _playerList;
             this.initiateSocket();
             this.hookSocketEvents();
+        }
+
+        public setLogOnUICallback(callback:(message:string, logTag?:string) => void) {
+            this.logOnUI = callback;
         }
 
         public handleInputChat(text)
@@ -95,7 +101,7 @@ module Herbs {
 
                 if(data.current_player_id) {
                     var being = self.beingRepository.get(parseInt(data.current_player_id));
-                    self.highlightPlayer(being);
+                    self.highlightPlayer(being.getId());
                 }
             });
 
@@ -103,7 +109,7 @@ module Herbs {
                 self.player = Being.fromSerialization(data.player);
                 self.logOnUI("You're now connected as Player #"+self.player.getId()+"!", CHAT_LOG_INFO);
                 self.beingRepository.add(self.player);
-                self.addPlayerToUI(self.player);
+                self.addPlayerToUI(self.player.getId());
                 self.initiateFov();
                 self.draw();
             });
@@ -123,7 +129,7 @@ module Herbs {
                 self.beingRepository.add(being);
                 self.draw();
                 self.logOnUI("Player #"+data.id+" just connected", CHAT_LOG_INFO);
-                self.addPlayerToUI(being);
+                self.addPlayerToUI(being.getId());
             });
 
             this.socket.on('being-left', function(data:any) {
@@ -135,13 +141,13 @@ module Herbs {
 
             this.socket.on('its-another-player-turn', function(data:any) {
                 var being = self.beingRepository.get(parseInt(data.id));
-                self.highlightPlayer(being);
+                self.highlightPlayer(being.getId());
                 self.logOnUI("It's Player #"+being.getId()+"'s turn.");
             });
 
             this.socket.on('its-your-turn', function(msg:any) {
                 self.actionTurns = parseInt(msg.turns);
-                self.highlightPlayer(self.player);
+                self.highlightPlayer(self.player.getId());
                 self.logOnUI("It's your turn. You have "+self.actionTurns+" actions left.", CHAT_LOG_SUCCESS);
             });
 
@@ -155,29 +161,25 @@ module Herbs {
             });
         }
 
-        private highlightPlayer(player:Being)
-        {
-            this.playerList.find('li.active').removeClass('active');
-            this.playerList.find('li[pid="'+player.getId()+'"]').addClass('active');
+        public setHighlightPlayerInListCallback(callback:(playerId:number) => void) {
+            this.highlightPlayer = callback;
         }
 
-        private removePlayerFromUI(id:number)
-        {
-            this.playerList.find('li[pid="'+id+'"]').remove();
+        public setRemovePlayerFromListCallback(callback:(playerId:number) => void) {
+            this.removePlayerFromUI = callback;
         }
 
-        private addPlayerToUI(player:Being)
-        {
-            this.playerList.append(
-                '<li class="list-group-item" pid="'+player.getId()+'">'+
-                    'Player #'+player.getId()+
-                '</li>'
-            );
+        public setAddPlayerToListCallback(callback:(playerId:number) => void) {
+            this.addPlayerToUI = callback;
+        }
+
+        public setClearPlayerListCallback(callback:() => void) {
+            this.clearPlayerList = callback;
         }
 
         private initializeGame()
         {
-            this.playerList.empty();
+            this.clearPlayerList();
             this.actionTurns = 0;
             this.map = new Map();
             this.beingsMap = new Map();
@@ -190,7 +192,7 @@ module Herbs {
                 if(serializedBeings.hasOwnProperty(i)) {
                     var being = Being.fromSerialization(serializedBeings[i]);
                     this.beingRepository.add(being);
-                    this.addPlayerToUI(being);
+                    this.addPlayerToUI(being.getId());
                 }
             }
         }

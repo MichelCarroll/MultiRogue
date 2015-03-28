@@ -1,7 +1,29 @@
 
 $(document).ready(function() {
 
-    var logCallback = function(message, logTag) {
+
+    var playerList = $('#game-players');
+
+    var game = new Herbs.Game();
+
+    game.setAddPlayerToListCallback(function(playerId) {
+        this.playerList.append(
+            '<li class="list-group-item" pid="'+playerId+'">'+
+                'Player #'+playerId+
+            '</li>'
+        );
+    });
+
+    game.setHighlightPlayerInListCallback(function(playerId) {
+        this.playerList.find('li.active').removeClass('active');
+        this.playerList.find('li[pid="'+playerId+'"]').addClass('active');
+    });
+
+    game.setRemovePlayerFromListCallback(function(playerId) {
+        this.playerList.find('li[pid="'+playerId+'"]').remove();
+    });
+
+    game.setLogOnUICallback(function(message, logTag) {
         while($('#game-log li').length > 200) {
             $('#game-log li:last').remove();
         }
@@ -10,12 +32,13 @@ $(document).ready(function() {
             className += ' list-group-item-'+logTag;
         }
         $('#game-log').prepend('<li class="'+className+'">'+message+'</li>');
-    };
+    });
 
-    var playerList = $('#game-players');
+    game.setClearPlayerListCallback(function() {
+        this.playerList.empty();
+    });
 
-    var game = new Herbs.Game();
-    game.init(io, $('#game'), logCallback, playerList);
+    game.init(io, $('#game'), playerList);
 
     $('#game-chat-button').click(function() {
         var text = $('#game-chat').val();
