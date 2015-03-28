@@ -26,7 +26,7 @@ var Herbs;
         Game.prototype.handleInputChat = function (text) {
             var self = this;
             var chatCommand = new Herbs.PlayerCommand(1, function () {
-                self.logOnUI("Player #" + self.player.getId() + " shouts \"" + text + "\"!!", Herbs.CHAT_LOG_INFO);
+                self.logOnUI("You shout \"" + text + "\"!!");
                 self.socket.emit('shout', {
                     'text': text
                 });
@@ -104,7 +104,7 @@ var Herbs;
                 self.logOnUI("It's your turn. You have " + self.actionTurns + " actions left.", Herbs.CHAT_LOG_SUCCESS);
             });
             this.socket.on('being-shouted', function (data) {
-                self.logOnUI("Player #" + data.id + " shouts \"" + data.text + "\"!!");
+                self.logOnUI("Player #" + data.id + " shouts \"" + data.text + "\"!!", Herbs.CHAT_LOG_INFO);
             });
             this.socket.on('disconnect', function (data) {
                 self.logOnUI("Disconnected from server", Herbs.CHAT_LOG_WARNING);

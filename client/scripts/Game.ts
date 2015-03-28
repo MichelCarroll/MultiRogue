@@ -55,7 +55,7 @@ module Herbs {
         {
             var self = this;
             var chatCommand = new PlayerCommand(1, function() {
-                self.logOnUI("Player #"+self.player.getId()+" shouts \""+text+"\"!!", CHAT_LOG_INFO);
+                self.logOnUI("You shout \""+text+"\"!!");
                 self.socket.emit('shout', {
                     'text': text
                 });
@@ -146,7 +146,7 @@ module Herbs {
             });
 
             this.socket.on('being-shouted', function(data:any) {
-                self.logOnUI("Player #"+data.id+" shouts \""+data.text+"\"!!");
+                self.logOnUI("Player #"+data.id+" shouts \""+data.text+"\"!!", CHAT_LOG_INFO);
             });
 
             this.socket.on('disconnect', function(data:any) {
