@@ -11,11 +11,13 @@ var io = require('socket.io')(http);
 var fs = require('fs');
 eval(fs.readFileSync('./node_modules/rot.js/rot.js/rot.js', 'utf8'));
 var Being = require('./Being');
+var mapWidth = 100;
+var mapHeight = 50;
 var map = {};
 var freeCells = new Array();
 var beings = new Object();
 ;
-(new ROT.Map.Digger(ROT.DEFAULT_WIDTH, ROT.DEFAULT_HEIGHT)).create(function (x, y, value) {
+(new ROT.Map.Digger(mapWidth, mapHeight)).create(function (x, y, value) {
     if (value) {
         return;
     } /* do not store walls */
@@ -41,8 +43,8 @@ io.on('connection', function (socket) {
     socket.emit('initiate-board', {
         'map': map,
         'beings': beingSerialized,
-        'width': ROT.DEFAULT_WIDTH,
-        'height': ROT.DEFAULT_HEIGHT
+        'width': mapWidth,
+        'height': mapHeight
     });
     socket.on('disconnect', function () {
         if (player) {

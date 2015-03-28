@@ -18,4 +18,8 @@ $(document).ready(function() {
        game.handleScreenResize();
     });
 
+    window.addEventListener("keydown", function(e) {
+        game.handlePlayerKeyEvent(e);
+    });
+
 });

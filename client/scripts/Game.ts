@@ -86,12 +86,14 @@ module Herbs {
                 self.mapHeight = parseInt(msg.height);
                 self.createBeings(msg.beings);
                 self.socket.emit('position-my-player', {});
+                self.recreateGameDisplay();
             });
 
             this.socket.on('position-player', function(data:any) {
                 self.player = Being.fromSerialization(data.player);
                 self.beingRepository.add(self.player);
-                self.startGame();
+                self.initiateFov();
+                self.draw();
             });
 
             this.socket.on('being-moved', function(data:any) {
@@ -124,6 +126,11 @@ module Herbs {
             this.socket.on('being-shouted', function(data:any) {
                 self.logOnUI("Player #"+data.id+" shouts \""+data.text+"\"!!");
             });
+
+            this.socket.on('disconnect', function(data:any) {
+                self.logOnUI("Disconnected from server");
+                self.clearGameDisplay();
+            });
         }
 
         private createBeings(serializedBeings:any)
@@ -136,24 +143,16 @@ module Herbs {
                 }
             }
         }
-        private startGame()
-        {
-            this.recreateGameDisplay();
-            this.initiateFov();
-            this.draw();
-
-            var self = this;
-
-            window.addEventListener("keydown", function(e:KeyboardEvent) {
-                self.handlePlayerKeyEvent(e);
-            });
-        }
-
 
         public handleScreenResize()
         {
             this.recreateGameDisplay();
             this.draw();
+        }
+
+        private clearGameDisplay()
+        {
+            this.gameArea.empty();
         }
 
         private recreateGameDisplay()
@@ -244,7 +243,7 @@ module Herbs {
             return map;
         }
 
-        private handlePlayerKeyEvent(e:KeyboardEvent)
+        public handlePlayerKeyEvent(e:KeyboardEvent)
         {
             var command = this.getKeyCommandMap()[e.keyCode];
             if(command) {

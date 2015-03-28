@@ -54,11 +54,13 @@ var Herbs;
                 self.mapHeight = parseInt(msg.height);
                 self.createBeings(msg.beings);
                 self.socket.emit('position-my-player', {});
+                self.recreateGameDisplay();
             });
             this.socket.on('position-player', function (data) {
                 self.player = Herbs.Being.fromSerialization(data.player);
                 self.beingRepository.add(self.player);
-                self.startGame();
+                self.initiateFov();
+                self.draw();
             });
             this.socket.on('being-moved', function (data) {
                 var being = self.beingRepository.get(parseInt(data.id));
@@ -87,6 +89,10 @@ var Herbs;
             this.socket.on('being-shouted', function (data) {
                 self.logOnUI("Player #" + data.id + " shouts \"" + data.text + "\"!!");
             });
+            this.socket.on('disconnect', function (data) {
+                self.logOnUI("Disconnected from server");
+                self.clearGameDisplay();
+            });
         };
         Game.prototype.createBeings = function (serializedBeings) {
             for (var i in serializedBeings) {
@@ -95,18 +101,12 @@ var Herbs;
                 }
             }
         };
-        Game.prototype.startGame = function () {
-            this.recreateGameDisplay();
-            this.initiateFov();
-            this.draw();
-            var self = this;
-            window.addEventListener("keydown", function (e) {
-                self.handlePlayerKeyEvent(e);
-            });
-        };
         Game.prototype.handleScreenResize = function () {
             this.recreateGameDisplay();
             this.draw();
+        };
+        Game.prototype.clearGameDisplay = function () {
+            this.gameArea.empty();
         };
         Game.prototype.recreateGameDisplay = function () {
             var characterAspectRatio = 18 / 11;
