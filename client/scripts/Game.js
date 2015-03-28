@@ -8,6 +8,10 @@
 /// <reference path="./PlayerCommand.ts" />
 var Herbs;
 (function (Herbs) {
+    Herbs.CHAT_LOG_SUCCESS = 'success';
+    Herbs.CHAT_LOG_WARNING = 'warning';
+    Herbs.CHAT_LOG_INFO = 'info';
+    Herbs.CHAT_LOG_DANGER = 'danger';
     var Game = (function () {
         function Game() {
         }
@@ -21,7 +25,7 @@ var Herbs;
         Game.prototype.handleInputChat = function (text) {
             var self = this;
             var chatCommand = new Herbs.PlayerCommand(1, function () {
-                self.logOnUI("Player #" + self.player.getId() + " shouts \"" + text + "\"!!");
+                self.logOnUI("Player #" + self.player.getId() + " shouts \"" + text + "\"!!", Herbs.CHAT_LOG_INFO);
                 self.socket.emit('shout', {
                     'text': text
                 });
@@ -57,6 +61,7 @@ var Herbs;
                 self.recreateGameDisplay();
             });
             this.socket.on('position-player', function (data) {
+                self.logOnUI("You're now connected!", Herbs.CHAT_LOG_SUCCESS);
                 self.player = Herbs.Being.fromSerialization(data.player);
                 self.beingRepository.add(self.player);
                 self.initiateFov();
@@ -84,13 +89,13 @@ var Herbs;
             });
             this.socket.on('its-your-turn', function (msg) {
                 self.actionTurns = parseInt(msg.turns);
-                self.logOnUI("It's your turn. You have " + self.actionTurns + " actions left.");
+                self.logOnUI("It's your turn. You have " + self.actionTurns + " actions left.", Herbs.CHAT_LOG_SUCCESS);
             });
             this.socket.on('being-shouted', function (data) {
                 self.logOnUI("Player #" + data.id + " shouts \"" + data.text + "\"!!");
             });
             this.socket.on('disconnect', function (data) {
-                self.logOnUI("Disconnected from server");
+                self.logOnUI("Disconnected from server", Herbs.CHAT_LOG_WARNING);
                 self.clearGameDisplay();
             });
         };
@@ -194,7 +199,12 @@ var Herbs;
                 return;
             }
             this.actionTurns -= playerCommand.getTurnCost();
-            this.logOnUI("You have " + this.actionTurns + " actions left.");
+            if (this.actionTurns > 0) {
+                this.logOnUI("You have " + this.actionTurns + " actions left.");
+            }
+            else {
+                this.logOnUI("Your turn is over.");
+            }
             this.draw();
         };
         return Game;

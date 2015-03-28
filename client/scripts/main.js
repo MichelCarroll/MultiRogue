@@ -1,11 +1,15 @@
 
 $(document).ready(function() {
 
-    var logCallback = function(message) {
+    var logCallback = function(message, logTag) {
         while($('#game-log li').length > 10) {
             $('#game-log li:last').remove();
         }
-        $('#game-log').prepend('<li class="list-group-item">'+message+'</li>');
+        var className = 'list-group-item';
+        if(logTag) {
+            className += ' list-group-item-'+logTag;
+        }
+        $('#game-log').prepend('<li class="'+className+'">'+message+'</li>');
     };
 
     var game = new Herbs.Game();

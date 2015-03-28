@@ -1,10 +1,13 @@
 
 .game-container {
     background: black;
-    height: 80%;
+    height: 95%;
     overflow-y: hidden;
 }
 
+.chat-container {
+    height: 5%;
+}
 
 .game-columns {
     height: 100%;

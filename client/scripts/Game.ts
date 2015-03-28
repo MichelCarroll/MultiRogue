@@ -18,6 +18,12 @@ interface Socket {
 }
 
 module Herbs {
+
+    export var CHAT_LOG_SUCCESS = 'success';
+    export var CHAT_LOG_WARNING = 'warning';
+    export var CHAT_LOG_INFO = 'info';
+    export var CHAT_LOG_DANGER = 'danger';
+
     export class Game {
 
         private map:Map;
@@ -47,7 +53,7 @@ module Herbs {
         {
             var self = this;
             var chatCommand = new PlayerCommand(1, function() {
-                self.logOnUI("Player #"+self.player.getId()+" shouts \""+text+"\"!!");
+                self.logOnUI("Player #"+self.player.getId()+" shouts \""+text+"\"!!", CHAT_LOG_INFO);
                 self.socket.emit('shout', {
                     'text': text
                 });
@@ -90,6 +96,7 @@ module Herbs {
             });
 
             this.socket.on('position-player', function(data:any) {
+                self.logOnUI("You're now connected!", CHAT_LOG_SUCCESS);
                 self.player = Being.fromSerialization(data.player);
                 self.beingRepository.add(self.player);
                 self.initiateFov();
@@ -120,7 +127,7 @@ module Herbs {
 
             this.socket.on('its-your-turn', function(msg:any) {
                 self.actionTurns = parseInt(msg.turns);
-                self.logOnUI("It's your turn. You have "+self.actionTurns+" actions left.");
+                self.logOnUI("It's your turn. You have "+self.actionTurns+" actions left.", CHAT_LOG_SUCCESS);
             });
 
             this.socket.on('being-shouted', function(data:any) {
@@ -128,7 +135,7 @@ module Herbs {
             });
 
             this.socket.on('disconnect', function(data:any) {
-                self.logOnUI("Disconnected from server");
+                self.logOnUI("Disconnected from server", CHAT_LOG_WARNING);
                 self.clearGameDisplay();
             });
         }
@@ -263,7 +270,13 @@ module Herbs {
             }
 
             this.actionTurns -= playerCommand.getTurnCost();
-            this.logOnUI("You have "+this.actionTurns+" actions left.");
+
+            if(this.actionTurns > 0) {
+                this.logOnUI("You have "+this.actionTurns+" actions left.");
+            } else {
+                this.logOnUI("Your turn is over.");
+            }
+
             this.draw();
         }
     }
