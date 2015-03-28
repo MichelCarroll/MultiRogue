@@ -7,6 +7,7 @@
 /// <reference path="./BeingRepository.ts" />
 /// <reference path="./Map.ts" />
 /// <reference path="./PlayerCommand.ts" />
+/// <reference path="./UIAdapter.ts" />
 
 declare class SocketIO {
     connect(url: string): Socket;
@@ -37,32 +38,22 @@ module Herbs {
         private socketIo:SocketIO;
         private mapWidth:number;
         private mapHeight:number;
+        private uiAdapter:UIAdapter;
 
-        private setGameCanvas:(canvas:HTMLElement) => void;
-        private clearGameDisplay:()=>void;
-        private getBestFontSize:(mapWidth:number, mapHeight:number) => number;
-        private clearPlayerList:() => void;
-        private logOnUI:(message:string, logTag?:string) => void;
-        private addPlayerToUI:(playerId:number) => void;
-        private highlightPlayer:(playerId:number) => void;
-        private removePlayerFromUI:(playerId:number) => void;
 
-        public init(_io)
+        public init(io, uiAdapter)
         {
-            this.socketIo = _io;
+            this.uiAdapter = uiAdapter;
+            this.socketIo = io;
             this.initiateSocket();
             this.hookSocketEvents();
-        }
-
-        public setLogOnUICallback(callback:(message:string, logTag?:string) => void) {
-            this.logOnUI = callback;
         }
 
         public handleInputChat(text)
         {
             var self = this;
             var chatCommand = new PlayerCommand(1, function() {
-                self.logOnUI("You shout \""+text+"\"!!");
+                self.uiAdapter.logOnUI("You shout \""+text+"\"!!");
                 self.socket.emit('shout', {
                     'text': text
                 });
@@ -98,20 +89,20 @@ module Herbs {
                 self.mapHeight = parseInt(data.height);
                 self.createBeings(data.beings);
                 self.socket.emit('position-my-player', {});
-                self.clearGameDisplay();
+                self.uiAdapter.clearGameDisplay();
                 self.createGameDisplay();
 
                 if(data.current_player_id) {
                     var being = self.beingRepository.get(parseInt(data.current_player_id));
-                    self.highlightPlayer(being.getId());
+                    self.uiAdapter.highlightPlayer(being.getId());
                 }
             });
 
             this.socket.on('position-player', function(data:any) {
                 self.player = Being.fromSerialization(data.player);
-                self.logOnUI("You're now connected as Player #"+self.player.getId()+"!", CHAT_LOG_INFO);
+                self.uiAdapter.logOnUI("You're now connected as Player #"+self.player.getId()+"!", CHAT_LOG_INFO);
                 self.beingRepository.add(self.player);
-                self.addPlayerToUI(self.player.getId());
+                self.uiAdapter.addPlayerToUI(self.player.getId());
                 self.initiateFov();
                 self.draw();
             });
@@ -130,58 +121,42 @@ module Herbs {
                 var being = Being.fromSerialization(data);
                 self.beingRepository.add(being);
                 self.draw();
-                self.logOnUI("Player #"+data.id+" just connected", CHAT_LOG_INFO);
-                self.addPlayerToUI(being.getId());
+                self.uiAdapter.logOnUI("Player #"+data.id+" just connected", CHAT_LOG_INFO);
+                self.uiAdapter.addPlayerToUI(being.getId());
             });
 
             this.socket.on('being-left', function(data:any) {
                 self.beingRepository.remove(parseInt(data.id));
                 self.draw();
-                self.logOnUI("Player #"+data.id+" just disconnected", CHAT_LOG_INFO);
-                self.removePlayerFromUI(parseInt(data.id));
+                self.uiAdapter.logOnUI("Player #"+data.id+" just disconnected", CHAT_LOG_INFO);
+                self.uiAdapter.removePlayerFromUI(parseInt(data.id));
             });
 
             this.socket.on('its-another-player-turn', function(data:any) {
                 var being = self.beingRepository.get(parseInt(data.id));
-                self.highlightPlayer(being.getId());
-                self.logOnUI("It's Player #"+being.getId()+"'s turn.");
+                self.uiAdapter.highlightPlayer(being.getId());
+                self.uiAdapter.logOnUI("It's Player #"+being.getId()+"'s turn.");
             });
 
             this.socket.on('its-your-turn', function(msg:any) {
                 self.actionTurns = parseInt(msg.turns);
-                self.highlightPlayer(self.player.getId());
-                self.logOnUI("It's your turn. You have "+self.actionTurns+" actions left.", CHAT_LOG_SUCCESS);
+                self.uiAdapter.highlightPlayer(self.player.getId());
+                self.uiAdapter.logOnUI("It's your turn. You have "+self.actionTurns+" actions left.", CHAT_LOG_SUCCESS);
             });
 
             this.socket.on('being-shouted', function(data:any) {
-                self.logOnUI("Player #"+data.id+" shouts \""+data.text+"\"!!", CHAT_LOG_INFO);
+                self.uiAdapter.logOnUI("Player #"+data.id+" shouts \""+data.text+"\"!!", CHAT_LOG_INFO);
             });
 
             this.socket.on('disconnect', function(data:any) {
-                self.logOnUI("Disconnected from server", CHAT_LOG_WARNING);
-                self.clearGameDisplay();
+                self.uiAdapter.logOnUI("Disconnected from server", CHAT_LOG_WARNING);
+                self.uiAdapter.clearGameDisplay();
             });
-        }
-
-        public setHighlightPlayerInListCallback(callback:(playerId:number) => void) {
-            this.highlightPlayer = callback;
-        }
-
-        public setRemovePlayerFromListCallback(callback:(playerId:number) => void) {
-            this.removePlayerFromUI = callback;
-        }
-
-        public setAddPlayerToListCallback(callback:(playerId:number) => void) {
-            this.addPlayerToUI = callback;
-        }
-
-        public setClearPlayerListCallback(callback:() => void) {
-            this.clearPlayerList = callback;
         }
 
         private initializeGame()
         {
-            this.clearPlayerList();
+            this.uiAdapter.clearPlayerList();
             this.actionTurns = 0;
             this.map = new Map();
             this.beingsMap = new Map();
@@ -194,28 +169,16 @@ module Herbs {
                 if(serializedBeings.hasOwnProperty(i)) {
                     var being = Being.fromSerialization(serializedBeings[i]);
                     this.beingRepository.add(being);
-                    this.addPlayerToUI(being.getId());
+                    this.uiAdapter.addPlayerToUI(being.getId());
                 }
             }
         }
 
         public handleScreenResize()
         {
-            this.clearGameDisplay();
+            this.uiAdapter.clearGameDisplay();
             this.createGameDisplay();
             this.draw();
-        }
-
-        public setClearGameDisplayCallback(callback:() => void) {
-            this.clearGameDisplay = callback;
-        }
-
-        public setGetBestFontSizeCallback(callback:(mapWidth:number, mapHeight:number) => number) {
-            this.getBestFontSize = callback;
-        }
-
-        public setGameCanvasCallback(callback:(canvas:HTMLElement) => void) {
-            this.setGameCanvas = callback;
         }
 
         private createGameDisplay()
@@ -223,10 +186,10 @@ module Herbs {
             this.display = new ROT.Display({
                 width: this.mapWidth,
                 height: this.mapHeight,
-                fontSize: this.getBestFontSize(this.mapWidth, this.mapHeight)
+                fontSize: this.uiAdapter.getBestFontSize(this.mapWidth, this.mapHeight)
             });
 
-            this.setGameCanvas(this.display.getContainer());
+            this.uiAdapter.setGameCanvas(this.display.getContainer());
         }
 
         private draw()
@@ -308,11 +271,11 @@ module Herbs {
         private executeCommand(playerCommand:PlayerCommand)
         {
             if(this.actionTurns == 0) {
-                this.logOnUI("It's not your turn!");
+                this.uiAdapter.logOnUI("It's not your turn!");
                 return;
             }
             else if(this.actionTurns - playerCommand.getTurnCost() < 0) {
-                this.logOnUI("You don't have enough turns to do this!");
+                this.uiAdapter.logOnUI("You don't have enough turns to do this!");
                 return;
             }
 
@@ -323,9 +286,9 @@ module Herbs {
             this.actionTurns -= playerCommand.getTurnCost();
 
             if(this.actionTurns > 0) {
-                this.logOnUI("You have "+this.actionTurns+" actions left.");
+                this.uiAdapter.logOnUI("You have "+this.actionTurns+" actions left.");
             } else {
-                this.logOnUI("Your turn is over.");
+                this.uiAdapter.logOnUI("Your turn is over.");
             }
 
             this.draw();
