@@ -7,7 +7,12 @@
     position: absolute;
     top: 0;
     left: 0;
-    background: gray;
+    background: black;
+}
+
+#game canvas {
+    border: 2px dashed gray;
+    margin: 2px;
 }
 
 #game-log {

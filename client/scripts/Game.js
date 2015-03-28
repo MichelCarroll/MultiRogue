@@ -110,10 +110,10 @@ var Herbs;
         };
         Game.prototype.recreateGameDisplay = function () {
             var characterAspectRatio = 18 / 11;
-            var heightFactor = this.gameArea.outerHeight() / this.mapHeight;
-            var widthFactor = this.gameArea.outerWidth() / this.mapWidth * characterAspectRatio;
+            var heightFactor = this.gameArea.innerHeight() / this.mapHeight;
+            var widthFactor = this.gameArea.innerWidth() / this.mapWidth * characterAspectRatio;
             var factor = widthFactor;
-            if (this.mapHeight * widthFactor > this.gameArea.outerHeight()) {
+            if (this.mapHeight * widthFactor > this.gameArea.innerHeight()) {
                 factor = heightFactor;
             }
             this.gameArea.empty();
