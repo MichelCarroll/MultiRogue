@@ -5,12 +5,14 @@
 /// <reference path="./Being.ts" />
 /// <reference path="./BeingRepository.ts" />
 /// <reference path="./Map.ts" />
+/// <reference path="./PlayerCommand.ts" />
 var Herbs;
 (function (Herbs) {
     var Game = (function () {
         function Game() {
         }
         Game.prototype.init = function (_io, _gameArea, logCallback) {
+            this.actionTurns = 0;
             this.map = new Herbs.Map();
             this.beingsMap = new Herbs.Map();
             this.beingRepository = new Herbs.BeingRepository(this.beingsMap);
@@ -20,15 +22,16 @@ var Herbs;
             this.initiateSocket();
             this.hookSocketEvents();
         };
-        Game.prototype.inputChat = function (text) {
-            if (!this.actionTurns) {
-                return;
-            }
-            this.actionTurns--;
-            this.logOnUI("Player #" + this.player.getId() + " shouts \"" + text + "\"!!");
-            this.socket.emit('shout', {
-                'text': text
+        Game.prototype.handleInputChat = function (text) {
+            var self = this;
+            var chatCommand = new Herbs.PlayerCommand(1, function () {
+                self.logOnUI("Player #" + self.player.getId() + " shouts \"" + text + "\"!!");
+                self.socket.emit('shout', {
+                    'text': text
+                });
+                return true;
             });
+            this.executeCommand(chatCommand);
         };
         Game.prototype.initiateSocket = function () {
             var url = '';
@@ -97,7 +100,7 @@ var Herbs;
             this.draw();
             var self = this;
             window.addEventListener("keydown", function (e) {
-                self.handlePlayerEvent(e);
+                self.handlePlayerKeyEvent(e);
             });
         };
         Game.prototype.draw = function () {
@@ -131,47 +134,45 @@ var Herbs;
                 return false;
             });
         };
-        Game.prototype.handlePlayerEvent = function (e) {
-            if (!this.actionTurns) {
-                this.logOnUI("It's not your turn yet!");
-                return;
-            }
-            var code = e.keyCode;
-            if (code == ROT.VK_RETURN || code == ROT.VK_SPACE) {
-                //checkBox();
-                return;
-            }
-            switch (code) {
-                case ROT.VK_UP:
-                case ROT.VK_RIGHT:
-                case ROT.VK_DOWN:
-                case ROT.VK_LEFT:
-                    this.attemptPlayerMove(code);
-                    break;
-                default:
-                    return;
-                    break;
+        Game.prototype.getMoveCommand = function (x, y, player, beingRepository, map, socket) {
+            return function () {
+                var newX = player.getX() + x;
+                var newY = player.getY() + y;
+                if (!map.tileExists(newX, newY)) {
+                    return false;
+                }
+                beingRepository.move(player, newX, newY);
+                socket.emit('being-moved', {
+                    'id': player.getId(),
+                    'x': player.getX(),
+                    'y': player.getY()
+                });
+                return true;
+            };
+        };
+        Game.prototype.getKeyCommandMap = function () {
+            var map = {};
+            map[ROT.VK_UP] = new Herbs.PlayerCommand(1, this.getMoveCommand(0, -1, this.player, this.beingRepository, this.map, this.socket));
+            map[ROT.VK_RIGHT] = new Herbs.PlayerCommand(1, this.getMoveCommand(1, 0, this.player, this.beingRepository, this.map, this.socket));
+            map[ROT.VK_DOWN] = new Herbs.PlayerCommand(1, this.getMoveCommand(0, 1, this.player, this.beingRepository, this.map, this.socket));
+            map[ROT.VK_LEFT] = new Herbs.PlayerCommand(1, this.getMoveCommand(-1, 0, this.player, this.beingRepository, this.map, this.socket));
+            return map;
+        };
+        Game.prototype.handlePlayerKeyEvent = function (e) {
+            var command = this.getKeyCommandMap()[e.keyCode];
+            if (command) {
+                this.executeCommand(command);
             }
         };
-        Game.prototype.attemptPlayerMove = function (code) {
-            var keyMap = {};
-            keyMap[ROT.VK_UP] = 0;
-            keyMap[ROT.VK_RIGHT] = 1;
-            keyMap[ROT.VK_DOWN] = 2;
-            keyMap[ROT.VK_LEFT] = 3;
-            var diff = ROT.DIRS[4][keyMap[code]];
-            var newX = this.player.getX() + diff[0];
-            var newY = this.player.getY() + diff[1];
-            if (!this.map.tileExists(newX, newY)) {
+        Game.prototype.executeCommand = function (playerCommand) {
+            if (this.actionTurns - playerCommand.getTurnCost() < 0) {
+                this.logOnUI("You don't have enough turns to do this");
                 return;
             }
-            this.beingRepository.move(this.player, newX, newY);
-            this.socket.emit('being-moved', {
-                'id': this.player.getId(),
-                'x': this.player.getX(),
-                'y': this.player.getY()
-            });
-            this.actionTurns--;
+            if (!playerCommand.execute()) {
+                return;
+            }
+            this.actionTurns -= playerCommand.getTurnCost();
             this.logOnUI("You have " + this.actionTurns + " actions left.");
             this.draw();
         };

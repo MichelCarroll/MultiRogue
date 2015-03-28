@@ -11,7 +11,7 @@ $(document).ready(function() {
     $('#game-chat-button').click(function() {
         var text = $('#game-chat').val();
         $('#game-chat').val('');
-        game.inputChat(text);
+        game.handleInputChat(text);
     });
 
 });
