@@ -3,28 +3,17 @@
  */
 /// <reference path="../bower_components/rot.js-TS/rot.d.ts"/>
 /// <reference path="./Game/Being.ts" />
-var Game;
-(function (Game) {
-    var display;
-    var map;
-    var beingMapLayer;
-    var player;
-    var beings;
-    var fov;
-    var socket;
-    var actionTurns;
-    var gameArea;
-    var socketIo;
-    var logOnUI;
-    function init(_io, _gameArea, logCallback) {
-        socketIo = _io;
-        gameArea = _gameArea;
-        logOnUI = logCallback;
-        initiateSocket();
-        hookSocketEvents();
+var Game = (function () {
+    function Game() {
     }
-    Game.init = init;
-    function initiateSocket() {
+    Game.prototype.init = function (_io, _gameArea, logCallback) {
+        this.socketIo = _io;
+        this.gameArea = _gameArea;
+        this.logOnUI = logCallback;
+        this.initiateSocket();
+        this.hookSocketEvents();
+    };
+    Game.prototype.initiateSocket = function () {
         var url = '';
         if (document.location.protocol === 'file:') {
             url = 'http://localhost';
@@ -32,122 +21,128 @@ var Game;
         else {
             url = 'http://' + document.location.hostname;
         }
-        socket = socketIo.connect(url + ':3000');
-    }
-    function hookSocketEvents() {
-        socket.on('debug', function (msg) {
+        this.socket = this.socketIo.connect(url + ':3000');
+    };
+    Game.prototype.hookSocketEvents = function () {
+        var self = this;
+        this.socket.on('debug', function (msg) {
             console.log(msg);
         });
-        socket.on('initiate-board', function (msg) {
-            map = msg.map;
-            createBeings(msg.beings);
-            socket.emit('position-my-player', {});
+        this.socket.on('initiate-board', function (msg) {
+            self.map = msg.map;
+            self.createBeings(msg.beings);
+            self.socket.emit('position-my-player', {});
         });
-        socket.on('position-player', function (msg) {
-            createPlayer(msg.player);
-            startGame();
+        this.socket.on('position-player', function (msg) {
+            self.createPlayer(msg.player);
+            self.startGame();
         });
-        socket.on('being-moved', function (data) {
-            var being = beings[parseInt(data.id)];
+        this.socket.on('being-moved', function (data) {
+            var being = self.beings[parseInt(data.id)];
             if (!being) {
-                createBeing(data);
+                self.createBeing(data);
             }
             else {
-                moveBeing(being, parseInt(data.x), parseInt(data.y));
+                self.moveBeing(being, parseInt(data.x), parseInt(data.y));
             }
-            draw();
+            self.draw();
         });
-        socket.on('being-came', function (data) {
-            createBeing(data);
-            draw();
-            logOnUI("Player #" + data.id + " just connected");
+        this.socket.on('being-came', function (data) {
+            self.createBeing(data);
+            self.draw();
+            self.logOnUI("Player #" + data.id + " just connected");
         });
-        socket.on('being-left', function (data) {
-            deleteBeing(parseInt(data.id));
-            draw();
-            logOnUI("Player #" + data.id + " just disconnected");
+        this.socket.on('being-left', function (data) {
+            self.deleteBeing(parseInt(data.id));
+            self.draw();
+            self.logOnUI("Player #" + data.id + " just disconnected");
         });
-        socket.on('its-your-turn', function (msg) {
-            actionTurns = parseInt(msg.turns);
-            logOnUI("It's your turn. You have " + actionTurns + " actions left.");
+        this.socket.on('its-your-turn', function (msg) {
+            self.actionTurns = parseInt(msg.turns);
+            self.logOnUI("It's your turn. You have " + self.actionTurns + " actions left.");
         });
-    }
-    function deleteBeing(id) {
-        var being = beings[id];
+    };
+    Game.prototype.deleteBeing = function (id) {
+        var being = this.beings[id];
         if (being) {
             var posKey = being.getX() + ',' + being.getY();
-            if (beingMapLayer[posKey] === being) {
-                delete beingMapLayer[posKey];
+            if (this.beingMapLayer[posKey] === being) {
+                delete this.beingMapLayer[posKey];
             }
-            delete beings[id];
+            delete this.beings[id];
         }
-    }
-    function moveBeing(being, x, y) {
+    };
+    Game.prototype.moveBeing = function (being, x, y) {
         var posKey = being.getX() + ',' + being.getY();
-        delete beingMapLayer[posKey];
+        delete this.beingMapLayer[posKey];
         being.setX(x);
         being.setY(y);
         var posKey = being.getX() + ',' + being.getY();
-        beingMapLayer[posKey] = being;
-    }
-    function createBeings(serializedBeings) {
-        beings = new Array();
-        beingMapLayer = {};
+        this.beingMapLayer[posKey] = being;
+    };
+    Game.prototype.createBeings = function (serializedBeings) {
+        this.beings = new Array();
+        this.beingMapLayer = {};
         for (var i in serializedBeings) {
             if (serializedBeings.hasOwnProperty(i)) {
-                createBeing(serializedBeings[i]);
+                this.createBeing(serializedBeings[i]);
             }
         }
-    }
-    function createBeing(serializedBeing) {
+    };
+    Game.prototype.createBeing = function (serializedBeing) {
         var being = Being.fromSerialization(serializedBeing);
-        beings[being.getId()] = being;
-        beingMapLayer[being.getX() + ',' + being.getY()] = being;
-    }
-    function startGame() {
-        display = new ROT.Display();
-        gameArea.append(display.getContainer());
-        initiateFov();
-        draw();
-        window.addEventListener("keydown", handlePlayerEvent);
-    }
-    function draw() {
-        display.clear();
-        drawMap();
-        drawPlayer();
-    }
-    function drawPlayer() {
-        display.draw(player.getX(), player.getY(), player.getToken(), player.getColor(), "#aa0");
-    }
-    function createPlayer(data) {
-        player = Being.fromSerialization(data);
-    }
-    function drawMap() {
-        fov.compute(player.getX(), player.getY(), 5, function (x, y, r, visibility) {
+        this.beings[being.getId()] = being;
+        this.beingMapLayer[being.getX() + ',' + being.getY()] = being;
+    };
+    Game.prototype.startGame = function () {
+        this.display = new ROT.Display();
+        this.gameArea.append(this.display.getContainer());
+        this.initiateFov();
+        this.draw();
+        var self = this;
+        window.addEventListener("keydown", function (e) {
+            self.handlePlayerEvent(e);
+        });
+    };
+    Game.prototype.draw = function () {
+        this.display.clear();
+        this.drawMap();
+        this.drawPlayer();
+    };
+    Game.prototype.drawPlayer = function () {
+        this.display.draw(this.player.getX(), this.player.getY(), this.player.getToken(), this.player.getColor(), "#aa0");
+    };
+    Game.prototype.createPlayer = function (data) {
+        this.player = Being.fromSerialization(data);
+    };
+    Game.prototype.drawMap = function () {
+        var self = this;
+        this.fov.compute(this.player.getX(), this.player.getY(), 5, function (x, y, r, visibility) {
             if (!r) {
                 return;
             }
             var posKey = x + "," + y;
-            var color = (map[posKey] ? "#aa0" : "#660");
-            display.draw(x, y, map[posKey], "#fff", color);
-            var being = beingMapLayer[posKey];
+            var color = (self.map[posKey] ? "#aa0" : "#660");
+            self.display.draw(x, y, self.map[posKey], "#fff", color);
+            var being = self.beingMapLayer[posKey];
             if (being) {
-                display.draw(being.getX(), being.getY(), being.getToken(), being.getColor(), "#aa0");
+                self.display.draw(being.getX(), being.getY(), being.getToken(), being.getColor(), "#aa0");
             }
         });
-    }
-    function initiateFov() {
-        fov = new ROT.FOV.PreciseShadowcasting(function (x, y) {
+    };
+    Game.prototype.initiateFov = function () {
+        var self = this;
+        this.fov = new ROT.FOV.PreciseShadowcasting(function (x, y) {
             var key = x + "," + y;
-            if (key in map) {
+            if (key in self.map) {
                 return true;
             }
             return false;
         });
-    }
-    function handlePlayerEvent(e) {
-        if (!actionTurns) {
-            logOnUI("It's not your turn yet!");
+    };
+    Game.prototype.handlePlayerEvent = function (e) {
+        if (!this.actionTurns) {
+            this.logOnUI("It's not your turn yet!");
             return;
         }
         var code = e.keyCode;
@@ -164,25 +159,26 @@ var Game;
             return;
         }
         var diff = ROT.DIRS[4][keyMap[code]];
-        var newX = player.getX() + diff[0];
-        var newY = player.getY() + diff[1];
+        var newX = this.player.getX() + diff[0];
+        var newY = this.player.getY() + diff[1];
         var newKey = newX + "," + newY;
-        if (!(newKey in map)) {
+        if (!(newKey in this.map)) {
             return;
         } /* cannot move in direction */
-        movePlayer(newX, newY);
-        actionTurns--;
-        logOnUI("You have " + actionTurns + " actions left.");
-        draw();
-    }
-    function movePlayer(x, y) {
-        player.setX(x);
-        player.setY(y);
-        socket.emit('being-moved', {
-            'id': player.getId(),
-            'x': player.getX(),
-            'y': player.getY()
+        this.movePlayer(newX, newY);
+        this.actionTurns--;
+        this.logOnUI("You have " + this.actionTurns + " actions left.");
+        this.draw();
+    };
+    Game.prototype.movePlayer = function (x, y) {
+        this.player.setX(x);
+        this.player.setY(y);
+        this.socket.emit('being-moved', {
+            'id': this.player.getId(),
+            'x': this.player.getX(),
+            'y': this.player.getY()
         });
-    }
-})(Game || (Game = {}));
+    };
+    return Game;
+})();
 //# sourceMappingURL=Game.js.map

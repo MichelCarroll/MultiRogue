@@ -4,7 +4,6 @@
 
 /// <reference path="../../bower_components/rot.js-TS/rot.d.ts"/>
 
-
 class Being {
 
     private x:number;

@@ -5,6 +5,6 @@ $(document).ready(function() {
         $('#game-log').prepend('<li>'+message+'</li>');
     };
 
-    Game.init(io, $('#game'), logCallback);
+    (new Game()).init(io, $('#game'), logCallback);
 
 });
