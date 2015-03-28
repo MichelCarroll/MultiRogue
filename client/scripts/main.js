@@ -1,13 +1,10 @@
 
 $(document).ready(function() {
 
-
-    var playerList = $('#game-players');
-
     var game = new Herbs.Game();
 
     game.setAddPlayerToListCallback(function(playerId) {
-        this.playerList.append(
+        $('#game-players').append(
             '<li class="list-group-item" pid="'+playerId+'">'+
                 'Player #'+playerId+
             '</li>'
@@ -15,12 +12,12 @@ $(document).ready(function() {
     });
 
     game.setHighlightPlayerInListCallback(function(playerId) {
-        this.playerList.find('li.active').removeClass('active');
-        this.playerList.find('li[pid="'+playerId+'"]').addClass('active');
+        $('#game-players').find('li.active').removeClass('active');
+        $('#game-players').find('li[pid="'+playerId+'"]').addClass('active');
     });
 
     game.setRemovePlayerFromListCallback(function(playerId) {
-        this.playerList.find('li[pid="'+playerId+'"]').remove();
+        $('#game-players').find('li[pid="'+playerId+'"]').remove();
     });
 
     game.setLogOnUICallback(function(message, logTag) {
@@ -35,10 +32,30 @@ $(document).ready(function() {
     });
 
     game.setClearPlayerListCallback(function() {
-        this.playerList.empty();
+        $('#game-players').empty();
     });
 
-    game.init(io, $('#game'), playerList);
+    game.setClearGameDisplayCallback(function() {
+        $('#game').empty();
+    });
+
+    game.setGameCanvasCallback(function(canvas) {
+        $('#game').append(canvas);
+    });
+
+    game.setGetBestFontSizeCallback(function(mapWidth, mapHeight) {
+        var characterAspectRatio = 18 / 11;
+        var heightFactor = $('#game').innerHeight() / mapHeight;
+        var widthFactor = $('#game').innerWidth() / mapWidth * characterAspectRatio;
+
+        var factor = widthFactor;
+        if(mapHeight * widthFactor > $('#game').innerHeight()) {
+            factor = heightFactor;
+        }
+        return Math.floor(factor);
+    })
+
+    game.init(io);
 
     $('#game-chat-button').click(function() {
         var text = $('#game-chat').val();

@@ -34,21 +34,22 @@ module Herbs {
         private fov:ROT.FOV.PreciseShadowcasting;
         private socket;
         private actionTurns:number;
-        private gameArea;
         private socketIo:SocketIO;
         private mapWidth:number;
         private mapHeight:number;
 
+        private setGameCanvas:(canvas:HTMLElement) => void;
+        private clearGameDisplay:()=>void;
+        private getBestFontSize:(mapWidth:number, mapHeight:number) => number;
         private clearPlayerList:() => void;
         private logOnUI:(message:string, logTag?:string) => void;
         private addPlayerToUI:(playerId:number) => void;
         private highlightPlayer:(playerId:number) => void;
         private removePlayerFromUI:(playerId:number) => void;
 
-        public init(_io, _gameArea)
+        public init(_io)
         {
             this.socketIo = _io;
-            this.gameArea = _gameArea;
             this.initiateSocket();
             this.hookSocketEvents();
         }
@@ -97,7 +98,8 @@ module Herbs {
                 self.mapHeight = parseInt(data.height);
                 self.createBeings(data.beings);
                 self.socket.emit('position-my-player', {});
-                self.recreateGameDisplay();
+                self.clearGameDisplay();
+                self.createGameDisplay();
 
                 if(data.current_player_id) {
                     var being = self.beingRepository.get(parseInt(data.current_player_id));
@@ -199,33 +201,32 @@ module Herbs {
 
         public handleScreenResize()
         {
-            this.recreateGameDisplay();
+            this.clearGameDisplay();
+            this.createGameDisplay();
             this.draw();
         }
 
-        private clearGameDisplay()
-        {
-            this.gameArea.empty();
+        public setClearGameDisplayCallback(callback:() => void) {
+            this.clearGameDisplay = callback;
         }
 
-        private recreateGameDisplay()
+        public setGetBestFontSizeCallback(callback:(mapWidth:number, mapHeight:number) => number) {
+            this.getBestFontSize = callback;
+        }
+
+        public setGameCanvasCallback(callback:(canvas:HTMLElement) => void) {
+            this.setGameCanvas = callback;
+        }
+
+        private createGameDisplay()
         {
-            var characterAspectRatio = 18 / 11;
-            var heightFactor = this.gameArea.innerHeight() / this.mapHeight;
-            var widthFactor = this.gameArea.innerWidth() / this.mapWidth * characterAspectRatio;
-
-            var factor = widthFactor;
-            if(this.mapHeight * widthFactor > this.gameArea.innerHeight()) {
-                factor = heightFactor;
-            }
-
-            this.gameArea.empty();
             this.display = new ROT.Display({
                 width: this.mapWidth,
                 height: this.mapHeight,
-                fontSize: Math.floor(factor)
+                fontSize: this.getBestFontSize(this.mapWidth, this.mapHeight)
             });
-            this.gameArea.append(this.display.getContainer());
+
+            this.setGameCanvas(this.display.getContainer());
         }
 
         private draw()

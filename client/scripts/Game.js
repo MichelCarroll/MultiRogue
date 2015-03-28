@@ -15,9 +15,8 @@ var Herbs;
     var Game = (function () {
         function Game() {
         }
-        Game.prototype.init = function (_io, _gameArea) {
+        Game.prototype.init = function (_io) {
             this.socketIo = _io;
-            this.gameArea = _gameArea;
             this.initiateSocket();
             this.hookSocketEvents();
         };
@@ -57,7 +56,8 @@ var Herbs;
                 self.mapHeight = parseInt(data.height);
                 self.createBeings(data.beings);
                 self.socket.emit('position-my-player', {});
-                self.recreateGameDisplay();
+                self.clearGameDisplay();
+                self.createGameDisplay();
                 if (data.current_player_id) {
                     var being = self.beingRepository.get(parseInt(data.current_player_id));
                     self.highlightPlayer(being.getId());
@@ -141,27 +141,26 @@ var Herbs;
             }
         };
         Game.prototype.handleScreenResize = function () {
-            this.recreateGameDisplay();
+            this.clearGameDisplay();
+            this.createGameDisplay();
             this.draw();
         };
-        Game.prototype.clearGameDisplay = function () {
-            this.gameArea.empty();
+        Game.prototype.setClearGameDisplayCallback = function (callback) {
+            this.clearGameDisplay = callback;
         };
-        Game.prototype.recreateGameDisplay = function () {
-            var characterAspectRatio = 18 / 11;
-            var heightFactor = this.gameArea.innerHeight() / this.mapHeight;
-            var widthFactor = this.gameArea.innerWidth() / this.mapWidth * characterAspectRatio;
-            var factor = widthFactor;
-            if (this.mapHeight * widthFactor > this.gameArea.innerHeight()) {
-                factor = heightFactor;
-            }
-            this.gameArea.empty();
+        Game.prototype.setGetBestFontSizeCallback = function (callback) {
+            this.getBestFontSize = callback;
+        };
+        Game.prototype.setGameCanvasCallback = function (callback) {
+            this.setGameCanvas = callback;
+        };
+        Game.prototype.createGameDisplay = function () {
             this.display = new ROT.Display({
                 width: this.mapWidth,
                 height: this.mapHeight,
-                fontSize: Math.floor(factor)
+                fontSize: this.getBestFontSize(this.mapWidth, this.mapHeight)
             });
-            this.gameArea.append(this.display.getContainer());
+            this.setGameCanvas(this.display.getContainer());
         };
         Game.prototype.draw = function () {
             this.display.clear();
