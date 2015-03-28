@@ -31,6 +31,8 @@ module Herbs {
         private gameArea;
         private socketIo:SocketIO;
         private logOnUI;
+        private mapWidth:number;
+        private mapHeight:number;
 
         public init(_io, _gameArea, logCallback)
         {
@@ -80,6 +82,8 @@ module Herbs {
 
             this.socket.on('initiate-board', function(msg:any) {
                 self.map.setTileMap(msg.map);
+                self.mapWidth = parseInt(msg.width);
+                self.mapHeight = parseInt(msg.height);
                 self.createBeings(msg.beings);
                 self.socket.emit('position-my-player', {});
             });
@@ -132,12 +136,9 @@ module Herbs {
                 }
             }
         }
-
         private startGame()
         {
-            this.display = new ROT.Display();
-            this.gameArea.append(this.display.getContainer());
-
+            this.recreateGameDisplay();
             this.initiateFov();
             this.draw();
 
@@ -146,6 +147,33 @@ module Herbs {
             window.addEventListener("keydown", function(e:KeyboardEvent) {
                 self.handlePlayerKeyEvent(e);
             });
+        }
+
+
+        public handleScreenResize()
+        {
+            this.recreateGameDisplay();
+            this.draw();
+        }
+
+        private recreateGameDisplay()
+        {
+            var characterAspectRatio = 18 / 11;
+            var heightFactor = this.gameArea.outerHeight() / this.mapHeight;
+            var widthFactor = this.gameArea.outerWidth() / this.mapWidth * characterAspectRatio;
+
+            var factor = widthFactor;
+            if(this.mapHeight * widthFactor > this.gameArea.outerHeight()) {
+                factor = heightFactor;
+            }
+
+            this.gameArea.empty();
+            this.display = new ROT.Display({
+                width: this.mapWidth,
+                height: this.mapHeight,
+                fontSize: Math.floor(factor)
+            });
+            this.gameArea.append(this.display.getContainer());
         }
 
         private draw()

@@ -14,4 +14,8 @@ $(document).ready(function() {
         game.handleInputChat(text);
     });
 
+    $(window).resize(function() {
+       game.handleScreenResize();
+    });
+
 });

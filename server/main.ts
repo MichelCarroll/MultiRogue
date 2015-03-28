@@ -48,7 +48,9 @@ io.on('connection', function(socket) {
 
     socket.emit('initiate-board', {
         'map': map,
-        'beings': beingSerialized
+        'beings': beingSerialized,
+        'width': ROT.DEFAULT_WIDTH,
+        'height': ROT.DEFAULT_HEIGHT
     });
 
     socket.on('disconnect', function() {

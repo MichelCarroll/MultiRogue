@@ -50,6 +50,8 @@ var Herbs;
             });
             this.socket.on('initiate-board', function (msg) {
                 self.map.setTileMap(msg.map);
+                self.mapWidth = parseInt(msg.width);
+                self.mapHeight = parseInt(msg.height);
                 self.createBeings(msg.beings);
                 self.socket.emit('position-my-player', {});
             });
@@ -94,14 +96,33 @@ var Herbs;
             }
         };
         Game.prototype.startGame = function () {
-            this.display = new ROT.Display();
-            this.gameArea.append(this.display.getContainer());
+            this.recreateGameDisplay();
             this.initiateFov();
             this.draw();
             var self = this;
             window.addEventListener("keydown", function (e) {
                 self.handlePlayerKeyEvent(e);
             });
+        };
+        Game.prototype.handleScreenResize = function () {
+            this.recreateGameDisplay();
+            this.draw();
+        };
+        Game.prototype.recreateGameDisplay = function () {
+            var characterAspectRatio = 18 / 11;
+            var heightFactor = this.gameArea.outerHeight() / this.mapHeight;
+            var widthFactor = this.gameArea.outerWidth() / this.mapWidth * characterAspectRatio;
+            var factor = widthFactor;
+            if (this.mapHeight * widthFactor > this.gameArea.outerHeight()) {
+                factor = heightFactor;
+            }
+            this.gameArea.empty();
+            this.display = new ROT.Display({
+                width: this.mapWidth,
+                height: this.mapHeight,
+                fontSize: Math.floor(factor)
+            });
+            this.gameArea.append(this.display.getContainer());
         };
         Game.prototype.draw = function () {
             this.display.clear();
