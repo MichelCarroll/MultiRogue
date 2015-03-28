@@ -1,24 +1,35 @@
 
-#game {
-    width: 100%;
+.game-container {
+    background: black;
+    height: 80%;
+    overflow-y: hidden;
+}
+
+
+.game-columns {
     height: 100%;
+}
+
+#game {
+    position:relative;
+    height: 100%;
+    width: 100%;
     margin: 0;
     padding: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: black;
 }
 
 #game canvas {
-    border: 2px dashed gray;
-    margin: 2px;
+    display: block;
+    margin:0 auto;
+
+    /* VALIGN */
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
 }
 
 #game-log {
-    position: fixed;
-    bottom:0;
-    left:0;
-    width:100%;
-    height:200px;
+    margin: 5px 0;
 }

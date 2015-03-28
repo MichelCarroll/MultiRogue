@@ -36,10 +36,6 @@ module Herbs {
 
         public init(_io, _gameArea, logCallback)
         {
-            this.actionTurns = 0;
-            this.map = new Map();
-            this.beingsMap = new Map();
-            this.beingRepository = new BeingRepository(this.beingsMap);
             this.socketIo = _io;
             this.gameArea = _gameArea;
             this.logOnUI = logCallback;
@@ -80,11 +76,15 @@ module Herbs {
                 console.log(msg);
             });
 
-            this.socket.on('initiate-board', function(msg:any) {
-                self.map.setTileMap(msg.map);
-                self.mapWidth = parseInt(msg.width);
-                self.mapHeight = parseInt(msg.height);
-                self.createBeings(msg.beings);
+            this.socket.on('initiate-board', function(data:any) {
+                self.actionTurns = 0;
+                self.map = new Map();
+                self.beingsMap = new Map();
+                self.beingRepository = new BeingRepository(self.beingsMap);
+                self.map.setTileMap(data.map);
+                self.mapWidth = parseInt(data.width);
+                self.mapHeight = parseInt(data.height);
+                self.createBeings(data.beings);
                 self.socket.emit('position-my-player', {});
                 self.recreateGameDisplay();
             });

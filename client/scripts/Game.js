@@ -12,10 +12,6 @@ var Herbs;
         function Game() {
         }
         Game.prototype.init = function (_io, _gameArea, logCallback) {
-            this.actionTurns = 0;
-            this.map = new Herbs.Map();
-            this.beingsMap = new Herbs.Map();
-            this.beingRepository = new Herbs.BeingRepository(this.beingsMap);
             this.socketIo = _io;
             this.gameArea = _gameArea;
             this.logOnUI = logCallback;
@@ -48,11 +44,15 @@ var Herbs;
             this.socket.on('debug', function (msg) {
                 console.log(msg);
             });
-            this.socket.on('initiate-board', function (msg) {
-                self.map.setTileMap(msg.map);
-                self.mapWidth = parseInt(msg.width);
-                self.mapHeight = parseInt(msg.height);
-                self.createBeings(msg.beings);
+            this.socket.on('initiate-board', function (data) {
+                self.actionTurns = 0;
+                self.map = new Herbs.Map();
+                self.beingsMap = new Herbs.Map();
+                self.beingRepository = new Herbs.BeingRepository(self.beingsMap);
+                self.map.setTileMap(data.map);
+                self.mapWidth = parseInt(data.width);
+                self.mapHeight = parseInt(data.height);
+                self.createBeings(data.beings);
                 self.socket.emit('position-my-player', {});
                 self.recreateGameDisplay();
             });
