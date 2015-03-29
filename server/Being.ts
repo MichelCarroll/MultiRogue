@@ -56,8 +56,7 @@ class Being
         this.callForTurn();
     }
 
-    public giveTurns(turns:number)
-    {
+    public giveTurns(turns:number) {
         this.turns += turns;
     }
 

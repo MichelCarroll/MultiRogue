@@ -34,9 +34,7 @@ module Herbs {
         }
 
         public start() {
-            http.listen(3000, function(){
-                console.log('listening on port 3000');
-            });
+            http.listen(3000, function(){});
         }
 
         private createMap(mapWidth:number, mapHeight:number) {
@@ -59,35 +57,18 @@ module Herbs {
             var self = this;
             io.on('connection', function(socket) {
 
-                var player = null;
-                var currentPlayerId = null;
-
-                if(self.currentPlayer) {
-                    currentPlayerId = self.currentPlayer.getId();
-                }
+                var player:Being = null;
 
                 socket.emit('initiate-board', {
                     'map': self.map.getTileMap(),
                     'beings': self.beingRepository.serialize(),
                     'width': self.map.getWidth(),
                     'height': self.map.getHeight(),
-                    'current_player_id': currentPlayerId
-                });
-
-                socket.on('disconnect', function() {
-                    if(player) {
-                        console.log('ID ' + player.getId() + ' disconnected');
-                        self.beingRepository.delete(player.getId());
-                        socket.broadcast.emit('being-left', player.serialize());
-                        self.scheduler.remove(player);
-                        if(self.currentPlayer === player) {
-                            self.nextTurn();
-                        }
-                    }
+                    'current_player_id': self.currentPlayer ? self.currentPlayer.getId() : null
                 });
 
                 socket.on('position-my-player', function() {
-                    var key = self.map.getRandomFreeTileKey();
+                    var key = self.map.getRandomUnoccupiedTile();
                     var parts = key.split(",");
                     player = new Being(parseInt(parts[0]), parseInt(parts[1]), function() {
                         this.giveTurns(4);
@@ -102,56 +83,60 @@ module Herbs {
                     socket.emit('position-player', { 'player': player.serialize() });
                     socket.broadcast.emit('being-came', player.serialize());
 
-                    console.log('ID ' + player.getId() + ' connected');
-
                     self.scheduler.add(player, true);
                     if(!self.currentPlayer) {
                         self.nextTurn();
                     }
                 });
 
+                socket.on('disconnect', function() {
+                    if(player) {
+                        self.beingRepository.delete(player);
+                        socket.broadcast.emit('being-left', player.serialize());
+                        self.scheduler.remove(player);
+                        if(self.currentPlayer === player) {
+                            self.nextTurn();
+                        }
+                    }
+                });
+
                 socket.on('shout', function(data) {
 
-                    if (self.currentPlayer !== player || !player.getRemainingTurns()) {
-                        console.log('invalid move');
+                    if(!self.canPlay(player)) {
                         return;
                     }
 
-                    socket.broadcast.emit('being-shouted', {
-                        'id': player.getId(),
-                        'text': data.text
-                    });
-
-                    player.spendTurns(1);
-                    if(!player.getRemainingTurns()) {
-                        self.nextTurn();
-                    }
+                    socket.broadcast.emit('being-shouted', {'id': player.getId(), 'text': data.text});
+                    self.useTurns(player, 1);
                 });
 
                 socket.on('being-moved', function(data) {
 
-                    if(self.currentPlayer !== player || !player.getRemainingTurns()) {
-                        console.log('invalid move');
+                    if(!self.canPlay(player)) {
                         return;
                     }
 
-                    var id = parseInt(data.id);
-                    var x = parseInt(data.x);
-                    var y = parseInt(data.y);
-                    var being = self.beingRepository.get(id);
+                    var being = self.beingRepository.get(parseInt(data.id));
                     if(!being) {
                         return;
                     }
 
-                    being.setX(x);
-                    being.setY(y);
+                    self.beingRepository.move(being, parseInt(data.x), parseInt(data.y));
                     socket.broadcast.emit('being-moved', being.serialize());
-                    player.spendTurns(1);
-                    if(!player.getRemainingTurns()) {
-                        self.nextTurn();
-                    }
+                    self.useTurns(player, 1);
                 });
             });
+        }
+
+        private canPlay(player:Being) {
+            return (this.currentPlayer === player && player.getRemainingTurns() > 0);
+        }
+
+        private useTurns(player:Being, n:number) {
+            player.spendTurns(n);
+            if(!player.getRemainingTurns()) {
+                this.nextTurn();
+            }
         }
 
     }

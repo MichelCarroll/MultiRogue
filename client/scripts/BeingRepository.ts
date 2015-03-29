@@ -35,8 +35,7 @@ module Herbs {
             }
         }
 
-        public move(being:Being, x, y)
-        {
+        public move(being:Being, x, y) {
             this.beingBoard.deleteTile(being.getX(), being.getY());
             being.setX(x);
             being.setY(y);
