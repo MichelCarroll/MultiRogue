@@ -39,12 +39,14 @@ module Herbs {
         private mapWidth:number;
         private mapHeight:number;
         private uiAdapter:UIAdapter;
+        private levelInitiated:boolean;
 
 
         public init(io, uiAdapter)
         {
             this.uiAdapter = uiAdapter;
             this.socketIo = io;
+            this.levelInitiated = false;
             this.initiateSocket();
             this.hookSocketEvents();
         }
@@ -91,6 +93,7 @@ module Herbs {
                 self.socket.emit('position-my-player', {});
                 self.uiAdapter.clearGameDisplay();
                 self.createGameDisplay();
+                self.initiateFov();
 
                 if(data.current_player_id) {
                     var being = self.beingRepository.get(parseInt(data.current_player_id));
@@ -103,7 +106,7 @@ module Herbs {
                 self.uiAdapter.logOnUI("You're now connected as Player #"+self.player.getId()+"!", CHAT_LOG_INFO);
                 self.beingRepository.add(self.player);
                 self.uiAdapter.addPlayerToUI(self.player.getId());
-                self.initiateFov();
+                self.levelInitiated = true;
                 self.draw();
             });
 
@@ -151,6 +154,7 @@ module Herbs {
             this.socket.on('disconnect', function(data:any) {
                 self.uiAdapter.logOnUI("Disconnected from server", CHAT_LOG_WARNING);
                 self.uiAdapter.clearGameDisplay();
+                self.levelInitiated = false;
             });
         }
 
@@ -195,6 +199,9 @@ module Herbs {
         private draw()
         {
             this.display.clear();
+            if(!this.levelInitiated) {
+                return;
+            }
             this.drawBoard();
             this.drawPlayer();
         }

@@ -19,6 +19,7 @@ var Herbs;
         Game.prototype.init = function (io, uiAdapter) {
             this.uiAdapter = uiAdapter;
             this.socketIo = io;
+            this.levelInitiated = false;
             this.initiateSocket();
             this.hookSocketEvents();
         };
@@ -57,6 +58,7 @@ var Herbs;
                 self.socket.emit('position-my-player', {});
                 self.uiAdapter.clearGameDisplay();
                 self.createGameDisplay();
+                self.initiateFov();
                 if (data.current_player_id) {
                     var being = self.beingRepository.get(parseInt(data.current_player_id));
                     self.uiAdapter.highlightPlayer(being.getId());
@@ -67,7 +69,7 @@ var Herbs;
                 self.uiAdapter.logOnUI("You're now connected as Player #" + self.player.getId() + "!", Herbs.CHAT_LOG_INFO);
                 self.beingRepository.add(self.player);
                 self.uiAdapter.addPlayerToUI(self.player.getId());
-                self.initiateFov();
+                self.levelInitiated = true;
                 self.draw();
             });
             this.socket.on('being-moved', function (data) {
@@ -109,6 +111,7 @@ var Herbs;
             this.socket.on('disconnect', function (data) {
                 self.uiAdapter.logOnUI("Disconnected from server", Herbs.CHAT_LOG_WARNING);
                 self.uiAdapter.clearGameDisplay();
+                self.levelInitiated = false;
             });
         };
         Game.prototype.initializeGame = function () {
@@ -142,6 +145,9 @@ var Herbs;
         };
         Game.prototype.draw = function () {
             this.display.clear();
+            if (!this.levelInitiated) {
+                return;
+            }
             this.drawBoard();
             this.drawPlayer();
         };
