@@ -69,7 +69,7 @@ $(document).ready(function() {
     });
 
     window.addEventListener("keydown", function(e) {
-        game.handlePlayerKeyEvent(e);
+        game.handlePlayerKeyEvent(e.keyCode);
     });
 
     $("#game-chat").keyup(function (e) {

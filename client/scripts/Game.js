@@ -4,7 +4,7 @@
 /// <reference path="../bower_components/rot.js-TS/rot.d.ts"/>
 /// <reference path="./Being.ts" />
 /// <reference path="./BeingRepository.ts" />
-/// <reference path="./Map.ts" />
+/// <reference path="./Board.ts" />
 /// <reference path="./PlayerCommand.ts" />
 /// <reference path="./UIAdapter.ts" />
 var Herbs;
@@ -114,9 +114,9 @@ var Herbs;
         Game.prototype.initializeGame = function () {
             this.uiAdapter.clearPlayerList();
             this.actionTurns = 0;
-            this.map = new Herbs.Map();
-            this.beingsMap = new Herbs.Map();
-            this.beingRepository = new Herbs.BeingRepository(this.beingsMap);
+            this.map = new Herbs.Board();
+            this.beingsBoard = new Herbs.Board();
+            this.beingRepository = new Herbs.BeingRepository(this.beingsBoard);
         };
         Game.prototype.createBeings = function (serializedBeings) {
             for (var i in serializedBeings) {
@@ -142,13 +142,13 @@ var Herbs;
         };
         Game.prototype.draw = function () {
             this.display.clear();
-            this.drawMap();
+            this.drawBoard();
             this.drawPlayer();
         };
         Game.prototype.drawPlayer = function () {
             this.display.draw(this.player.getX(), this.player.getY(), this.player.getToken(), this.player.getColor(), "#aa0");
         };
-        Game.prototype.drawMap = function () {
+        Game.prototype.drawBoard = function () {
             var self = this;
             this.fov.compute(this.player.getX(), this.player.getY(), 5, function (x, y, r, visibility) {
                 if (!r) {
@@ -156,7 +156,7 @@ var Herbs;
                 }
                 var color = (self.map.tileExists(x, y) ? "#aa0" : "#660");
                 self.display.draw(x, y, self.map.getTile(x, y), "#fff", color);
-                var being = self.beingsMap.getTile(x, y);
+                var being = self.beingsBoard.getTile(x, y);
                 if (being) {
                     self.display.draw(being.getX(), being.getY(), being.getToken(), being.getColor(), "#aa0");
                 }
@@ -195,8 +195,8 @@ var Herbs;
             map[ROT.VK_LEFT] = new Herbs.PlayerCommand(1, this.getMoveCommand(-1, 0, this.player, this.beingRepository, this.map, this.socket));
             return map;
         };
-        Game.prototype.handlePlayerKeyEvent = function (e) {
-            var command = this.getKeyCommandMap()[e.keyCode];
+        Game.prototype.handlePlayerKeyEvent = function (keyCode) {
+            var command = this.getKeyCommandMap()[keyCode];
             if (command) {
                 this.executeCommand(command);
             }

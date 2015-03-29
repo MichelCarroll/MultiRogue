@@ -5,7 +5,7 @@
 /// <reference path="../bower_components/rot.js-TS/rot.d.ts"/>
 /// <reference path="./Being.ts" />
 /// <reference path="./BeingRepository.ts" />
-/// <reference path="./Map.ts" />
+/// <reference path="./Board.ts" />
 /// <reference path="./PlayerCommand.ts" />
 /// <reference path="./UIAdapter.ts" />
 
@@ -27,8 +27,8 @@ module Herbs {
 
     export class Game {
 
-        private map:Map;
-        private beingsMap:Map;
+        private map:Board;
+        private beingsBoard:Board;
         private beingRepository:BeingRepository;
         private display:ROT.Display;
         private player:Being;
@@ -158,9 +158,9 @@ module Herbs {
         {
             this.uiAdapter.clearPlayerList();
             this.actionTurns = 0;
-            this.map = new Map();
-            this.beingsMap = new Map();
-            this.beingRepository = new BeingRepository(this.beingsMap);
+            this.map = new Board();
+            this.beingsBoard = new Board();
+            this.beingRepository = new BeingRepository(this.beingsBoard);
         }
 
         private createBeings(serializedBeings:any)
@@ -195,7 +195,7 @@ module Herbs {
         private draw()
         {
             this.display.clear();
-            this.drawMap();
+            this.drawBoard();
             this.drawPlayer();
         }
 
@@ -204,7 +204,7 @@ module Herbs {
             this.display.draw(this.player.getX(),this.player.getY(),this.player.getToken(),this.player.getColor(), "#aa0");
         }
 
-        private drawMap()
+        private drawBoard()
         {
             var self = this;
             this.fov.compute(this.player.getX(), this.player.getY(), 5, function(x, y, r, visibility) {
@@ -213,7 +213,7 @@ module Herbs {
                 }
                 var color = (self.map.tileExists(x,y) ? "#aa0": "#660");
                 self.display.draw(x, y, self.map.getTile(x,y), "#fff", color);
-                var being = self.beingsMap.getTile(x,y);
+                var being = self.beingsBoard.getTile(x,y);
 
                 if(being) {
                     self.display.draw(being.getX(),being.getY(),being.getToken(),being.getColor(), "#aa0");
@@ -233,7 +233,7 @@ module Herbs {
             });
         }
 
-        private getMoveCommand(x:number, y:number, player:Being, beingRepository:BeingRepository, map:Map, socket:Socket) {
+        private getMoveCommand(x:number, y:number, player:Being, beingRepository:BeingRepository, map:Board, socket:Socket) {
             return function() {
                 var newX = player.getX() + x;
                 var newY = player.getY() + y;
@@ -260,9 +260,9 @@ module Herbs {
             return map;
         }
 
-        public handlePlayerKeyEvent(e:KeyboardEvent)
+        public handlePlayerKeyEvent(keyCode:number)
         {
-            var command = this.getKeyCommandMap()[e.keyCode];
+            var command = this.getKeyCommandMap()[keyCode];
             if(command) {
                 this.executeCommand(command);
             }

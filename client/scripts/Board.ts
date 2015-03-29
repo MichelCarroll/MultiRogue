@@ -4,7 +4,7 @@
 
 
 module Herbs {
-    export class Map {
+    export class Board {
 
         private map;
 

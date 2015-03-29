@@ -3,27 +3,27 @@
  */
 var Herbs;
 (function (Herbs) {
-    var Map = (function () {
-        function Map() {
+    var Board = (function () {
+        function Board() {
             this.map = new Object();
         }
-        Map.prototype.getTile = function (x, y) {
+        Board.prototype.getTile = function (x, y) {
             return this.map[x + "," + y];
         };
-        Map.prototype.tileExists = function (x, y) {
+        Board.prototype.tileExists = function (x, y) {
             return (this.map.hasOwnProperty(x + "," + y));
         };
-        Map.prototype.setTileMap = function (tileMap) {
+        Board.prototype.setTileMap = function (tileMap) {
             this.map = tileMap;
         };
-        Map.prototype.setTile = function (x, y, val) {
+        Board.prototype.setTile = function (x, y, val) {
             this.map[x + "," + y] = val;
         };
-        Map.prototype.deleteTile = function (x, y) {
+        Board.prototype.deleteTile = function (x, y) {
             delete this.map[x + "," + y];
         };
-        return Map;
+        return Board;
     })();
-    Herbs.Map = Map;
+    Herbs.Board = Board;
 })(Herbs || (Herbs = {}));
-//# sourceMappingURL=Map.js.map
+//# sourceMappingURL=Board.js.map
