@@ -18,12 +18,16 @@ class LevelGenerator {
 
     public create():Level {
         var map = new Board(100,50);
+        this.traceMap(map);
+        return new Level(map);
+    }
+
+    private traceMap(map:Board) {
         var digger = new ROT.Map.Digger(100,50);
         digger.create(function(x, y, value) {
             if (value) { return; } /* do not store walls */
             map.addTile(new Coordinate(x, y));
         });
-        return new Level(map);
     }
 
 }

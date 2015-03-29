@@ -13,6 +13,10 @@ var LevelGenerator = (function () {
     }
     LevelGenerator.prototype.create = function () {
         var map = new Board(100, 50);
+        this.traceMap(map);
+        return new Level(map);
+    };
+    LevelGenerator.prototype.traceMap = function (map) {
         var digger = new ROT.Map.Digger(100, 50);
         digger.create(function (x, y, value) {
             if (value) {
@@ -20,7 +24,6 @@ var LevelGenerator = (function () {
             } /* do not store walls */
             map.addTile(new Coordinate(x, y));
         });
-        return new Level(map);
     };
     return LevelGenerator;
 })();

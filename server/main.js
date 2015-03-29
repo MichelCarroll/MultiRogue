@@ -1,75 +1,8 @@
 /**
- * Created by michelcarroll on 15-03-24.
+ * Created by michelcarroll on 15-03-29.
  */
 ///<reference path='./ts-definitions/node.d.ts' />
-///<reference path='./ts-definitions/socket.io.d.ts' />
-///<reference path='./ts-definitions/express3.d.ts' />
-///<reference path='./bower_components/rot.js-TS/rot.d.ts' />
-var app = require('express')();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
-var fs = require('fs');
-eval(fs.readFileSync('./node_modules/rot.js/rot.js/rot.js', 'utf8'));
-var LevelGenerator = require('./LevelGenerator');
-var Coordinate = require('./Coordinate');
-var Herbs;
-(function (Herbs) {
-    var Server = (function () {
-        function Server() {
-            this.level = (new LevelGenerator()).create();
-            this.listenToSocketEvents();
-        }
-        Server.prototype.start = function () {
-            http.listen(3000, function () {
-            });
-        };
-        Server.prototype.listenToSocketEvents = function () {
-            var self = this;
-            io.on('connection', function (socket) {
-                var player = null;
-                socket.emit('initiate-board', self.level.serialize());
-                socket.on('position-my-player', function () {
-                    player = self.level.createNewPlayer(function () {
-                        self.startTurn(this, socket);
-                    });
-                    socket.emit('position-player', { 'player': player.serialize() });
-                    socket.broadcast.emit('being-came', player.serialize());
-                    self.level.resume();
-                });
-                socket.on('disconnect', function () {
-                    if (player) {
-                        socket.broadcast.emit('being-left', player.serialize());
-                        self.level.removePlayer(player);
-                    }
-                });
-                socket.on('shout', function (data) {
-                    if (!self.level.canPlay(player)) {
-                        return;
-                    }
-                    socket.broadcast.emit('being-shouted', { 'id': player.getId(), 'text': data.text });
-                    self.level.useTurns(player, 1);
-                });
-                socket.on('being-moved', function (data) {
-                    if (!self.level.canPlay(player)) {
-                        return;
-                    }
-                    self.level.movePlayer(player, new Coordinate(parseInt(data.x), parseInt(data.y)));
-                    socket.broadcast.emit('being-moved', player.serialize());
-                    self.level.useTurns(player, 1);
-                });
-            });
-        };
-        Server.prototype.startTurn = function (player, socket) {
-            socket.emit('its-your-turn', { turns: player.getRemainingTurns() });
-            socket.broadcast.emit('its-another-player-turn', {
-                'id': player.getId(),
-                'turns': player.getRemainingTurns()
-            });
-        };
-        return Server;
-    })();
-    Herbs.Server = Server;
-})(Herbs || (Herbs = {}));
-var server = new Herbs.Server();
+var GameServer = require('./GameServer');
+var server = new GameServer();
 server.start();
 //# sourceMappingURL=main.js.map

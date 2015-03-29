@@ -18,7 +18,6 @@ var Level = (function () {
     };
     Level.prototype.createNewPlayer = function (takeTurnCallback) {
         var position = this.map.getRandomUnoccupiedTile();
-        var self = this;
         var player = new Being(position, takeTurnCallback);
         this.beingRepository.add(player);
         this.scheduler.add(player, true);

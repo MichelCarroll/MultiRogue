@@ -33,7 +33,6 @@ class Level {
 
     public createNewPlayer(takeTurnCallback:()=>void):Being {
         var position = this.map.getRandomUnoccupiedTile();
-        var self = this;
         var player = new Being(position, takeTurnCallback);
         this.beingRepository.add(player);
         this.scheduler.add(player, true);
