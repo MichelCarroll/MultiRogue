@@ -1,24 +1,23 @@
 
 ///<reference path='./bower_components/rot.js-TS/rot.d.ts' />
 
-class Being
-{
+import Coordinate = require('./Coordinate');
 
-    private x:number;
-    private y:number;
+class Being {
+
+    private position:Coordinate;
     private id:number;
     private turns:number;
     private callForTurn:()=>void;
 
     static lastId = 1;
-    static getNextId()
-    {
+
+    static getNextId() {
         return this.lastId++;
     }
 
-    constructor(x:number, y:number, callForTurn:() => void) {
-        this.x = x;
-        this.y = y;
+    constructor(position:Coordinate, callForTurn:() => void) {
+        this.position = position;
         this.callForTurn = callForTurn;
         this.id = Being.getNextId();
         this.turns = 0;
@@ -28,20 +27,12 @@ class Being
         return this.id;
     }
 
-    public getX():number {
-        return this.x;
+    public getPosition():Coordinate {
+        return this.position;
     }
 
-    public getY():number {
-        return this.y;
-    }
-
-    public setX(x:number) {
-        this.x = x;
-    }
-
-    public setY(y:number) {
-        this.y = y;
+    public setPosition(position:Coordinate) {
+        this.position = position;
     }
 
     public getToken():string {
@@ -60,22 +51,19 @@ class Being
         this.turns += turns;
     }
 
-    public getRemainingTurns()
-    {
+    public getRemainingTurns() {
         return this.turns;
     }
 
-    public spendTurns(turns:number)
-    {
+    public spendTurns(turns:number) {
         this.turns = Math.max(this.turns - turns, 0);
     }
 
-    public serialize()
-    {
+    public serialize() {
         return {
             'id': this.getId(),
-            'x': this.getX(),
-            'y': this.getY(),
+            'x': this.position.x,
+            'y': this.position.y,
             'color': this.getColor(),
             'token': this.getToken()
         };

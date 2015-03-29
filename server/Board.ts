@@ -9,6 +9,8 @@ var difference = require('array-difference');
 var fs = require('fs');
 eval(fs.readFileSync('./node_modules/rot.js/rot.js/rot.js','utf8'));
 
+import Coordinate = require('./Coordinate');
+
 class Board {
 
     private width:number;
@@ -29,10 +31,9 @@ class Board {
         return this.tileMap;
     }
 
-    public addTile(x:number, y:number) {
-        var key = x+","+y;
-        this.freeTiles.push(key);
-        this.tileMap[key] = ".";
+    public addTile(position:Coordinate) {
+        this.freeTiles.push(position.toString());
+        this.tileMap[position.toString()] = ".";
     }
 
     public getWidth() {
@@ -43,29 +44,29 @@ class Board {
         return this.height;
     }
 
-    public getRandomUnoccupiedTile() {
+    public getRandomUnoccupiedTile():Coordinate {
         var unoccupiedTiles = difference(this.freeTiles, this.occupiedTiles);
         if(!unoccupiedTiles.length) {
             return;
         }
 
         var index = Math.floor(ROT.RNG.getUniform() * unoccupiedTiles.length);
-        return unoccupiedTiles.splice(index, 1)[0];
+        return Coordinate.fromString(unoccupiedTiles.splice(index, 1)[0]);
     }
 
-    public occupyTile(x:number, y:number) {
-        this.occupiedTiles.push(x+","+y);
+    public occupyTile(position:Coordinate) {
+        this.occupiedTiles.push(position.toString());
     }
 
-    public unoccupyTile(x:number, y:number) {
-        var index = this.occupiedTiles.indexOf(x+","+y);
+    public unoccupyTile(position:Coordinate) {
+        var index = this.occupiedTiles.indexOf(position.toString());
         if(index > -1) {
             this.occupiedTiles.splice(index, 1);
         }
     }
 
-    public isTileOccupied(x:number, y:number) {
-        return (this.occupiedTiles.indexOf(x+","+y) > -1);
+    public isTileOccupied(position:Coordinate) {
+        return (this.occupiedTiles.indexOf(position.toString()) > -1);
     }
 
 }

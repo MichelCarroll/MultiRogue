@@ -4,6 +4,7 @@
 
 import Board = require('./Board');
 import Being = require('./Being');
+import Coordinate = require('./Coordinate');
 
 
 class BeingRepository {
@@ -30,20 +31,19 @@ class BeingRepository {
     }
 
     public delete(being:Being) {
-        this.board.unoccupyTile(being.getX(), being.getY());
+        this.board.unoccupyTile(being.getPosition());
         delete this.beings[being.getId()];
     }
 
     public add(being:Being) {
         this.beings[being.getId()] = being;
-        this.board.occupyTile(being.getX(), being.getY());
+        this.board.occupyTile(being.getPosition());
     }
 
-    public move(being:Being, x:number, y:number) {
-        this.board.unoccupyTile(being.getX(), being.getY());
-        being.setX(x);
-        being.setY(y);
-        this.board.occupyTile(being.getX(), being.getY());
+    public move(being:Being, position:Coordinate) {
+        this.board.unoccupyTile(being.getPosition());
+        being.setPosition(position);
+        this.board.occupyTile(being.getPosition());
     }
 
 }

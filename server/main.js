@@ -13,6 +13,7 @@ eval(fs.readFileSync('./node_modules/rot.js/rot.js/rot.js', 'utf8'));
 var BeingRepository = require('./BeingRepository');
 var Being = require('./Being');
 var Board = require('./Board');
+var Coordinate = require('./Coordinate');
 var Herbs;
 (function (Herbs) {
     var Server = (function () {
@@ -23,10 +24,6 @@ var Herbs;
             this.createMap(mapWidth, mapHeight);
             this.listenToSocketEvents();
         }
-        Server.prototype.start = function () {
-            http.listen(3000, function () {
-            });
-        };
         Server.prototype.createMap = function (mapWidth, mapHeight) {
             var digger = new ROT.Map.Digger(mapWidth, mapHeight);
             var self = this;
@@ -34,14 +31,12 @@ var Herbs;
                 if (value) {
                     return;
                 } /* do not store walls */
-                self.map.addTile(x, y);
+                self.map.addTile(new Coordinate(x, y));
             });
         };
-        Server.prototype.nextTurn = function () {
-            this.currentPlayer = this.scheduler.next();
-            if (this.currentPlayer) {
-                this.currentPlayer.askToTakeTurn();
-            }
+        Server.prototype.start = function () {
+            http.listen(3000, function () {
+            });
         };
         Server.prototype.listenToSocketEvents = function () {
             var self = this;
@@ -55,15 +50,9 @@ var Herbs;
                     'current_player_id': self.currentPlayer ? self.currentPlayer.getId() : null
                 });
                 socket.on('position-my-player', function () {
-                    var key = self.map.getRandomUnoccupiedTile();
-                    var parts = key.split(",");
-                    player = new Being(parseInt(parts[0]), parseInt(parts[1]), function () {
-                        this.giveTurns(4);
-                        socket.emit('its-your-turn', { turns: 4 });
-                        socket.broadcast.emit('its-another-player-turn', {
-                            'id': player.getId(),
-                            'turns': 4
-                        });
+                    var position = self.map.getRandomUnoccupiedTile();
+                    player = new Being(position, function () {
+                        self.startTurn(this, socket, 4);
                     });
                     self.beingRepository.add(player);
                     socket.emit('position-player', { 'player': player.serialize() });
@@ -98,10 +87,24 @@ var Herbs;
                     if (!being) {
                         return;
                     }
-                    self.beingRepository.move(being, parseInt(data.x), parseInt(data.y));
+                    self.beingRepository.move(being, new Coordinate(parseInt(data.x), parseInt(data.y)));
                     socket.broadcast.emit('being-moved', being.serialize());
                     self.useTurns(player, 1);
                 });
+            });
+        };
+        Server.prototype.nextTurn = function () {
+            this.currentPlayer = this.scheduler.next();
+            if (this.currentPlayer) {
+                this.currentPlayer.askToTakeTurn();
+            }
+        };
+        Server.prototype.startTurn = function (player, socket, n) {
+            player.giveTurns(n);
+            socket.emit('its-your-turn', { turns: n });
+            socket.broadcast.emit('its-another-player-turn', {
+                'id': player.getId(),
+                'turns': n
             });
         };
         Server.prototype.canPlay = function (player) {

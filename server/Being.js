@@ -1,8 +1,7 @@
 ///<reference path='./bower_components/rot.js-TS/rot.d.ts' />
 var Being = (function () {
-    function Being(x, y, callForTurn) {
-        this.x = x;
-        this.y = y;
+    function Being(position, callForTurn) {
+        this.position = position;
         this.callForTurn = callForTurn;
         this.id = Being.getNextId();
         this.turns = 0;
@@ -13,17 +12,11 @@ var Being = (function () {
     Being.prototype.getId = function () {
         return this.id;
     };
-    Being.prototype.getX = function () {
-        return this.x;
+    Being.prototype.getPosition = function () {
+        return this.position;
     };
-    Being.prototype.getY = function () {
-        return this.y;
-    };
-    Being.prototype.setX = function (x) {
-        this.x = x;
-    };
-    Being.prototype.setY = function (y) {
-        this.y = y;
+    Being.prototype.setPosition = function (position) {
+        this.position = position;
     };
     Being.prototype.getToken = function () {
         return '@';
@@ -46,8 +39,8 @@ var Being = (function () {
     Being.prototype.serialize = function () {
         return {
             'id': this.getId(),
-            'x': this.getX(),
-            'y': this.getY(),
+            'x': this.position.x,
+            'y': this.position.y,
             'color': this.getColor(),
             'token': this.getToken()
         };

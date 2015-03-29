@@ -18,18 +18,17 @@ var BeingRepository = (function () {
         return beingSerialized;
     };
     BeingRepository.prototype.delete = function (being) {
-        this.board.unoccupyTile(being.getX(), being.getY());
+        this.board.unoccupyTile(being.getPosition());
         delete this.beings[being.getId()];
     };
     BeingRepository.prototype.add = function (being) {
         this.beings[being.getId()] = being;
-        this.board.occupyTile(being.getX(), being.getY());
+        this.board.occupyTile(being.getPosition());
     };
-    BeingRepository.prototype.move = function (being, x, y) {
-        this.board.unoccupyTile(being.getX(), being.getY());
-        being.setX(x);
-        being.setY(y);
-        this.board.occupyTile(being.getX(), being.getY());
+    BeingRepository.prototype.move = function (being, position) {
+        this.board.unoccupyTile(being.getPosition());
+        being.setPosition(position);
+        this.board.occupyTile(being.getPosition());
     };
     return BeingRepository;
 })();
