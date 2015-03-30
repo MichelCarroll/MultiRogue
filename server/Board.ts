@@ -42,7 +42,7 @@ class Board {
         return this.height;
     }
 
-    public getRandomUnoccupiedTile():Coordinate {
+    public getRandomTile():Coordinate {
         var index = Math.floor(ROT.RNG.getUniform() * this.tiles.length);
         return Coordinate.fromString(this.tiles[index]);
     }

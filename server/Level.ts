@@ -32,8 +32,12 @@ class Level {
         this.goRepository.add(being);
     }
 
+    public addImmobile(go:GameObject) {
+        this.goRepository.add(go);
+    }
+
     public createNewPlayer(takeTurnCallback:()=>void):Being {
-        var position = this.map.getRandomUnoccupiedTile();
+        var position = this.map.getRandomTile();
         var player = new Being(position, takeTurnCallback);
         this.goRepository.add(player);
         this.scheduler.add(player, true);
@@ -96,7 +100,7 @@ class Level {
     public serialize() {
         return {
             'map': this.map.getTileMap(),
-            'beings': this.goRepository.serialize(),
+            'gameObjects': this.goRepository.serialize(),
             'width': this.map.getWidth(),
             'height': this.map.getHeight(),
             'current_player_id': this.currentPlayer ? this.currentPlayer.getId() : null

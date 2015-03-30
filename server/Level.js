@@ -16,8 +16,11 @@ var Level = (function () {
     Level.prototype.addAIBeing = function (being) {
         this.goRepository.add(being);
     };
+    Level.prototype.addImmobile = function (go) {
+        this.goRepository.add(go);
+    };
     Level.prototype.createNewPlayer = function (takeTurnCallback) {
-        var position = this.map.getRandomUnoccupiedTile();
+        var position = this.map.getRandomTile();
         var player = new Being(position, takeTurnCallback);
         this.goRepository.add(player);
         this.scheduler.add(player, true);
@@ -71,7 +74,7 @@ var Level = (function () {
     Level.prototype.serialize = function () {
         return {
             'map': this.map.getTileMap(),
-            'beings': this.goRepository.serialize(),
+            'gameObjects': this.goRepository.serialize(),
             'width': this.map.getWidth(),
             'height': this.map.getHeight(),
             'current_player_id': this.currentPlayer ? this.currentPlayer.getId() : null

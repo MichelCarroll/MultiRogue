@@ -26,7 +26,7 @@ var Board = (function () {
     Board.prototype.getHeight = function () {
         return this.height;
     };
-    Board.prototype.getRandomUnoccupiedTile = function () {
+    Board.prototype.getRandomTile = function () {
         var index = Math.floor(ROT.RNG.getUniform() * this.tiles.length);
         return Coordinate.fromString(this.tiles[index]);
     };

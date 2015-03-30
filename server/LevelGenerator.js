@@ -5,6 +5,7 @@
 ///<reference path='./bower_components/rot.js-TS/rot.d.ts' />
 var fs = require('fs');
 eval(fs.readFileSync('./node_modules/rot.js/rot.js/rot.js', 'utf8'));
+var GameObject = require('./GameObject');
 var Board = require('./Board');
 var Level = require('./Level');
 var Coordinate = require('./Coordinate');
@@ -14,7 +15,14 @@ var LevelGenerator = (function () {
     LevelGenerator.prototype.create = function () {
         var map = new Board(100, 50);
         this.traceMap(map);
-        return new Level(map);
+        var level = new Level(map);
+        this.addRandomSticks(level, map, 100);
+        return level;
+    };
+    LevelGenerator.prototype.addRandomSticks = function (level, map, n) {
+        for (var i = 0; i < n; i++) {
+            level.addImmobile(new GameObject(map.getRandomTile(), '/', ROT.Color.toHex(ROT.Color.randomize([205, 133, 63], [20, 20, 20]))));
+        }
     };
     LevelGenerator.prototype.traceMap = function (map) {
         var digger = new ROT.Map.Digger(100, 50);

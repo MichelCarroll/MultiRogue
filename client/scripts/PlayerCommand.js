@@ -1,7 +1,7 @@
 /**
  * Created by michelcarroll on 15-03-28.
  */
-/// <reference path="./Being.ts" />
+/// <reference path="./GameObject.ts" />
 var Herbs;
 (function (Herbs) {
     var PlayerCommand = (function () {

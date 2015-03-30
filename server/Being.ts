@@ -13,7 +13,7 @@ class Being extends GameObject {
     private callForTurn:()=>void;
 
     constructor(position:Coordinate, callForTurn:() => void) {
-        super(position, '@', "#990");
+        super(position, '@', "#FF0");
         this.callForTurn = callForTurn;
         this.turns = 0;
     }

@@ -2,7 +2,7 @@
  * Created by michelcarroll on 15-03-28.
  */
 
-/// <reference path="./Being.ts" />
+/// <reference path="./GameObject.ts" />
 
 module Herbs {
     export class PlayerCommand {

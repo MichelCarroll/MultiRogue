@@ -11,7 +11,7 @@ var GameObject = require('./GameObject');
 var Being = (function (_super) {
     __extends(Being, _super);
     function Being(position, callForTurn) {
-        _super.call(this, position, '@', "#990");
+        _super.call(this, position, '@', "#FF0");
         this.callForTurn = callForTurn;
         this.turns = 0;
     }

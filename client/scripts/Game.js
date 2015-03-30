@@ -2,8 +2,8 @@
  * Created by michelcarroll on 15-03-22.
  */
 /// <reference path="../bower_components/rot.js-TS/rot.d.ts"/>
-/// <reference path="./Being.ts" />
-/// <reference path="./BeingRepository.ts" />
+/// <reference path="./GameObject.ts" />
+/// <reference path="./GameObjectRepository.ts" />
 /// <reference path="./Board.ts" />
 /// <reference path="./PlayerCommand.ts" />
 /// <reference path="./UIAdapter.ts" />
@@ -54,7 +54,7 @@ var Herbs;
                 self.map.setTileMap(data.map);
                 self.mapWidth = parseInt(data.width);
                 self.mapHeight = parseInt(data.height);
-                self.createBeings(data.beings);
+                self.createGameObjects(data.gameObjects);
                 self.socket.emit('position-my-player', {});
                 self.uiAdapter.clearGameDisplay();
                 self.createGameDisplay();
@@ -65,7 +65,7 @@ var Herbs;
                 }
             });
             this.socket.on('position-player', function (data) {
-                self.player = Herbs.Being.fromSerialization(data.player);
+                self.player = Herbs.GameObject.fromSerialization(data.player);
                 self.uiAdapter.logOnUI("You're now connected as Player #" + self.player.getId() + "!", Herbs.CHAT_LOG_INFO);
                 self.beingRepository.add(self.player);
                 self.uiAdapter.addPlayerToUI(self.player.getId());
@@ -75,15 +75,15 @@ var Herbs;
             this.socket.on('being-moved', function (data) {
                 var being = self.beingRepository.get(parseInt(data.id));
                 if (!being) {
-                    self.beingRepository.add(Herbs.Being.fromSerialization(data));
+                    self.beingRepository.add(Herbs.GameObject.fromSerialization(data));
                 }
                 else {
-                    self.beingRepository.move(being, parseInt(data.x), parseInt(data.y));
+                    self.beingRepository.move(being, new Herbs.Coordinate(parseInt(data.x), parseInt(data.y)));
                 }
                 self.draw();
             });
             this.socket.on('being-came', function (data) {
-                var being = Herbs.Being.fromSerialization(data);
+                var being = Herbs.GameObject.fromSerialization(data);
                 self.beingRepository.add(being);
                 self.draw();
                 self.uiAdapter.logOnUI("Player #" + data.id + " just connected", Herbs.CHAT_LOG_INFO);
@@ -119,12 +119,12 @@ var Herbs;
             this.actionTurns = 0;
             this.map = new Herbs.Board();
             this.beingsBoard = new Herbs.Board();
-            this.beingRepository = new Herbs.BeingRepository(this.beingsBoard);
+            this.beingRepository = new Herbs.GameObjectRepository(this.beingsBoard);
         };
-        Game.prototype.createBeings = function (serializedBeings) {
-            for (var i in serializedBeings) {
-                if (serializedBeings.hasOwnProperty(i)) {
-                    var being = Herbs.Being.fromSerialization(serializedBeings[i]);
+        Game.prototype.createGameObjects = function (serializedGameObjects) {
+            for (var i in serializedGameObjects) {
+                if (serializedGameObjects.hasOwnProperty(i)) {
+                    var being = Herbs.GameObject.fromSerialization(serializedGameObjects[i]);
                     this.beingRepository.add(being);
                     this.uiAdapter.addPlayerToUI(being.getId());
                 }
@@ -152,26 +152,27 @@ var Herbs;
             this.drawPlayer();
         };
         Game.prototype.drawPlayer = function () {
-            this.display.draw(this.player.getX(), this.player.getY(), this.player.getToken(), this.player.getColor(), "#aa0");
+            this.display.draw(this.player.getPosition().x, this.player.getPosition().y, this.player.getToken(), this.player.getColor(), "#aa0");
         };
         Game.prototype.drawBoard = function () {
             var self = this;
-            this.fov.compute(this.player.getX(), this.player.getY(), 5, function (x, y, r, visibility) {
+            this.fov.compute(this.player.getPosition().x, this.player.getPosition().y, 5, function (x, y, r, visibility) {
                 if (!r) {
                     return;
                 }
-                var color = (self.map.tileExists(x, y) ? "#aa0" : "#660");
-                self.display.draw(x, y, self.map.getTile(x, y), "#fff", color);
-                var being = self.beingsBoard.getTile(x, y);
+                var coord = new Herbs.Coordinate(x, y);
+                var color = (self.map.tileExists(coord) ? "#aa0" : "#660");
+                self.display.draw(x, y, self.map.getTile(coord), "#fff", color);
+                var being = self.beingsBoard.getTile(coord);
                 if (being) {
-                    self.display.draw(being.getX(), being.getY(), being.getToken(), being.getColor(), "#aa0");
+                    self.display.draw(being.getPosition().x, being.getPosition().y, being.getToken(), being.getColor(), "#aa0");
                 }
             });
         };
         Game.prototype.initiateFov = function () {
             var self = this;
             this.fov = new ROT.FOV.PreciseShadowcasting(function (x, y) {
-                if (self.map.tileExists(x, y)) {
+                if (self.map.tileExists(new Herbs.Coordinate(x, y))) {
                     return true;
                 }
                 return false;
@@ -179,18 +180,17 @@ var Herbs;
         };
         Game.prototype.getMoveCommand = function (x, y, player, beingRepository, map, socket) {
             return function () {
-                var newX = player.getX() + x;
-                var newY = player.getY() + y;
-                if (!map.tileExists(newX, newY)) {
+                var coord = player.getPosition().add(x, y);
+                if (!map.tileExists(coord)) {
                     return false;
                 }
-                if (!beingRepository.move(player, newX, newY)) {
+                if (!beingRepository.move(player, coord)) {
                     return false;
                 }
                 socket.emit('being-moved', {
                     'id': player.getId(),
-                    'x': player.getX(),
-                    'y': player.getY()
+                    'x': player.getPosition().x,
+                    'y': player.getPosition().y
                 });
                 return true;
             };

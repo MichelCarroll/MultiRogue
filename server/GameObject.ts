@@ -59,7 +59,8 @@ class GameObject {
             'x': this.position.x,
             'y': this.position.y,
             'color': this.getColor(),
-            'token': this.getToken()
+            'token': this.getToken(),
+            'canWalkOn': this.canBeWalkedThrough()
         };
     }
 }

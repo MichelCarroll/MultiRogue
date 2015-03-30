@@ -2,6 +2,7 @@
  * Created by michelcarroll on 15-03-27.
  */
 
+/// <reference path="./Coordinate.ts" />
 
 module Herbs {
     export class Board {
@@ -12,24 +13,24 @@ module Herbs {
             this.map = new Object();
         }
 
-        public getTile(x:number, y:number):any {
-            return this.map[x+","+y];
+        public getTile(position:Coordinate):any {
+            return this.map[position.toString()];
         }
 
-        public tileExists(x:number, y:number):boolean {
-            return (this.map.hasOwnProperty(x+","+y));
+        public tileExists(position:Coordinate):boolean {
+            return (this.map.hasOwnProperty(position.toString()));
         }
 
         public setTileMap(tileMap:any) {
             this.map = tileMap;
         }
 
-        public setTile(x:number, y:number, val:any) {
-            this.map[x+","+y] = val;
+        public setTile(position:Coordinate, val:any) {
+            this.map[position.toString()] = val;
         }
 
-        public deleteTile(x:number, y:number) {
-            delete this.map[x+","+y];
+        public deleteTile(position:Coordinate) {
+            delete this.map[position.toString()];
         }
     }
 }
