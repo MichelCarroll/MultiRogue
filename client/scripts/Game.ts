@@ -247,7 +247,9 @@ module Herbs {
                 if(!map.tileExists(newX, newY)) {
                     return false;
                 }
-                beingRepository.move(player, newX, newY);
+                if(!beingRepository.move(player, newX, newY)) {
+                    return false;
+                }
                 socket.emit('being-moved', {
                     'id': player.getId(),
                     'x': player.getX(),
@@ -287,6 +289,7 @@ module Herbs {
             }
 
             if(!playerCommand.execute()) {
+                this.uiAdapter.logOnUI("You can't do that!");
                 return;
             }
 

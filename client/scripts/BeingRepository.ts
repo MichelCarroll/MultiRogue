@@ -36,10 +36,15 @@ module Herbs {
         }
 
         public move(being:Being, x, y) {
+            if(this.beingBoard.getTile(x, y)) {
+                return false;
+            }
+
             this.beingBoard.deleteTile(being.getX(), being.getY());
             being.setX(x);
             being.setY(y);
             this.beingBoard.setTile(being.getX(), being.getY(), being);
+            return true;
         }
 
     }
