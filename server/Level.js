@@ -4,22 +4,22 @@
 ///<reference path='./ts-definitions/node.d.ts' />
 var fs = require('fs');
 eval(fs.readFileSync('./node_modules/rot.js/rot.js/rot.js', 'utf8'));
-var BeingRepository = require('./BeingRepository');
+var GameObjectRepository = require('./GameObjectRepository');
 var Being = require('./Being');
 var Level = (function () {
     function Level(map) {
         this.map = map;
-        this.beingRepository = new BeingRepository(this.map);
+        this.goRepository = new GameObjectRepository();
         this.scheduler = new ROT.Scheduler.Simple();
         this.currentPlayer = null;
     }
     Level.prototype.addAIBeing = function (being) {
-        this.beingRepository.add(being);
+        this.goRepository.add(being);
     };
     Level.prototype.createNewPlayer = function (takeTurnCallback) {
         var position = this.map.getRandomUnoccupiedTile();
         var player = new Being(position, takeTurnCallback);
-        this.beingRepository.add(player);
+        this.goRepository.add(player);
         this.scheduler.add(player, true);
         return player;
     };
@@ -32,14 +32,25 @@ var Level = (function () {
         }
     };
     Level.prototype.removePlayer = function (player) {
-        this.beingRepository.delete(player);
+        this.goRepository.delete(player);
         this.scheduler.remove(player);
         if (this.currentPlayer === player) {
             this.nextTurn();
         }
     };
     Level.prototype.movePlayer = function (player, position) {
-        this.beingRepository.move(player, position);
+        if (!this.map.tileExists(position)) {
+            throw new Error('Cant move there, no tile there');
+        }
+        if (this.getCollidedGameObjects(position).length) {
+            throw new Error('Cant move there, being in the way');
+        }
+        player.setPosition(position);
+    };
+    Level.prototype.getCollidedGameObjects = function (position) {
+        return this.goRepository.getAll().filter(function (element, index, array) {
+            return !element.canBeWalkedThrough() && element.getPosition().equals(position);
+        });
     };
     Level.prototype.canPlay = function (player) {
         return (this.currentPlayer === player && player.getRemainingTurns() > 0);
@@ -60,13 +71,13 @@ var Level = (function () {
     Level.prototype.serialize = function () {
         return {
             'map': this.map.getTileMap(),
-            'beings': this.beingRepository.serialize(),
+            'beings': this.goRepository.serialize(),
             'width': this.map.getWidth(),
             'height': this.map.getHeight(),
             'current_player_id': this.currentPlayer ? this.currentPlayer.getId() : null
         };
     };
-    Level.TURNS_PER_ROUND = 4;
+    Level.TURNS_PER_ROUND = 400;
     return Level;
 })();
 module.exports = Level;

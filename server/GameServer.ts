@@ -13,7 +13,6 @@ var io = require('socket.io')(http);
 var fs = require('fs');
 eval(fs.readFileSync('./node_modules/rot.js/rot.js/rot.js','utf8'));
 
-import BeingRepository = require('./BeingRepository');
 import Being = require('./Being');
 import Board = require('./Board');
 import Level = require('./Level');
@@ -43,7 +42,7 @@ class GameServer {
 
             socket.on('position-my-player', function() {
                 player = self.level.createNewPlayer(function() {
-                    self.startTurn(this, socket);
+                    self.callToStartTurns(this, socket);
                 });
                 socket.emit('position-player', { 'player': player.serialize() });
                 socket.broadcast.emit('being-came', player.serialize());
@@ -70,14 +69,25 @@ class GameServer {
                     return;
                 }
 
-                self.level.movePlayer(player, new Coordinate(parseInt(data.x), parseInt(data.y)));
+                try {
+                    self.level.movePlayer(player, new Coordinate(parseInt(data.x), parseInt(data.y)));
+                } catch(error) {
+                    self.handleError(error, socket);
+                    return;
+                }
+
                 socket.broadcast.emit('being-moved', player.serialize());
                 self.level.useTurns(player, 1);
             });
         });
     }
 
-    private startTurn(player:Being, socket:any) {
+    private handleError(error:Error, socket) {
+        console.log(error);
+        socket.emit('debug', error.message);
+    }
+
+    private callToStartTurns(player:Being, socket:any) {
         socket.emit('its-your-turn', { turns: player.getRemainingTurns() });
         socket.broadcast.emit('its-another-player-turn', {
             'id': player.getId(),

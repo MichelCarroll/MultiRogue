@@ -13,6 +13,9 @@ var Coordinate = (function () {
         var parts = str.split(",");
         return new Coordinate(parseInt(parts[0]), parseInt(parts[1]));
     };
+    Coordinate.prototype.equals = function (coord) {
+        return this.x === coord.x && this.y === coord.y;
+    };
     return Coordinate;
 })();
 module.exports = Coordinate;

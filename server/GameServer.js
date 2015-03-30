@@ -28,7 +28,7 @@ var GameServer = (function () {
             socket.emit('initiate-board', self.level.serialize());
             socket.on('position-my-player', function () {
                 player = self.level.createNewPlayer(function () {
-                    self.startTurn(this, socket);
+                    self.callToStartTurns(this, socket);
                 });
                 socket.emit('position-player', { 'player': player.serialize() });
                 socket.broadcast.emit('being-came', player.serialize());
@@ -51,13 +51,23 @@ var GameServer = (function () {
                 if (!self.level.canPlay(player)) {
                     return;
                 }
-                self.level.movePlayer(player, new Coordinate(parseInt(data.x), parseInt(data.y)));
+                try {
+                    self.level.movePlayer(player, new Coordinate(parseInt(data.x), parseInt(data.y)));
+                }
+                catch (error) {
+                    self.handleError(error, socket);
+                    return;
+                }
                 socket.broadcast.emit('being-moved', player.serialize());
                 self.level.useTurns(player, 1);
             });
         });
     };
-    GameServer.prototype.startTurn = function (player, socket) {
+    GameServer.prototype.handleError = function (error, socket) {
+        console.log(error);
+        socket.emit('debug', error.message);
+    };
+    GameServer.prototype.callToStartTurns = function (player, socket) {
         socket.emit('its-your-turn', { turns: player.getRemainingTurns() });
         socket.broadcast.emit('its-another-player-turn', {
             'id': player.getId(),

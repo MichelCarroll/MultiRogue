@@ -8,7 +8,6 @@
 var fs = require('fs');
 eval(fs.readFileSync('./node_modules/rot.js/rot.js/rot.js','utf8'));
 
-import BeingRepository = require('./BeingRepository');
 import Being = require('./Being');
 import Board = require('./Board');
 import Level = require('./Level');

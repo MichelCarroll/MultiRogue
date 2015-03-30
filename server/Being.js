@@ -1,34 +1,28 @@
 ///<reference path='./bower_components/rot.js-TS/rot.d.ts' />
-var Being = (function () {
+var __extends = this.__extends || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    __.prototype = b.prototype;
+    d.prototype = new __();
+};
+var fs = require('fs');
+eval(fs.readFileSync('./node_modules/rot.js/rot.js/rot.js', 'utf8'));
+var GameObject = require('./GameObject');
+var Being = (function (_super) {
+    __extends(Being, _super);
     function Being(position, callForTurn) {
-        this.position = position;
+        _super.call(this, position, '@', "#990");
         this.callForTurn = callForTurn;
-        this.id = Being.getNextId();
         this.turns = 0;
     }
-    Being.getNextId = function () {
-        return this.lastId++;
-    };
-    Being.prototype.getId = function () {
-        return this.id;
-    };
-    Being.prototype.getPosition = function () {
-        return this.position;
-    };
-    Being.prototype.setPosition = function (position) {
-        this.position = position;
-    };
-    Being.prototype.getToken = function () {
-        return '@';
-    };
-    Being.prototype.getColor = function () {
-        return '#888';
-    };
     Being.prototype.askToTakeTurn = function () {
         this.callForTurn();
     };
     Being.prototype.giveTurns = function (turns) {
         this.turns += turns;
+    };
+    Being.prototype.canBeWalkedThrough = function () {
+        return false;
     };
     Being.prototype.getRemainingTurns = function () {
         return this.turns;
@@ -36,17 +30,7 @@ var Being = (function () {
     Being.prototype.spendTurns = function (turns) {
         this.turns = Math.max(this.turns - turns, 0);
     };
-    Being.prototype.serialize = function () {
-        return {
-            'id': this.getId(),
-            'x': this.position.x,
-            'y': this.position.y,
-            'color': this.getColor(),
-            'token': this.getToken()
-        };
-    };
-    Being.lastId = 1;
     return Being;
-})();
+})(GameObject);
 module.exports = Being;
 //# sourceMappingURL=Being.js.map

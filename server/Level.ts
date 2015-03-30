@@ -7,34 +7,35 @@
 var fs = require('fs');
 eval(fs.readFileSync('./node_modules/rot.js/rot.js/rot.js','utf8'));
 
-import BeingRepository = require('./BeingRepository');
+import GameObjectRepository = require('./GameObjectRepository');
+import GameObject = require('./GameObject');
 import Being = require('./Being');
 import Board = require('./Board');
 import Coordinate = require('./Coordinate');
 
 class Level {
 
-    static TURNS_PER_ROUND = 4;
+    static TURNS_PER_ROUND = 400;
     private map:Board;
-    private beingRepository:BeingRepository;
+    private goRepository:GameObjectRepository;
     private scheduler:ROT.Scheduler.Simple;
     private currentPlayer:Being;
 
     constructor(map:Board) {
         this.map = map;
-        this.beingRepository = new BeingRepository(this.map);
+        this.goRepository = new GameObjectRepository();
         this.scheduler = new ROT.Scheduler.Simple();
         this.currentPlayer = null;
     }
 
     public addAIBeing(being:Being) {
-        this.beingRepository.add(being);
+        this.goRepository.add(being);
     }
 
     public createNewPlayer(takeTurnCallback:()=>void):Being {
         var position = this.map.getRandomUnoccupiedTile();
         var player = new Being(position, takeTurnCallback);
-        this.beingRepository.add(player);
+        this.goRepository.add(player);
         this.scheduler.add(player, true);
         return player;
     }
@@ -50,7 +51,7 @@ class Level {
     }
 
     public removePlayer(player:Being) {
-        this.beingRepository.delete(player);
+        this.goRepository.delete(player);
         this.scheduler.remove(player);
         if(this.currentPlayer === player) {
             this.nextTurn();
@@ -58,7 +59,19 @@ class Level {
     }
 
     public movePlayer(player:Being, position:Coordinate) {
-        this.beingRepository.move(player, position);
+        if(!this.map.tileExists(position)) {
+            throw new Error('Cant move there, no tile there');
+        }
+        if(this.getCollidedGameObjects(position).length) {
+            throw new Error('Cant move there, being in the way');
+        }
+        player.setPosition(position);
+    }
+
+    private getCollidedGameObjects(position:Coordinate) {
+        return this.goRepository.getAll().filter(function(element:GameObject, index, array) {
+            return !element.canBeWalkedThrough() && element.getPosition().equals(position);
+        });
     }
 
     public canPlay(player:Being) {
@@ -83,7 +96,7 @@ class Level {
     public serialize() {
         return {
             'map': this.map.getTileMap(),
-            'beings': this.beingRepository.serialize(),
+            'beings': this.goRepository.serialize(),
             'width': this.map.getWidth(),
             'height': this.map.getHeight(),
             'current_player_id': this.currentPlayer ? this.currentPlayer.getId() : null

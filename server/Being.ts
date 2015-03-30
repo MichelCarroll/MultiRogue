@@ -1,46 +1,21 @@
 
 ///<reference path='./bower_components/rot.js-TS/rot.d.ts' />
 
+var fs = require('fs');
+eval(fs.readFileSync('./node_modules/rot.js/rot.js/rot.js','utf8'));
+
 import Coordinate = require('./Coordinate');
+import GameObject = require('./GameObject');
 
-class Being {
+class Being extends GameObject {
 
-    private position:Coordinate;
-    private id:number;
     private turns:number;
     private callForTurn:()=>void;
 
-    static lastId = 1;
-
-    static getNextId() {
-        return this.lastId++;
-    }
-
     constructor(position:Coordinate, callForTurn:() => void) {
-        this.position = position;
+        super(position, '@', "#990");
         this.callForTurn = callForTurn;
-        this.id = Being.getNextId();
         this.turns = 0;
-    }
-
-    public getId():number {
-        return this.id;
-    }
-
-    public getPosition():Coordinate {
-        return this.position;
-    }
-
-    public setPosition(position:Coordinate) {
-        this.position = position;
-    }
-
-    public getToken():string {
-        return '@';
-    }
-
-    public getColor():string {
-        return '#888';
     }
 
     public askToTakeTurn() {
@@ -51,22 +26,16 @@ class Being {
         this.turns += turns;
     }
 
+    public canBeWalkedThrough() {
+        return false;
+    }
+
     public getRemainingTurns() {
         return this.turns;
     }
 
     public spendTurns(turns:number) {
         this.turns = Math.max(this.turns - turns, 0);
-    }
-
-    public serialize() {
-        return {
-            'id': this.getId(),
-            'x': this.position.x,
-            'y': this.position.y,
-            'color': this.getColor(),
-            'token': this.getToken()
-        };
     }
 }
 

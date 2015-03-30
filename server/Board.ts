@@ -16,15 +16,13 @@ class Board {
     private width:number;
     private height:number;
     private tileMap:Object;
-    private freeTiles:Array<string>;
-    private occupiedTiles:Array<string>;
+    private tiles:Array<string>;
 
     constructor(mapWidth:number, mapHeight:number) {
         this.width = mapWidth;
         this.height = mapHeight;
         this.tileMap = new Object();
-        this.freeTiles = new Array();
-        this.occupiedTiles = new Array();
+        this.tiles = new Array();
     }
 
     public getTileMap() {
@@ -32,7 +30,7 @@ class Board {
     }
 
     public addTile(position:Coordinate) {
-        this.freeTiles.push(position.toString());
+        this.tiles.push(position.toString());
         this.tileMap[position.toString()] = ".";
     }
 
@@ -45,28 +43,12 @@ class Board {
     }
 
     public getRandomUnoccupiedTile():Coordinate {
-        var unoccupiedTiles = difference(this.freeTiles, this.occupiedTiles);
-        if(!unoccupiedTiles.length) {
-            return;
-        }
-
-        var index = Math.floor(ROT.RNG.getUniform() * unoccupiedTiles.length);
-        return Coordinate.fromString(unoccupiedTiles.splice(index, 1)[0]);
+        var index = Math.floor(ROT.RNG.getUniform() * this.tiles.length);
+        return Coordinate.fromString(this.tiles[index]);
     }
 
-    public occupyTile(position:Coordinate) {
-        this.occupiedTiles.push(position.toString());
-    }
-
-    public unoccupyTile(position:Coordinate) {
-        var index = this.occupiedTiles.indexOf(position.toString());
-        if(index > -1) {
-            this.occupiedTiles.splice(index, 1);
-        }
-    }
-
-    public isTileOccupied(position:Coordinate) {
-        return (this.occupiedTiles.indexOf(position.toString()) > -1);
+    public tileExists(position:Coordinate) {
+        return (this.tiles.indexOf(position.toString()) > -1);
     }
 
 }
