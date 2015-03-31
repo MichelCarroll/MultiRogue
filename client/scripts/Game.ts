@@ -170,6 +170,14 @@ module Herbs {
                 self.uiAdapter.clearGameDisplay();
                 self.levelInitiated = false;
             });
+
+            this.socket.on('being-looked-at-floor', function(data:any) {
+                var being = self.beingRepository.get(parseInt(data.id));
+                if(!being) {
+                    return;
+                }
+                self.uiAdapter.logOnUI(being.getName()+" inspected an object on the floor.", CHAT_LOG_INFO);
+            });
         }
 
         private initializeGame()
@@ -274,6 +282,21 @@ module Herbs {
             };
         }
 
+        private getLookAtFloorCommand(player:GameObject, beingRepository:GameObjectRepository, socket:Socket) {
+            var self = this;
+            return function() {
+                var go = beingRepository.getTopWalkableGameObjectOnStack(player.getPosition());
+                if(!go) {
+                    return false;
+                }
+                self.uiAdapter.logOnUI("You see "+go.getDescription()+".");
+                socket.emit('being-looked-at-floor', {
+                    'id': player.getId()
+                });
+                return true;
+            }
+        }
+
         private getKeyCommandMap()
         {
             var map = {};
@@ -281,6 +304,7 @@ module Herbs {
             map[ROT.VK_RIGHT] = new PlayerCommand(1, this.getMoveCommand(1,  0, this.player, this.beingRepository, this.map, this.socket));
             map[ROT.VK_DOWN] =  new PlayerCommand(1, this.getMoveCommand(0,  1, this.player, this.beingRepository, this.map, this.socket));
             map[ROT.VK_LEFT] =  new PlayerCommand(1, this.getMoveCommand(-1, 0, this.player, this.beingRepository, this.map, this.socket));
+            map[ROT.VK_PERIOD]= new PlayerCommand(1, this.getLookAtFloorCommand(this.player, this.beingRepository, this.socket));
             return map;
         }
 

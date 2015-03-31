@@ -42,6 +42,18 @@ module Herbs {
             return true;
         }
 
+        public getTopWalkableGameObjectOnStack(position:Coordinate):GameObject {
+            var key = position.toString();
+            if(!this.goStacks[key]) {
+                return;
+            }
+            for(var i = 0; i < this.goStacks[key].length; i++) {
+                if(this.goStacks[key][i].canBeWalkedThrough()) {
+                    return this.goStacks[key][i];
+                }
+            }
+        }
+
         public getTopGameObjectOnStack(position:Coordinate):GameObject {
             var key = position.toString();
             if(!this.goStacks[key] || !this.goStacks[key].length) {

@@ -128,6 +128,13 @@ var Herbs;
                 self.uiAdapter.clearGameDisplay();
                 self.levelInitiated = false;
             });
+            this.socket.on('being-looked-at-floor', function (data) {
+                var being = self.beingRepository.get(parseInt(data.id));
+                if (!being) {
+                    return;
+                }
+                self.uiAdapter.logOnUI(being.getName() + " inspected an object on the floor.", Herbs.CHAT_LOG_INFO);
+            });
         };
         Game.prototype.initializeGame = function () {
             this.uiAdapter.clearPlayerList();
@@ -211,12 +218,27 @@ var Herbs;
                 return true;
             };
         };
+        Game.prototype.getLookAtFloorCommand = function (player, beingRepository, socket) {
+            var self = this;
+            return function () {
+                var go = beingRepository.getTopWalkableGameObjectOnStack(player.getPosition());
+                if (!go) {
+                    return false;
+                }
+                self.uiAdapter.logOnUI("You see " + go.getDescription() + ".");
+                socket.emit('being-looked-at-floor', {
+                    'id': player.getId()
+                });
+                return true;
+            };
+        };
         Game.prototype.getKeyCommandMap = function () {
             var map = {};
             map[ROT.VK_UP] = new Herbs.PlayerCommand(1, this.getMoveCommand(0, -1, this.player, this.beingRepository, this.map, this.socket));
             map[ROT.VK_RIGHT] = new Herbs.PlayerCommand(1, this.getMoveCommand(1, 0, this.player, this.beingRepository, this.map, this.socket));
             map[ROT.VK_DOWN] = new Herbs.PlayerCommand(1, this.getMoveCommand(0, 1, this.player, this.beingRepository, this.map, this.socket));
             map[ROT.VK_LEFT] = new Herbs.PlayerCommand(1, this.getMoveCommand(-1, 0, this.player, this.beingRepository, this.map, this.socket));
+            map[ROT.VK_PERIOD] = new Herbs.PlayerCommand(1, this.getLookAtFloorCommand(this.player, this.beingRepository, this.socket));
             return map;
         };
         Game.prototype.handlePlayerKeyEvent = function (keyCode) {

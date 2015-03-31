@@ -79,6 +79,14 @@ class GameServer {
                 socket.broadcast.emit('being-moved', player.serialize());
                 self.level.useTurns(player, 1);
             });
+
+            socket.on('being-looked-at-floor', function(data) {
+                if(!self.level.canPlay(player)) {
+                    return;
+                }
+                socket.broadcast.emit('being-looked-at-floor', player.serialize());
+                self.level.useTurns(player, 1);
+            });
         });
     }
 

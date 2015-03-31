@@ -31,6 +31,17 @@ var Herbs;
             this.addToStack(go, go.getPosition());
             return true;
         };
+        GameObjectRepository.prototype.getTopWalkableGameObjectOnStack = function (position) {
+            var key = position.toString();
+            if (!this.goStacks[key]) {
+                return;
+            }
+            for (var i = 0; i < this.goStacks[key].length; i++) {
+                if (this.goStacks[key][i].canBeWalkedThrough()) {
+                    return this.goStacks[key][i];
+                }
+            }
+        };
         GameObjectRepository.prototype.getTopGameObjectOnStack = function (position) {
             var key = position.toString();
             if (!this.goStacks[key] || !this.goStacks[key].length) {
