@@ -28,7 +28,6 @@ module Herbs {
     export class Game {
 
         private map:Board;
-        private beingsBoard:Board;
         private beingRepository:GameObjectRepository;
         private display:ROT.Display;
         private player:GameObject;
@@ -163,8 +162,7 @@ module Herbs {
             this.uiAdapter.clearPlayerList();
             this.actionTurns = 0;
             this.map = new Board();
-            this.beingsBoard = new Board();
-            this.beingRepository = new GameObjectRepository(this.beingsBoard);
+            this.beingRepository = new GameObjectRepository();
         }
 
         private createGameObjects(serializedGameObjects:any)
@@ -221,7 +219,7 @@ module Herbs {
                 var coord = new Coordinate(x,y);
                 var color = (self.map.tileExists(coord) ? "#aa0": "#660");
                 self.display.draw(x, y, self.map.getTile(coord), "#fff", color);
-                var being = self.beingsBoard.getTile(coord);
+                var being = self.beingRepository.getTopGameObjectOnStack(coord);
 
                 if(being) {
                     self.display.draw(being.getPosition().x,being.getPosition().y,being.getToken(),being.getColor(), "#aa0");

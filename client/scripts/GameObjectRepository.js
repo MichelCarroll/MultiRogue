@@ -7,34 +7,87 @@
 var Herbs;
 (function (Herbs) {
     var GameObjectRepository = (function () {
-        function GameObjectRepository(goBoard) {
-            this.goBoard = goBoard;
+        function GameObjectRepository() {
+            this.goStacks = {};
             this.gos = {};
         }
         GameObjectRepository.prototype.add = function (go) {
             this.gos[go.getId()] = go;
-            this.goBoard.setTile(go.getPosition(), go);
+            this.addToStack(go, go.getPosition());
         };
         GameObjectRepository.prototype.get = function (id) {
             return this.gos[id];
         };
         GameObjectRepository.prototype.remove = function (id) {
             var go = this.gos[id];
-            if (go) {
-                if (this.goBoard.getTile(go.getPosition()) === go) {
-                    this.goBoard.deleteTile(go.getPosition());
-                }
-                delete this.gos[id];
+            if (!go) {
+                return;
             }
+            this.removeFromStack(go, go.getPosition());
+            delete this.gos[id];
         };
         GameObjectRepository.prototype.move = function (go, position) {
-            var foundGo = this.goBoard.getTile(position);
-            if (foundGo && !foundGo.canBeWalkedThrough()) {
+            if (!this.allGOInStackAreWalkable(position.toString())) {
                 return false;
             }
-            this.goBoard.deleteTile(go.getPosition());
+            this.removeFromStack(go, go.getPosition());
             go.setPosition(position);
-            this.goBoard.setTile(position, go);
+            this.addToStack(go, go.getPosition());
+            return true;
+        };
+        GameObjectRepository.prototype.getTopGameObjectOnStack = function (position) {
+            var key = position.toString();
+            if (!this.goStacks[key] || !this.goStacks[key].length) {
+                return;
+            }
+            return this.goStacks[key][0];
+        };
+        GameObjectRepository.prototype.addToStack = function (go, position) {
+            var key = position.toString();
+            if (!this.goStacks[key]) {
+                this.goStacks[key] = new Array();
+            }
+            this.goStacks[key].push(go);
+            this.sortStack(key);
+        };
+        GameObjectRepository.prototype.sortStack = function (stackKey) {
+            this.goStacks[stackKey].sort(function (a, b) {
+                if (a.canBeWalkedThrough() === b.canBeWalkedThrough()) {
+                    return 0;
+                }
+                else if (!a.canBeWalkedThrough()) {
+                    return -1;
+                }
+                return 1;
+            });
+        };
+        GameObjectRepository.prototype.removeFromStack = function (go, position) {
+            var key = position.toString();
+            if (!this.goStacks[key]) {
+                return;
+            }
+            var index = this.findGOIndexInStack(position.toString(), go);
+            if (index !== -1) {
+                this.goStacks[key].splice(index, 1);
+            }
+        };
+        GameObjectRepository.prototype.findGOIndexInStack = function (stackKey, go) {
+            for (var i = 0; i < this.goStacks[stackKey].length; i++) {
+                if (this.goStacks[stackKey][i].getId() === go.getId()) {
+                    return i;
+                }
+            }
+            return -1;
+        };
+        GameObjectRepository.prototype.allGOInStackAreWalkable = function (stackKey) {
+            if (!this.goStacks[stackKey]) {
+                return true;
+            }
+            for (var i = 0; i < this.goStacks[stackKey].length; i++) {
+                if (!this.goStacks[stackKey][i].canBeWalkedThrough()) {
+                    return false;
+                }
+            }
             return true;
         };
         return GameObjectRepository;

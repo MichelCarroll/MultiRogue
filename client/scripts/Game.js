@@ -118,8 +118,7 @@ var Herbs;
             this.uiAdapter.clearPlayerList();
             this.actionTurns = 0;
             this.map = new Herbs.Board();
-            this.beingsBoard = new Herbs.Board();
-            this.beingRepository = new Herbs.GameObjectRepository(this.beingsBoard);
+            this.beingRepository = new Herbs.GameObjectRepository();
         };
         Game.prototype.createGameObjects = function (serializedGameObjects) {
             for (var i in serializedGameObjects) {
@@ -163,7 +162,7 @@ var Herbs;
                 var coord = new Herbs.Coordinate(x, y);
                 var color = (self.map.tileExists(coord) ? "#aa0" : "#660");
                 self.display.draw(x, y, self.map.getTile(coord), "#fff", color);
-                var being = self.beingsBoard.getTile(coord);
+                var being = self.beingRepository.getTopGameObjectOnStack(coord);
                 if (being) {
                     self.display.draw(being.getPosition().x, being.getPosition().y, being.getToken(), being.getColor(), "#aa0");
                 }
