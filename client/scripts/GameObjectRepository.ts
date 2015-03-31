@@ -26,14 +26,9 @@ module Herbs {
             return this.gos[id];
         }
 
-        public remove(id:number) {
-            var go = this.gos[id];
-            if(!go) {
-                return;
-            }
-
+        public remove(go:GameObject) {
             this.removeFromStack(go, go.getPosition());
-            delete this.gos[id];
+            delete this.gos[go.getId()];
         }
 
         public move(go:GameObject, position:Coordinate):boolean {

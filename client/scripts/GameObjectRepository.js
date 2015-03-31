@@ -18,13 +18,9 @@ var Herbs;
         GameObjectRepository.prototype.get = function (id) {
             return this.gos[id];
         };
-        GameObjectRepository.prototype.remove = function (id) {
-            var go = this.gos[id];
-            if (!go) {
-                return;
-            }
+        GameObjectRepository.prototype.remove = function (go) {
             this.removeFromStack(go, go.getPosition());
-            delete this.gos[id];
+            delete this.gos[go.getId()];
         };
         GameObjectRepository.prototype.move = function (go, position) {
             if (!this.allGOInStackAreWalkable(position.toString())) {

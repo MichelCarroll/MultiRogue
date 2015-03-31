@@ -30,6 +30,11 @@ var Being = (function (_super) {
     Being.prototype.spendTurns = function (turns) {
         this.turns = Math.max(this.turns - turns, 0);
     };
+    Being.prototype.serialize = function () {
+        var data = _super.prototype.serialize.call(this);
+        data['is-player'] = true;
+        return data;
+    };
     return Being;
 })(GameObject);
 module.exports = Being;

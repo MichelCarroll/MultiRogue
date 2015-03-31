@@ -39,7 +39,9 @@ var GameObject = (function () {
             'y': this.position.y,
             'color': this.getColor(),
             'token': this.getToken(),
-            'canWalkOn': this.canBeWalkedThrough()
+            'canWalkOn': this.canBeWalkedThrough(),
+            'name': 'Player #' + this.getId(),
+            'is-player': false
         };
     };
     GameObject.lastId = 1;

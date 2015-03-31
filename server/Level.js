@@ -80,7 +80,7 @@ var Level = (function () {
             'current_player_id': this.currentPlayer ? this.currentPlayer.getId() : null
         };
     };
-    Level.TURNS_PER_ROUND = 400;
+    Level.TURNS_PER_ROUND = 4;
     return Level;
 })();
 module.exports = Level;

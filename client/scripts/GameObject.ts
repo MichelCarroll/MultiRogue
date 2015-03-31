@@ -12,6 +12,8 @@ module Herbs {
         private token:string;
         private colorHex:string;
         private canWalkOn:boolean;
+        private name:string;
+        private isAPLayer:boolean;
 
         constructor(id:number, position:Coordinate, token:string, colorHex:string) {
             this.position = position;
@@ -48,6 +50,22 @@ module Herbs {
             return this.canWalkOn;
         }
 
+        public setName(name:string) {
+            this.name = name;
+        }
+
+        public getName():string {
+            return this.name;
+        }
+
+        public setIsPlayer(isAPLayer:boolean) {
+            this.isAPLayer = isAPLayer;
+        }
+
+        public isPlayer():boolean {
+            return this.isAPLayer;
+        }
+
         static fromSerialization(data):GameObject {
             var go = new GameObject(
                 parseInt(data.id),
@@ -55,6 +73,8 @@ module Herbs {
                 data.token,
                 data.color
             );
+            go.setIsPlayer(data['is-player']);
+            go.setName(data.name);
             go.setCanBeWalkedThrough(data.canWalkOn);
             return go;
         }

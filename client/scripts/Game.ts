@@ -123,21 +123,32 @@ module Herbs {
                 var being = GameObject.fromSerialization(data);
                 self.beingRepository.add(being);
                 self.draw();
-                self.uiAdapter.logOnUI("Player #"+data.id+" just connected", CHAT_LOG_INFO);
-                self.uiAdapter.addPlayerToUI(being.getId());
+                if(being.isPlayer()) {
+                    self.uiAdapter.logOnUI(being.getName()+" just connected", CHAT_LOG_INFO);
+                    self.uiAdapter.addPlayerToUI(being.getId());
+                }
             });
 
             this.socket.on('being-left', function(data:any) {
-                self.beingRepository.remove(parseInt(data.id));
+                var being = self.beingRepository.get(parseInt(data.id));
+                if(!being) {
+                    return;
+                }
+                self.beingRepository.remove(being);
                 self.draw();
-                self.uiAdapter.logOnUI("Player #"+data.id+" just disconnected", CHAT_LOG_INFO);
-                self.uiAdapter.removePlayerFromUI(parseInt(data.id));
+                if(being.isPlayer()) {
+                    self.uiAdapter.logOnUI(being.getName() + " just disconnected", CHAT_LOG_INFO);
+                    self.uiAdapter.removePlayerFromUI(parseInt(data.id));
+                }
             });
 
             this.socket.on('its-another-player-turn', function(data:any) {
                 var being = self.beingRepository.get(parseInt(data.id));
+                if(!being) {
+                    return;
+                }
                 self.uiAdapter.highlightPlayer(being.getId());
-                self.uiAdapter.logOnUI("It's Player #"+being.getId()+"'s turn.");
+                self.uiAdapter.logOnUI("It's "+being.getName()+"'s turn.");
             });
 
             this.socket.on('its-your-turn', function(msg:any) {
@@ -147,7 +158,11 @@ module Herbs {
             });
 
             this.socket.on('being-shouted', function(data:any) {
-                self.uiAdapter.logOnUI("Player #"+data.id+" shouts \""+data.text+"\"!!", CHAT_LOG_INFO);
+                var being = self.beingRepository.get(parseInt(data.id));
+                if(!being) {
+                    return;
+                }
+                self.uiAdapter.logOnUI(being.getName()+" shouts \""+data.text+"\"!!", CHAT_LOG_INFO);
             });
 
             this.socket.on('disconnect', function(data:any) {
@@ -171,7 +186,9 @@ module Herbs {
                 if(serializedGameObjects.hasOwnProperty(i)) {
                     var being = GameObject.fromSerialization(serializedGameObjects[i]);
                     this.beingRepository.add(being);
-                    this.uiAdapter.addPlayerToUI(being.getId());
+                    if(being.isPlayer()) {
+                        this.uiAdapter.addPlayerToUI(being.getId());
+                    }
                 }
             }
         }

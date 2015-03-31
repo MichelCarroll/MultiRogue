@@ -15,7 +15,7 @@ import Coordinate = require('./Coordinate');
 
 class Level {
 
-    static TURNS_PER_ROUND = 400;
+    static TURNS_PER_ROUND = 4;
     private map:Board;
     private goRepository:GameObjectRepository;
     private scheduler:ROT.Scheduler.Simple;

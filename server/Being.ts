@@ -37,6 +37,12 @@ class Being extends GameObject {
     public spendTurns(turns:number) {
         this.turns = Math.max(this.turns - turns, 0);
     }
+
+    public serialize() {
+        var data = super.serialize();
+        data['is-player'] = true;
+        return data;
+    }
 }
 
 export = Being;

@@ -32,8 +32,22 @@ var Herbs;
         GameObject.prototype.canBeWalkedThrough = function () {
             return this.canWalkOn;
         };
+        GameObject.prototype.setName = function (name) {
+            this.name = name;
+        };
+        GameObject.prototype.getName = function () {
+            return this.name;
+        };
+        GameObject.prototype.setIsPlayer = function (isAPLayer) {
+            this.isAPLayer = isAPLayer;
+        };
+        GameObject.prototype.isPlayer = function () {
+            return this.isAPLayer;
+        };
         GameObject.fromSerialization = function (data) {
             var go = new GameObject(parseInt(data.id), new Herbs.Coordinate(parseInt(data.x), parseInt(data.y)), data.token, data.color);
+            go.setIsPlayer(data['is-player']);
+            go.setName(data.name);
             go.setCanBeWalkedThrough(data.canWalkOn);
             return go;
         };
