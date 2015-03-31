@@ -66,9 +66,9 @@ var Herbs;
             });
             this.socket.on('position-player', function (data) {
                 self.player = Herbs.GameObject.fromSerialization(data.player);
-                self.uiAdapter.logOnUI("You're now connected as Player #" + self.player.getId() + "!", Herbs.CHAT_LOG_INFO);
+                self.uiAdapter.logOnUI("You're now connected as " + self.player.getName() + "!", Herbs.CHAT_LOG_INFO);
                 self.beingRepository.add(self.player);
-                self.uiAdapter.addPlayerToUI(self.player.getId());
+                self.uiAdapter.addPlayerToUI(self.player.getId(), self.player.getName());
                 self.levelInitiated = true;
                 self.draw();
             });
@@ -88,7 +88,7 @@ var Herbs;
                 self.draw();
                 if (being.isPlayer()) {
                     self.uiAdapter.logOnUI(being.getName() + " just connected", Herbs.CHAT_LOG_INFO);
-                    self.uiAdapter.addPlayerToUI(being.getId());
+                    self.uiAdapter.addPlayerToUI(being.getId(), being.getName());
                 }
             });
             this.socket.on('being-left', function (data) {
@@ -141,7 +141,7 @@ var Herbs;
                     var being = Herbs.GameObject.fromSerialization(serializedGameObjects[i]);
                     this.beingRepository.add(being);
                     if (being.isPlayer()) {
-                        this.uiAdapter.addPlayerToUI(being.getId());
+                        this.uiAdapter.addPlayerToUI(being.getId(), being.getName());
                     }
                 }
             }

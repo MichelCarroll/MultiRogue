@@ -5,17 +5,26 @@
 var Herbs;
 (function (Herbs) {
     var GameObject = (function () {
-        function GameObject(id, position, token, colorHex) {
-            this.position = position;
+        function GameObject(id) {
             this.id = id;
-            this.token = token;
-            this.colorHex = colorHex;
         }
-        GameObject.prototype.getId = function () {
-            return this.id;
+        GameObject.prototype.setToken = function (token) {
+            this.token = token;
+        };
+        GameObject.prototype.setColorHex = function (colorHex) {
+            this.colorHex = colorHex;
         };
         GameObject.prototype.setPosition = function (position) {
             this.position = position;
+        };
+        GameObject.prototype.setDescription = function (description) {
+            this.description = description;
+        };
+        GameObject.prototype.getDescription = function () {
+            return this.description;
+        };
+        GameObject.prototype.getId = function () {
+            return this.id;
         };
         GameObject.prototype.getPosition = function () {
             return this.position;
@@ -45,9 +54,13 @@ var Herbs;
             return this.isAPLayer;
         };
         GameObject.fromSerialization = function (data) {
-            var go = new GameObject(parseInt(data.id), new Herbs.Coordinate(parseInt(data.x), parseInt(data.y)), data.token, data.color);
+            var go = new GameObject(parseInt(data.id));
+            go.setPosition(new Herbs.Coordinate(parseInt(data.x), parseInt(data.y)));
+            go.setToken(data.token);
+            go.setColorHex(data.color);
             go.setIsPlayer(data['is-player']);
             go.setName(data.name);
+            go.setDescription(data.description);
             go.setCanBeWalkedThrough(data.canWalkOn);
             return go;
         };

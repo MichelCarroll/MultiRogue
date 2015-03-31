@@ -29,7 +29,9 @@ class LevelGenerator {
             level.addImmobile(new GameObject(
                 map.getRandomTile(),
                 '/',
-                ROT.Color.toHex(ROT.Color.randomize([205, 133, 63],[20,20,20]))
+                ROT.Color.toHex(ROT.Color.randomize([205, 133, 63],[20,20,20])),
+                'Wooden Stick',
+                'It\'s just a piece of wood'
             ));
         }
     }

@@ -102,9 +102,9 @@ module Herbs {
 
             this.socket.on('position-player', function(data:any) {
                 self.player = GameObject.fromSerialization(data.player);
-                self.uiAdapter.logOnUI("You're now connected as Player #"+self.player.getId()+"!", CHAT_LOG_INFO);
+                self.uiAdapter.logOnUI("You're now connected as "+self.player.getName()+"!", CHAT_LOG_INFO);
                 self.beingRepository.add(self.player);
-                self.uiAdapter.addPlayerToUI(self.player.getId());
+                self.uiAdapter.addPlayerToUI(self.player.getId(), self.player.getName());
                 self.levelInitiated = true;
                 self.draw();
             });
@@ -125,7 +125,7 @@ module Herbs {
                 self.draw();
                 if(being.isPlayer()) {
                     self.uiAdapter.logOnUI(being.getName()+" just connected", CHAT_LOG_INFO);
-                    self.uiAdapter.addPlayerToUI(being.getId());
+                    self.uiAdapter.addPlayerToUI(being.getId(), being.getName());
                 }
             });
 
@@ -187,7 +187,7 @@ module Herbs {
                     var being = GameObject.fromSerialization(serializedGameObjects[i]);
                     this.beingRepository.add(being);
                     if(being.isPlayer()) {
-                        this.uiAdapter.addPlayerToUI(being.getId());
+                        this.uiAdapter.addPlayerToUI(being.getId(), being.getName());
                     }
                 }
             }

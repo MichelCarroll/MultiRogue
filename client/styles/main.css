@@ -34,8 +34,8 @@
 }
 
 #game-players-container {
-    margin-top:20%;
-    height: 30%;
+    margin-top:10%;
+    height: 20%;
     overflow-y: auto;
 }
 
@@ -44,7 +44,7 @@
 }
 
 #game-log-container {
-    height: 50%;
+    height: 40%;
     overflow-y: auto;
 }
 

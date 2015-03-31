@@ -11,7 +11,7 @@ module Herbs {
         public getBestFontSize:(mapWidth:number, mapHeight:number) => number;
         public clearPlayerList:() => void;
         public logOnUI:(message:string, logTag?:string) => void;
-        public addPlayerToUI:(playerId:number) => void;
+        public addPlayerToUI:(playerId:number, playerName:string) => void;
         public highlightPlayer:(playerId:number) => void;
         public removePlayerFromUI:(playerId:number) => void;
 

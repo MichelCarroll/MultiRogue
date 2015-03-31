@@ -4,11 +4,9 @@ $(document).ready(function() {
     var game = new Herbs.Game();
     var uiAdapter = new Herbs.UIAdapter();
 
-    uiAdapter.addPlayerToUI = function(playerId) {
+    uiAdapter.addPlayerToUI = function(playerId, playerName) {
         $('#game-players').append(
-            '<li class="list-group-item" pid="'+playerId+'">'+
-                'Player #'+playerId+
-            '</li>'
+            '<li class="list-group-item" pid="'+playerId+'">'+playerName+'</li>'
         );
     };
 

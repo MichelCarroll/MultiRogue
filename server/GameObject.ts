@@ -15,6 +15,8 @@ class GameObject {
     protected id:number;
     protected token:string;
     protected colorHex:string;
+    protected name:string;
+    protected description:string;
 
     static lastId = 1;
 
@@ -22,11 +24,13 @@ class GameObject {
         return this.lastId++;
     }
 
-    constructor(position:Coordinate, token:string, color:string) {
+    constructor(position:Coordinate, token:string, color:string, name:string, description:string) {
         this.position = position;
         this.id = GameObject.getNextId();
         this.token = token;
         this.colorHex = color;
+        this.name = name;
+        this.description = description;
     }
 
     public getId():number {
@@ -45,6 +49,18 @@ class GameObject {
         return this.token;
     }
 
+    protected setName(name:string) {
+        this.name = name;
+    }
+
+    public getName():string {
+        return this.name;
+    }
+
+    public getDescription():string {
+        return this.description;
+    }
+
     public getColor():string {
         return this.colorHex;
     }
@@ -61,8 +77,9 @@ class GameObject {
             'color': this.getColor(),
             'token': this.getToken(),
             'canWalkOn': this.canBeWalkedThrough(),
-            'name': 'Player #' + this.getId(),
-            'is-player': false
+            'name': this.getName(),
+            'is-player': false,
+            'description': this.getDescription()
         };
     }
 }

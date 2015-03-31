@@ -5,11 +5,13 @@
 var fs = require('fs');
 eval(fs.readFileSync('./node_modules/rot.js/rot.js/rot.js', 'utf8'));
 var GameObject = (function () {
-    function GameObject(position, token, color) {
+    function GameObject(position, token, color, name, description) {
         this.position = position;
         this.id = GameObject.getNextId();
         this.token = token;
         this.colorHex = color;
+        this.name = name;
+        this.description = description;
     }
     GameObject.getNextId = function () {
         return this.lastId++;
@@ -26,6 +28,15 @@ var GameObject = (function () {
     GameObject.prototype.getToken = function () {
         return this.token;
     };
+    GameObject.prototype.setName = function (name) {
+        this.name = name;
+    };
+    GameObject.prototype.getName = function () {
+        return this.name;
+    };
+    GameObject.prototype.getDescription = function () {
+        return this.description;
+    };
     GameObject.prototype.getColor = function () {
         return this.colorHex;
     };
@@ -40,8 +51,9 @@ var GameObject = (function () {
             'color': this.getColor(),
             'token': this.getToken(),
             'canWalkOn': this.canBeWalkedThrough(),
-            'name': 'Player #' + this.getId(),
-            'is-player': false
+            'name': this.getName(),
+            'is-player': false,
+            'description': this.getDescription()
         };
     };
     GameObject.lastId = 1;
