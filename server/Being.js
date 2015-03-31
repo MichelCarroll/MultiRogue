@@ -6,7 +6,7 @@ var __extends = this.__extends || function (d, b) {
     d.prototype = new __();
 };
 var fs = require('fs');
-eval(fs.readFileSync('./node_modules/rot.js/rot.js/rot.js', 'utf8'));
+eval(fs.readFileSync(__dirname + '/node_modules/rot.js/rot.js/rot.js', 'utf8'));
 var GameObject = require('./GameObject');
 var Being = (function (_super) {
     __extends(Being, _super);

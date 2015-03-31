@@ -17,14 +17,12 @@ var Herbs;
             this.map = map;
             this.player = player;
             this.goRepository = goRepository;
-            this.uiAdapter.clearGameDisplay();
-            this.createGameDisplay();
+            this.recreateGameDisplay();
             this.initiateFov();
             this.draw();
         };
         DisplayAdapter.prototype.resize = function () {
-            this.uiAdapter.clearGameDisplay();
-            this.createGameDisplay();
+            this.recreateGameDisplay();
             this.draw();
         };
         DisplayAdapter.prototype.draw = function () {
@@ -65,7 +63,8 @@ var Herbs;
                 return false;
             });
         };
-        DisplayAdapter.prototype.createGameDisplay = function () {
+        DisplayAdapter.prototype.recreateGameDisplay = function () {
+            this.uiAdapter.clearGameDisplay();
             this.display = new ROT.Display({
                 width: this.map.getWidth(),
                 height: this.map.getHeight(),

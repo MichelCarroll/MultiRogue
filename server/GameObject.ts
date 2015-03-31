@@ -5,7 +5,7 @@
 ///<reference path='./bower_components/rot.js-TS/rot.d.ts' />
 
 var fs = require('fs');
-eval(fs.readFileSync('./node_modules/rot.js/rot.js/rot.js','utf8'));
+eval(fs.readFileSync(__dirname+'/node_modules/rot.js/rot.js/rot.js','utf8'));
 
 import Coordinate = require('./Coordinate');
 

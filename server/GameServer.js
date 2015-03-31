@@ -9,7 +9,7 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var fs = require('fs');
-eval(fs.readFileSync('./node_modules/rot.js/rot.js/rot.js', 'utf8'));
+eval(fs.readFileSync(__dirname + '/node_modules/rot.js/rot.js/rot.js', 'utf8'));
 var LevelGenerator = require('./LevelGenerator');
 var Coordinate = require('./Coordinate');
 var GameServer = (function () {

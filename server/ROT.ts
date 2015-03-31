@@ -6,5 +6,5 @@
 ///<reference path='./ts-definitions/node.d.ts' />
 
 var fs = require('fs');
-eval(fs.readFileSync('./node_modules/rot.js/rot.js/rot.js','utf8'));
+eval(fs.readFileSync(__dirname+'/node_modules/rot.js/rot.js/rot.js','utf8'));
 export = ROT;

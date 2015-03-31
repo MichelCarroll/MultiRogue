@@ -4,7 +4,7 @@
 ///<reference path='./ts-definitions/node.d.ts' />
 var difference = require('array-difference');
 var fs = require('fs');
-eval(fs.readFileSync('./node_modules/rot.js/rot.js/rot.js', 'utf8'));
+eval(fs.readFileSync(__dirname + '/node_modules/rot.js/rot.js/rot.js', 'utf8'));
 var Coordinate = require('./Coordinate');
 var Board = (function () {
     function Board(mapWidth, mapHeight) {
