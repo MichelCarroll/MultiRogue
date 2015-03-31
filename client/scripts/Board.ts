@@ -8,9 +8,21 @@ module Herbs {
     export class Board {
 
         private map;
+        private width;
+        private height;
 
-        constructor() {
-            this.map = new Object();
+        constructor(tileMap:any, width:number, height:number) {
+            this.map = tileMap;
+            this.width = width;
+            this.height = height;
+        }
+
+        public getWidth():number {
+            return this.width;
+        }
+
+        public getHeight():number {
+            return this.height;
         }
 
         public getTile(position:Coordinate):any {
@@ -19,10 +31,6 @@ module Herbs {
 
         public tileExists(position:Coordinate):boolean {
             return (this.map.hasOwnProperty(position.toString()));
-        }
-
-        public setTileMap(tileMap:any) {
-            this.map = tileMap;
         }
 
         public setTile(position:Coordinate, val:any) {

@@ -7,14 +7,14 @@
 module Herbs {
     export class GameObject {
 
-        private position:Coordinate;
-        private id:number;
-        private token:string;
-        private colorHex:string;
-        private canWalkOn:boolean;
-        private name:string;
-        private isAPLayer:boolean;
-        private description:string;
+        protected position:Coordinate;
+        protected id:number;
+        protected token:string;
+        protected colorHex:string;
+        protected canWalkOn:boolean;
+        protected name:string;
+        protected isAPLayer:boolean;
+        protected description:string;
 
         constructor(id:number) {
             this.id = id;
@@ -82,6 +82,11 @@ module Herbs {
 
         static fromSerialization(data):GameObject {
             var go = new GameObject(parseInt(data.id));
+            GameObject.assignSerializedData(go, data);
+            return go;
+        }
+
+        static assignSerializedData(go:GameObject, data) {
             go.setPosition(new Coordinate(parseInt(data.x), parseInt(data.y)));
             go.setToken(data.token);
             go.setColorHex(data.color);
@@ -89,7 +94,6 @@ module Herbs {
             go.setName(data.name);
             go.setDescription(data.description);
             go.setCanBeWalkedThrough(data.canWalkOn);
-            return go;
         }
 }
 }

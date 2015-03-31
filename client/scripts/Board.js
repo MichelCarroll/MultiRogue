@@ -5,17 +5,22 @@
 var Herbs;
 (function (Herbs) {
     var Board = (function () {
-        function Board() {
-            this.map = new Object();
+        function Board(tileMap, width, height) {
+            this.map = tileMap;
+            this.width = width;
+            this.height = height;
         }
+        Board.prototype.getWidth = function () {
+            return this.width;
+        };
+        Board.prototype.getHeight = function () {
+            return this.height;
+        };
         Board.prototype.getTile = function (position) {
             return this.map[position.toString()];
         };
         Board.prototype.tileExists = function (position) {
             return (this.map.hasOwnProperty(position.toString()));
-        };
-        Board.prototype.setTileMap = function (tileMap) {
-            this.map = tileMap;
         };
         Board.prototype.setTile = function (position, val) {
             this.map[position.toString()] = val;

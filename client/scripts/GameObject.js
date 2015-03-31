@@ -55,6 +55,10 @@ var Herbs;
         };
         GameObject.fromSerialization = function (data) {
             var go = new GameObject(parseInt(data.id));
+            GameObject.assignSerializedData(go, data);
+            return go;
+        };
+        GameObject.assignSerializedData = function (go, data) {
             go.setPosition(new Herbs.Coordinate(parseInt(data.x), parseInt(data.y)));
             go.setToken(data.token);
             go.setColorHex(data.color);
@@ -62,7 +66,6 @@ var Herbs;
             go.setName(data.name);
             go.setDescription(data.description);
             go.setCanBeWalkedThrough(data.canWalkOn);
-            return go;
         };
         return GameObject;
     })();
