@@ -44,6 +44,9 @@ var GameObject = (function () {
     GameObject.prototype.canBeWalkedThrough = function () {
         return true;
     };
+    GameObject.prototype.canBePickedUp = function () {
+        return false;
+    };
     GameObject.prototype.serialize = function () {
         return {
             'id': this.getId(),
@@ -55,7 +58,8 @@ var GameObject = (function () {
             'name': this.getName(),
             'isPlayer': false,
             'description': this.getDescription(),
-            'canPickUp': false
+            'canPickUp': this.canBePickedUp(),
+            'inventory': {}
         };
     };
     GameObject.lastId = 1;

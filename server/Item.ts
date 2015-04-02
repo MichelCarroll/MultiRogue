@@ -10,14 +10,8 @@ import GameObject = require('./GameObject');
 
 class Item extends GameObject {
 
-    constructor(position:Coordinate, token:string, colorHex:string, name:string, description:string) {
-        super(position, token, colorHex, name, description);
-    }
-
-    public serialize() {
-        var data = super.serialize();
-        data.canPickUp = true;
-        return data;
+    public canBePickedUp():boolean {
+        return true;
     }
 }
 

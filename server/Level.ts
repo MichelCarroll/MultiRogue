@@ -72,6 +72,21 @@ class Level {
         player.setPosition(position);
     }
 
+    public pickUpObject(player:Being, goId:number) {
+        var go = this.goRepository.get(goId);
+        if(!go) {
+            throw new Error('No GO with this ID');
+        }
+        else if(!go.getPosition().equals(player.getPosition())) {
+            throw new Error('Player isn\'t on the same position as the GO');
+        }
+        else if(!go.canBePickedUp()) {
+            throw new Error('This GO can\'t be picked up');
+        }
+        player.addToInventory(go);
+        this.goRepository.delete(go);
+    }
+
     private getCollidedGameObjects(position:Coordinate) {
         return this.goRepository.getAll().filter(function(element:GameObject, index, array) {
             return !element.canBeWalkedThrough() && element.getPosition().equals(position);

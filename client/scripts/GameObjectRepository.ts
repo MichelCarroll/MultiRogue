@@ -48,7 +48,7 @@ module Herbs {
         }
 
         public dropUpByPlayer(go:GameObject, player:Player) {
-            player.removeFromToInventory(go);
+            player.removeFromInventory(go);
             this.add(go);
         }
 

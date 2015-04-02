@@ -70,6 +70,10 @@ class GameObject {
         return true;
     }
 
+    public canBePickedUp():boolean {
+        return false;
+    }
+
     public serialize() {
         return {
             'id': this.getId(),
@@ -81,7 +85,8 @@ class GameObject {
             'name': this.getName(),
             'isPlayer': false,
             'description': this.getDescription(),
-            'canPickUp': false
+            'canPickUp': this.canBePickedUp(),
+            'inventory': {}
         };
     }
 }

@@ -120,6 +120,14 @@ var Herbs;
                 }
                 self.uiAdapter.logOnUI(being.getName() + " inspected an object on the floor.", Herbs.CHAT_LOG_INFO);
             });
+            this.socket.on('game-object-remove', function (data) {
+                var go = self.goRepository.get(parseInt(data.id));
+                if (!go) {
+                    return;
+                }
+                self.goRepository.remove(go);
+                self.displayAdapter.draw();
+            });
         };
         Game.prototype.createGameObjects = function (serializedGameObjects) {
             for (var i in serializedGameObjects) {
@@ -188,8 +196,8 @@ var Herbs;
                 self.uiAdapter.logOnUI("You pick up the " + go.getName() + ".");
                 self.uiAdapter.addItemToUI(go.getId(), go.getName());
                 socket.emit('being-picked-up', {
-                    'id': player.getId(),
-                    'object': go.getId()
+                    'playerId': player.getId(),
+                    'objectId': go.getId()
                 });
                 return true;
             };

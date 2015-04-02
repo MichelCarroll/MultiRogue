@@ -11,13 +11,11 @@ eval(fs.readFileSync(__dirname + '/node_modules/rot.js/rot.js/rot.js', 'utf8'));
 var GameObject = require('./GameObject');
 var Item = (function (_super) {
     __extends(Item, _super);
-    function Item(position, token, colorHex, name, description) {
-        _super.call(this, position, token, colorHex, name, description);
+    function Item() {
+        _super.apply(this, arguments);
     }
-    Item.prototype.serialize = function () {
-        var data = _super.prototype.serialize.call(this);
-        data.canPickUp = true;
-        return data;
+    Item.prototype.canBePickedUp = function () {
+        return true;
     };
     return Item;
 })(GameObject);

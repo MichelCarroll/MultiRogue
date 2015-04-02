@@ -36,7 +36,7 @@ var Herbs;
             this.remove(go);
         };
         GameObjectRepository.prototype.dropUpByPlayer = function (go, player) {
-            player.removeFromToInventory(go);
+            player.removeFromInventory(go);
             this.add(go);
         };
         GameObjectRepository.prototype.getTopWalkableGameObjectOnStack = function (position) {

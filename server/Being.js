@@ -15,7 +15,20 @@ var Being = (function (_super) {
         this.setName('Player #' + this.getId());
         this.callForTurn = callForTurn;
         this.turns = 0;
+        this.inventory = {};
     }
+    Being.prototype.addToInventory = function (go) {
+        this.inventory[go.getId()] = go;
+    };
+    Being.prototype.removeFromInventory = function (go) {
+        delete this.inventory[go.getId()];
+    };
+    Being.prototype.getSerializedInventory = function () {
+        var self = this;
+        return Object.getOwnPropertyNames(this.inventory).map(function (key) {
+            return self.inventory[key].serialize();
+        });
+    };
     Being.prototype.askToTakeTurn = function () {
         this.callForTurn();
     };
@@ -34,6 +47,7 @@ var Being = (function (_super) {
     Being.prototype.serialize = function () {
         var data = _super.prototype.serialize.call(this);
         data.isPlayer = true;
+        data.inventory = this.getSerializedInventory();
         return data;
     };
     return Being;

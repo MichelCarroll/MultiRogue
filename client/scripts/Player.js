@@ -18,15 +18,9 @@ var Herbs;
             this.inventory = {};
         }
         Player.prototype.addToInventory = function (go) {
-            if (this.inventory[go.getId()]) {
-                return;
-            }
             this.inventory[go.getId()] = go;
         };
-        Player.prototype.removeFromToInventory = function (go) {
-            if (!this.inventory[go.getId()]) {
-                return;
-            }
+        Player.prototype.removeFromInventory = function (go) {
             delete this.inventory[go.getId()];
         };
         Player.prototype.getInventory = function () {

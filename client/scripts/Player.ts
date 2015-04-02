@@ -17,18 +17,10 @@ module Herbs {
         }
 
         public addToInventory(go:GameObject) {
-            if(this.inventory[go.getId()]) {
-                return;
-            }
-
             this.inventory[go.getId()] = go;
         }
 
-        public removeFromToInventory(go:GameObject) {
-            if(!this.inventory[go.getId()]) {
-                return;
-            }
-
+        public removeFromInventory(go:GameObject) {
             delete this.inventory[go.getId()];
         }
 

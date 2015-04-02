@@ -50,6 +50,20 @@ var Level = (function () {
         }
         player.setPosition(position);
     };
+    Level.prototype.pickUpObject = function (player, goId) {
+        var go = this.goRepository.get(goId);
+        if (!go) {
+            throw new Error('No GO with this ID');
+        }
+        else if (!go.getPosition().equals(player.getPosition())) {
+            throw new Error('Player isn\'t on the same position as the GO');
+        }
+        else if (!go.canBePickedUp()) {
+            throw new Error('This GO can\'t be picked up');
+        }
+        player.addToInventory(go);
+        this.goRepository.delete(go);
+    };
     Level.prototype.getCollidedGameObjects = function (position) {
         return this.goRepository.getAll().filter(function (element, index, array) {
             return !element.canBeWalkedThrough() && element.getPosition().equals(position);

@@ -72,10 +72,14 @@ var GameServer = (function () {
                 if (!self.level.canPlay(player)) {
                     return;
                 }
-                //socket.emit('being-picked-up', {
-                //    'player': player.getId(),
-                //    'object': go.getId()
-                //});
+                try {
+                    self.level.pickUpObject(player, parseInt(data.objectId));
+                }
+                catch (error) {
+                    self.handleError(error, socket);
+                    return;
+                }
+                socket.broadcast.emit('game-object-remove', { 'id': parseInt(data.objectId) });
                 self.level.useTurns(player, 1);
             });
         });
