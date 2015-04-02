@@ -82,6 +82,20 @@ var GameServer = (function () {
                 socket.broadcast.emit('game-object-remove', { 'id': parseInt(data.objectId) });
                 self.level.useTurns(player, 1);
             });
+            socket.on('being-dropped', function (data) {
+                if (!self.level.canPlay(player)) {
+                    return;
+                }
+                try {
+                    var go = self.level.dropObject(player, parseInt(data.objectId));
+                }
+                catch (error) {
+                    self.handleError(error, socket);
+                    return;
+                }
+                socket.broadcast.emit('game-object-add', go.serialize());
+                self.level.useTurns(player, 1);
+            });
         });
     };
     GameServer.prototype.handleError = function (error, socket) {

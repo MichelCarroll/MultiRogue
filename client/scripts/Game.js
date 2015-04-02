@@ -128,6 +128,11 @@ var Herbs;
                 self.goRepository.remove(go);
                 self.displayAdapter.draw();
             });
+            this.socket.on('game-object-add', function (data) {
+                var go = Herbs.GameObject.fromSerialization(data);
+                self.goRepository.add(go);
+                self.displayAdapter.draw();
+            });
         };
         Game.prototype.createGameObjects = function (serializedGameObjects) {
             for (var i in serializedGameObjects) {
@@ -185,6 +190,23 @@ var Herbs;
                 return true;
             };
         };
+        Game.prototype.getDropCommand = function (goId, player, goRepository, socket) {
+            var self = this;
+            return function () {
+                var go = player.getInventory()[goId];
+                if (!go) {
+                    return false;
+                }
+                goRepository.dropByPlayer(go, player);
+                self.uiAdapter.logOnUI("You drop the " + go.getName() + ".");
+                self.uiAdapter.removeItemFromUI(go.getId());
+                socket.emit('being-dropped', {
+                    'playerId': player.getId(),
+                    'objectId': go.getId()
+                });
+                return true;
+            };
+        };
         Game.prototype.getPickUpCommand = function (player, goRepository, socket) {
             var self = this;
             return function () {
@@ -211,6 +233,10 @@ var Herbs;
             map[ROT.VK_PERIOD] = new Herbs.PlayerCommand(1, this.getLookAtFloorCommand(this.player, this.goRepository, this.socket));
             map[ROT.VK_K] = new Herbs.PlayerCommand(1, this.getPickUpCommand(this.player, this.goRepository, this.socket));
             return map;
+        };
+        Game.prototype.handleItemClickEvent = function (goId) {
+            var command = new Herbs.PlayerCommand(1, this.getDropCommand(goId, this.player, this.goRepository, this.socket));
+            this.executeCommand(command);
         };
         Game.prototype.handlePlayerKeyEvent = function (keyCode) {
             var command = this.getKeyCommandMap()[keyCode];

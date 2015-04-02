@@ -14,6 +14,9 @@ var Herbs;
         Coordinate.prototype.toString = function () {
             return this.x + "," + this.y;
         };
+        Coordinate.prototype.copy = function () {
+            return new Coordinate(this.x, this.y);
+        };
         Coordinate.fromString = function (str) {
             var parts = str.split(",");
             return new Coordinate(parseInt(parts[0]), parseInt(parts[1]));

@@ -15,6 +15,10 @@ class Coordinate {
         return this.x + "," + this.y;
     }
 
+    public copy():Coordinate {
+        return new Coordinate(this.x, this.y);
+    }
+
     static fromString(str:string):Coordinate {
         var parts = str.split(",");
         return new Coordinate(parseInt(parts[0]), parseInt(parts[1]));

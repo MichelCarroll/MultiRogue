@@ -36,6 +36,10 @@ class Being extends GameObject {
         );
     }
 
+    public getInventory():{ [id:number] : GameObject } {
+        return this.inventory;
+    }
+
     public askToTakeTurn() {
         this.callForTurn();
     }

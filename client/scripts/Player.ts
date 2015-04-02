@@ -24,11 +24,8 @@ module Herbs {
             delete this.inventory[go.getId()];
         }
 
-        public getInventory():Array<GameObject> {
-            var self = this;
-            return Object.getOwnPropertyNames(this.inventory).map(
-                function(key) { return self.inventory[key]; }
-            );
+        public getInventory():{ [id:number] : GameObject } {
+            return this.inventory;
         }
 
         public getRemainingActionTurns():number {

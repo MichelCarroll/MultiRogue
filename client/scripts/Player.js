@@ -24,10 +24,7 @@ var Herbs;
             delete this.inventory[go.getId()];
         };
         Player.prototype.getInventory = function () {
-            var self = this;
-            return Object.getOwnPropertyNames(this.inventory).map(function (key) {
-                return self.inventory[key];
-            });
+            return this.inventory;
         };
         Player.prototype.getRemainingActionTurns = function () {
             return this.actionTurns;

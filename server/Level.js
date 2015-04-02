@@ -64,6 +64,16 @@ var Level = (function () {
         player.addToInventory(go);
         this.goRepository.delete(go);
     };
+    Level.prototype.dropObject = function (player, goId) {
+        var go = player.getInventory()[goId];
+        if (!go) {
+            throw new Error('No GO with this ID');
+        }
+        player.removeFromInventory(go);
+        go.setPosition(player.getPosition().copy());
+        this.goRepository.add(go);
+        return go;
+    };
     Level.prototype.getCollidedGameObjects = function (position) {
         return this.goRepository.getAll().filter(function (element, index, array) {
             return !element.canBeWalkedThrough() && element.getPosition().equals(position);

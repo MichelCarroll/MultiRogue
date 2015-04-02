@@ -87,6 +87,17 @@ class Level {
         this.goRepository.delete(go);
     }
 
+    public dropObject(player:Being, goId:number):GameObject {
+        var go = player.getInventory()[goId];
+        if(!go) {
+            throw new Error('No GO with this ID');
+        }
+        player.removeFromInventory(go);
+        go.setPosition(player.getPosition().copy());
+        this.goRepository.add(go);
+        return go;
+    }
+
     private getCollidedGameObjects(position:Coordinate) {
         return this.goRepository.getAll().filter(function(element:GameObject, index, array) {
             return !element.canBeWalkedThrough() && element.getPosition().equals(position);

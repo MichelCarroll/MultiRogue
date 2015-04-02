@@ -20,12 +20,19 @@ $(document).ready(function() {
     };
 
     uiAdapter.addItemToUI = function(itemId, itemName) {
-        $('#game-items').append(
-            '<li class="list-group-item" pid="'+itemId+'">'+itemName+'</li>'
-        );
+        var elem = $('<li class="list-group-item" goid="'+itemId+'">'+itemName+'</li>');
+        $(elem).click(function() {
+            var goId = $(this).attr('goid');
+            game.handleItemClickEvent(goId);
+        })
+        $('#game-items').append(elem);
     };
 
     uiAdapter.removeItemFromUI = function(itemId) {
+        $('#game-items').find('li[goid="'+itemId+'"]').remove();
+    };
+
+    uiAdapter.clickedItemFromUI = function(itemId) {
         $('#game-items').find('li[pid="'+itemId+'"]').remove();
     };
 

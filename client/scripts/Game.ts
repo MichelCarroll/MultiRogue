@@ -166,6 +166,12 @@ module Herbs {
                 self.goRepository.remove(go);
                 self.displayAdapter.draw();
             });
+
+            this.socket.on('game-object-add', function(data:any) {
+                var go = GameObject.fromSerialization(data);
+                self.goRepository.add(go);
+                self.displayAdapter.draw();
+            });
         }
 
         private createGameObjects(serializedGameObjects:any)
@@ -233,6 +239,24 @@ module Herbs {
             }
         }
 
+        private getDropCommand(goId:number, player:Player, goRepository:GameObjectRepository, socket:Socket) {
+            var self = this;
+            return function() {
+                var go = player.getInventory()[goId];
+                if(!go) {
+                    return false;
+                }
+                goRepository.dropByPlayer(go, player);
+                self.uiAdapter.logOnUI("You drop the "+go.getName()+".");
+                self.uiAdapter.removeItemFromUI(go.getId());
+                socket.emit('being-dropped', {
+                    'playerId': player.getId(),
+                    'objectId': go.getId()
+                });
+                return true;
+            }
+        }
+
         private getPickUpCommand(player:Player, goRepository:GameObjectRepository, socket:Socket) {
             var self = this;
             return function() {
@@ -261,6 +285,11 @@ module Herbs {
             map[ROT.VK_PERIOD]= new PlayerCommand(1, this.getLookAtFloorCommand(this.player, this.goRepository, this.socket));
             map[ROT.VK_K]=      new PlayerCommand(1, this.getPickUpCommand(this.player, this.goRepository, this.socket));
             return map;
+        }
+
+        public handleItemClickEvent(goId:number) {
+            var command = new PlayerCommand(1, this.getDropCommand(goId, this.player, this.goRepository, this.socket));
+            this.executeCommand(command);
         }
 
         public handlePlayerKeyEvent(keyCode:number)

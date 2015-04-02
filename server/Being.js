@@ -29,6 +29,9 @@ var Being = (function (_super) {
             return self.inventory[key].serialize();
         });
     };
+    Being.prototype.getInventory = function () {
+        return this.inventory;
+    };
     Being.prototype.askToTakeTurn = function () {
         this.callForTurn();
     };
