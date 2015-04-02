@@ -87,6 +87,17 @@ class GameServer {
                 socket.broadcast.emit('being-looked-at-floor', player.serialize());
                 self.level.useTurns(player, 1);
             });
+
+            socket.on('being-picked-up', function(data) {
+                if(!self.level.canPlay(player)) {
+                    return;
+                }
+                //socket.emit('being-picked-up', {
+                //    'player': player.getId(),
+                //    'object': go.getId()
+                //});
+                self.level.useTurns(player, 1);
+            });
         });
     }
 

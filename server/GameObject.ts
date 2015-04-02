@@ -2,6 +2,7 @@
  * Created by michelcarroll on 15-03-29.
  */
 
+///<reference path='./ts-definitions/node.d.ts' />
 ///<reference path='./bower_components/rot.js-TS/rot.d.ts' />
 
 var fs = require('fs');
@@ -65,7 +66,7 @@ class GameObject {
         return this.colorHex;
     }
 
-    public canBeWalkedThrough() {
+    public canBeWalkedThrough():boolean {
         return true;
     }
 
@@ -78,8 +79,9 @@ class GameObject {
             'token': this.getToken(),
             'canWalkOn': this.canBeWalkedThrough(),
             'name': this.getName(),
-            'is-player': false,
-            'description': this.getDescription()
+            'isPlayer': false,
+            'description': this.getDescription(),
+            'canPickUp': false
         };
     }
 }

@@ -33,7 +33,7 @@ var Being = (function (_super) {
     };
     Being.prototype.serialize = function () {
         var data = _super.prototype.serialize.call(this);
-        data['is-player'] = true;
+        data.isPlayer = true;
         return data;
     };
     return Being;

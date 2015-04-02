@@ -22,11 +22,14 @@ var Herbs;
             this.draw();
         };
         DisplayAdapter.prototype.resize = function () {
+            if (!this.map) {
+                return;
+            }
             this.recreateGameDisplay();
             this.draw();
         };
         DisplayAdapter.prototype.draw = function () {
-            if (!this.display) {
+            if (!this.map) {
                 return;
             }
             this.display.clear();

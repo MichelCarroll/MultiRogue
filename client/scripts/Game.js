@@ -177,6 +177,23 @@ var Herbs;
                 return true;
             };
         };
+        Game.prototype.getPickUpCommand = function (player, goRepository, socket) {
+            var self = this;
+            return function () {
+                var go = goRepository.getTopPickupableGameObjectOnStack(player.getPosition());
+                if (!go) {
+                    return false;
+                }
+                goRepository.pickUpByPlayer(go, player);
+                self.uiAdapter.logOnUI("You pick up the " + go.getName() + ".");
+                self.uiAdapter.addItemToUI(go.getId(), go.getName());
+                socket.emit('being-picked-up', {
+                    'id': player.getId(),
+                    'object': go.getId()
+                });
+                return true;
+            };
+        };
         Game.prototype.getKeyCommandMap = function () {
             var map = {};
             map[ROT.VK_UP] = new Herbs.PlayerCommand(1, this.getMoveCommand(0, -1, this.player, this.goRepository, this.map, this.socket));
@@ -184,6 +201,7 @@ var Herbs;
             map[ROT.VK_DOWN] = new Herbs.PlayerCommand(1, this.getMoveCommand(0, 1, this.player, this.goRepository, this.map, this.socket));
             map[ROT.VK_LEFT] = new Herbs.PlayerCommand(1, this.getMoveCommand(-1, 0, this.player, this.goRepository, this.map, this.socket));
             map[ROT.VK_PERIOD] = new Herbs.PlayerCommand(1, this.getLookAtFloorCommand(this.player, this.goRepository, this.socket));
+            map[ROT.VK_K] = new Herbs.PlayerCommand(1, this.getPickUpCommand(this.player, this.goRepository, this.socket));
             return map;
         };
         Game.prototype.handlePlayerKeyEvent = function (keyCode) {

@@ -15,7 +15,26 @@ var Herbs;
         function Player(id) {
             _super.call(this, id);
             this.actionTurns = 0;
+            this.inventory = {};
         }
+        Player.prototype.addToInventory = function (go) {
+            if (this.inventory[go.getId()]) {
+                return;
+            }
+            this.inventory[go.getId()] = go;
+        };
+        Player.prototype.removeFromToInventory = function (go) {
+            if (!this.inventory[go.getId()]) {
+                return;
+            }
+            delete this.inventory[go.getId()];
+        };
+        Player.prototype.getInventory = function () {
+            var self = this;
+            return Object.getOwnPropertyNames(this.inventory).map(function (key) {
+                return self.inventory[key];
+            });
+        };
         Player.prototype.getRemainingActionTurns = function () {
             return this.actionTurns;
         };

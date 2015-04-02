@@ -34,14 +34,19 @@ module Herbs {
         }
 
         public resize() {
+            if(!this.map) {
+                return;
+            }
+
             this.recreateGameDisplay();
             this.draw();
         }
 
         public draw() {
-            if(!this.display) {
+            if(!this.map) {
                 return;
             }
+
             this.display.clear();
             this.drawBoard();
             this.drawPlayer();

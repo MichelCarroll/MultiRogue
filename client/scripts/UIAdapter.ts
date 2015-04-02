@@ -14,6 +14,8 @@ module Herbs {
         public addPlayerToUI:(playerId:number, playerName:string) => void;
         public highlightPlayer:(playerId:number) => void;
         public removePlayerFromUI:(playerId:number) => void;
+        public addItemToUI:(itemId:number, itemName:string) => void;
+        public removeItemFromUI:(itemId:number) => void;
 
     }
 }

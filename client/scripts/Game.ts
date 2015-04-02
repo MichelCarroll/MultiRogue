@@ -209,7 +209,7 @@ module Herbs {
             };
         }
 
-        private getLookAtFloorCommand(player:GameObject, goRepository:GameObjectRepository, socket:Socket) {
+        private getLookAtFloorCommand(player:Player, goRepository:GameObjectRepository, socket:Socket) {
             var self = this;
             return function() {
                 var go = goRepository.getTopWalkableGameObjectOnStack(player.getPosition());
@@ -224,6 +224,24 @@ module Herbs {
             }
         }
 
+        private getPickUpCommand(player:Player, goRepository:GameObjectRepository, socket:Socket) {
+            var self = this;
+            return function() {
+                var go = goRepository.getTopPickupableGameObjectOnStack(player.getPosition());
+                if(!go) {
+                    return false;
+                }
+                goRepository.pickUpByPlayer(go, player);
+                self.uiAdapter.logOnUI("You pick up the "+go.getName()+".");
+                self.uiAdapter.addItemToUI(go.getId(), go.getName());
+                socket.emit('being-picked-up', {
+                    'id': player.getId(),
+                    'object': go.getId()
+                });
+                return true;
+            }
+        }
+
         private getKeyCommandMap()
         {
             var map = {};
@@ -232,6 +250,7 @@ module Herbs {
             map[ROT.VK_DOWN] =  new PlayerCommand(1, this.getMoveCommand(0,  1, this.player, this.goRepository, this.map, this.socket));
             map[ROT.VK_LEFT] =  new PlayerCommand(1, this.getMoveCommand(-1, 0, this.player, this.goRepository, this.map, this.socket));
             map[ROT.VK_PERIOD]= new PlayerCommand(1, this.getLookAtFloorCommand(this.player, this.goRepository, this.socket));
+            map[ROT.VK_K]=      new PlayerCommand(1, this.getPickUpCommand(this.player, this.goRepository, this.socket));
             return map;
         }
 

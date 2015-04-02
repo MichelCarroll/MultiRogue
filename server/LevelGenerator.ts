@@ -9,7 +9,7 @@ var fs = require('fs');
 eval(fs.readFileSync(__dirname+'/node_modules/rot.js/rot.js/rot.js','utf8'));
 
 import Being = require('./Being');
-import GameObject = require('./GameObject');
+import Item = require('./Item');
 import Board = require('./Board');
 import Level = require('./Level');
 import Coordinate = require('./Coordinate');
@@ -26,7 +26,7 @@ class LevelGenerator {
 
     private addRandomSticks(level:Level, map:Board, n:number) {
         for(var i = 0; i < n; i++) {
-            level.addImmobile(new GameObject(
+            level.addImmobile(new Item(
                 map.getRandomTile(),
                 '/',
                 ROT.Color.toHex(ROT.Color.randomize([205, 133, 63],[20,20,20])),

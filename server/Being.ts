@@ -41,7 +41,7 @@ class Being extends GameObject {
 
     public serialize() {
         var data = super.serialize();
-        data['is-player'] = true;
+        data.isPlayer = true;
         return data;
     }
 }

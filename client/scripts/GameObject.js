@@ -53,6 +53,12 @@ var Herbs;
         GameObject.prototype.isPlayer = function () {
             return this.isAPLayer;
         };
+        GameObject.prototype.setCanBePickedUp = function (value) {
+            this.canPickUp = value;
+        };
+        GameObject.prototype.canBePickedUp = function () {
+            return this.canPickUp;
+        };
         GameObject.fromSerialization = function (data) {
             var go = new GameObject(parseInt(data.id));
             GameObject.assignSerializedData(go, data);
@@ -62,10 +68,11 @@ var Herbs;
             go.setPosition(new Herbs.Coordinate(parseInt(data.x), parseInt(data.y)));
             go.setToken(data.token);
             go.setColorHex(data.color);
-            go.setIsPlayer(data['is-player']);
+            go.setIsPlayer(data['isPlayer']);
             go.setName(data.name);
             go.setDescription(data.description);
             go.setCanBeWalkedThrough(data.canWalkOn);
+            go.setCanBePickedUp(data.canPickUp);
         };
         return GameObject;
     })();

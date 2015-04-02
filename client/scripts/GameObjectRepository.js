@@ -31,6 +31,14 @@ var Herbs;
             this.addToStack(go, go.getPosition());
             return true;
         };
+        GameObjectRepository.prototype.pickUpByPlayer = function (go, player) {
+            player.addToInventory(go);
+            this.remove(go);
+        };
+        GameObjectRepository.prototype.dropUpByPlayer = function (go, player) {
+            player.removeFromToInventory(go);
+            this.add(go);
+        };
         GameObjectRepository.prototype.getTopWalkableGameObjectOnStack = function (position) {
             var key = position.toString();
             if (!this.goStacks[key]) {
@@ -38,6 +46,17 @@ var Herbs;
             }
             for (var i = 0; i < this.goStacks[key].length; i++) {
                 if (this.goStacks[key][i].canBeWalkedThrough()) {
+                    return this.goStacks[key][i];
+                }
+            }
+        };
+        GameObjectRepository.prototype.getTopPickupableGameObjectOnStack = function (position) {
+            var key = position.toString();
+            if (!this.goStacks[key]) {
+                return;
+            }
+            for (var i = 0; i < this.goStacks[key].length; i++) {
+                if (this.goStacks[key][i].canBePickedUp()) {
                     return this.goStacks[key][i];
                 }
             }

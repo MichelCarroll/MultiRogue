@@ -14,6 +14,7 @@ module Herbs {
         protected canWalkOn:boolean;
         protected name:string;
         protected isAPLayer:boolean;
+        protected canPickUp:boolean;
         protected description:string;
 
         constructor(id:number) {
@@ -80,6 +81,14 @@ module Herbs {
             return this.isAPLayer;
         }
 
+        public setCanBePickedUp(value:boolean) {
+            this.canPickUp = value;
+        }
+
+        public canBePickedUp():boolean {
+            return this.canPickUp;
+        }
+
         static fromSerialization(data):GameObject {
             var go = new GameObject(parseInt(data.id));
             GameObject.assignSerializedData(go, data);
@@ -90,10 +99,11 @@ module Herbs {
             go.setPosition(new Coordinate(parseInt(data.x), parseInt(data.y)));
             go.setToken(data.token);
             go.setColorHex(data.color);
-            go.setIsPlayer(data['is-player']);
+            go.setIsPlayer(data['isPlayer']);
             go.setName(data.name);
             go.setDescription(data.description);
             go.setCanBeWalkedThrough(data.canWalkOn);
+            go.setCanBePickedUp(data.canPickUp);
         }
 }
 }

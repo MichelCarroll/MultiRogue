@@ -42,6 +42,16 @@ module Herbs {
             return true;
         }
 
+        public pickUpByPlayer(go:GameObject, player:Player) {
+            player.addToInventory(go);
+            this.remove(go);
+        }
+
+        public dropUpByPlayer(go:GameObject, player:Player) {
+            player.removeFromToInventory(go);
+            this.add(go);
+        }
+
         public getTopWalkableGameObjectOnStack(position:Coordinate):GameObject {
             var key = position.toString();
             if(!this.goStacks[key]) {
@@ -49,6 +59,18 @@ module Herbs {
             }
             for(var i = 0; i < this.goStacks[key].length; i++) {
                 if(this.goStacks[key][i].canBeWalkedThrough()) {
+                    return this.goStacks[key][i];
+                }
+            }
+        }
+
+        public getTopPickupableGameObjectOnStack(position:Coordinate):GameObject {
+            var key = position.toString();
+            if(!this.goStacks[key]) {
+                return;
+            }
+            for(var i = 0; i < this.goStacks[key].length; i++) {
+                if(this.goStacks[key][i].canBePickedUp()) {
                     return this.goStacks[key][i];
                 }
             }

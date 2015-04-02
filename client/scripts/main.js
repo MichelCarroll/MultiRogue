@@ -19,6 +19,16 @@ $(document).ready(function() {
         $('#game-players').find('li[pid="'+playerId+'"]').remove();
     };
 
+    uiAdapter.addItemToUI = function(itemId, itemName) {
+        $('#game-items').append(
+            '<li class="list-group-item" pid="'+itemId+'">'+itemName+'</li>'
+        );
+    };
+
+    uiAdapter.removeItemFromUI = function(itemId) {
+        $('#game-items').find('li[pid="'+itemId+'"]').remove();
+    };
+
     uiAdapter.logOnUI = function(message, logTag) {
         while($('#game-log li').length > 200) {
             $('#game-log li:last').remove();

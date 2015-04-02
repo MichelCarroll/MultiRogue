@@ -8,10 +8,35 @@ module Herbs {
     export class Player extends GameObject {
 
         private actionTurns;
+        private inventory: { [id:number] : GameObject };
 
         constructor(id:number) {
             super(id);
             this.actionTurns = 0;
+            this.inventory = {};
+        }
+
+        public addToInventory(go:GameObject) {
+            if(this.inventory[go.getId()]) {
+                return;
+            }
+
+            this.inventory[go.getId()] = go;
+        }
+
+        public removeFromToInventory(go:GameObject) {
+            if(!this.inventory[go.getId()]) {
+                return;
+            }
+
+            delete this.inventory[go.getId()];
+        }
+
+        public getInventory():Array<GameObject> {
+            var self = this;
+            return Object.getOwnPropertyNames(this.inventory).map(
+                function(key) { return self.inventory[key]; }
+            );
         }
 
         public getRemainingActionTurns():number {
