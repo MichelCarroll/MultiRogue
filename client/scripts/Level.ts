@@ -8,7 +8,7 @@
 /// <reference path="./GameObjectLayer.ts" />
 
 module Herbs {
-    export class GameObjectRepository {
+    export class Level {
 
         private gos:{ [id:number] : GameObject };
         private layer:GameObjectLayer;

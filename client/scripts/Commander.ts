@@ -7,7 +7,7 @@
 /// <reference path="./UIAdapter.ts" />
 /// <reference path="./Player.ts" />
 /// <reference path="./Board.ts" />
-/// <reference path="./GameObjectRepository.ts" />
+/// <reference path="./Level.ts" />
 /// <reference path="./DisplayAdapter.ts" />
 
 
@@ -23,14 +23,14 @@ module Herbs {
         private socket:Socket;
         private player:Player;
         private map:Board;
-        private goRepository:GameObjectRepository;
+        private level:Level;
         private displayAdapter:DisplayAdapter;
 
-        constructor(uiAdapter:UIAdapter, socket:Socket, player:Player, goRepository:GameObjectRepository, map:Board, displayAdapter:DisplayAdapter) {
+        constructor(uiAdapter:UIAdapter, socket:Socket, player:Player, level:Level, map:Board, displayAdapter:DisplayAdapter) {
             this.uiAdapter = uiAdapter;
             this.socket = socket;
             this.player = player;
-            this.goRepository = goRepository;
+            this.level = level;
             this.displayAdapter = displayAdapter;
             this.map = map;
         }
@@ -69,7 +69,7 @@ module Herbs {
                 if(!self.map.tileExists(coord)) {
                     return false;
                 }
-                if(!self.goRepository.move(self.player, coord)) {
+                if(!self.level.move(self.player, coord)) {
                     return false;
                 }
                 self.socket.emit('being-moved', {
@@ -84,7 +84,7 @@ module Herbs {
         private getLookAtFloorCommand() {
             var self = this;
             return function() {
-                var go = self.goRepository.getTopGroundObject(self.player.getPosition());
+                var go = self.level.getTopGroundObject(self.player.getPosition());
                 if(!go) {
                     return false;
                 }
@@ -103,7 +103,7 @@ module Herbs {
                 if(!go) {
                     return false;
                 }
-                self.goRepository.dropByPlayer(go, self.player);
+                self.level.dropByPlayer(go, self.player);
                 self.uiAdapter.logOnUI("You drop the "+go.getName()+".");
                 self.uiAdapter.removeItemFromUI(go.getId());
                 self.socket.emit('being-dropped', {
@@ -117,11 +117,11 @@ module Herbs {
         private getPickUpCommand() {
             var self = this;
             return function() {
-                var go = self.goRepository.getTopItem(self.player.getPosition());
+                var go = self.level.getTopItem(self.player.getPosition());
                 if(!go) {
                     return false;
                 }
-                self.goRepository.pickUpByPlayer(go, self.player);
+                self.level.pickUpByPlayer(go, self.player);
                 self.uiAdapter.logOnUI("You pick up the "+go.getName()+".");
                 self.uiAdapter.addItemToUI(go.getId(), go.getName());
                 self.socket.emit('being-picked-up', {

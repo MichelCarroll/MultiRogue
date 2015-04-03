@@ -6,16 +6,16 @@
 /// <reference path="./UIAdapter.ts" />
 /// <reference path="./Player.ts" />
 /// <reference path="./Board.ts" />
-/// <reference path="./GameObjectRepository.ts" />
+/// <reference path="./Level.ts" />
 /// <reference path="./DisplayAdapter.ts" />
 var Herbs;
 (function (Herbs) {
     var Commander = (function () {
-        function Commander(uiAdapter, socket, player, goRepository, map, displayAdapter) {
+        function Commander(uiAdapter, socket, player, level, map, displayAdapter) {
             this.uiAdapter = uiAdapter;
             this.socket = socket;
             this.player = player;
-            this.goRepository = goRepository;
+            this.level = level;
             this.displayAdapter = displayAdapter;
             this.map = map;
         }
@@ -47,7 +47,7 @@ var Herbs;
                 if (!self.map.tileExists(coord)) {
                     return false;
                 }
-                if (!self.goRepository.move(self.player, coord)) {
+                if (!self.level.move(self.player, coord)) {
                     return false;
                 }
                 self.socket.emit('being-moved', {
@@ -61,7 +61,7 @@ var Herbs;
         Commander.prototype.getLookAtFloorCommand = function () {
             var self = this;
             return function () {
-                var go = self.goRepository.getTopGroundObject(self.player.getPosition());
+                var go = self.level.getTopGroundObject(self.player.getPosition());
                 if (!go) {
                     return false;
                 }
@@ -79,7 +79,7 @@ var Herbs;
                 if (!go) {
                     return false;
                 }
-                self.goRepository.dropByPlayer(go, self.player);
+                self.level.dropByPlayer(go, self.player);
                 self.uiAdapter.logOnUI("You drop the " + go.getName() + ".");
                 self.uiAdapter.removeItemFromUI(go.getId());
                 self.socket.emit('being-dropped', {
@@ -92,11 +92,11 @@ var Herbs;
         Commander.prototype.getPickUpCommand = function () {
             var self = this;
             return function () {
-                var go = self.goRepository.getTopItem(self.player.getPosition());
+                var go = self.level.getTopItem(self.player.getPosition());
                 if (!go) {
                     return false;
                 }
-                self.goRepository.pickUpByPlayer(go, self.player);
+                self.level.pickUpByPlayer(go, self.player);
                 self.uiAdapter.logOnUI("You pick up the " + go.getName() + ".");
                 self.uiAdapter.addItemToUI(go.getId(), go.getName());
                 self.socket.emit('being-picked-up', {

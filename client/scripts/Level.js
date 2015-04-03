@@ -7,29 +7,29 @@
 /// <reference path="./GameObjectLayer.ts" />
 var Herbs;
 (function (Herbs) {
-    var GameObjectRepository = (function () {
-        function GameObjectRepository() {
+    var Level = (function () {
+        function Level() {
             this.layer = new Herbs.GameObjectLayer();
             this.gos = {};
         }
-        GameObjectRepository.prototype.add = function (go) {
+        Level.prototype.add = function (go) {
             this.gos[go.getId()] = go;
             this.layer.add(go, go.getPosition());
         };
-        GameObjectRepository.prototype.get = function (id) {
+        Level.prototype.get = function (id) {
             if (!this.has(id)) {
                 throw new Error('No GO with ID: ' + id);
             }
             return this.gos[id];
         };
-        GameObjectRepository.prototype.has = function (id) {
+        Level.prototype.has = function (id) {
             return this.gos.hasOwnProperty(id.toString());
         };
-        GameObjectRepository.prototype.remove = function (go) {
+        Level.prototype.remove = function (go) {
             this.layer.remove(go, go.getPosition());
             delete this.gos[go.getId()];
         };
-        GameObjectRepository.prototype.move = function (go, position) {
+        Level.prototype.move = function (go, position) {
             if (this.layer.blocked(position.toString())) {
                 return false;
             }
@@ -38,26 +38,26 @@ var Herbs;
             this.layer.add(go, go.getPosition());
             return true;
         };
-        GameObjectRepository.prototype.pickUpByPlayer = function (go, player) {
+        Level.prototype.pickUpByPlayer = function (go, player) {
             player.addToInventory(go);
             this.remove(go);
         };
-        GameObjectRepository.prototype.dropByPlayer = function (go, player) {
+        Level.prototype.dropByPlayer = function (go, player) {
             player.removeFromInventory(go);
             go.setPosition(player.getPosition().copy());
             this.add(go);
         };
-        GameObjectRepository.prototype.getTopGroundObject = function (position) {
+        Level.prototype.getTopGroundObject = function (position) {
             return this.layer.getTopWalkableGameObject(position);
         };
-        GameObjectRepository.prototype.getTopItem = function (position) {
+        Level.prototype.getTopItem = function (position) {
             return this.layer.getTopPickupableGameObject(position);
         };
-        GameObjectRepository.prototype.getGameObjectLayer = function () {
+        Level.prototype.getGameObjectLayer = function () {
             return this.layer;
         };
-        return GameObjectRepository;
+        return Level;
     })();
-    Herbs.GameObjectRepository = GameObjectRepository;
+    Herbs.Level = Level;
 })(Herbs || (Herbs = {}));
-//# sourceMappingURL=GameObjectRepository.js.map
+//# sourceMappingURL=Level.js.map
