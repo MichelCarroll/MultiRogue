@@ -17,13 +17,6 @@ var Herbs;
         Coordinate.prototype.copy = function () {
             return new Coordinate(this.x, this.y);
         };
-        Coordinate.fromString = function (str) {
-            var parts = str.split(",");
-            return new Coordinate(parseInt(parts[0]), parseInt(parts[1]));
-        };
-        Coordinate.prototype.equals = function (coord) {
-            return this.x === coord.x && this.y === coord.y;
-        };
         return Coordinate;
     })();
     Herbs.Coordinate = Coordinate;

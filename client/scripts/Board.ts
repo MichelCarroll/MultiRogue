@@ -32,13 +32,5 @@ module Herbs {
         public tileExists(position:Coordinate):boolean {
             return (this.map.hasOwnProperty(position.toString()));
         }
-
-        public setTile(position:Coordinate, val:any) {
-            this.map[position.toString()] = val;
-        }
-
-        public deleteTile(position:Coordinate) {
-            delete this.map[position.toString()];
-        }
     }
 }

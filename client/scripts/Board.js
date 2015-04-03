@@ -22,12 +22,6 @@ var Herbs;
         Board.prototype.tileExists = function (position) {
             return (this.map.hasOwnProperty(position.toString()));
         };
-        Board.prototype.setTile = function (position, val) {
-            this.map[position.toString()] = val;
-        };
-        Board.prototype.deleteTile = function (position) {
-            delete this.map[position.toString()];
-        };
         return Board;
     })();
     Herbs.Board = Board;
