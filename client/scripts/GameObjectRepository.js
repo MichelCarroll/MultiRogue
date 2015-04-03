@@ -4,16 +4,17 @@
 /// <reference path="./GameObject.ts" />
 /// <reference path="./Board.ts" />
 /// <reference path="./Coordinate.ts" />
+/// <reference path="./GameObjectLayer.ts" />
 var Herbs;
 (function (Herbs) {
     var GameObjectRepository = (function () {
         function GameObjectRepository() {
-            this.goStacks = {};
+            this.layer = new Herbs.GameObjectLayer();
             this.gos = {};
         }
         GameObjectRepository.prototype.add = function (go) {
             this.gos[go.getId()] = go;
-            this.addToStack(go, go.getPosition());
+            this.layer.add(go, go.getPosition());
         };
         GameObjectRepository.prototype.get = function (id) {
             if (!this.has(id)) {
@@ -25,16 +26,16 @@ var Herbs;
             return this.gos.hasOwnProperty(id.toString());
         };
         GameObjectRepository.prototype.remove = function (go) {
-            this.removeFromStack(go, go.getPosition());
+            this.layer.remove(go, go.getPosition());
             delete this.gos[go.getId()];
         };
         GameObjectRepository.prototype.move = function (go, position) {
-            if (!this.allGOInStackAreWalkable(position.toString())) {
+            if (this.layer.blocked(position.toString())) {
                 return false;
             }
-            this.removeFromStack(go, go.getPosition());
+            this.layer.remove(go, go.getPosition());
             go.setPosition(position);
-            this.addToStack(go, go.getPosition());
+            this.layer.add(go, go.getPosition());
             return true;
         };
         GameObjectRepository.prototype.pickUpByPlayer = function (go, player) {
@@ -46,82 +47,14 @@ var Herbs;
             go.setPosition(player.getPosition().copy());
             this.add(go);
         };
-        GameObjectRepository.prototype.getTopWalkableGameObjectOnStack = function (position) {
-            var key = position.toString();
-            if (!this.goStacks[key]) {
-                return;
-            }
-            for (var i = 0; i < this.goStacks[key].length; i++) {
-                if (this.goStacks[key][i].canBeWalkedThrough()) {
-                    return this.goStacks[key][i];
-                }
-            }
+        GameObjectRepository.prototype.getTopGroundObject = function (position) {
+            return this.layer.getTopWalkableGameObject(position);
         };
-        GameObjectRepository.prototype.getTopPickupableGameObjectOnStack = function (position) {
-            var key = position.toString();
-            if (!this.goStacks[key]) {
-                return;
-            }
-            for (var i = 0; i < this.goStacks[key].length; i++) {
-                if (this.goStacks[key][i].canBePickedUp()) {
-                    return this.goStacks[key][i];
-                }
-            }
+        GameObjectRepository.prototype.getTopItem = function (position) {
+            return this.layer.getTopPickupableGameObject(position);
         };
-        GameObjectRepository.prototype.getTopGameObjectOnStack = function (position) {
-            var key = position.toString();
-            if (!this.goStacks[key] || !this.goStacks[key].length) {
-                return;
-            }
-            return this.goStacks[key][0];
-        };
-        GameObjectRepository.prototype.addToStack = function (go, position) {
-            var key = position.toString();
-            if (!this.goStacks[key]) {
-                this.goStacks[key] = new Array();
-            }
-            this.goStacks[key].push(go);
-            this.sortStack(key);
-        };
-        GameObjectRepository.prototype.sortStack = function (stackKey) {
-            this.goStacks[stackKey].sort(function (a, b) {
-                if (a.canBeWalkedThrough() === b.canBeWalkedThrough()) {
-                    return 0;
-                }
-                else if (!a.canBeWalkedThrough()) {
-                    return -1;
-                }
-                return 1;
-            });
-        };
-        GameObjectRepository.prototype.removeFromStack = function (go, position) {
-            var key = position.toString();
-            if (!this.goStacks[key]) {
-                return;
-            }
-            var index = this.findGOIndexInStack(position.toString(), go);
-            if (index !== -1) {
-                this.goStacks[key].splice(index, 1);
-            }
-        };
-        GameObjectRepository.prototype.findGOIndexInStack = function (stackKey, go) {
-            for (var i = 0; i < this.goStacks[stackKey].length; i++) {
-                if (this.goStacks[stackKey][i].getId() === go.getId()) {
-                    return i;
-                }
-            }
-            return -1;
-        };
-        GameObjectRepository.prototype.allGOInStackAreWalkable = function (stackKey) {
-            if (!this.goStacks[stackKey]) {
-                return true;
-            }
-            for (var i = 0; i < this.goStacks[stackKey].length; i++) {
-                if (!this.goStacks[stackKey][i].canBeWalkedThrough()) {
-                    return false;
-                }
-            }
-            return true;
+        GameObjectRepository.prototype.getGameObjectLayer = function () {
+            return this.layer;
         };
         return GameObjectRepository;
     })();

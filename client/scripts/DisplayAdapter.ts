@@ -4,7 +4,7 @@
 
 /// <reference path="../bower_components/rot.js-TS/rot.d.ts"/>
 /// <reference path="./Player.ts" />
-/// <reference path="./GameObjectRepository.ts" />
+/// <reference path="./GameObjectLayer.ts" />
 /// <reference path="./UIAdapter.ts" />
 /// <reference path="./Board.ts" />
 /// <reference path="./Coordinate.ts" />
@@ -16,7 +16,7 @@ module Herbs {
         private uiAdapter:UIAdapter;
         private map:Board;
         private player:Player;
-        private goRepository:GameObjectRepository;
+        private goLayer:GameObjectLayer;
         private display:ROT.Display;
         private fov:ROT.FOV.PreciseShadowcasting;
 
@@ -24,10 +24,10 @@ module Herbs {
             this.uiAdapter = uiAdapter;
         }
 
-        public reinitialize(map:Board, player:Player, goRepository:GameObjectRepository) {
+        public reinitialize(map:Board, player:Player, goLayer:GameObjectLayer) {
             this.map = map;
             this.player = player;
-            this.goRepository = goRepository;
+            this.goLayer = goLayer;
             this.recreateGameDisplay();
             this.initiateFov();
             this.draw();
@@ -71,7 +71,7 @@ module Herbs {
                 var coord = new Coordinate(x,y);
                 var color = (self.map.tileExists(coord) ? "#aa0": "#660");
                 self.display.draw(x, y, self.map.getTile(coord), "#fff", color);
-                var being = self.goRepository.getTopGameObjectOnStack(coord);
+                var being = self.goLayer.getTopGameObject(coord);
 
                 if(being) {
                     self.display.draw(being.getPosition().x,being.getPosition().y,being.getToken(),being.getColor(), "#aa0");

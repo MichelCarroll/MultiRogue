@@ -6,10 +6,10 @@
 /// <reference path="./GameObject.ts" />
 /// <reference path="./GameObjectRepository.ts" />
 /// <reference path="./Board.ts" />
-/// <reference path="./PlayerCommand.ts" />
 /// <reference path="./UIAdapter.ts" />
 /// <reference path="./DisplayAdapter.ts" />
 /// <reference path="./Player.ts" />
+/// <reference path="./Commander.ts" />
 
 
 declare class SocketIO {
@@ -37,6 +37,7 @@ module Herbs {
         private socketIo:SocketIO;
         private uiAdapter:UIAdapter;
         private displayAdapter:DisplayAdapter;
+        private commander:Commander;
 
 
         public init(io, uiAdapter)
@@ -87,7 +88,8 @@ module Herbs {
                 self.uiAdapter.logOnUI("You're now connected as "+self.player.getName()+"!", CHAT_LOG_INFO);
                 self.goRepository.add(self.player);
                 self.uiAdapter.addPlayerToUI(self.player.getId(), self.player.getName());
-                self.displayAdapter.reinitialize(self.map, self.player, self.goRepository);
+                self.commander = new Commander(self.uiAdapter, self.socket, self.player, self.goRepository, self.map, self.displayAdapter);
+                self.displayAdapter.reinitialize(self.map, self.player, self.goRepository.getGameObjectLayer());
             });
 
             this.socket.on('being-moved', function(data:any) {
@@ -131,6 +133,7 @@ module Herbs {
 
             this.socket.on('disconnect', function(data:any) {
                 self.uiAdapter.logOnUI("Disconnected from server", CHAT_LOG_WARNING);
+                self.commander = null;
                 self.displayAdapter.clear();
             });
 
@@ -165,144 +168,33 @@ module Herbs {
             }
         }
 
-        public handleInputChat(text)
-        {
-            var self = this;
-            var chatCommand = new PlayerCommand(1, function() {
-                self.uiAdapter.logOnUI("You shout \""+text+"\"!!");
-                self.socket.emit('shout', {
-                    'text': text
-                });
-                return true;
-            });
-
-            this.executeCommand(chatCommand);
-        }
-
         public handleScreenResize()
         {
             this.displayAdapter.resize();
         }
 
-        private getMoveCommand(x:number, y:number, player:GameObject, goRepository:GameObjectRepository, map:Board, socket:Socket) {
-            return function() {
-                var coord = player.getPosition().add(x, y);
-                if(!map.tileExists(coord)) {
-                    return false;
-                }
-                if(!goRepository.move(player, coord)) {
-                    return false;
-                }
-                socket.emit('being-moved', {
-                    'id': player.getId(),
-                    'x': player.getPosition().x,
-                    'y': player.getPosition().y
-                });
-                return true;
-            };
-        }
-
-        private getLookAtFloorCommand(player:Player, goRepository:GameObjectRepository, socket:Socket) {
-            var self = this;
-            return function() {
-                var go = goRepository.getTopWalkableGameObjectOnStack(player.getPosition());
-                if(!go) {
-                    return false;
-                }
-                self.uiAdapter.logOnUI("You see "+go.getDescription()+".");
-                socket.emit('being-looked-at-floor', {
-                    'id': player.getId()
-                });
-                return true;
-            }
-        }
-
-        private getDropCommand(goId:number, player:Player, goRepository:GameObjectRepository, socket:Socket) {
-            var self = this;
-            return function() {
-                var go = player.getInventory()[goId];
-                if(!go) {
-                    return false;
-                }
-                goRepository.dropByPlayer(go, player);
-                self.uiAdapter.logOnUI("You drop the "+go.getName()+".");
-                self.uiAdapter.removeItemFromUI(go.getId());
-                socket.emit('being-dropped', {
-                    'playerId': player.getId(),
-                    'objectId': go.getId()
-                });
-                return true;
-            }
-        }
-
-        private getPickUpCommand(player:Player, goRepository:GameObjectRepository, socket:Socket) {
-            var self = this;
-            return function() {
-                var go = goRepository.getTopPickupableGameObjectOnStack(player.getPosition());
-                if(!go) {
-                    return false;
-                }
-                goRepository.pickUpByPlayer(go, player);
-                self.uiAdapter.logOnUI("You pick up the "+go.getName()+".");
-                self.uiAdapter.addItemToUI(go.getId(), go.getName());
-                socket.emit('being-picked-up', {
-                    'playerId': player.getId(),
-                    'objectId': go.getId()
-                });
-                return true;
-            }
-        }
-
-        private getKeyCommandMap()
+        public handleInputChat(text)
         {
-            var map = {};
-            map[ROT.VK_UP] =    new PlayerCommand(1, this.getMoveCommand(0, -1, this.player, this.goRepository, this.map, this.socket));
-            map[ROT.VK_RIGHT] = new PlayerCommand(1, this.getMoveCommand(1,  0, this.player, this.goRepository, this.map, this.socket));
-            map[ROT.VK_DOWN] =  new PlayerCommand(1, this.getMoveCommand(0,  1, this.player, this.goRepository, this.map, this.socket));
-            map[ROT.VK_LEFT] =  new PlayerCommand(1, this.getMoveCommand(-1, 0, this.player, this.goRepository, this.map, this.socket));
-            map[ROT.VK_PERIOD]= new PlayerCommand(1, this.getLookAtFloorCommand(this.player, this.goRepository, this.socket));
-            map[ROT.VK_K]=      new PlayerCommand(1, this.getPickUpCommand(this.player, this.goRepository, this.socket));
-            return map;
+            if(!this.commander) {
+                return;
+            }
+            this.commander.inputChat(text);
         }
 
-        public handleItemClickEvent(goId:number) {
-            var command = new PlayerCommand(1, this.getDropCommand(goId, this.player, this.goRepository, this.socket));
-            this.executeCommand(command);
+        public handleItemClickEvent(goId:number)
+        {
+            if(!this.commander) {
+                return;
+            }
+            this.commander.clickItem(goId);
         }
 
         public handlePlayerKeyEvent(keyCode:number)
         {
-            var command = this.getKeyCommandMap()[keyCode];
-            if(command) {
-                this.executeCommand(command);
-            }
-        }
-
-        private executeCommand(playerCommand:PlayerCommand)
-        {
-            if(!this.player.getRemainingActionTurns()) {
-                this.uiAdapter.logOnUI("It's not your turn!");
+            if(!this.commander) {
                 return;
             }
-            else if(this.player.getRemainingActionTurns() - playerCommand.getTurnCost() < 0) {
-                this.uiAdapter.logOnUI("You don't have enough turns to do this!");
-                return;
-            }
-
-            if(!playerCommand.execute()) {
-                this.uiAdapter.logOnUI("You can't do that!");
-                return;
-            }
-
-            this.player.useTurns(playerCommand.getTurnCost());
-
-            if(this.player.getRemainingActionTurns() > 0) {
-                this.uiAdapter.logOnUI("You have "+this.player.getRemainingActionTurns()+" actions left.");
-            } else {
-                this.uiAdapter.logOnUI("Your turn is over.");
-            }
-
-            this.displayAdapter.draw();
+            this.commander.pressKey(keyCode);
         }
     }
 }

@@ -5,26 +5,27 @@
 /// <reference path="./GameObject.ts" />
 /// <reference path="./Board.ts" />
 /// <reference path="./Coordinate.ts" />
+/// <reference path="./GameObjectLayer.ts" />
 
 module Herbs {
     export class GameObjectRepository {
 
-        private gos: { [id:number] : GameObject };
-        private goStacks: { [position:string] : Array<GameObject> }
+        private gos:{ [id:number] : GameObject };
+        private layer:GameObjectLayer;
 
         constructor() {
-            this.goStacks = {};
+            this.layer = new GameObjectLayer();
             this.gos = {};
         }
 
         public add(go:GameObject) {
             this.gos[go.getId()] = go;
-            this.addToStack(go, go.getPosition());
+            this.layer.add(go, go.getPosition());
         }
 
         public get(id:number) {
-            if(!this.has(id)) {
-                throw new Error('No GO with ID: '+id);
+            if (!this.has(id)) {
+                throw new Error('No GO with ID: ' + id);
             }
             return this.gos[id];
         }
@@ -34,20 +35,22 @@ module Herbs {
         }
 
         public remove(go:GameObject) {
-            this.removeFromStack(go, go.getPosition());
+            this.layer.remove(go, go.getPosition());
             delete this.gos[go.getId()];
         }
 
+
         public move(go:GameObject, position:Coordinate):boolean {
-            if(!this.allGOInStackAreWalkable(position.toString())) {
+            if (this.layer.blocked(position.toString())) {
                 return false;
             }
 
-            this.removeFromStack(go, go.getPosition());
+            this.layer.remove(go, go.getPosition());
             go.setPosition(position);
-            this.addToStack(go, go.getPosition());
+            this.layer.add(go, go.getPosition());
             return true;
         }
+
 
         public pickUpByPlayer(go:GameObject, player:Player) {
             player.addToInventory(go);
@@ -60,91 +63,18 @@ module Herbs {
             this.add(go);
         }
 
-        public getTopWalkableGameObjectOnStack(position:Coordinate):GameObject {
-            var key = position.toString();
-            if(!this.goStacks[key]) {
-                return;
-            }
-            for(var i = 0; i < this.goStacks[key].length; i++) {
-                if(this.goStacks[key][i].canBeWalkedThrough()) {
-                    return this.goStacks[key][i];
-                }
-            }
+
+        public getTopGroundObject(position:Coordinate):GameObject {
+            return this.layer.getTopWalkableGameObject(position);
         }
 
-        public getTopPickupableGameObjectOnStack(position:Coordinate):GameObject {
-            var key = position.toString();
-            if(!this.goStacks[key]) {
-                return;
-            }
-            for(var i = 0; i < this.goStacks[key].length; i++) {
-                if(this.goStacks[key][i].canBePickedUp()) {
-                    return this.goStacks[key][i];
-                }
-            }
+        public getTopItem(position:Coordinate):GameObject {
+            return this.layer.getTopPickupableGameObject(position);
         }
 
-        public getTopGameObjectOnStack(position:Coordinate):GameObject {
-            var key = position.toString();
-            if(!this.goStacks[key] || !this.goStacks[key].length) {
-                return;
-            }
-
-            return this.goStacks[key][0];
+        public getGameObjectLayer():GameObjectLayer {
+            return this.layer;
         }
 
-        private addToStack(go:GameObject, position:Coordinate) {
-            var key = position.toString();
-            if(!this.goStacks[key]) {
-                this.goStacks[key] = new Array();
-            }
-            this.goStacks[key].push(go);
-            this.sortStack(key);
-        }
-
-        private sortStack(stackKey:string) {
-            this.goStacks[stackKey].sort(function(a:GameObject,b:GameObject):number {
-                if(a.canBeWalkedThrough() === b.canBeWalkedThrough()) {
-                    return 0;
-                }
-                else if(!a.canBeWalkedThrough()) {
-                    return -1;
-                }
-                return 1;
-            })
-        }
-
-        private removeFromStack(go:GameObject, position:Coordinate) {
-            var key = position.toString();
-            if(!this.goStacks[key]) {
-                return;
-            }
-            var index = this.findGOIndexInStack(position.toString(), go);
-            if(index !== -1) {
-                this.goStacks[key].splice(index, 1);
-            }
-        }
-
-        private findGOIndexInStack(stackKey:string, go:GameObject):number {
-            for(var i = 0; i < this.goStacks[stackKey].length; i++) {
-                if(this.goStacks[stackKey][i].getId() === go.getId()) {
-                    return i;
-                }
-            }
-            return -1;
-        }
-
-        private allGOInStackAreWalkable(stackKey:string):boolean {
-            if(!this.goStacks[stackKey]) {
-                return true;
-            }
-            for(var i = 0; i < this.goStacks[stackKey].length; i++) {
-                if(!this.goStacks[stackKey][i].canBeWalkedThrough()) {
-                    return false;
-                }
-            }
-            return true;
-        }
     }
-
 }

@@ -5,10 +5,10 @@
 /// <reference path="./GameObject.ts" />
 /// <reference path="./GameObjectRepository.ts" />
 /// <reference path="./Board.ts" />
-/// <reference path="./PlayerCommand.ts" />
 /// <reference path="./UIAdapter.ts" />
 /// <reference path="./DisplayAdapter.ts" />
 /// <reference path="./Player.ts" />
+/// <reference path="./Commander.ts" />
 var Herbs;
 (function (Herbs) {
     Herbs.CHAT_LOG_SUCCESS = 'success';
@@ -57,7 +57,8 @@ var Herbs;
                 self.uiAdapter.logOnUI("You're now connected as " + self.player.getName() + "!", Herbs.CHAT_LOG_INFO);
                 self.goRepository.add(self.player);
                 self.uiAdapter.addPlayerToUI(self.player.getId(), self.player.getName());
-                self.displayAdapter.reinitialize(self.map, self.player, self.goRepository);
+                self.commander = new Herbs.Commander(self.uiAdapter, self.socket, self.player, self.goRepository, self.map, self.displayAdapter);
+                self.displayAdapter.reinitialize(self.map, self.player, self.goRepository.getGameObjectLayer());
             });
             this.socket.on('being-moved', function (data) {
                 var being = self.goRepository.get(parseInt(data.id));
@@ -94,6 +95,7 @@ var Herbs;
             });
             this.socket.on('disconnect', function (data) {
                 self.uiAdapter.logOnUI("Disconnected from server", Herbs.CHAT_LOG_WARNING);
+                self.commander = null;
                 self.displayAdapter.clear();
             });
             this.socket.on('being-looked-at-floor', function (data) {
@@ -122,126 +124,26 @@ var Herbs;
                 }
             }
         };
-        Game.prototype.handleInputChat = function (text) {
-            var self = this;
-            var chatCommand = new Herbs.PlayerCommand(1, function () {
-                self.uiAdapter.logOnUI("You shout \"" + text + "\"!!");
-                self.socket.emit('shout', {
-                    'text': text
-                });
-                return true;
-            });
-            this.executeCommand(chatCommand);
-        };
         Game.prototype.handleScreenResize = function () {
             this.displayAdapter.resize();
         };
-        Game.prototype.getMoveCommand = function (x, y, player, goRepository, map, socket) {
-            return function () {
-                var coord = player.getPosition().add(x, y);
-                if (!map.tileExists(coord)) {
-                    return false;
-                }
-                if (!goRepository.move(player, coord)) {
-                    return false;
-                }
-                socket.emit('being-moved', {
-                    'id': player.getId(),
-                    'x': player.getPosition().x,
-                    'y': player.getPosition().y
-                });
-                return true;
-            };
-        };
-        Game.prototype.getLookAtFloorCommand = function (player, goRepository, socket) {
-            var self = this;
-            return function () {
-                var go = goRepository.getTopWalkableGameObjectOnStack(player.getPosition());
-                if (!go) {
-                    return false;
-                }
-                self.uiAdapter.logOnUI("You see " + go.getDescription() + ".");
-                socket.emit('being-looked-at-floor', {
-                    'id': player.getId()
-                });
-                return true;
-            };
-        };
-        Game.prototype.getDropCommand = function (goId, player, goRepository, socket) {
-            var self = this;
-            return function () {
-                var go = player.getInventory()[goId];
-                if (!go) {
-                    return false;
-                }
-                goRepository.dropByPlayer(go, player);
-                self.uiAdapter.logOnUI("You drop the " + go.getName() + ".");
-                self.uiAdapter.removeItemFromUI(go.getId());
-                socket.emit('being-dropped', {
-                    'playerId': player.getId(),
-                    'objectId': go.getId()
-                });
-                return true;
-            };
-        };
-        Game.prototype.getPickUpCommand = function (player, goRepository, socket) {
-            var self = this;
-            return function () {
-                var go = goRepository.getTopPickupableGameObjectOnStack(player.getPosition());
-                if (!go) {
-                    return false;
-                }
-                goRepository.pickUpByPlayer(go, player);
-                self.uiAdapter.logOnUI("You pick up the " + go.getName() + ".");
-                self.uiAdapter.addItemToUI(go.getId(), go.getName());
-                socket.emit('being-picked-up', {
-                    'playerId': player.getId(),
-                    'objectId': go.getId()
-                });
-                return true;
-            };
-        };
-        Game.prototype.getKeyCommandMap = function () {
-            var map = {};
-            map[ROT.VK_UP] = new Herbs.PlayerCommand(1, this.getMoveCommand(0, -1, this.player, this.goRepository, this.map, this.socket));
-            map[ROT.VK_RIGHT] = new Herbs.PlayerCommand(1, this.getMoveCommand(1, 0, this.player, this.goRepository, this.map, this.socket));
-            map[ROT.VK_DOWN] = new Herbs.PlayerCommand(1, this.getMoveCommand(0, 1, this.player, this.goRepository, this.map, this.socket));
-            map[ROT.VK_LEFT] = new Herbs.PlayerCommand(1, this.getMoveCommand(-1, 0, this.player, this.goRepository, this.map, this.socket));
-            map[ROT.VK_PERIOD] = new Herbs.PlayerCommand(1, this.getLookAtFloorCommand(this.player, this.goRepository, this.socket));
-            map[ROT.VK_K] = new Herbs.PlayerCommand(1, this.getPickUpCommand(this.player, this.goRepository, this.socket));
-            return map;
+        Game.prototype.handleInputChat = function (text) {
+            if (!this.commander) {
+                return;
+            }
+            this.commander.inputChat(text);
         };
         Game.prototype.handleItemClickEvent = function (goId) {
-            var command = new Herbs.PlayerCommand(1, this.getDropCommand(goId, this.player, this.goRepository, this.socket));
-            this.executeCommand(command);
+            if (!this.commander) {
+                return;
+            }
+            this.commander.clickItem(goId);
         };
         Game.prototype.handlePlayerKeyEvent = function (keyCode) {
-            var command = this.getKeyCommandMap()[keyCode];
-            if (command) {
-                this.executeCommand(command);
-            }
-        };
-        Game.prototype.executeCommand = function (playerCommand) {
-            if (!this.player.getRemainingActionTurns()) {
-                this.uiAdapter.logOnUI("It's not your turn!");
+            if (!this.commander) {
                 return;
             }
-            else if (this.player.getRemainingActionTurns() - playerCommand.getTurnCost() < 0) {
-                this.uiAdapter.logOnUI("You don't have enough turns to do this!");
-                return;
-            }
-            if (!playerCommand.execute()) {
-                this.uiAdapter.logOnUI("You can't do that!");
-                return;
-            }
-            this.player.useTurns(playerCommand.getTurnCost());
-            if (this.player.getRemainingActionTurns() > 0) {
-                this.uiAdapter.logOnUI("You have " + this.player.getRemainingActionTurns() + " actions left.");
-            }
-            else {
-                this.uiAdapter.logOnUI("Your turn is over.");
-            }
-            this.displayAdapter.draw();
+            this.commander.pressKey(keyCode);
         };
         return Game;
     })();

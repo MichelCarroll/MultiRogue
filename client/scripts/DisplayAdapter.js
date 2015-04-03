@@ -3,7 +3,7 @@
  */
 /// <reference path="../bower_components/rot.js-TS/rot.d.ts"/>
 /// <reference path="./Player.ts" />
-/// <reference path="./GameObjectRepository.ts" />
+/// <reference path="./GameObjectLayer.ts" />
 /// <reference path="./UIAdapter.ts" />
 /// <reference path="./Board.ts" />
 /// <reference path="./Coordinate.ts" />
@@ -13,10 +13,10 @@ var Herbs;
         function DisplayAdapter(uiAdapter) {
             this.uiAdapter = uiAdapter;
         }
-        DisplayAdapter.prototype.reinitialize = function (map, player, goRepository) {
+        DisplayAdapter.prototype.reinitialize = function (map, player, goLayer) {
             this.map = map;
             this.player = player;
-            this.goRepository = goRepository;
+            this.goLayer = goLayer;
             this.recreateGameDisplay();
             this.initiateFov();
             this.draw();
@@ -51,7 +51,7 @@ var Herbs;
                 var coord = new Herbs.Coordinate(x, y);
                 var color = (self.map.tileExists(coord) ? "#aa0" : "#660");
                 self.display.draw(x, y, self.map.getTile(coord), "#fff", color);
-                var being = self.goRepository.getTopGameObjectOnStack(coord);
+                var being = self.goLayer.getTopGameObject(coord);
                 if (being) {
                     self.display.draw(being.getPosition().x, being.getPosition().y, being.getToken(), being.getColor(), "#aa0");
                 }
