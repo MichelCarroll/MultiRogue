@@ -23,7 +23,14 @@ module Herbs {
         }
 
         public get(id:number) {
+            if(!this.has(id)) {
+                throw new Error('No GO with ID: '+id);
+            }
             return this.gos[id];
+        }
+
+        public has(id:number) {
+            return this.gos.hasOwnProperty(id.toString());
         }
 
         public remove(go:GameObject) {

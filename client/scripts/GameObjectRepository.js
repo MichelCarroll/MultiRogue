@@ -16,7 +16,13 @@ var Herbs;
             this.addToStack(go, go.getPosition());
         };
         GameObjectRepository.prototype.get = function (id) {
+            if (!this.has(id)) {
+                throw new Error('No GO with ID: ' + id);
+            }
             return this.gos[id];
+        };
+        GameObjectRepository.prototype.has = function (id) {
+            return this.gos.hasOwnProperty(id.toString());
         };
         GameObjectRepository.prototype.remove = function (go) {
             this.removeFromStack(go, go.getPosition());

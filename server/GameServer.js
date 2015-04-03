@@ -31,12 +31,12 @@ var GameServer = (function () {
                     self.callToStartTurns(this, socket);
                 });
                 socket.emit('position-player', { 'player': player.serialize() });
-                socket.broadcast.emit('being-came', player.serialize());
+                socket.broadcast.emit('player-came', player.serialize());
                 self.level.resume();
             });
             socket.on('disconnect', function () {
                 if (player) {
-                    socket.broadcast.emit('being-left', player.serialize());
+                    socket.broadcast.emit('player-left', player.serialize());
                     self.level.removePlayer(player);
                 }
             });
@@ -102,7 +102,7 @@ var GameServer = (function () {
     GameServer.prototype.handleError = function (player, error, socket) {
         console.log(error);
         socket.emit('debug', error.message);
-        socket.broadcast.emit('being-left', player.serialize());
+        socket.broadcast.emit('player-left', player.serialize());
         this.level.removePlayer(player);
     };
     GameServer.prototype.callToStartTurns = function (player, socket) {

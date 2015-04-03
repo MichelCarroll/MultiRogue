@@ -61,40 +61,25 @@ var Herbs;
             });
             this.socket.on('being-moved', function (data) {
                 var being = self.goRepository.get(parseInt(data.id));
-                if (!being) {
-                    self.goRepository.add(Herbs.GameObject.fromSerialization(data));
-                }
-                else {
-                    self.goRepository.move(being, new Herbs.Coordinate(parseInt(data.x), parseInt(data.y)));
-                }
+                self.goRepository.move(being, new Herbs.Coordinate(parseInt(data.x), parseInt(data.y)));
                 self.displayAdapter.draw();
             });
-            this.socket.on('being-came', function (data) {
+            this.socket.on('player-came', function (data) {
                 var being = Herbs.GameObject.fromSerialization(data);
                 self.goRepository.add(being);
                 self.displayAdapter.draw();
-                if (being.isPlayer()) {
-                    self.uiAdapter.logOnUI(being.getName() + " just connected", Herbs.CHAT_LOG_INFO);
-                    self.uiAdapter.addPlayerToUI(being.getId(), being.getName());
-                }
+                self.uiAdapter.logOnUI(being.getName() + " just connected", Herbs.CHAT_LOG_INFO);
+                self.uiAdapter.addPlayerToUI(being.getId(), being.getName());
             });
-            this.socket.on('being-left', function (data) {
+            this.socket.on('player-left', function (data) {
                 var being = self.goRepository.get(parseInt(data.id));
-                if (!being) {
-                    return;
-                }
                 self.goRepository.remove(being);
                 self.displayAdapter.draw();
-                if (being.isPlayer()) {
-                    self.uiAdapter.logOnUI(being.getName() + " just disconnected", Herbs.CHAT_LOG_INFO);
-                    self.uiAdapter.removePlayerFromUI(parseInt(data.id));
-                }
+                self.uiAdapter.logOnUI(being.getName() + " just disconnected", Herbs.CHAT_LOG_INFO);
+                self.uiAdapter.removePlayerFromUI(parseInt(data.id));
             });
             this.socket.on('its-another-player-turn', function (data) {
                 var being = self.goRepository.get(parseInt(data.id));
-                if (!being) {
-                    return;
-                }
                 self.uiAdapter.highlightPlayer(being.getId());
                 self.uiAdapter.logOnUI("It's " + being.getName() + "'s turn.");
             });
@@ -105,9 +90,6 @@ var Herbs;
             });
             this.socket.on('being-shouted', function (data) {
                 var being = self.goRepository.get(parseInt(data.id));
-                if (!being) {
-                    return;
-                }
                 self.uiAdapter.logOnUI(being.getName() + " shouts \"" + data.text + "\"!!", Herbs.CHAT_LOG_INFO);
             });
             this.socket.on('disconnect', function (data) {
@@ -116,16 +98,10 @@ var Herbs;
             });
             this.socket.on('being-looked-at-floor', function (data) {
                 var being = self.goRepository.get(parseInt(data.id));
-                if (!being) {
-                    return;
-                }
                 self.uiAdapter.logOnUI(being.getName() + " inspected an object on the floor.", Herbs.CHAT_LOG_INFO);
             });
             this.socket.on('game-object-remove', function (data) {
                 var go = self.goRepository.get(parseInt(data.id));
-                if (!go) {
-                    return;
-                }
                 self.goRepository.remove(go);
                 self.displayAdapter.draw();
             });
