@@ -12,8 +12,9 @@ import GameObject = require('./GameObject');
 import Being = require('./Being');
 import Board = require('./Board');
 import Coordinate = require('./Coordinate');
+import Serializable = require('./Serializable');
 
-class Level {
+class Level implements Serializable {
 
     static TURNS_PER_ROUND = 4;
     private map:Board;

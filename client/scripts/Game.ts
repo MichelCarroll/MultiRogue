@@ -30,11 +30,8 @@ module Herbs {
 
     export class Game {
 
-        private map:Board;
         private level:Level;
         private player:Player;
-        private socket;
-        private socketIo:SocketIO;
         private uiAdapter:UIAdapter;
         private displayAdapter:DisplayAdapter;
         private commander:Commander;
@@ -44,12 +41,10 @@ module Herbs {
         {
             this.uiAdapter = uiAdapter;
             this.displayAdapter = new DisplayAdapter(this.uiAdapter);
-            this.socketIo = io;
-            this.initiateSocket();
-            this.hookSocketEvents();
+            this.hookSocketEvents(this.getSocket(io));
         }
 
-        private initiateSocket()
+        private getSocket(io:SocketIO):Socket
         {
             var url = '';
             if(document.location.protocol === 'file:') {
@@ -58,47 +53,42 @@ module Herbs {
                 url = 'http://'+document.location.hostname;
             }
 
-            this.socket = this.socketIo.connect(url+':3000');
+            return io.connect(url+':3000');
         }
 
-        private hookSocketEvents()
+        private hookSocketEvents(socket:Socket)
         {
             var self = this;
-            this.socket.on('debug', function(msg:any){
+            socket.on('debug', function(msg:any){
                 console.log(msg);
                 self.uiAdapter.logOnUI("Server Error "+msg, CHAT_LOG_DANGER);
             });
 
-            this.socket.on('initiate-board', function(data:any) {
+            socket.on('initiate', function(data:any) {
                 self.uiAdapter.clearPlayerList();
-                self.map = new Board(data.map, parseInt(data.width), parseInt(data.height));
                 self.level = new Level();
-                self.createGameObjects(data.gameObjects);
+                self.createGameObjects(data.level.gameObjects);
 
-                if(data.current_player_id) {
-                    var being = self.level.get(parseInt(data.current_player_id));
+                if(data.level.current_player_id) {
+                    var being = self.level.get(parseInt(data.level.current_player_id));
                     self.uiAdapter.highlightPlayer(being.getId());
                 }
 
-                self.socket.emit('position-my-player', {});
-            });
-
-            this.socket.on('position-player', function(data:any) {
                 self.player = Player.fromSerialization(data.player);
                 self.uiAdapter.logOnUI("You're now connected as "+self.player.getName()+"!", CHAT_LOG_INFO);
-                self.level.add(self.player);
-                self.uiAdapter.addPlayerToUI(self.player.getId(), self.player.getName());
-                self.commander = new Commander(self.uiAdapter, self.socket, self.player, self.level, self.map, self.displayAdapter);
-                self.displayAdapter.reinitialize(self.map, self.player, self.level.getGameObjectLayer());
+
+                var map = new Board(data.level.map, parseInt(data.level.width), parseInt(data.level.height));
+                self.commander = new Commander(self.uiAdapter, socket, self.player, self.level, map, self.displayAdapter);
+                self.displayAdapter.reinitialize(map, self.player, self.level.getGameObjectLayer());
             });
 
-            this.socket.on('being-moved', function(data:any) {
+            socket.on('being-moved', function(data:any) {
                 var being = self.level.get(parseInt(data.id));
                 self.level.move(being, new Coordinate(parseInt(data.x), parseInt(data.y)));
                 self.displayAdapter.draw();
             });
 
-            this.socket.on('player-came', function(data:any) {
+            socket.on('player-came', function(data:any) {
                 var being = GameObject.fromSerialization(data);
                 self.level.add(being);
                 self.displayAdapter.draw();
@@ -106,7 +96,7 @@ module Herbs {
                 self.uiAdapter.addPlayerToUI(being.getId(), being.getName());
             });
 
-            this.socket.on('player-left', function(data:any) {
+            socket.on('player-left', function(data:any) {
                 var being = self.level.get(parseInt(data.id));
                 self.level.remove(being);
                 self.displayAdapter.draw();
@@ -114,41 +104,41 @@ module Herbs {
                 self.uiAdapter.removePlayerFromUI(parseInt(data.id));
             });
 
-            this.socket.on('its-another-player-turn', function(data:any) {
+            socket.on('its-another-player-turn', function(data:any) {
                 var being = self.level.get(parseInt(data.id));
                 self.uiAdapter.highlightPlayer(being.getId());
                 self.uiAdapter.logOnUI("It's "+being.getName()+"'s turn.");
             });
 
-            this.socket.on('its-your-turn', function(msg:any) {
+            socket.on('its-your-turn', function(msg:any) {
                 self.player.giveTurns(parseInt(msg.turns));
                 self.uiAdapter.highlightPlayer(self.player.getId());
                 self.uiAdapter.logOnUI("It's your turn. You have "+self.player.getRemainingActionTurns()+" actions left.", CHAT_LOG_SUCCESS);
             });
 
-            this.socket.on('being-shouted', function(data:any) {
+            socket.on('being-shouted', function(data:any) {
                 var being = self.level.get(parseInt(data.id));
                 self.uiAdapter.logOnUI(being.getName()+" shouts \""+data.text+"\"!!", CHAT_LOG_INFO);
             });
 
-            this.socket.on('disconnect', function(data:any) {
+            socket.on('disconnect', function(data:any) {
                 self.uiAdapter.logOnUI("Disconnected from server", CHAT_LOG_WARNING);
                 self.commander = null;
                 self.displayAdapter.clear();
             });
 
-            this.socket.on('being-looked-at-floor', function(data:any) {
+            socket.on('being-looked-at-floor', function(data:any) {
                 var being = self.level.get(parseInt(data.id));
                 self.uiAdapter.logOnUI(being.getName()+" inspected an object on the floor.", CHAT_LOG_INFO);
             });
 
-            this.socket.on('game-object-remove', function(data:any) {
+            socket.on('game-object-remove', function(data:any) {
                 var go = self.level.get(parseInt(data.id));
                 self.level.remove(go);
                 self.displayAdapter.draw();
             });
 
-            this.socket.on('game-object-add', function(data:any) {
+            socket.on('game-object-add', function(data:any) {
                 var go = GameObject.fromSerialization(data);
                 self.level.add(go);
                 self.displayAdapter.draw();

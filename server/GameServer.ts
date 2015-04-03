@@ -36,18 +36,11 @@ class GameServer {
         var self = this;
         io.on('connection', function(socket) {
 
-            var player:Being = null;
-
-            socket.emit('initiate-board', self.level.serialize());
-
-            socket.on('position-my-player', function() {
-                player = self.level.createNewPlayer(function() {
-                    self.callToStartTurns(this, socket);
-                });
-                socket.emit('position-player', { 'player': player.serialize() });
-                socket.broadcast.emit('player-came', player.serialize());
-                self.level.resume();
+            var player = self.level.createNewPlayer(function() {
+                self.callToStartTurns(this, socket);
             });
+
+            self.initiatePlayer(player, socket);
 
             socket.on('disconnect', function() {
                 if(player) {
@@ -121,6 +114,15 @@ class GameServer {
                 self.level.useTurns(player, 1);
             });
         });
+    }
+
+    private initiatePlayer(player:Being, socket:any) {
+        socket.emit('initiate', {
+            'level': this.level.serialize(),
+            'player': player.serialize()
+        });
+        socket.broadcast.emit('player-came', player.serialize());
+        this.level.resume();
     }
 
     private handleError(player:Being, error:Error, socket) {

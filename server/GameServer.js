@@ -24,16 +24,10 @@ var GameServer = (function () {
     GameServer.prototype.listenToSocketEvents = function () {
         var self = this;
         io.on('connection', function (socket) {
-            var player = null;
-            socket.emit('initiate-board', self.level.serialize());
-            socket.on('position-my-player', function () {
-                player = self.level.createNewPlayer(function () {
-                    self.callToStartTurns(this, socket);
-                });
-                socket.emit('position-player', { 'player': player.serialize() });
-                socket.broadcast.emit('player-came', player.serialize());
-                self.level.resume();
+            var player = self.level.createNewPlayer(function () {
+                self.callToStartTurns(this, socket);
             });
+            self.initiatePlayer(player, socket);
             socket.on('disconnect', function () {
                 if (player) {
                     socket.broadcast.emit('player-left', player.serialize());
@@ -98,6 +92,14 @@ var GameServer = (function () {
                 self.level.useTurns(player, 1);
             });
         });
+    };
+    GameServer.prototype.initiatePlayer = function (player, socket) {
+        socket.emit('initiate', {
+            'level': this.level.serialize(),
+            'player': player.serialize()
+        });
+        socket.broadcast.emit('player-came', player.serialize());
+        this.level.resume();
     };
     GameServer.prototype.handleError = function (player, error, socket) {
         console.log(error);

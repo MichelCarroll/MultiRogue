@@ -21,11 +21,9 @@ var Herbs;
         Game.prototype.init = function (io, uiAdapter) {
             this.uiAdapter = uiAdapter;
             this.displayAdapter = new Herbs.DisplayAdapter(this.uiAdapter);
-            this.socketIo = io;
-            this.initiateSocket();
-            this.hookSocketEvents();
+            this.hookSocketEvents(this.getSocket(io));
         };
-        Game.prototype.initiateSocket = function () {
+        Game.prototype.getSocket = function (io) {
             var url = '';
             if (document.location.protocol === 'file:') {
                 url = 'http://localhost';
@@ -33,81 +31,76 @@ var Herbs;
             else {
                 url = 'http://' + document.location.hostname;
             }
-            this.socket = this.socketIo.connect(url + ':3000');
+            return io.connect(url + ':3000');
         };
-        Game.prototype.hookSocketEvents = function () {
+        Game.prototype.hookSocketEvents = function (socket) {
             var self = this;
-            this.socket.on('debug', function (msg) {
+            socket.on('debug', function (msg) {
                 console.log(msg);
                 self.uiAdapter.logOnUI("Server Error " + msg, Herbs.CHAT_LOG_DANGER);
             });
-            this.socket.on('initiate-board', function (data) {
+            socket.on('initiate', function (data) {
                 self.uiAdapter.clearPlayerList();
-                self.map = new Herbs.Board(data.map, parseInt(data.width), parseInt(data.height));
                 self.level = new Herbs.Level();
-                self.createGameObjects(data.gameObjects);
-                if (data.current_player_id) {
-                    var being = self.level.get(parseInt(data.current_player_id));
+                self.createGameObjects(data.level.gameObjects);
+                if (data.level.current_player_id) {
+                    var being = self.level.get(parseInt(data.level.current_player_id));
                     self.uiAdapter.highlightPlayer(being.getId());
                 }
-                self.socket.emit('position-my-player', {});
-            });
-            this.socket.on('position-player', function (data) {
                 self.player = Herbs.Player.fromSerialization(data.player);
                 self.uiAdapter.logOnUI("You're now connected as " + self.player.getName() + "!", Herbs.CHAT_LOG_INFO);
-                self.level.add(self.player);
-                self.uiAdapter.addPlayerToUI(self.player.getId(), self.player.getName());
-                self.commander = new Herbs.Commander(self.uiAdapter, self.socket, self.player, self.level, self.map, self.displayAdapter);
-                self.displayAdapter.reinitialize(self.map, self.player, self.level.getGameObjectLayer());
+                var map = new Herbs.Board(data.level.map, parseInt(data.level.width), parseInt(data.level.height));
+                self.commander = new Herbs.Commander(self.uiAdapter, socket, self.player, self.level, map, self.displayAdapter);
+                self.displayAdapter.reinitialize(map, self.player, self.level.getGameObjectLayer());
             });
-            this.socket.on('being-moved', function (data) {
+            socket.on('being-moved', function (data) {
                 var being = self.level.get(parseInt(data.id));
                 self.level.move(being, new Herbs.Coordinate(parseInt(data.x), parseInt(data.y)));
                 self.displayAdapter.draw();
             });
-            this.socket.on('player-came', function (data) {
+            socket.on('player-came', function (data) {
                 var being = Herbs.GameObject.fromSerialization(data);
                 self.level.add(being);
                 self.displayAdapter.draw();
                 self.uiAdapter.logOnUI(being.getName() + " just connected", Herbs.CHAT_LOG_INFO);
                 self.uiAdapter.addPlayerToUI(being.getId(), being.getName());
             });
-            this.socket.on('player-left', function (data) {
+            socket.on('player-left', function (data) {
                 var being = self.level.get(parseInt(data.id));
                 self.level.remove(being);
                 self.displayAdapter.draw();
                 self.uiAdapter.logOnUI(being.getName() + " just disconnected", Herbs.CHAT_LOG_INFO);
                 self.uiAdapter.removePlayerFromUI(parseInt(data.id));
             });
-            this.socket.on('its-another-player-turn', function (data) {
+            socket.on('its-another-player-turn', function (data) {
                 var being = self.level.get(parseInt(data.id));
                 self.uiAdapter.highlightPlayer(being.getId());
                 self.uiAdapter.logOnUI("It's " + being.getName() + "'s turn.");
             });
-            this.socket.on('its-your-turn', function (msg) {
+            socket.on('its-your-turn', function (msg) {
                 self.player.giveTurns(parseInt(msg.turns));
                 self.uiAdapter.highlightPlayer(self.player.getId());
                 self.uiAdapter.logOnUI("It's your turn. You have " + self.player.getRemainingActionTurns() + " actions left.", Herbs.CHAT_LOG_SUCCESS);
             });
-            this.socket.on('being-shouted', function (data) {
+            socket.on('being-shouted', function (data) {
                 var being = self.level.get(parseInt(data.id));
                 self.uiAdapter.logOnUI(being.getName() + " shouts \"" + data.text + "\"!!", Herbs.CHAT_LOG_INFO);
             });
-            this.socket.on('disconnect', function (data) {
+            socket.on('disconnect', function (data) {
                 self.uiAdapter.logOnUI("Disconnected from server", Herbs.CHAT_LOG_WARNING);
                 self.commander = null;
                 self.displayAdapter.clear();
             });
-            this.socket.on('being-looked-at-floor', function (data) {
+            socket.on('being-looked-at-floor', function (data) {
                 var being = self.level.get(parseInt(data.id));
                 self.uiAdapter.logOnUI(being.getName() + " inspected an object on the floor.", Herbs.CHAT_LOG_INFO);
             });
-            this.socket.on('game-object-remove', function (data) {
+            socket.on('game-object-remove', function (data) {
                 var go = self.level.get(parseInt(data.id));
                 self.level.remove(go);
                 self.displayAdapter.draw();
             });
-            this.socket.on('game-object-add', function (data) {
+            socket.on('game-object-add', function (data) {
                 var go = Herbs.GameObject.fromSerialization(data);
                 self.level.add(go);
                 self.displayAdapter.draw();
