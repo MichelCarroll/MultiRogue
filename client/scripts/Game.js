@@ -39,6 +39,7 @@ var Herbs;
             var self = this;
             this.socket.on('debug', function (msg) {
                 console.log(msg);
+                self.uiAdapter.logOnUI("Server Error " + msg, Herbs.CHAT_LOG_DANGER);
             });
             this.socket.on('initiate-board', function (data) {
                 self.uiAdapter.clearPlayerList();

@@ -72,7 +72,7 @@ class GameServer {
                 try {
                     self.level.movePlayer(player, new Coordinate(parseInt(data.x), parseInt(data.y)));
                 } catch(error) {
-                    self.handleError(error, socket);
+                    self.handleError(player, error, socket);
                     return;
                 }
 
@@ -96,7 +96,7 @@ class GameServer {
                 try {
                     self.level.pickUpObject(player, parseInt(data.objectId));
                 } catch(error) {
-                    self.handleError(error, socket);
+                    self.handleError(player, error, socket);
                     return;
                 }
 
@@ -112,7 +112,7 @@ class GameServer {
                 try {
                     var go = self.level.dropObject(player, parseInt(data.objectId));
                 } catch(error) {
-                    self.handleError(error, socket);
+                    self.handleError(player, error, socket);
                     return;
                 }
 
@@ -122,9 +122,11 @@ class GameServer {
         });
     }
 
-    private handleError(error:Error, socket) {
+    private handleError(player:Being, error:Error, socket) {
         console.log(error);
         socket.emit('debug', error.message);
+        socket.broadcast.emit('being-left', player.serialize());
+        this.level.removePlayer(player);
     }
 
     private callToStartTurns(player:Being, socket:any) {

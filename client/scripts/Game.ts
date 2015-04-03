@@ -65,6 +65,7 @@ module Herbs {
             var self = this;
             this.socket.on('debug', function(msg:any){
                 console.log(msg);
+                self.uiAdapter.logOnUI("Server Error "+msg, CHAT_LOG_DANGER);
             });
 
             this.socket.on('initiate-board', function(data:any) {

@@ -55,7 +55,7 @@ var GameServer = (function () {
                     self.level.movePlayer(player, new Coordinate(parseInt(data.x), parseInt(data.y)));
                 }
                 catch (error) {
-                    self.handleError(error, socket);
+                    self.handleError(player, error, socket);
                     return;
                 }
                 socket.broadcast.emit('being-moved', player.serialize());
@@ -76,7 +76,7 @@ var GameServer = (function () {
                     self.level.pickUpObject(player, parseInt(data.objectId));
                 }
                 catch (error) {
-                    self.handleError(error, socket);
+                    self.handleError(player, error, socket);
                     return;
                 }
                 socket.broadcast.emit('game-object-remove', { 'id': parseInt(data.objectId) });
@@ -90,7 +90,7 @@ var GameServer = (function () {
                     var go = self.level.dropObject(player, parseInt(data.objectId));
                 }
                 catch (error) {
-                    self.handleError(error, socket);
+                    self.handleError(player, error, socket);
                     return;
                 }
                 socket.broadcast.emit('game-object-add', go.serialize());
@@ -98,9 +98,11 @@ var GameServer = (function () {
             });
         });
     };
-    GameServer.prototype.handleError = function (error, socket) {
+    GameServer.prototype.handleError = function (player, error, socket) {
         console.log(error);
         socket.emit('debug', error.message);
+        socket.broadcast.emit('being-left', player.serialize());
+        this.level.removePlayer(player);
     };
     GameServer.prototype.callToStartTurns = function (player, socket) {
         socket.emit('its-your-turn', { turns: player.getRemainingTurns() });
