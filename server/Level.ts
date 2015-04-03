@@ -88,7 +88,7 @@ class Level {
     }
 
     public dropObject(player:Being, goId:number):GameObject {
-        var go = player.getInventory()[goId];
+        var go = player.getInventory().get(goId);
         if(!go) {
             throw new Error('No GO with this ID');
         }

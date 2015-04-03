@@ -6,37 +6,32 @@ eval(fs.readFileSync(__dirname+'/node_modules/rot.js/rot.js/rot.js','utf8'));
 
 import Coordinate = require('./Coordinate');
 import GameObject = require('./GameObject');
+import Repository = require('./Repository');
+import Item = require('./Item');
 
 class Being extends GameObject {
 
     private turns:number;
     private callForTurn:()=>void;
-    private inventory:{ [id:number] : GameObject };
+    private inventory:Repository<Item>;
 
     constructor(position:Coordinate, callForTurn:() => void) {
         super(position, '@', "#FF0", '', 'a player character');
         this.setName('Player #' + this.getId());
         this.callForTurn = callForTurn;
         this.turns = 0;
-        this.inventory = {};
+        this.inventory = new Repository<Item>();
     }
 
     public addToInventory(go:GameObject) {
-        this.inventory[go.getId()] = go;
+        this.inventory.set(go.getId(), go);
     }
 
     public removeFromInventory(go:GameObject) {
-        delete this.inventory[go.getId()];
+        this.inventory.delete(go.getId());
     }
 
-    public getSerializedInventory():Array<GameObject> {
-        var self = this;
-        return Object.getOwnPropertyNames(this.inventory).map(
-            function(key) { return self.inventory[key].serialize(); }
-        );
-    }
-
-    public getInventory():{ [id:number] : GameObject } {
+    public getInventory():Repository<Item> {
         return this.inventory;
     }
 
@@ -63,7 +58,7 @@ class Being extends GameObject {
     public serialize() {
         var data = super.serialize();
         data.isPlayer = true;
-        data.inventory = this.getSerializedInventory();
+        data.inventory = this.inventory.serialize();
         return data;
     }
 }

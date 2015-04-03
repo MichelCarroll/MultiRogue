@@ -8,6 +8,7 @@ var __extends = this.__extends || function (d, b) {
 var fs = require('fs');
 eval(fs.readFileSync(__dirname + '/node_modules/rot.js/rot.js/rot.js', 'utf8'));
 var GameObject = require('./GameObject');
+var Repository = require('./Repository');
 var Being = (function (_super) {
     __extends(Being, _super);
     function Being(position, callForTurn) {
@@ -15,19 +16,13 @@ var Being = (function (_super) {
         this.setName('Player #' + this.getId());
         this.callForTurn = callForTurn;
         this.turns = 0;
-        this.inventory = {};
+        this.inventory = new Repository();
     }
     Being.prototype.addToInventory = function (go) {
-        this.inventory[go.getId()] = go;
+        this.inventory.set(go.getId(), go);
     };
     Being.prototype.removeFromInventory = function (go) {
-        delete this.inventory[go.getId()];
-    };
-    Being.prototype.getSerializedInventory = function () {
-        var self = this;
-        return Object.getOwnPropertyNames(this.inventory).map(function (key) {
-            return self.inventory[key].serialize();
-        });
+        this.inventory.delete(go.getId());
     };
     Being.prototype.getInventory = function () {
         return this.inventory;
@@ -50,7 +45,7 @@ var Being = (function (_super) {
     Being.prototype.serialize = function () {
         var data = _super.prototype.serialize.call(this);
         data.isPlayer = true;
-        data.inventory = this.getSerializedInventory();
+        data.inventory = this.inventory.serialize();
         return data;
     };
     return Being;

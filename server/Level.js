@@ -65,7 +65,7 @@ var Level = (function () {
         this.goRepository.delete(go.getId());
     };
     Level.prototype.dropObject = function (player, goId) {
-        var go = player.getInventory()[goId];
+        var go = player.getInventory().get(goId);
         if (!go) {
             throw new Error('No GO with this ID');
         }
