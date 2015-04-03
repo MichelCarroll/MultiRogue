@@ -17,7 +17,7 @@ import Coordinate = require('./Coordinate');
 class LevelGenerator {
 
     public create():Level {
-        var map = new Board(100,50);
+        var map = new Board(new Coordinate(100,50));
         this.traceMap(map);
         var level = new Level(map);
         this.addRandomSticks(level, map, 100);

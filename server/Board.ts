@@ -13,14 +13,12 @@ import Coordinate = require('./Coordinate');
 
 class Board {
 
-    private width:number;
-    private height:number;
+    private size:Coordinate;
     private tileMap:Object;
     private tiles:Array<string>;
 
-    constructor(mapWidth:number, mapHeight:number) {
-        this.width = mapWidth;
-        this.height = mapHeight;
+    constructor(size:Coordinate) {
+        this.size = size;
         this.tileMap = new Object();
         this.tiles = new Array();
     }
@@ -34,12 +32,12 @@ class Board {
         this.tileMap[position.toString()] = ".";
     }
 
-    public getWidth() {
-        return this.width;
+    public getWidth():number {
+        return this.size.x;
     }
 
-    public getHeight() {
-        return this.height;
+    public getHeight():number {
+        return this.size.y;
     }
 
     public getRandomTile():Coordinate {

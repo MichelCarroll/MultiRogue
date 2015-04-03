@@ -7,9 +7,8 @@ var fs = require('fs');
 eval(fs.readFileSync(__dirname + '/node_modules/rot.js/rot.js/rot.js', 'utf8'));
 var Coordinate = require('./Coordinate');
 var Board = (function () {
-    function Board(mapWidth, mapHeight) {
-        this.width = mapWidth;
-        this.height = mapHeight;
+    function Board(size) {
+        this.size = size;
         this.tileMap = new Object();
         this.tiles = new Array();
     }
@@ -21,10 +20,10 @@ var Board = (function () {
         this.tileMap[position.toString()] = ".";
     };
     Board.prototype.getWidth = function () {
-        return this.width;
+        return this.size.x;
     };
     Board.prototype.getHeight = function () {
-        return this.height;
+        return this.size.y;
     };
     Board.prototype.getRandomTile = function () {
         var index = Math.floor(ROT.RNG.getUniform() * this.tiles.length);

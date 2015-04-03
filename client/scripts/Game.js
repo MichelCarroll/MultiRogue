@@ -35,10 +35,6 @@ var Herbs;
         };
         Game.prototype.hookSocketEvents = function (socket) {
             var self = this;
-            socket.on('debug', function (msg) {
-                console.log(msg);
-                self.uiAdapter.logOnUI("Server Error " + msg, Herbs.CHAT_LOG_DANGER);
-            });
             socket.on('initiate', function (data) {
                 self.uiAdapter.clearPlayerList();
                 self.level = new Herbs.Level();
@@ -104,6 +100,10 @@ var Herbs;
                 var go = Herbs.GameObject.fromSerialization(data);
                 self.level.add(go);
                 self.displayAdapter.draw();
+            });
+            socket.on('debug', function (msg) {
+                console.log(msg);
+                self.uiAdapter.logOnUI("Server Error " + msg, Herbs.CHAT_LOG_DANGER);
             });
         };
         Game.prototype.createGameObjects = function (serializedGameObjects) {

@@ -13,7 +13,7 @@ var LevelGenerator = (function () {
     function LevelGenerator() {
     }
     LevelGenerator.prototype.create = function () {
-        var map = new Board(100, 50);
+        var map = new Board(new Coordinate(100, 50));
         this.traceMap(map);
         var level = new Level(map);
         this.addRandomSticks(level, map, 100);

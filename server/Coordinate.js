@@ -12,6 +12,12 @@ var Coordinate = (function () {
     Coordinate.prototype.copy = function () {
         return new Coordinate(this.x, this.y);
     };
+    Coordinate.add = function (a, b) {
+        return new Coordinate(a.x + b.x, a.y + b.y);
+    };
+    Coordinate.prototype.add = function (x, y) {
+        return new Coordinate(this.x + x, this.y + y);
+    };
     Coordinate.fromString = function (str) {
         var parts = str.split(",");
         return new Coordinate(parseInt(parts[0]), parseInt(parts[1]));

@@ -59,10 +59,6 @@ module Herbs {
         private hookSocketEvents(socket:Socket)
         {
             var self = this;
-            socket.on('debug', function(msg:any){
-                console.log(msg);
-                self.uiAdapter.logOnUI("Server Error "+msg, CHAT_LOG_DANGER);
-            });
 
             socket.on('initiate', function(data:any) {
                 self.uiAdapter.clearPlayerList();
@@ -142,6 +138,11 @@ module Herbs {
                 var go = GameObject.fromSerialization(data);
                 self.level.add(go);
                 self.displayAdapter.draw();
+            });
+
+            socket.on('debug', function(msg:any){
+                console.log(msg);
+                self.uiAdapter.logOnUI("Server Error "+msg, CHAT_LOG_DANGER);
             });
         }
 

@@ -19,6 +19,14 @@ class Coordinate {
         return new Coordinate(this.x, this.y);
     }
 
+    static add(a:Coordinate, b:Coordinate):Coordinate {
+        return new Coordinate(a.x + b.x, a.y + b.y);
+    }
+
+    public add(x:number, y:number):Coordinate {
+        return new Coordinate(this.x + x, this.y + y);
+    }
+
     static fromString(str:string):Coordinate {
         var parts = str.split(",");
         return new Coordinate(parseInt(parts[0]), parseInt(parts[1]));

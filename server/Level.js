@@ -4,6 +4,7 @@
 ///<reference path='./ts-definitions/node.d.ts' />
 var fs = require('fs');
 eval(fs.readFileSync(__dirname + '/node_modules/rot.js/rot.js/rot.js', 'utf8'));
+var SpawnPoint = require('./SpawnPoint');
 var Repository = require('./Repository');
 var Being = require('./Being');
 var Level = (function () {
@@ -12,7 +13,14 @@ var Level = (function () {
         this.goRepository = new Repository();
         this.scheduler = new ROT.Scheduler.Simple();
         this.currentPlayer = null;
+        this.spawnPoint = new SpawnPoint(this.map.getRandomTile(), 5);
     }
+    Level.prototype.getSpawnLocation = function () {
+        var self = this;
+        return this.spawnPoint.generate(function (point) {
+            return self.map.tileExists(point) && !self.getCollidedGameObjects(point).length;
+        }, 50);
+    };
     Level.prototype.addAIBeing = function (being) {
         this.goRepository.set(being.getId(), being);
     };
@@ -20,7 +28,7 @@ var Level = (function () {
         this.goRepository.set(go.getId(), go);
     };
     Level.prototype.createNewPlayer = function (takeTurnCallback) {
-        var position = this.map.getRandomTile();
+        var position = this.getSpawnLocation();
         var player = new Being(position, takeTurnCallback);
         this.goRepository.set(player.getId(), player);
         this.scheduler.add(player, true);
