@@ -8,9 +8,10 @@
 var fs = require('fs');
 eval(fs.readFileSync(__dirname+'/node_modules/rot.js/rot.js/rot.js','utf8'));
 
+import Serializable = require('./Serializable');
 import Coordinate = require('./Coordinate');
 
-class GameObject {
+class GameObject implements Serializable {
 
     protected position:Coordinate;
     protected id:number;

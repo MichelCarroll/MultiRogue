@@ -7,7 +7,7 @@
 var fs = require('fs');
 eval(fs.readFileSync(__dirname+'/node_modules/rot.js/rot.js/rot.js','utf8'));
 
-import GameObjectRepository = require('./GameObjectRepository');
+import Repository = require('./Repository');
 import GameObject = require('./GameObject');
 import Being = require('./Being');
 import Board = require('./Board');
@@ -17,29 +17,29 @@ class Level {
 
     static TURNS_PER_ROUND = 4;
     private map:Board;
-    private goRepository:GameObjectRepository;
+    private goRepository:Repository<GameObject>;
     private scheduler:ROT.Scheduler.Simple;
     private currentPlayer:Being;
 
     constructor(map:Board) {
         this.map = map;
-        this.goRepository = new GameObjectRepository();
+        this.goRepository = new Repository<GameObject>();
         this.scheduler = new ROT.Scheduler.Simple();
         this.currentPlayer = null;
     }
 
     public addAIBeing(being:Being) {
-        this.goRepository.add(being);
+        this.goRepository.set(being.getId(), being);
     }
 
     public addImmobile(go:GameObject) {
-        this.goRepository.add(go);
+        this.goRepository.set(go.getId(), go);
     }
 
     public createNewPlayer(takeTurnCallback:()=>void):Being {
         var position = this.map.getRandomTile();
         var player = new Being(position, takeTurnCallback);
-        this.goRepository.add(player);
+        this.goRepository.set(player.getId(), player);
         this.scheduler.add(player, true);
         return player;
     }
@@ -55,7 +55,7 @@ class Level {
     }
 
     public removePlayer(player:Being) {
-        this.goRepository.delete(player);
+        this.goRepository.delete(player.getId());
         this.scheduler.remove(player);
         if(this.currentPlayer === player) {
             this.nextTurn();
@@ -84,7 +84,7 @@ class Level {
             throw new Error('This GO can\'t be picked up');
         }
         player.addToInventory(go);
-        this.goRepository.delete(go);
+        this.goRepository.delete(go.getId());
     }
 
     public dropObject(player:Being, goId:number):GameObject {
@@ -94,8 +94,12 @@ class Level {
         }
         player.removeFromInventory(go);
         go.setPosition(player.getPosition().copy());
-        this.goRepository.add(go);
+        this.goRepository.set(go.getId(), go);
         return go;
+    }
+
+    public getObject(goId:number):GameObject {
+        return this.goRepository.get(goId);
     }
 
     private getCollidedGameObjects(position:Coordinate) {

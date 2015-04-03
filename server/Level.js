@@ -4,25 +4,25 @@
 ///<reference path='./ts-definitions/node.d.ts' />
 var fs = require('fs');
 eval(fs.readFileSync(__dirname + '/node_modules/rot.js/rot.js/rot.js', 'utf8'));
-var GameObjectRepository = require('./GameObjectRepository');
+var Repository = require('./Repository');
 var Being = require('./Being');
 var Level = (function () {
     function Level(map) {
         this.map = map;
-        this.goRepository = new GameObjectRepository();
+        this.goRepository = new Repository();
         this.scheduler = new ROT.Scheduler.Simple();
         this.currentPlayer = null;
     }
     Level.prototype.addAIBeing = function (being) {
-        this.goRepository.add(being);
+        this.goRepository.set(being.getId(), being);
     };
     Level.prototype.addImmobile = function (go) {
-        this.goRepository.add(go);
+        this.goRepository.set(go.getId(), go);
     };
     Level.prototype.createNewPlayer = function (takeTurnCallback) {
         var position = this.map.getRandomTile();
         var player = new Being(position, takeTurnCallback);
-        this.goRepository.add(player);
+        this.goRepository.set(player.getId(), player);
         this.scheduler.add(player, true);
         return player;
     };
@@ -35,7 +35,7 @@ var Level = (function () {
         }
     };
     Level.prototype.removePlayer = function (player) {
-        this.goRepository.delete(player);
+        this.goRepository.delete(player.getId());
         this.scheduler.remove(player);
         if (this.currentPlayer === player) {
             this.nextTurn();
@@ -62,7 +62,7 @@ var Level = (function () {
             throw new Error('This GO can\'t be picked up');
         }
         player.addToInventory(go);
-        this.goRepository.delete(go);
+        this.goRepository.delete(go.getId());
     };
     Level.prototype.dropObject = function (player, goId) {
         var go = player.getInventory()[goId];
@@ -71,8 +71,11 @@ var Level = (function () {
         }
         player.removeFromInventory(go);
         go.setPosition(player.getPosition().copy());
-        this.goRepository.add(go);
+        this.goRepository.set(go.getId(), go);
         return go;
+    };
+    Level.prototype.getObject = function (goId) {
+        return this.goRepository.get(goId);
     };
     Level.prototype.getCollidedGameObjects = function (position) {
         return this.goRepository.getAll().filter(function (element, index, array) {

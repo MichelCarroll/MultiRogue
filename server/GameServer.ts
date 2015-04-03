@@ -110,12 +110,13 @@ class GameServer {
                 }
 
                 try {
-                    var go = self.level.dropObject(player, parseInt(data.objectId));
+                    self.level.dropObject(player, parseInt(data.objectId));
                 } catch(error) {
                     self.handleError(player, error, socket);
                     return;
                 }
 
+                var go = self.level.getObject(parseInt(data.objectId));
                 socket.broadcast.emit('game-object-add', go.serialize());
                 self.level.useTurns(player, 1);
             });
