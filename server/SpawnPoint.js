@@ -7,11 +7,12 @@ var fs = require('fs');
 eval(fs.readFileSync(__dirname + '/node_modules/rot.js/rot.js/rot.js', 'utf8'));
 var Coordinate = require('./Coordinate');
 var SpawnPoint = (function () {
-    function SpawnPoint(point, radius) {
+    function SpawnPoint(point, radius, isValidPoint) {
         this.point = point;
         this.radius = radius;
+        this.isValidPoint = isValidPoint;
     }
-    SpawnPoint.prototype.generate = function (isValidPoint, maxTries) {
+    SpawnPoint.prototype.generate = function () {
         var tries = 0;
         do {
             tries++;
@@ -19,9 +20,10 @@ var SpawnPoint = (function () {
             var d = ROT.RNG.getNormal(this.radius, 1);
             var randomAroundOrigin = new Coordinate(Math.floor(Math.cos(r) * d), Math.floor(Math.sin(r) * d));
             var possibleLocation = Coordinate.add(randomAroundOrigin, this.point);
-        } while (!isValidPoint(possibleLocation) && tries < maxTries);
+        } while (!this.isValidPoint(possibleLocation) && tries < SpawnPoint.MAX_TRIES);
         return possibleLocation;
     };
+    SpawnPoint.MAX_TRIES = 50;
     return SpawnPoint;
 })();
 module.exports = SpawnPoint;

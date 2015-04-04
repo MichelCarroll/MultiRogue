@@ -22,22 +22,20 @@ class Level implements Serializable {
     private goRepository:Repository<GameObject>;
     private scheduler:ROT.Scheduler.Simple;
     private currentPlayer:Being;
-    private spawnPoint:SpawnPoint;
+    private playerSpawnPoint:SpawnPoint;
+    private monsterSpawnPoint:SpawnPoint;
 
     constructor(map:Board) {
         this.map = map;
         this.goRepository = new Repository<GameObject>();
         this.scheduler = new ROT.Scheduler.Simple();
         this.currentPlayer = null;
-        this.spawnPoint = new SpawnPoint(this.map.getRandomTile(), 5);
+        this.playerSpawnPoint = new SpawnPoint(this.map.getRandomTile(), 5, this.isValidSpawnPoint);
     }
 
-    private getSpawnLocation():Coordinate {
-        var self = this;
-        return this.spawnPoint.generate(function(point:Coordinate) {
-            return self.map.tileExists(point) &&
-                !self.getCollidedGameObjects(point).length;
-        }, 50);
+    private isValidSpawnPoint(point:Coordinate):boolean {
+        return this.map.tileExists(point) &&
+            !this.getCollidedGameObjects(point).length;
     }
 
     public addAIBeing(being:Being) {
@@ -49,7 +47,7 @@ class Level implements Serializable {
     }
 
     public createNewPlayer(takeTurnCallback:()=>void):Being {
-        var position = this.getSpawnLocation();
+        var position = this.playerSpawnPoint.generate();
         var player = new Being(position, takeTurnCallback);
         this.goRepository.set(player.getId(), player);
         this.scheduler.add(player, true);

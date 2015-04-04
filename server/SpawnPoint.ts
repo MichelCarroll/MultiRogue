@@ -9,18 +9,23 @@ var fs = require('fs');
 eval(fs.readFileSync(__dirname+'/node_modules/rot.js/rot.js/rot.js','utf8'));
 
 import Coordinate = require('./Coordinate');
+import Being = require('./Being');
 
 class SpawnPoint {
 
-    private point:Coordinate;
-    private radius:number;
+    private static MAX_TRIES:number = 50;
 
-    constructor(point:Coordinate, radius:number) {
+    private radius:number;
+    private point:Coordinate;
+    private isValidPoint:(point:Coordinate) => boolean;
+
+    constructor(point:Coordinate, radius:number,  isValidPoint:(point:Coordinate) => boolean) {
         this.point = point;
         this.radius = radius;
+        this.isValidPoint = isValidPoint;
     }
 
-    public generate(isValidPoint:(point:Coordinate) => boolean, maxTries:number) {
+    public generate() {
         var tries = 0;
         do {
             tries++;
@@ -35,7 +40,7 @@ class SpawnPoint {
                 this.point
             );
 
-        } while(!isValidPoint(possibleLocation) && tries < maxTries);
+        } while(!this.isValidPoint(possibleLocation) && tries < SpawnPoint.MAX_TRIES);
 
         return possibleLocation;
     }

@@ -13,13 +13,10 @@ var Level = (function () {
         this.goRepository = new Repository();
         this.scheduler = new ROT.Scheduler.Simple();
         this.currentPlayer = null;
-        this.spawnPoint = new SpawnPoint(this.map.getRandomTile(), 5);
+        this.playerSpawnPoint = new SpawnPoint(this.map.getRandomTile(), 5, this.isValidSpawnPoint);
     }
-    Level.prototype.getSpawnLocation = function () {
-        var self = this;
-        return this.spawnPoint.generate(function (point) {
-            return self.map.tileExists(point) && !self.getCollidedGameObjects(point).length;
-        }, 50);
+    Level.prototype.isValidSpawnPoint = function (point) {
+        return this.map.tileExists(point) && !this.getCollidedGameObjects(point).length;
     };
     Level.prototype.addAIBeing = function (being) {
         this.goRepository.set(being.getId(), being);
@@ -28,7 +25,7 @@ var Level = (function () {
         this.goRepository.set(go.getId(), go);
     };
     Level.prototype.createNewPlayer = function (takeTurnCallback) {
-        var position = this.getSpawnLocation();
+        var position = this.playerSpawnPoint.generate();
         var player = new Being(position, takeTurnCallback);
         this.goRepository.set(player.getId(), player);
         this.scheduler.add(player, true);
