@@ -5,9 +5,10 @@
 ///<reference path='./bower_components/rot.js-TS/rot.d.ts' />
 var fs = require('fs');
 eval(fs.readFileSync(__dirname + '/node_modules/rot.js/rot.js/rot.js', 'utf8'));
+var Coordinate = require('./Coordinate');
 var GameObject = (function () {
-    function GameObject(position, token, color, name, description) {
-        this.position = position;
+    function GameObject(token, color, name, description) {
+        this.position = new Coordinate(0, 0);
         this.id = GameObject.getNextId();
         this.token = token;
         this.colorHex = color;

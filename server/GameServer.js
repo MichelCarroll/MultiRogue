@@ -10,6 +10,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var fs = require('fs');
 eval(fs.readFileSync(__dirname + '/node_modules/rot.js/rot.js/rot.js', 'utf8'));
+var BeingGenerator = require('./BeingGenerator');
 var LevelGenerator = require('./LevelGenerator');
 var Coordinate = require('./Coordinate');
 var GameServer = (function () {
@@ -24,10 +25,7 @@ var GameServer = (function () {
     GameServer.prototype.listenToSocketEvents = function () {
         var self = this;
         io.on('connection', function (socket) {
-            var player = self.level.createNewPlayer(function () {
-                self.callToStartTurns(this, socket);
-            });
-            self.initiatePlayer(player, socket);
+            var player = self.generatePlayer(socket);
             socket.on('disconnect', function () {
                 if (player) {
                     socket.broadcast.emit('player-left', player.serialize());
@@ -93,13 +91,19 @@ var GameServer = (function () {
             });
         });
     };
-    GameServer.prototype.initiatePlayer = function (player, socket) {
+    GameServer.prototype.generatePlayer = function (socket) {
+        var self = this;
+        var player = (new BeingGenerator(function () {
+            self.callToStartTurns(this, socket);
+        })).create();
+        this.level.addBeing(player);
         socket.emit('initiate', {
             'level': this.level.serialize(),
             'player': player.serialize()
         });
         socket.broadcast.emit('player-came', player.serialize());
         this.level.resume();
+        return player;
     };
     GameServer.prototype.handleError = function (player, error, socket) {
         console.log(error);

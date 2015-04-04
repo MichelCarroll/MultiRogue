@@ -21,7 +21,9 @@ var LevelGenerator = (function () {
     };
     LevelGenerator.prototype.addRandomSticks = function (level, map, n) {
         for (var i = 0; i < n; i++) {
-            level.addImmobile(new Item(map.getRandomTile(), '/', ROT.Color.toHex(ROT.Color.randomize([205, 133, 63], [20, 20, 20])), 'Wooden Stick', 'a simple piece of wood'));
+            var item = new Item('/', ROT.Color.toHex(ROT.Color.randomize([205, 133, 63], [20, 20, 20])), 'Wooden Stick', 'a simple piece of wood');
+            item.setPosition(map.getRandomTile());
+            level.addImmobile(item);
         }
     };
     LevelGenerator.prototype.traceMap = function (map) {

@@ -23,14 +23,16 @@ class Level implements Serializable {
     private scheduler:ROT.Scheduler.Simple;
     private currentPlayer:Being;
     private playerSpawnPoint:SpawnPoint;
-    private monsterSpawnPoint:SpawnPoint;
 
     constructor(map:Board) {
         this.map = map;
         this.goRepository = new Repository<GameObject>();
         this.scheduler = new ROT.Scheduler.Simple();
         this.currentPlayer = null;
-        this.playerSpawnPoint = new SpawnPoint(this.map.getRandomTile(), 5, this.isValidSpawnPoint);
+        var self = this;
+        this.playerSpawnPoint = new SpawnPoint(this.map.getRandomTile(), 5, function(point:Coordinate):boolean {
+            return self.isValidSpawnPoint(point);
+        });
     }
 
     private isValidSpawnPoint(point:Coordinate):boolean {
@@ -46,12 +48,11 @@ class Level implements Serializable {
         this.goRepository.set(go.getId(), go);
     }
 
-    public createNewPlayer(takeTurnCallback:()=>void):Being {
+    public addBeing(being:Being) {
         var position = this.playerSpawnPoint.generate();
-        var player = new Being(position, takeTurnCallback);
-        this.goRepository.set(player.getId(), player);
-        this.scheduler.add(player, true);
-        return player;
+        being.setPosition(position);
+        this.goRepository.set(being.getId(), being);
+        this.scheduler.add(being, true);
     }
 
     public isPaused():boolean {

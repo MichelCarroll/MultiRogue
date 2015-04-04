@@ -15,8 +15,8 @@ class Being extends GameObject {
     private callForTurn:()=>void;
     private inventory:Repository<Item>;
 
-    constructor(position:Coordinate, callForTurn:() => void) {
-        super(position, '@', "#FF0", '', 'a player character');
+    constructor(callForTurn:() => void) {
+        super('@', "#FF0", '', 'a player character');
         this.setName('Player #' + this.getId());
         this.callForTurn = callForTurn;
         this.turns = 0;

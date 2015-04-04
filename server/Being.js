@@ -11,8 +11,8 @@ var GameObject = require('./GameObject');
 var Repository = require('./Repository');
 var Being = (function (_super) {
     __extends(Being, _super);
-    function Being(position, callForTurn) {
-        _super.call(this, position, '@', "#FF0", '', 'a player character');
+    function Being(callForTurn) {
+        _super.call(this, '@', "#FF0", '', 'a player character');
         this.setName('Player #' + this.getId());
         this.callForTurn = callForTurn;
         this.turns = 0;

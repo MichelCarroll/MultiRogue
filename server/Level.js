@@ -6,14 +6,16 @@ var fs = require('fs');
 eval(fs.readFileSync(__dirname + '/node_modules/rot.js/rot.js/rot.js', 'utf8'));
 var SpawnPoint = require('./SpawnPoint');
 var Repository = require('./Repository');
-var Being = require('./Being');
 var Level = (function () {
     function Level(map) {
         this.map = map;
         this.goRepository = new Repository();
         this.scheduler = new ROT.Scheduler.Simple();
         this.currentPlayer = null;
-        this.playerSpawnPoint = new SpawnPoint(this.map.getRandomTile(), 5, this.isValidSpawnPoint);
+        var self = this;
+        this.playerSpawnPoint = new SpawnPoint(this.map.getRandomTile(), 5, function (point) {
+            return self.isValidSpawnPoint(point);
+        });
     }
     Level.prototype.isValidSpawnPoint = function (point) {
         return this.map.tileExists(point) && !this.getCollidedGameObjects(point).length;
@@ -24,12 +26,11 @@ var Level = (function () {
     Level.prototype.addImmobile = function (go) {
         this.goRepository.set(go.getId(), go);
     };
-    Level.prototype.createNewPlayer = function (takeTurnCallback) {
+    Level.prototype.addBeing = function (being) {
         var position = this.playerSpawnPoint.generate();
-        var player = new Being(position, takeTurnCallback);
-        this.goRepository.set(player.getId(), player);
-        this.scheduler.add(player, true);
-        return player;
+        being.setPosition(position);
+        this.goRepository.set(being.getId(), being);
+        this.scheduler.add(being, true);
     };
     Level.prototype.isPaused = function () {
         return (this.currentPlayer === null);

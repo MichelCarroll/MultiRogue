@@ -26,13 +26,14 @@ class LevelGenerator {
 
     private addRandomSticks(level:Level, map:Board, n:number) {
         for(var i = 0; i < n; i++) {
-            level.addImmobile(new Item(
-                map.getRandomTile(),
+            var item = new Item(
                 '/',
                 ROT.Color.toHex(ROT.Color.randomize([205, 133, 63],[20,20,20])),
                 'Wooden Stick',
                 'a simple piece of wood'
-            ));
+            );
+            item.setPosition(map.getRandomTile());
+            level.addImmobile(item);
         }
     }
 

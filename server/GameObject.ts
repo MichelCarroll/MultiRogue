@@ -26,8 +26,8 @@ class GameObject implements Serializable {
         return this.lastId++;
     }
 
-    constructor(position:Coordinate, token:string, color:string, name:string, description:string) {
-        this.position = position;
+    constructor(token:string, color:string, name:string, description:string) {
+        this.position = new Coordinate(0,0);
         this.id = GameObject.getNextId();
         this.token = token;
         this.colorHex = color;

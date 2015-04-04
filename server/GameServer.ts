@@ -14,6 +14,7 @@ var fs = require('fs');
 eval(fs.readFileSync(__dirname+'/node_modules/rot.js/rot.js/rot.js','utf8'));
 
 import Being = require('./Being');
+import BeingGenerator = require('./BeingGenerator');
 import Board = require('./Board');
 import Level = require('./Level');
 import LevelGenerator = require('./LevelGenerator');
@@ -36,11 +37,7 @@ class GameServer {
         var self = this;
         io.on('connection', function(socket) {
 
-            var player = self.level.createNewPlayer(function() {
-                self.callToStartTurns(this, socket);
-            });
-
-            self.initiatePlayer(player, socket);
+            var player = self.generatePlayer(socket);
 
             socket.on('disconnect', function() {
                 if(player) {
@@ -116,13 +113,20 @@ class GameServer {
         });
     }
 
-    private initiatePlayer(player:Being, socket:any) {
+    private generatePlayer(socket:any):Being {
+        var self = this;
+        var player = (new BeingGenerator(function() {
+            self.callToStartTurns(this, socket);
+        })).create();
+
+        this.level.addBeing(player);
         socket.emit('initiate', {
             'level': this.level.serialize(),
             'player': player.serialize()
         });
         socket.broadcast.emit('player-came', player.serialize());
         this.level.resume();
+        return player;
     }
 
     private handleError(player:Being, error:Error, socket) {
