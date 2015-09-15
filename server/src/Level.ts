@@ -2,10 +2,9 @@
  * Created by michelcarroll on 15-03-29.
  */
 
-///<reference path='./ts-definitions/node.d.ts' />
+///<reference path='./../ts-definitions/node.d.ts' />
 
 var fs = require('fs');
-eval(fs.readFileSync(__dirname+'/node_modules/rot.js/rot.js/rot.js','utf8'));
 
 import SpawnPoint = require('./SpawnPoint');
 import Repository = require('./Repository');
@@ -14,6 +13,7 @@ import Being = require('./Being');
 import Board = require('./Board');
 import Coordinate = require('./Coordinate');
 import Serializable = require('./Serializable');
+import ROT = require('./ROT');
 
 class Level implements Serializable {
 

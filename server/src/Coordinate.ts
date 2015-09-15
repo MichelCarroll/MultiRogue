@@ -1,6 +1,4 @@
-/**
- * Created by michelcarroll on 15-03-29.
- */
+
 
 class Coordinate {
     public x:number;

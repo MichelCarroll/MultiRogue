@@ -1,8 +1,4 @@
-/**
- * Created by michelcarroll on 15-03-29.
- */
 
-///<reference path='./ts-definitions/node.d.ts' />
 
 import Being = require('./Being');
 

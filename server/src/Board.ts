@@ -3,12 +3,12 @@
  */
 
 
-///<reference path='./ts-definitions/node.d.ts' />
+///<reference path='./../ts-definitions/node.d.ts' />
 
 var difference = require('array-difference');
 var fs = require('fs');
-eval(fs.readFileSync(__dirname+'/node_modules/rot.js/rot.js/rot.js','utf8'));
 
+import ROT = require('./ROT');
 import Coordinate = require('./Coordinate');
 
 class Board {

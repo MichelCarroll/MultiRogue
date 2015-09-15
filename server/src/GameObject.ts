@@ -2,14 +2,14 @@
  * Created by michelcarroll on 15-03-29.
  */
 
-///<reference path='./ts-definitions/node.d.ts' />
-///<reference path='./bower_components/rot.js-TS/rot.d.ts' />
+///<reference path='./../ts-definitions/node.d.ts' />
+///<reference path='./../definitions/rot.d.ts' />
 
 var fs = require('fs');
-eval(fs.readFileSync(__dirname+'/node_modules/rot.js/rot.js/rot.js','utf8'));
 
 import Serializable = require('./Serializable');
 import Coordinate = require('./Coordinate');
+import ROT = require('./ROT');
 
 class GameObject implements Serializable {
 

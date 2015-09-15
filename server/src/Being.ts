@@ -1,13 +1,12 @@
-
-///<reference path='./bower_components/rot.js-TS/rot.d.ts' />
+///<reference path='./../definitions/rot.d.ts' />
 
 var fs = require('fs');
-eval(fs.readFileSync(__dirname+'/node_modules/rot.js/rot.js/rot.js','utf8'));
 
 import Coordinate = require('./Coordinate');
 import GameObject = require('./GameObject');
 import Repository = require('./Repository');
 import Item = require('./Item');
+import ROT = require('./ROT');
 
 class Being extends GameObject {
 
