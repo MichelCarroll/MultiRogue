@@ -1,4 +1,4 @@
-To run the server, run "node server/main.js", and open the client/index.html in Chrome. 
+After having built using Grunt, to run the server, run **node dist/server/main.js**, and open **dist/client/index.html** in a modern browser.
 
 You might want to open multiple instances of the client in different tabs, and explore having multiple player in the game at the same time.
 
