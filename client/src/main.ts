@@ -1,7 +1,9 @@
 
-var io = require('socket.io-client');
-var Game = require('../dist/compiled/Game');
-var UIAdapter = require('../dist/compiled/UIAdapter');
+import io = require('socket.io-client');
+import Game = require('./Game');
+import UIAdapter = require('./UIAdapter');
+
+declare var $:any;
 
 $(document).ready(function() {
 
@@ -26,7 +28,7 @@ $(document).ready(function() {
     uiAdapter.addItemToUI = function(itemId, itemName) {
         var elem = $('<li class="list-group-item" goid="'+itemId+'">'+itemName+'</li>');
         $(elem).click(function() {
-            var goId = $(this).attr('goid');
+            var goId = parseInt($(this).attr('goid'));
             game.handleItemClickEvent(goId);
         })
         $('#game-items').append(elem);
@@ -87,7 +89,7 @@ $(document).ready(function() {
        game.handleScreenResize();
     });
 
-    window.addEventListener("keydown", function(e) {
+    window.addEventListener("keydown", function(e:any) {
         game.handlePlayerKeyEvent(e.keyCode);
     });
 

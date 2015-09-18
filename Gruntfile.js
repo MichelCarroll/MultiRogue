@@ -27,7 +27,7 @@ module.exports = function (grunt) {
             },
             client: {
                 src: ["client/src/**/*.ts"],
-                dest: 'client/dist/compiled',
+                dest: 'tmp/client/compiled',
                 options: {
                     module: 'commonjs', //or commonjs
                     target: 'es5', //or es3
@@ -40,9 +40,8 @@ module.exports = function (grunt) {
         browserify: {
             client: {
                 files: {
-                    'client/dist/script.js': [
-                        "client/dist/compiled/*.js",
-                        "client/src/main.js",
+                    'dist/client/scripts/script.js': [
+                        "tmp/client/compiled/*.js"
                     ]
                 }
             },
@@ -55,10 +54,10 @@ module.exports = function (grunt) {
             client: {
                 options: {
                     sourceMap: true,
-                    sourceMapFile: 'client/dist/script.js.map'
+                    sourceMapFile: 'dist/client/scripts/script.js.map'
                 },
                 files: {
-                    'client/dist/script.min.js': 'client/dist/script.js'
+                    'dist/client/scripts/script.min.js': 'dist/client/scripts/script.js'
                 }
             }
         },
@@ -66,6 +65,12 @@ module.exports = function (grunt) {
             server: {
                 src: 'server/main.js',
                 dest: 'dist/server/main.js'
+            },
+            client: {
+                src: '**',
+                dest: 'dist/client',
+                cwd: 'client/web',
+                expand: true
             }
         }
 
@@ -77,7 +82,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-browserify');
     grunt.loadNpmTasks('grunt-contrib-uglify');
 
-    grunt.registerTask('client', ['typescript:client', 'browserify:client', 'uglify:client']);
+    grunt.registerTask('client', ['typescript:client', 'browserify:client', 'uglify:client', 'copy:client']);
     grunt.registerTask('server', ['typescript:server', 'copy:server']);
     grunt.registerTask('default', ['client', 'server']);
 };

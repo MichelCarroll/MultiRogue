@@ -15,6 +15,7 @@ class UIAdapter {
     public removePlayerFromUI:(playerId:number) => void;
     public addItemToUI:(itemId:number, itemName:string) => void;
     public removeItemFromUI:(itemId:number) => void;
+    public clickedItemFromUI:(itemId:number) => void;
 
 }
 

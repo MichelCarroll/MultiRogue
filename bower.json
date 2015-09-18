@@ -12,6 +12,7 @@
     "tests"
   ],
   "dependencies": {
-    "rot.js": "~0.5.0"
+    "rot.js": "~0.5.0",
+    "bootstrap": "~3.3.4"
   }
 }
