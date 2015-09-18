@@ -16,13 +16,13 @@ module.exports = function (grunt) {
         typescript: {
             server: {
                 src: ["server/src/**/*.ts"],
-                dest: 'server/dist',
+                dest: 'dist/server/lib',
                 options: {
                     module: 'commonjs', //or commonjs
                     target: 'es5', //or es3
                     rootDir: 'server/src',
-                    sourceMap: true,
-                    declaration: true
+                    sourceMap: false,
+                    declaration: false
                 }
             },
             client: {
@@ -61,16 +61,23 @@ module.exports = function (grunt) {
                     'client/dist/script.min.js': 'client/dist/script.js'
                 }
             }
+        },
+        copy: {
+            server: {
+                src: 'server/main.js',
+                dest: 'dist/server/main.js'
+            }
         }
 
     });
 
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-typescript');
     grunt.loadNpmTasks('grunt-browserify');
     grunt.loadNpmTasks('grunt-contrib-uglify');
 
     grunt.registerTask('client', ['typescript:client', 'browserify:client', 'uglify:client']);
-    grunt.registerTask('server', ['typescript:server']);
+    grunt.registerTask('server', ['typescript:server', 'copy:server']);
     grunt.registerTask('default', ['client', 'server']);
 };

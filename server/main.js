@@ -1,6 +1,6 @@
 
 
 
-var GameServer = require('./dist/GameServer');
+var GameServer = require('./lib/GameServer');
 var server = new GameServer();
 server.start();
