@@ -2,8 +2,8 @@
  * Created by michelcarroll on 15-03-24.
  */
 
-///<reference path='./../ts-definitions/socket.io.d.ts' />
-///<reference path='./../ts-definitions/express3.d.ts' />
+///<reference path='./../../definitions/vendor/socket.io.d.ts' />
+///<reference path='./../../definitions/vendor/express3.d.ts' />
 
 var app = require('express')();
 var http = require('http').Server(app);

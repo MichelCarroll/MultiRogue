@@ -1,5 +1,5 @@
 module "cheerio" {
-    export import cheerio = module("cheerio.d");
+    export import cheerio = module("cheerio.d.ts");
 
     function load(body: string, opts?: CheerioOpt) : CheerioObj;
     function (selector: string, body: string): CheerioObj;

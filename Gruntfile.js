@@ -4,34 +4,30 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         'watch': {
-            server: {
-                files: ["server/src/**/*.js", "Gruntfile.js"],
-                tasks: ['default']
-            },
-            client: {
-                files: ["client/src/**/*.js", "Gruntfile.js"],
+            default: {
+                files: ["src/**", "Gruntfile.js"],
                 tasks: ['default']
             }
         },
         typescript: {
             server: {
-                src: ["server/src/**/*.ts"],
+                src: ["src/server/lib/**/*.ts"],
                 dest: 'dist/server/lib',
                 options: {
                     module: 'commonjs', //or commonjs
                     target: 'es5', //or es3
-                    rootDir: 'server/src',
+                    rootDir: 'src/server/lib',
                     sourceMap: false,
                     declaration: false
                 }
             },
             client: {
-                src: ["client/src/**/*.ts"],
+                src: ["src/client/lib/**/*.ts"],
                 dest: 'tmp/client/compiled',
                 options: {
                     module: 'commonjs', //or commonjs
                     target: 'es5', //or es3
-                    rootDir: 'client/src',
+                    rootDir: 'src/client/lib',
                     sourceMap: true,
                     declaration: true
                 }
@@ -63,13 +59,13 @@ module.exports = function (grunt) {
         },
         copy: {
             server: {
-                src: 'server/main.js',
+                src: 'src/server/main.js',
                 dest: 'dist/server/main.js'
             },
             client: {
                 src: '**',
                 dest: 'dist/client',
-                cwd: 'client/web',
+                cwd: 'src/client/web',
                 expand: true
             }
         }

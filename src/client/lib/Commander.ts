@@ -2,7 +2,7 @@
  * Created by michelcarroll on 15-04-03.
  */
 
-/// <reference path="../definitions/rot.d.ts"/>
+/// <reference path="../../definitions/rot.d.ts"/>
 
 import UIAdapter = require('./UIAdapter');
 import Player = require('./Player');

@@ -3,9 +3,8 @@
  */
 
 
-///<reference path='./../ts-definitions/node.d.ts' />
+///<reference path='./../../definitions/vendor/node.d.ts' />
 
-var difference = require('array-difference');
 var fs = require('fs');
 
 import ROT = require('./ROT');

@@ -2,8 +2,8 @@
  * Created by michelcarroll on 15-03-22.
  */
 
-/// <reference path="../definitions/socket.io-client.d.ts"/>
-/// <reference path="../definitions/rot.d.ts"/>
+/// <reference path="../../definitions/vendor/socket.io-client.d.ts"/>
+/// <reference path="../../definitions/rot.d.ts"/>
 
 import io = require('socket.io-client');
 
