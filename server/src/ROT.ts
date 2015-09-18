@@ -6,5 +6,5 @@
 
 var fs = require('fs');
 var window = {};
-eval(fs.readFileSync(__dirname+'/../bower_components/rot.js/rot.js','utf8'));
+eval(fs.readFileSync(__dirname+'/../../bower_components/rot.js/rot.js','utf8'));
 export = ROT;
