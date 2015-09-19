@@ -10,11 +10,16 @@ import SocketIOMessageDispatcher = require('./SocketIOMessageDispatcher');
 class SocketIOMessageServer implements MessageServer {
 
     private onConnection:(messageDispatcher:MessageDispatcher)=>void;
+    private port:number;
+
+    constructor(port:number) {
+        this.port = port;
+    }
 
     public start(onConnection:(messageDispatcher:MessageDispatcher)=>void) {
         this.onConnection = onConnection;
         this.listenToSocketEvents();
-        http.listen(3000, function(){});
+        http.listen(this.port, function(){});
     }
 
     private listenToSocketEvents() {

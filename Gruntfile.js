@@ -9,8 +9,16 @@ module.exports = function (grunt) {
                 tasks: ['default']
             }
         },
+        clean: {
+            server: {
+                'src': ['dist/server', 'tmp/server']
+            },
+            client: {
+                'src': ['dist/client', 'tmp/client']
+            }
+        },
         typescript: {
-            base: {
+            default: {
                 src: ["src/**/*.ts"],
                 dest: 'tmp',
                 options: {
@@ -48,7 +56,19 @@ module.exports = function (grunt) {
             }
         },
         copy: {
-            server: {
+            server_common: {
+                src: '**/*.js',
+                dest: 'dist/server/common',
+                cwd: 'tmp/common',
+                expand: true
+            },
+            server_lib: {
+                src: '**/*.js',
+                dest: 'dist/server/lib',
+                cwd: 'tmp/server',
+                expand: true
+            },
+            server_main: {
                 src: 'src/server/main.js',
                 dest: 'dist/server/main.js'
             },
@@ -67,8 +87,14 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-typescript');
     grunt.loadNpmTasks('grunt-browserify');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-clean');
 
-    grunt.registerTask('client', ['typescript:base', 'browserify:client', 'uglify:client', 'copy:client']);
-    grunt.registerTask('server', ['typescript:base', 'copy:server']);
-    grunt.registerTask('default', ['client', 'server']);
+
+    grunt.registerTask('_client', ['browserify:client', 'uglify:client', 'copy:client']);
+    grunt.registerTask('_server', ['copy:server_common', 'copy:server_lib', 'copy:server_main']);
+
+    grunt.registerTask('client', ['clean', 'typescript', '_client']);
+    grunt.registerTask('server', ['clean', 'typescript', '_server']);
+
+    grunt.registerTask('default', ['clean', 'typescript', '_client', '_server']);
 };

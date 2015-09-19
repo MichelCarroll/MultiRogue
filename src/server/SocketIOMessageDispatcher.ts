@@ -1,5 +1,5 @@
 
-import Message = require('../../common/Message');
+import Message = require('../common/Message');
 import MessageDispatcher = require('./MessageDispatcher');
 
 class SocketIOMessageDispatcher implements MessageDispatcher {

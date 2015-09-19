@@ -2,8 +2,8 @@
  * Created by michelcarroll on 15-03-24.
  */
 
-///<reference path='../../../definitions/vendor/socket.io.d.ts' />
-///<reference path='../../../definitions/vendor/express3.d.ts' />
+///<reference path='../../definitions/vendor/socket.io.d.ts' />
+///<reference path='../../definitions/vendor/express3.d.ts' />
 
 var fs = require('fs');
 
@@ -17,24 +17,25 @@ import ROT = require('./ROT');
 import MessageServer = require('./MessageServer');
 import SocketIOMessageServer = require('./SocketIOMessageServer');
 import MessageDispatcher = require('./MessageDispatcher');
-import Message = require('../../common/Message');
+import ServerParameters = require('./ServerParameters');
+import Message = require('../common/Message');
 
 class GameServer {
 
     private level:Level;
     private messageServer:MessageServer;
 
-    constructor() {
+    constructor(params:ServerParameters) {
         this.level = (new LevelGenerator()).create();
-        this.messageServer = new SocketIOMessageServer();
-        this.messageServer.start(this.onConnection);
+        this.messageServer = new SocketIOMessageServer(params.getPort());
+        this.messageServer.start(this.onConnection.bind(this));
     }
 
     private onConnection(messageDispatcher:MessageDispatcher) {
         var self = this;
-        var player = self.generatePlayer(messageDispatcher);
+        var player = this.generatePlayer(messageDispatcher);
 
-        messageDispatcher.on('disconnect', function(message:Message) {
+        messageDispatcher.on('disconnect', function() {
             if(player) {
                 messageDispatcher.broadcast(new Message('player-left', player.serialize()));
                 self.level.removePlayer(player);
