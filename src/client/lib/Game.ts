@@ -14,6 +14,7 @@ import Commander = require('./Commander');
 import Coordinate = require('./Coordinate');
 import MessageClient = require('./MessageClient');
 import SocketIOMessageClient = require('./SocketIOMessageClient');
+import ClientParameters = require('./ClientParameters');
 import Message = require('../../common/Message');
 
 var CHAT_LOG_SUCCESS = 'success';
@@ -31,11 +32,11 @@ class Game {
     private messageClient:MessageClient;
 
 
-    public init(uiAdapter)
+    constructor(params:ClientParameters, uiAdapter:UIAdapter)
     {
         this.uiAdapter = uiAdapter;
         this.displayAdapter = new DisplayAdapter(this.uiAdapter);
-        this.messageClient = new SocketIOMessageClient();
+        this.messageClient = new SocketIOMessageClient(params.getServerAddress());
         this.hookSocketEvents();
     }
 

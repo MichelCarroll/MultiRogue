@@ -1,12 +1,12 @@
 
 import Game = require('./Game');
 import UIAdapter = require('./UIAdapter');
+import ClientParameters = require('./ClientParameters');
 
 declare var $:any;
 
 $(document).ready(function() {
 
-    var game = new Game();
     var uiAdapter = new UIAdapter();
 
     uiAdapter.addPlayerToUI = function(playerId, playerName) {
@@ -76,7 +76,14 @@ $(document).ready(function() {
         return Math.floor(factor);
     };
 
-    game.init(uiAdapter);
+    var url = '';
+    if(document.location.protocol === 'file:') {
+        url = 'http://localhost';
+    } else {
+        url = 'http://'+document.location.hostname;
+    }
+
+    var game = new Game(new ClientParameters(url+':3000'), uiAdapter);
 
     $('#game-chat-button').click(function() {
         var text = $('#game-chat').val();

@@ -14,16 +14,9 @@ class SocketIOMessageClient implements MessageClient {
 
     private socket:Socket;
 
-    constructor()
+    constructor(serverAddress:string)
     {
-        var url = '';
-        if(document.location.protocol === 'file:') {
-            url = 'http://localhost';
-        } else {
-            url = 'http://'+document.location.hostname;
-        }
-
-        this.socket = io.connect(url+':3000');
+        this.socket = io.connect(serverAddress);
     }
 
     public on(name, callback:(message:Message) => void)
