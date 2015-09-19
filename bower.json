@@ -12,7 +12,7 @@
     "tests"
   ],
   "dependencies": {
-    "rot.js": "~0.5.0",
+    "rot.js": "git@github.com:MichelCarroll/rot.js.git#master",
     "bootstrap": "~3.3.4"
   }
 }
