@@ -2,7 +2,7 @@
  * Created by michelcarroll on 15-04-03.
  */
 
-/// <reference path="../../definitions/rot.d.ts"/>
+/// <reference path="../../../definitions/rot.d.ts"/>
 
 import UIAdapter = require('./UIAdapter');
 import Player = require('./Player');
@@ -10,21 +10,21 @@ import Board = require('./Board');
 import Level = require('./Level');
 import DisplayAdapter = require('./DisplayAdapter');
 import PlayerCommand = require('./PlayerCommand');
-import Message = require('./Message');
-import MessageRelayer = require('./MessageRelayer');
+import Message = require('../../common/Message');
+import MessageClient = require('./MessageClient');
 
 class Commander {
 
     private uiAdapter:UIAdapter;
-    private messageRelayer:MessageRelayer;
+    private messageClient:MessageClient;
     private player:Player;
     private map:Board;
     private level:Level;
     private displayAdapter:DisplayAdapter;
 
-    constructor(uiAdapter:UIAdapter, messageRelayer:MessageRelayer, player:Player, level:Level, map:Board, displayAdapter:DisplayAdapter) {
+    constructor(uiAdapter:UIAdapter, messageClient:MessageClient, player:Player, level:Level, map:Board, displayAdapter:DisplayAdapter) {
         this.uiAdapter = uiAdapter;
-        this.messageRelayer = messageRelayer;
+        this.messageClient = messageClient;
         this.player = player;
         this.level = level;
         this.displayAdapter = displayAdapter;
@@ -36,7 +36,7 @@ class Commander {
         var self = this;
         var chatCommand = new PlayerCommand(1, function() {
             self.uiAdapter.logOnUI("You shout \""+text+"\"!!");
-            self.messageRelayer.send(new Message('shout', {
+            self.messageClient.send(new Message('shout', {
                 'text': text
             }));
             return true;
@@ -68,7 +68,7 @@ class Commander {
             if(!self.level.move(self.player, coord)) {
                 return false;
             }
-            self.messageRelayer.send(new Message('being-moved', {
+            self.messageClient.send(new Message('being-moved', {
                 'id': self.player.getId(),
                 'x': self.player.getPosition().x,
                 'y': self.player.getPosition().y
@@ -85,7 +85,7 @@ class Commander {
                 return false;
             }
             self.uiAdapter.logOnUI("You see "+go.getDescription()+".");
-            self.messageRelayer.send(new Message('being-looked-at-floor', {
+            self.messageClient.send(new Message('being-looked-at-floor', {
                 'id': self.player.getId()
             }));
             return true;
@@ -102,7 +102,7 @@ class Commander {
             self.level.dropByPlayer(go, self.player);
             self.uiAdapter.logOnUI("You drop the "+go.getName()+".");
             self.uiAdapter.removeItemFromUI(go.getId());
-            self.messageRelayer.send(new Message('being-dropped', {
+            self.messageClient.send(new Message('being-dropped', {
                 'playerId': self.player.getId(),
                 'objectId': go.getId()
             }));
@@ -120,7 +120,7 @@ class Commander {
             self.level.pickUpByPlayer(go, self.player);
             self.uiAdapter.logOnUI("You pick up the "+go.getName()+".");
             self.uiAdapter.addItemToUI(go.getId(), go.getName());
-            self.messageRelayer.send(new Message('being-picked-up', {
+            self.messageClient.send(new Message('being-picked-up', {
                 'playerId': self.player.getId(),
                 'objectId': go.getId()
             }));

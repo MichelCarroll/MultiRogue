@@ -2,8 +2,8 @@
  * Created by michelcarroll on 15-03-29.
  */
 
-///<reference path='./../../definitions/vendor/node.d.ts' />
-///<reference path='./../../definitions/rot.d.ts' />
+///<reference path='../../../definitions/vendor/node.d.ts' />
+///<reference path='../../../definitions/rot.d.ts' />
 
 var fs = require('fs');
 

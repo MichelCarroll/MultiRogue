@@ -10,24 +10,13 @@ module.exports = function (grunt) {
             }
         },
         typescript: {
-            server: {
-                src: ["src/server/lib/**/*.ts"],
-                dest: 'dist/server/lib',
+            base: {
+                src: ["src/**/*.ts"],
+                dest: 'tmp',
                 options: {
                     module: 'commonjs', //or commonjs
                     target: 'es5', //or es3
-                    rootDir: 'src/server/lib',
-                    sourceMap: false,
-                    declaration: false
-                }
-            },
-            client: {
-                src: ["src/client/lib/**/*.ts"],
-                dest: 'tmp/client/compiled',
-                options: {
-                    module: 'commonjs', //or commonjs
-                    target: 'es5', //or es3
-                    rootDir: 'src/client/lib',
+                    rootDir: 'src',
                     sourceMap: true,
                     declaration: true
                 }
@@ -37,7 +26,8 @@ module.exports = function (grunt) {
             client: {
                 files: {
                     'dist/client/scripts/script.js': [
-                        "tmp/client/compiled/*.js"
+                        "tmp/client/lib/*.js",
+                        "tmp/common/*.js",
                     ]
                 }
             },
@@ -78,7 +68,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-browserify');
     grunt.loadNpmTasks('grunt-contrib-uglify');
 
-    grunt.registerTask('client', ['typescript:client', 'browserify:client', 'uglify:client', 'copy:client']);
-    grunt.registerTask('server', ['typescript:server', 'copy:server']);
+    grunt.registerTask('client', ['typescript:base', 'browserify:client', 'uglify:client', 'copy:client']);
+    grunt.registerTask('server', ['typescript:base', 'copy:server']);
     grunt.registerTask('default', ['client', 'server']);
 };

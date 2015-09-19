@@ -2,10 +2,7 @@
  * Created by michelcarroll on 15-03-22.
  */
 
-/// <reference path="../../definitions/vendor/socket.io-client.d.ts"/>
-/// <reference path="../../definitions/rot.d.ts"/>
-
-import io = require('socket.io-client');
+/// <reference path="../../../definitions/rot.d.ts"/>
 
 import GameObject = require('./GameObject');
 import Level = require('./Level');
@@ -15,13 +12,9 @@ import Player = require('./Player');
 import DisplayAdapter = require('./DisplayAdapter');
 import Commander = require('./Commander');
 import Coordinate = require('./Coordinate');
-import Socket = require('./Socket');
-import MessageRelayer = require('./MessageRelayer');
-import Message = require('./Message');
-
-declare class SocketIO {
-    connect(url: string): Socket;
-}
+import MessageClient = require('./MessageClient');
+import SocketIOMessageClient = require('./SocketIOMessageClient');
+import Message = require('../../common/Message');
 
 var CHAT_LOG_SUCCESS = 'success';
 var CHAT_LOG_WARNING = 'warning';
@@ -35,36 +28,22 @@ class Game {
     private uiAdapter:UIAdapter;
     private displayAdapter:DisplayAdapter;
     private commander:Commander;
-    private socket:Socket;
-    private messageRelayer:MessageRelayer;
+    private messageClient:MessageClient;
 
 
-    public init(io, uiAdapter)
+    public init(uiAdapter)
     {
         this.uiAdapter = uiAdapter;
         this.displayAdapter = new DisplayAdapter(this.uiAdapter);
-        this.retrieveSocket(io);
+        this.messageClient = new SocketIOMessageClient();
         this.hookSocketEvents();
-    }
-
-    private retrieveSocket(io:SocketIO):void
-    {
-        var url = '';
-        if(document.location.protocol === 'file:') {
-            url = 'http://localhost';
-        } else {
-            url = 'http://'+document.location.hostname;
-        }
-
-        this.socket = io.connect(url+':3000');
-        this.messageRelayer = new MessageRelayer(this.socket);
     }
 
     private hookSocketEvents()
     {
         var self = this;
 
-        this.messageRelayer.on('initiate', function(message:Message) {
+        this.messageClient.on('initiate', function(message:Message) {
             var data = message.getData();
             self.uiAdapter.clearPlayerList();
             self.level = new Level();
@@ -79,18 +58,18 @@ class Game {
             self.uiAdapter.logOnUI("You're now connected as "+self.player.getName()+"!", CHAT_LOG_INFO);
 
             var map = new Board(data.level.map, parseInt(data.level.width), parseInt(data.level.height));
-            self.commander = new Commander(self.uiAdapter, self.messageRelayer, self.player, self.level, map, self.displayAdapter);
+            self.commander = new Commander(self.uiAdapter, self.messageClient, self.player, self.level, map, self.displayAdapter);
             self.displayAdapter.reinitialize(map, self.player, self.level.getGameObjectLayer());
         });
 
-        this.messageRelayer.on('being-moved', function(message:Message) {
+        this.messageClient.on('being-moved', function(message:Message) {
             var data = message.getData();
             var being = self.level.get(parseInt(data.id));
             self.level.move(being, new Coordinate(parseInt(data.x), parseInt(data.y)));
             self.displayAdapter.draw();
         });
 
-        this.messageRelayer.on('player-came', function(message:Message) {
+        this.messageClient.on('player-came', function(message:Message) {
             var data = message.getData();
             var being = GameObject.fromSerialization(data);
             self.level.add(being);
@@ -99,7 +78,7 @@ class Game {
             self.uiAdapter.addPlayerToUI(being.getId(), being.getName());
         });
 
-        this.messageRelayer.on('player-left', function(message:Message) {
+        this.messageClient.on('player-left', function(message:Message) {
             var data = message.getData();
             var being = self.level.get(parseInt(data.id));
             self.level.remove(being);
@@ -108,54 +87,54 @@ class Game {
             self.uiAdapter.removePlayerFromUI(parseInt(data.id));
         });
 
-        this.messageRelayer.on('its-another-player-turn', function(message:Message) {
+        this.messageClient.on('its-another-player-turn', function(message:Message) {
             var data = message.getData();
             var being = self.level.get(parseInt(data.id));
             self.uiAdapter.highlightPlayer(being.getId());
             self.uiAdapter.logOnUI("It's "+being.getName()+"'s turn.");
         });
 
-        this.messageRelayer.on('its-your-turn', function(message:Message) {
+        this.messageClient.on('its-your-turn', function(message:Message) {
             var data = message.getData();
             self.player.giveTurns(parseInt(data.turns));
             self.uiAdapter.highlightPlayer(self.player.getId());
             self.uiAdapter.logOnUI("It's your turn. You have "+self.player.getRemainingActionTurns()+" actions left.", CHAT_LOG_SUCCESS);
         });
 
-        this.messageRelayer.on('being-shouted', function(message:Message) {
+        this.messageClient.on('being-shouted', function(message:Message) {
             var data = message.getData();
             var being = self.level.get(parseInt(data.id));
             self.uiAdapter.logOnUI(being.getName()+" shouts \""+data.text+"\"!!", CHAT_LOG_INFO);
         });
 
-        this.messageRelayer.on('disconnect', function(message:Message) {
+        this.messageClient.on('disconnect', function(message:Message) {
             var data = message.getData();
             self.uiAdapter.logOnUI("Disconnected from server", CHAT_LOG_WARNING);
             self.commander = null;
             self.displayAdapter.clear();
         });
 
-        this.messageRelayer.on('being-looked-at-floor', function(message:Message) {
+        this.messageClient.on('being-looked-at-floor', function(message:Message) {
             var data = message.getData();
             var being = self.level.get(parseInt(data.id));
             self.uiAdapter.logOnUI(being.getName()+" inspected an object on the floor.", CHAT_LOG_INFO);
         });
 
-        this.messageRelayer.on('game-object-remove', function(message:Message) {
+        this.messageClient.on('game-object-remove', function(message:Message) {
             var data = message.getData();
             var go = self.level.get(parseInt(data.id));
             self.level.remove(go);
             self.displayAdapter.draw();
         });
 
-        this.messageRelayer.on('game-object-add', function(message:Message) {
+        this.messageClient.on('game-object-add', function(message:Message) {
             var data = message.getData();
             var go = GameObject.fromSerialization(data);
             self.level.add(go);
             self.displayAdapter.draw();
         });
 
-        this.messageRelayer.on('debug', function(message:Message){
+        this.messageClient.on('debug', function(message:Message){
             var data = message.getData();
             console.log(data);
             self.uiAdapter.logOnUI("Server Error "+data, CHAT_LOG_DANGER);

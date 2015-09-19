@@ -5,4 +5,3 @@
 import GameServer = require('./GameServer');
 
 var server = new GameServer();
-server.start();

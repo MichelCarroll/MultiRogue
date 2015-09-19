@@ -3,7 +3,7 @@
  */
 
 
-///<reference path='./../../definitions/vendor/node.d.ts' />
+///<reference path='../../../definitions/vendor/node.d.ts' />
 
 var fs = require('fs');
 

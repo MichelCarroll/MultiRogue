@@ -1,5 +1,4 @@
 
-import io = require('socket.io-client');
 import Game = require('./Game');
 import UIAdapter = require('./UIAdapter');
 
@@ -77,7 +76,7 @@ $(document).ready(function() {
         return Math.floor(factor);
     };
 
-    game.init(io, uiAdapter);
+    game.init(uiAdapter);
 
     $('#game-chat-button').click(function() {
         var text = $('#game-chat').val();
