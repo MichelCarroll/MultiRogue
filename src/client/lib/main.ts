@@ -2,6 +2,7 @@
 import GameClient = require('./GameClient');
 import UIAdapter = require('./UIAdapter');
 import ClientParameters = require('./ClientParameters');
+import GameDisplayAdapter = require('./GameDisplayAdapter');
 import Vector2D = require('./Vector2D');
 
 declare var $:any;
@@ -93,27 +94,19 @@ $(document).ready(function() {
         return Math.floor(factor);
     };
 
-    uiAdapter.setMapSize = function(size:Vector2D) {
+    uiAdapter.setGameDisplayAdapter = function(adapter:GameDisplayAdapter) {
+        if(display) {
+            display.clear();
+        }
+        fov = new ROT.FOV.PreciseShadowcasting(adapter.getTileOpacityCallback);
         display = new ROT.Display({
-            width: size.x,
-            height: size.y,
-            fontSize: getBestFontSize(size)
+            width: adapter.mapSize.x,
+            height: adapter.mapSize.y,
+            fontSize: getBestFontSize(adapter.mapSize)
         });
-
+        getCameraCallback = adapter.getCameraCallback;
+        getTileCallback = adapter.getTileCallback;
         setGameCanvas(display.getContainer());
-    };
-
-    uiAdapter.setTileCallback = function(callback) {
-        getTileCallback = callback;
-
-    };
-
-    uiAdapter.setTileOpacityCallback = function(callback) {
-        fov = new ROT.FOV.PreciseShadowcasting(callback);
-    }
-
-    uiAdapter.setCameraCallback = function(callback) {
-        getCameraCallback = callback;
     };
 
 

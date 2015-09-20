@@ -9,6 +9,7 @@ import UIAdapter = require('./UIAdapter');
 import Board = require('./Board');
 import Vector2D = require('./Vector2D');
 import GameObjectLayer = require('./GameObjectLayer');
+import GameDisplayAdapter = require('./GameDisplayAdapter');
 
 class DisplayAdapter {
 
@@ -28,7 +29,6 @@ class DisplayAdapter {
         this.goLayer = goLayer;
 
         this.recreateGameDisplay();
-        this.uiAdapter.drawMap();
     }
 
     public resize() {
@@ -37,7 +37,6 @@ class DisplayAdapter {
         }
 
         this.recreateGameDisplay();
-        this.uiAdapter.drawMap();
     }
 
     public draw() {
@@ -86,11 +85,13 @@ class DisplayAdapter {
             };
         };
 
-        this.uiAdapter.clearMap();
-        this.uiAdapter.setMapSize(new Vector2D(this.map.getWidth(), this.map.getHeight()));
-        this.uiAdapter.setCameraCallback(getCamera.bind(this));
-        this.uiAdapter.setTileCallback(getTileAppearance.bind(this));
-        this.uiAdapter.setTileOpacityCallback(getTileOpacity.bind(this));
+        this.uiAdapter.setGameDisplayAdapter(new GameDisplayAdapter(
+            new Vector2D(this.map.getWidth(), this.map.getHeight()),
+            getCamera.bind(this),
+            getTileAppearance.bind(this),
+            getTileOpacity.bind(this)
+        ));
+        this.uiAdapter.drawMap();
 
     }
 
