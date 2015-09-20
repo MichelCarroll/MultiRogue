@@ -10,6 +10,10 @@ class DirectMessageServer implements MessageServer {
     private connections:DirectMessageDispatcher[];
     private onConnection:(messageDispatcher:MessageDispatcher)=>void;
 
+    constructor() {
+        this.connections = [];
+    }
+
     public start(onConnection:(messageDispatcher:MessageDispatcher)=>void) {
         this.onConnection = onConnection;
     }
@@ -29,7 +33,7 @@ class DirectMessageServer implements MessageServer {
         });
         this.connections.push(dispatcher);
         this.onConnection(dispatcher);
-        return dispatcher.receiveMessage;
+        return dispatcher.receiveMessage.bind(dispatcher);
     }
 
 }

@@ -1,5 +1,5 @@
 
-import Game = require('./Game');
+import GameClient = require('./GameClient');
 import UIAdapter = require('./UIAdapter');
 import ClientParameters = require('./ClientParameters');
 
@@ -83,7 +83,7 @@ $(document).ready(function() {
         url = 'http://'+document.location.hostname;
     }
 
-    var game = new Game(new ClientParameters(url+':3000'), uiAdapter);
+    var game = new GameClient(new ClientParameters(url+':3000'), uiAdapter);
 
     $('#game-chat-button').click(function() {
         var text = $('#game-chat').val();

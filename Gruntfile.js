@@ -77,6 +77,14 @@ module.exports = function (grunt) {
                 dest: 'dist/client',
                 cwd: 'src/client/web',
                 expand: true
+            },
+            test: {
+                files: [{
+                    src: '**/*.js',
+                    dest: 'test/build',
+                    cwd: 'tmp',
+                    expand: true
+                }]
             }
         }
 
@@ -96,6 +104,6 @@ module.exports = function (grunt) {
     grunt.registerTask('client', ['clean', 'typescript', '_client']);
     grunt.registerTask('server', ['clean', 'typescript', '_server']);
 
-    grunt.registerTask('test', ['default', ]);
+    grunt.registerTask('test', ['default', 'copy:test']);
     grunt.registerTask('default', ['clean', 'typescript', '_client', '_server']);
 };

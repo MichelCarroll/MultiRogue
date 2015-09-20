@@ -9,17 +9,19 @@ class DirectMessageDispatcher implements MessageDispatcher {
     private listeners:any;
 
     constructor(callback:(message:Message)=>void, onBroadcast:(message:Message)=>void) {
+        this.listeners = {};
         this.callback = callback;
         this.onBroadcast = onBroadcast;
     }
 
     public emit(message:Message) {
+        console.log(message);
         this.callback(message);
     }
 
     public receiveMessage(message:Message) {
-        if(this.listeners[name]) {
-            this.listeners[name](message);
+        if(this.listeners[message.getName()]) {
+            this.listeners[message.getName()](message);
         }
     }
 

@@ -7,7 +7,7 @@ import DirectMessageServer = require('../../server/DirectMessageServer');
 class DirectMessageClient implements MessageClient {
 
     private server:DirectMessageServer;
-    private listeners:any;
+    private listeners:any = {};
     private dispatchCallback:(message:Message)=>void;
 
     constructor(server:DirectMessageServer) {
@@ -15,12 +15,12 @@ class DirectMessageClient implements MessageClient {
     }
 
     public connect() {
-        this.dispatchCallback = this.server.connect(this.receiveMessage);
+        this.dispatchCallback = this.server.connect(this.receiveMessage.bind(this));
     }
 
     private receiveMessage(message:Message) {
-        if(this.listeners[name]) {
-            this.listeners[name](message);
+        if(this.listeners[message.getName()]) {
+            this.listeners[message.getName()](message);
         }
     }
 
@@ -29,8 +29,7 @@ class DirectMessageClient implements MessageClient {
         this.listeners[name] = callback;
     }
 
-    public send(message:Message)
-    {
+    public send(message:Message) {
         this.dispatchCallback(message);
     }
 

@@ -14,6 +14,7 @@ import Commander = require('./Commander');
 import Coordinate = require('./Coordinate');
 import MessageClient = require('./MessageClient');
 import SocketIOMessageClient = require('./SocketIOMessageClient');
+import DirectMessageClient = require('./DirectMessageClient');
 import ClientParameters = require('./ClientParameters');
 import Message = require('../../common/Message');
 
@@ -22,7 +23,7 @@ var CHAT_LOG_WARNING = 'warning';
 var CHAT_LOG_INFO = 'info';
 var CHAT_LOG_DANGER = 'danger';
 
-class Game {
+class GameClient {
 
     private level:Level;
     private player:Player;
@@ -36,7 +37,11 @@ class Game {
     {
         this.uiAdapter = uiAdapter;
         this.displayAdapter = new DisplayAdapter(this.uiAdapter);
-        this.messageClient = new SocketIOMessageClient(params.getServerAddress());
+        if(params.getMessagingServer()) {
+            this.messageClient = new DirectMessageClient(params.getMessagingServer());
+        } else {
+            this.messageClient = new SocketIOMessageClient(params.getServerAddress());
+        }
         this.messageClient.connect();
         this.hookSocketEvents();
         this.messageClient.send(new Message('ready'));
@@ -139,7 +144,6 @@ class Game {
 
         this.messageClient.on('debug', function(message:Message){
             var data = message.getData();
-            console.log(data);
             self.uiAdapter.logOnUI("Server Error "+data, CHAT_LOG_DANGER);
         });
     }
@@ -187,4 +191,4 @@ class Game {
     }
 }
 
-export = Game;
+export = GameClient;

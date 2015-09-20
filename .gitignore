@@ -3,4 +3,5 @@ bower_components/*
 dist/*
 client/dist/*
 tmp
+test/build
 .idea

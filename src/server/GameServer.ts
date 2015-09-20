@@ -16,6 +16,7 @@ import Coordinate = require('./Coordinate');
 import ROT = require('./ROT');
 import MessageServer = require('./MessageServer');
 import SocketIOMessageServer = require('./SocketIOMessageServer');
+import DirectMessageServer = require('./DirectMessageServer');
 import MessageDispatcher = require('./MessageDispatcher');
 import ServerParameters = require('./ServerParameters');
 import Message = require('../common/Message');
@@ -28,8 +29,16 @@ class GameServer {
     constructor(params:ServerParameters) {
         ROT.RNG.setSeed(params.getRandomSeed());
         this.level = (new LevelGenerator()).create();
-        this.messageServer = new SocketIOMessageServer(params.getPort());
+        if(params.getPort()) {
+            this.messageServer = new SocketIOMessageServer(params.getPort());
+        } else {
+            this.messageServer = new DirectMessageServer();
+        }
         this.messageServer.start(this.onConnection.bind(this));
+    }
+
+    public getMessageServer():MessageServer {
+        return this.messageServer;
     }
 
     private onConnection(messageDispatcher:MessageDispatcher) {
