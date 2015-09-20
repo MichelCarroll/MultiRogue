@@ -5,19 +5,19 @@
 import Vector2D = require('./Vector2D');
 import GameDisplayAdapter = require('./GameDisplayAdapter');
 
-class UIAdapter {
+interface UIAdapter {
 
-    public clearMap:()=>void;
-    public drawMap:()=>void;
-    public setGameDisplayAdapter:(adapter:GameDisplayAdapter)=>void;
-    public clearPlayerList:() => void;
-    public logOnUI:(message:string, logTag?:string) => void;
-    public addPlayerToUI:(playerId:number, playerName:string) => void;
-    public highlightPlayer:(playerId:number) => void;
-    public removePlayerFromUI:(playerId:number) => void;
-    public addItemToUI:(itemId:number, itemName:string) => void;
-    public removeItemFromUI:(itemId:number) => void;
-    public clickedItemFromUI:(itemId:number) => void;
+    clearMap:()=>void;
+    drawMap:()=>void;
+    setGameDisplayAdapter:(adapter:GameDisplayAdapter)=>void;
+    clearPlayerList:() => void;
+    logOnUI:(message:string, logTag?:string) => void;
+    addPlayerToUI:(playerId:number, playerName:string) => void;
+    highlightPlayer:(playerId:number) => void;
+    removePlayerFromUI:(playerId:number) => void;
+    addItemToUI:(itemId:number, itemName:string) => void;
+    removeItemFromUI:(itemId:number) => void;
+    clickedItemFromUI:(itemId:number) => void;
 
 }
 
