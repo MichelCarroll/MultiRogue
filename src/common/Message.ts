@@ -5,7 +5,7 @@ class Message {
     private name:string;
     private data:any;
 
-    constructor(name, data) {
+    constructor(name, data = {}) {
         this.name = name;
         this.data = data;
     }

@@ -12,11 +12,17 @@ declare class SocketIO {
 
 class SocketIOMessageClient implements MessageClient {
 
+    private serverAddress:string;
     private socket:Socket;
 
     constructor(serverAddress:string)
     {
-        this.socket = io.connect(serverAddress);
+        this.serverAddress = serverAddress;
+    }
+
+    public connect()
+    {
+        this.socket = io.connect(this.serverAddress);
     }
 
     public on(name, callback:(message:Message) => void)

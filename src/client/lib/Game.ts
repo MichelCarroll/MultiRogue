@@ -37,7 +37,9 @@ class Game {
         this.uiAdapter = uiAdapter;
         this.displayAdapter = new DisplayAdapter(this.uiAdapter);
         this.messageClient = new SocketIOMessageClient(params.getServerAddress());
+        this.messageClient.connect();
         this.hookSocketEvents();
+        this.messageClient.send(new Message('ready'));
     }
 
     private hookSocketEvents()

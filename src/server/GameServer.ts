@@ -26,6 +26,7 @@ class GameServer {
     private messageServer:MessageServer;
 
     constructor(params:ServerParameters) {
+        ROT.RNG.setSeed(params.getRandomSeed());
         this.level = (new LevelGenerator()).create();
         this.messageServer = new SocketIOMessageServer(params.getPort());
         this.messageServer.start(this.onConnection.bind(this));
@@ -33,7 +34,13 @@ class GameServer {
 
     private onConnection(messageDispatcher:MessageDispatcher) {
         var self = this;
-        var player = this.generatePlayer(messageDispatcher);
+        var player:Being = null;
+
+        messageDispatcher.on('ready', function() {
+            if(!player) {
+                player = self.generatePlayer(messageDispatcher);
+            }
+        });
 
         messageDispatcher.on('disconnect', function() {
             if(player) {

@@ -56,21 +56,21 @@ module.exports = function (grunt) {
             }
         },
         copy: {
-            server_common: {
-                src: '**/*.js',
-                dest: 'dist/server/common',
-                cwd: 'tmp/common',
-                expand: true
-            },
-            server_lib: {
-                src: '**/*.js',
-                dest: 'dist/server/lib',
-                cwd: 'tmp/server',
-                expand: true
-            },
-            server_main: {
-                src: 'src/server/main.js',
-                dest: 'dist/server/main.js'
+            server: {
+                files: [{
+                    src: '**/*.js',
+                    dest: 'dist/server/common',
+                    cwd: 'tmp/common',
+                    expand: true
+                }, {
+                    src: '**/*.js',
+                    dest: 'dist/server/lib',
+                    cwd: 'tmp/server',
+                    expand: true
+                }, {
+                    src: 'src/server/main.js',
+                    dest: 'dist/server/main.js'
+                }]
             },
             client: {
                 src: '**',
@@ -91,10 +91,11 @@ module.exports = function (grunt) {
 
 
     grunt.registerTask('_client', ['browserify:client', 'uglify:client', 'copy:client']);
-    grunt.registerTask('_server', ['copy:server_common', 'copy:server_lib', 'copy:server_main']);
+    grunt.registerTask('_server', ['copy:server']);
 
     grunt.registerTask('client', ['clean', 'typescript', '_client']);
     grunt.registerTask('server', ['clean', 'typescript', '_server']);
 
+    grunt.registerTask('test', ['default', ]);
     grunt.registerTask('default', ['clean', 'typescript', '_client', '_server']);
 };
