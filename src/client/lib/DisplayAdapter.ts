@@ -1,6 +1,3 @@
-/**
- * Created by michelcarroll on 15-03-31.
- */
 
 /// <reference path="../../../definitions/rot.d.ts"/>
 
