@@ -7,7 +7,7 @@
 import Player = require('./Player');
 import UIAdapter = require('./UIAdapter');
 import Board = require('./Board');
-import Coordinate = require('./Coordinate');
+import Vector2D = require('./Vector2D');
 import GameObjectLayer = require('./GameObjectLayer');
 
 class DisplayAdapter {
@@ -16,8 +16,7 @@ class DisplayAdapter {
     private map:Board;
     private player:Player;
     private goLayer:GameObjectLayer;
-    private display:ROT.Display;
-    private fov:ROT.FOV.PreciseShadowcasting;
+
 
     constructor(uiAdapter:UIAdapter) {
         this.uiAdapter = uiAdapter;
@@ -27,9 +26,9 @@ class DisplayAdapter {
         this.map = map;
         this.player = player;
         this.goLayer = goLayer;
+
         this.recreateGameDisplay();
-        this.initiateFov();
-        this.draw();
+        this.uiAdapter.drawMap();
     }
 
     public resize() {
@@ -38,72 +37,61 @@ class DisplayAdapter {
         }
 
         this.recreateGameDisplay();
-        this.draw();
+        this.uiAdapter.drawMap();
     }
 
     public draw() {
-        if(!this.map) {
-            return;
-        }
-
-        this.display.clear();
-        this.drawBoard();
-        this.drawPlayer();
+        this.uiAdapter.drawMap();
     }
 
     public clear() {
-        this.uiAdapter.clearGameDisplay();
+        this.uiAdapter.clearMap();
     }
 
-    private drawPlayer()
-    {
-        this.display.draw(this.player.getPosition().x,this.player.getPosition().y ,this.player.getToken(),this.player.getColor(), "#aa0");
-    }
-
-    private drawBoard()
-    {
-        var self = this;
-        this.fov.compute(this.player.getPosition().x,this.player.getPosition().y, 5, function(x, y, r, visibility) {
-            if(!r) {
-                return;
-            }
-            var coord = new Coordinate(x,y);
-            var color = (self.map.tileExists(coord) ? "#aa0": "#660");
-            self.display.draw(x, y, self.map.getTile(coord), "#fff", color);
-            var being = self.goLayer.getTopGameObject(coord);
-
-            if(being) {
-                self.display.draw(being.getPosition().x,being.getPosition().y,being.getToken(),being.getColor(), "#aa0");
-            }
-        });
-
-    }
-
-    private initiateFov()
-    {
-        var self = this;
-        this.fov = new ROT.FOV.PreciseShadowcasting(function(x, y) {
-            if(self.map.tileExists(new Coordinate(x,y))) {
-                return true;
-            }
-            return false;
-        });
-    }
 
     private recreateGameDisplay()
     {
-        this.uiAdapter.clearGameDisplay();
+        var self = this;
+        var getCamera = function() {
+            return {
+                position: self.player.getPosition().copy(),
+                range: 5
+            };
+        }
 
-        this.display = new ROT.Display({
-            width: this.map.getWidth(),
-            height: this.map.getHeight(),
-            fontSize: this.uiAdapter.getBestFontSize(
-                this.map.getWidth(),
-                this.map.getHeight()
-            )
-        });
+        var getTileOpacity = function(x:number, y:number) {
+            if(self.map.tileExists(new Vector2D(x, y))) {
+                return true;
+            }
+            return false;
+        };
 
-        this.uiAdapter.setGameCanvas(this.display.getContainer());
+        var getTileAppearance = function(coord:Vector2D, r:number) {
+            var being = self.goLayer.getTopGameObject(coord);
+
+            if(being) {
+                return {
+                    position: being.getPosition().copy(),
+                    token: being.getToken(),
+                    frontColor: being.getColor(),
+                    backColor: "#aa0"
+                };
+            }
+
+            return {
+                position: coord,
+                token: self.map.getTile(coord),
+                frontColor: "#fff",
+                backColor: self.map.tileExists(coord) ? "#aa0": "#660"
+            };
+        };
+
+        this.uiAdapter.clearMap();
+        this.uiAdapter.setMapSize(new Vector2D(this.map.getWidth(), this.map.getHeight()));
+        this.uiAdapter.setCameraCallback(getCamera.bind(this));
+        this.uiAdapter.setTileCallback(getTileAppearance.bind(this));
+        this.uiAdapter.setTileOpacityCallback(getTileOpacity.bind(this));
+
     }
 
 }

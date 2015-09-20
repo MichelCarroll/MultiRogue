@@ -3,7 +3,7 @@
  */
 
 import GameObject = require('./GameObject');
-import Coordinate = require('./Coordinate');
+import Coordinate = require('./Vector2D');
 
 class GameObjectLayer {
 

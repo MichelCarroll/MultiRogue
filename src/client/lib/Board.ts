@@ -2,7 +2,7 @@
  * Created by michelcarroll on 15-03-27.
  */
 
-import Coordinate = require('./Coordinate');
+import Coordinate = require('./Vector2D');
 
 class Board {
 

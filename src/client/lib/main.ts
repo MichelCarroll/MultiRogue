@@ -2,12 +2,17 @@
 import GameClient = require('./GameClient');
 import UIAdapter = require('./UIAdapter');
 import ClientParameters = require('./ClientParameters');
+import Vector2D = require('./Vector2D');
 
 declare var $:any;
 
 $(document).ready(function() {
 
     var uiAdapter = new UIAdapter();
+    var getTileCallback:(position:Vector2D, r:number)=>{position:Vector2D; token:string; frontColor:string; backColor:string} = null;
+    var getCameraCallback:()=>{position:Vector2D; range:number} = null;
+    var display:ROT.Display = null;
+    var fov:ROT.IFOV = null;
 
     uiAdapter.addPlayerToUI = function(playerId, playerName) {
         $('#game-players').append(
@@ -56,25 +61,61 @@ $(document).ready(function() {
         $('#game-players').empty();
     };
 
-    uiAdapter.clearGameDisplay = function() {
+    uiAdapter.clearMap = function() {
         $('#game').empty();
     };
 
-    uiAdapter.setGameCanvas = function(canvas) {
+    var setGameCanvas = function(canvas) {
         $('#game').append(canvas);
     };
 
-    uiAdapter.getBestFontSize = function(mapWidth, mapHeight) {
+    uiAdapter.drawMap = function() {
+        if(!display) {
+            return;
+        }
+        display.clear();
+        var camera = getCameraCallback();
+        fov.compute(camera.position.x, camera.position.y, camera.range, function(x, y, r) {
+            var tile = getTileCallback(new Vector2D(x, y), r);
+            display.draw(tile.position.x, tile.position.y, tile.token, tile.frontColor, tile.backColor);
+        });
+    };
+
+    var getBestFontSize = function(size:Vector2D) {
         var characterAspectRatio = 18 / 11;
-        var heightFactor = $('#game').innerHeight() / mapHeight;
-        var widthFactor = $('#game').innerWidth() / mapWidth * characterAspectRatio;
+        var heightFactor = $('#game').innerHeight() / size.y;
+        var widthFactor = $('#game').innerWidth() / size.x * characterAspectRatio;
 
         var factor = widthFactor;
-        if(mapHeight * widthFactor > $('#game').innerHeight()) {
+        if(size.y * widthFactor > $('#game').innerHeight()) {
             factor = heightFactor;
         }
         return Math.floor(factor);
     };
+
+    uiAdapter.setMapSize = function(size:Vector2D) {
+        display = new ROT.Display({
+            width: size.x,
+            height: size.y,
+            fontSize: getBestFontSize(size)
+        });
+
+        setGameCanvas(display.getContainer());
+    };
+
+    uiAdapter.setTileCallback = function(callback) {
+        getTileCallback = callback;
+
+    };
+
+    uiAdapter.setTileOpacityCallback = function(callback) {
+        fov = new ROT.FOV.PreciseShadowcasting(callback);
+    }
+
+    uiAdapter.setCameraCallback = function(callback) {
+        getCameraCallback = callback;
+    };
+
 
     var url = '';
     if(document.location.protocol === 'file:') {

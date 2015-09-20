@@ -4,7 +4,7 @@
 
 import GameObject = require('./GameObject');
 import GameObjectLayer = require('./GameObjectLayer');
-import Coordinate = require('./Coordinate');
+import Coordinate = require('./Vector2D');
 import Board = require('./Board');
 import Player = require('./Player');
 

@@ -2,12 +2,17 @@
  * Created by michelcarroll on 15-03-28.
  */
 
+import Vector2D = require('./Vector2D');
 
 class UIAdapter {
 
-    public setGameCanvas:(canvas:HTMLElement) => void;
-    public clearGameDisplay:()=>void;
-    public getBestFontSize:(mapWidth:number, mapHeight:number) => number;
+    public clearMap:()=>void;
+    public drawMap:()=>void;
+    public setMapSize:(size:Vector2D)=>void;
+    public setTileCallback:(callback:(position:Vector2D, r:number)=>{position:Vector2D; token:string; frontColor:string; backColor:string})=>void;
+    public setCameraCallback:(callback:()=>{position:Vector2D; range:number})=>void;
+    public setTileOpacityCallback:(callback:(position:Vector2D)=>boolean)=>void;
+
     public clearPlayerList:() => void;
     public logOnUI:(message:string, logTag?:string) => void;
     public addPlayerToUI:(playerId:number, playerName:string) => void;
