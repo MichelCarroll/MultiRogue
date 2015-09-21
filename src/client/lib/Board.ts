@@ -2,7 +2,7 @@
  * Created by michelcarroll on 15-03-27.
  */
 
-import Coordinate = require('./Vector2D');
+import Vector2D = require('../../common/Vector2D');
 
 class Board {
 
@@ -24,11 +24,11 @@ class Board {
         return this.height;
     }
 
-    public getTile(position:Coordinate):any {
+    public getTile(position:Vector2D):any {
         return this.map[position.toString()];
     }
 
-    public tileExists(position:Coordinate):boolean {
+    public tileExists(position:Vector2D):boolean {
         return (this.map.hasOwnProperty(position.toString()));
     }
 }

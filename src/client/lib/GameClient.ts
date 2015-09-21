@@ -11,7 +11,7 @@ import UIAdapter = require('./UIAdapter');
 import Player = require('./Player');
 import DisplayAdapter = require('./DisplayAdapter');
 import Commander = require('./Commander');
-import Coordinate = require('./Vector2D');
+import Vector2D = require('../../common/Vector2D');
 import MessageClient = require('./MessageClient');
 import SocketIOMessageClient = require('./SocketIOMessageClient');
 import DirectMessageClient = require('./DirectMessageClient');
@@ -73,7 +73,7 @@ class GameClient {
         this.messageClient.on('being-moved', function(message:Message) {
             var data = message.getData();
             var being = self.level.get(parseInt(data.id));
-            self.level.move(being, new Coordinate(parseInt(data.x), parseInt(data.y)));
+            self.level.move(being, new Vector2D(parseInt(data.x), parseInt(data.y)));
             self.displayAdapter.draw();
         });
 

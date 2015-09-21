@@ -11,7 +11,7 @@ import Repository = require('./Repository');
 import GameObject = require('./GameObject');
 import Being = require('./Being');
 import Board = require('./Board');
-import Coordinate = require('./Coordinate');
+import Vector2D = require('../common/Vector2D');
 import Serializable = require('./Serializable');
 import ROT = require('./ROT');
 
@@ -30,12 +30,12 @@ class Level implements Serializable {
         this.scheduler = new ROT.Scheduler.Simple();
         this.currentPlayer = null;
         var self = this;
-        this.playerSpawnPoint = new SpawnPoint(this.map.getRandomTile(), 5, function(point:Coordinate):boolean {
+        this.playerSpawnPoint = new SpawnPoint(this.map.getRandomTile(), 5, function(point:Vector2D):boolean {
             return self.isValidSpawnPoint(point);
         });
     }
 
-    private isValidSpawnPoint(point:Coordinate):boolean {
+    private isValidSpawnPoint(point:Vector2D):boolean {
         return this.map.tileExists(point) &&
             !this.getCollidedGameObjects(point).length;
     }
@@ -73,7 +73,7 @@ class Level implements Serializable {
         }
     }
 
-    public movePlayer(player:Being, position:Coordinate) {
+    public movePlayer(player:Being, position:Vector2D) {
         if(!this.map.tileExists(position)) {
             throw new Error('Cant move there, no tile there');
         }
@@ -113,7 +113,7 @@ class Level implements Serializable {
         return this.goRepository.get(goId);
     }
 
-    private getCollidedGameObjects(position:Coordinate) {
+    private getCollidedGameObjects(position:Vector2D) {
         return this.goRepository.getAll().filter(function(element:GameObject, index, array) {
             return !element.canBeWalkedThrough() && element.getPosition().equals(position);
         });

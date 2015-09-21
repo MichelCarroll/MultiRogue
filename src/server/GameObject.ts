@@ -8,12 +8,12 @@
 var fs = require('fs');
 
 import Serializable = require('./Serializable');
-import Coordinate = require('./Coordinate');
+import Vector2D = require('../common/Vector2D');
 import ROT = require('./ROT');
 
 class GameObject implements Serializable {
 
-    protected position:Coordinate;
+    protected position:Vector2D;
     protected id:number;
     protected token:string;
     protected colorHex:string;
@@ -27,7 +27,7 @@ class GameObject implements Serializable {
     }
 
     constructor(token:string, color:string, name:string, description:string) {
-        this.position = new Coordinate(0,0);
+        this.position = new Vector2D(0,0);
         this.id = GameObject.getNextId();
         this.token = token;
         this.colorHex = color;
@@ -39,11 +39,11 @@ class GameObject implements Serializable {
         return this.id;
     }
 
-    public getPosition():Coordinate {
+    public getPosition():Vector2D {
         return this.position;
     }
 
-    public setPosition(position:Coordinate) {
+    public setPosition(position:Vector2D) {
         this.position = position;
     }
 

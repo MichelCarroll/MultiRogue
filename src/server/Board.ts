@@ -8,15 +8,15 @@
 var fs = require('fs');
 
 import ROT = require('./ROT');
-import Coordinate = require('./Coordinate');
+import Vector2D = require('../common/Vector2D');
 
 class Board {
 
-    private size:Coordinate;
+    private size:Vector2D;
     private tileMap:Object;
     private tiles:Array<string>;
 
-    constructor(size:Coordinate) {
+    constructor(size:Vector2D) {
         this.size = size;
         this.tileMap = new Object();
         this.tiles = new Array();
@@ -26,7 +26,7 @@ class Board {
         return this.tileMap;
     }
 
-    public addTile(position:Coordinate) {
+    public addTile(position:Vector2D) {
         this.tiles.push(position.toString());
         this.tileMap[position.toString()] = ".";
     }
@@ -39,12 +39,12 @@ class Board {
         return this.size.y;
     }
 
-    public getRandomTile():Coordinate {
+    public getRandomTile():Vector2D {
         var index = Math.floor(ROT.RNG.getUniform() * this.tiles.length);
-        return Coordinate.fromString(this.tiles[index]);
+        return Vector2D.fromString(this.tiles[index]);
     }
 
-    public tileExists(position:Coordinate) {
+    public tileExists(position:Vector2D) {
         return (this.tiles.indexOf(position.toString()) > -1);
     }
 

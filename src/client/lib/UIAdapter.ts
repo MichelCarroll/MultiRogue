@@ -2,7 +2,7 @@
  * Created by michelcarroll on 15-03-28.
  */
 
-import Vector2D = require('./Vector2D');
+import Vector2D = require('../../common/Vector2D');
 import GameDisplayAdapter = require('./GameDisplayAdapter');
 
 interface UIAdapter {

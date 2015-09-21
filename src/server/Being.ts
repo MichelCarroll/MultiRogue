@@ -2,7 +2,7 @@
 
 var fs = require('fs');
 
-import Coordinate = require('./Coordinate');
+import Vector2D = require('../common/Vector2D');
 import GameObject = require('./GameObject');
 import Repository = require('./Repository');
 import Item = require('./Item');

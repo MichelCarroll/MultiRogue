@@ -2,11 +2,11 @@
  * Created by michelcarroll on 15-03-22.
  */
 
-import Coordinate = require('./Vector2D');
+import Vector2D = require('../../common/Vector2D');
 
 class GameObject {
 
-    protected position:Coordinate;
+    protected position:Vector2D;
     protected id:number;
     protected token:string;
     protected colorHex:string;
@@ -28,7 +28,7 @@ class GameObject {
         this.colorHex = colorHex;
     }
 
-    public setPosition(position:Coordinate) {
+    public setPosition(position:Vector2D) {
         this.position = position;
     }
 
@@ -44,7 +44,7 @@ class GameObject {
         return this.id;
     }
 
-    public getPosition() {
+    public getPosition():Vector2D {
         return this.position;
     }
 
@@ -95,7 +95,7 @@ class GameObject {
     }
 
     static assignSerializedData(go:GameObject, data) {
-        go.setPosition(new Coordinate(parseInt(data.x), parseInt(data.y)));
+        go.setPosition(new Vector2D(parseInt(data.x), parseInt(data.y)));
         go.setToken(data.token);
         go.setColorHex(data.color);
         go.setIsPlayer(data['isPlayer']);

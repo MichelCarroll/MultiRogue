@@ -3,7 +3,7 @@
  */
 
 import GameObject = require('./GameObject');
-import Coordinate = require('./Vector2D');
+import Vector2D = require('../../common/Vector2D');
 
 class GameObjectLayer {
 
@@ -13,7 +13,7 @@ class GameObjectLayer {
         this.goStacks = {};
     }
 
-    public add(go:GameObject, position:Coordinate) {
+    public add(go:GameObject, position:Vector2D) {
         var key = position.toString();
         if(!this.goStacks[key]) {
             this.goStacks[key] = new Array();
@@ -34,7 +34,7 @@ class GameObjectLayer {
         })
     }
 
-    public remove(go:GameObject, position:Coordinate) {
+    public remove(go:GameObject, position:Vector2D) {
         var key = position.toString();
         if(!this.goStacks[key]) {
             return;
@@ -66,7 +66,7 @@ class GameObjectLayer {
         return -1;
     }
 
-    public getTopWalkableGameObject(position:Coordinate):GameObject {
+    public getTopWalkableGameObject(position:Vector2D):GameObject {
         var key = position.toString();
         if (!this.goStacks[key]) {
             return;
@@ -78,7 +78,7 @@ class GameObjectLayer {
         }
     }
 
-    public getTopPickupableGameObject(position:Coordinate):GameObject {
+    public getTopPickupableGameObject(position:Vector2D):GameObject {
         var key = position.toString();
         if (!this.goStacks[key]) {
             return;
@@ -90,7 +90,7 @@ class GameObjectLayer {
         }
     }
 
-    public getTopGameObject(position:Coordinate):GameObject {
+    public getTopGameObject(position:Vector2D):GameObject {
         var key = position.toString();
         if (!this.goStacks[key] || !this.goStacks[key].length) {
             return;

@@ -1,6 +1,6 @@
 
 
-import Vector2D = require('./Vector2D');
+import Vector2D = require('../../common/Vector2D');
 
 class GameDisplayAdapter {
 

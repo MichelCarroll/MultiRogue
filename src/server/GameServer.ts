@@ -12,7 +12,7 @@ import BeingGenerator = require('./BeingGenerator');
 import Board = require('./Board');
 import Level = require('./Level');
 import LevelGenerator = require('./LevelGenerator');
-import Coordinate = require('./Coordinate');
+import Vector2D = require('../common/Vector2D');
 import ROT = require('./ROT');
 import MessageServer = require('./MessageServer');
 import SocketIOMessageServer = require('./SocketIOMessageServer');
@@ -74,7 +74,7 @@ class GameServer {
             }
 
             try {
-                self.level.movePlayer(player, new Coordinate(parseInt(data.x), parseInt(data.y)));
+                self.level.movePlayer(player, new Vector2D(parseInt(data.x), parseInt(data.y)));
             } catch(error) {
                 self.handleError(player, error, messageDispatcher);
                 return;

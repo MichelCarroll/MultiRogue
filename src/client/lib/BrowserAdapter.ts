@@ -2,7 +2,7 @@
 declare var $:any;
 
 import GameDisplayAdapter = require('./GameDisplayAdapter');
-import Vector2D = require('./Vector2D');
+import Vector2D = require('../../common/Vector2D');
 import UIAdapter = require('./UIAdapter');
 
 class BrowserAdapter implements UIAdapter {

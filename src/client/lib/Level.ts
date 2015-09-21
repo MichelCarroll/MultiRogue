@@ -4,7 +4,7 @@
 
 import GameObject = require('./GameObject');
 import GameObjectLayer = require('./GameObjectLayer');
-import Coordinate = require('./Vector2D');
+import Vector2D = require('../../common/Vector2D');
 import Board = require('./Board');
 import Player = require('./Player');
 
@@ -39,9 +39,15 @@ class Level {
         delete this.gos[go.getId()];
     }
 
-
-    public move(go:GameObject, position:Coordinate):boolean {
+    public canMoveTo(position:Vector2D):boolean {
         if (this.layer.blocked(position.toString())) {
+            return false;
+        }
+        return true;
+    }
+
+    public move(go:GameObject, position:Vector2D):boolean {
+        if (!this.canMoveTo(position)) {
             return false;
         }
 
@@ -64,11 +70,11 @@ class Level {
     }
 
 
-    public getTopGroundObject(position:Coordinate):GameObject {
+    public getTopGroundObject(position:Vector2D):GameObject {
         return this.layer.getTopWalkableGameObject(position);
     }
 
-    public getTopItem(position:Coordinate):GameObject {
+    public getTopItem(position:Vector2D):GameObject {
         return this.layer.getTopPickupableGameObject(position);
     }
 

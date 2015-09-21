@@ -9,13 +9,13 @@ import Being = require('./Being');
 import Item = require('./Item');
 import Board = require('./Board');
 import Level = require('./Level');
-import Coordinate = require('./Coordinate');
+import Vector2D = require('../common/Vector2D');
 import ROT = require('./ROT');
 
 class LevelGenerator {
 
     public create():Level {
-        var map = new Board(new Coordinate(100,50));
+        var map = new Board(new Vector2D(100,50));
         this.traceMap(map);
         var level = new Level(map);
         this.addRandomSticks(level, map, 100);
@@ -39,7 +39,7 @@ class LevelGenerator {
         var digger = new ROT.Map.Digger(100,50);
         digger.create(function(x, y, value) {
             if (value) { return; } /* do not store walls */
-            map.addTile(new Coordinate(x, y));
+            map.addTile(new Vector2D(x, y));
         });
     }
 
