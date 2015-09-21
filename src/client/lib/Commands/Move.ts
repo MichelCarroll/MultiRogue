@@ -56,10 +56,12 @@ class Move implements Command, ServerAware, BoardAware, PlayerAware, LevelAware 
     }
 
     public execute() {
+        var coord = this.player.getPosition().addVector(this.direction);
+        this.level.move(this.player, coord);
         this.messageClient.send(new Message('being-moved', {
             'id': this.player.getId(),
-            'x': this.player.getPosition().x,
-            'y': this.player.getPosition().y
+            'x': coord.x,
+            'y': coord.y
         }));
     }
 }
