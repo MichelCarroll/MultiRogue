@@ -5,7 +5,6 @@
 import GameObject = require('./GameObject');
 import GameObjectLayer = require('./GameObjectLayer');
 import Vector2D = require('../../common/Vector2D');
-import Board = require('./Board');
 import Player = require('./Player');
 
 class Level {

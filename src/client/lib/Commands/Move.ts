@@ -7,20 +7,37 @@ import MessageClient = require('../MessageClient');
 import Message = require('../../../common/Message');
 import Vector2D = require('../../../common/Vector2D');
 
-class Move implements Command {
+import ServerAware = require('../IOC/ServerAware');
+import PlayerAware = require('../IOC/PlayerAware');
+import LevelAware = require('../IOC/LevelAware');
+import BoardAware = require('../IOC/BoardAware');
+
+class Move implements Command, ServerAware, BoardAware, PlayerAware, LevelAware {
 
     private direction:Vector2D;
     private player:Player;
-    private map:Board;
+    private board:Board;
     private level:Level;
     private messageClient:MessageClient;
 
-    constructor(direction:Vector2D, player, map, level, messageClient) {
+    constructor(direction:Vector2D) {
         this.direction = direction;
-        this.player = player;
-        this.map = map;
-        this.level = level;
+    }
+
+    public setMessageClient(messageClient:MessageClient) {
         this.messageClient = messageClient;
+    }
+
+    public setBoard(board:Board) {
+        this.board = board;
+    }
+
+    public setLevel(level:Level) {
+        this.level = level;
+    }
+
+    public setPlayer(player:Player) {
+        this.player = player;
     }
 
     public getTurnsRequired():number {
@@ -29,7 +46,7 @@ class Move implements Command {
 
     public canExecute():boolean {
         var coord = this.player.getPosition().addVector(this.direction);
-        if(!this.map.tileExists(coord)) {
+        if(!this.board.tileExists(coord)) {
             return false;
         }
         if(!this.level.canMoveTo(coord)) {

@@ -7,7 +7,12 @@ import MessageClient = require('../MessageClient');
 import Message = require('../../../common/Message');
 import Vector2D = require('../../../common/Vector2D');
 
-class Drop implements Command {
+import ServerAware = require('../IOC/ServerAware');
+import UIAware = require('../IOC/UIAware');
+import PlayerAware = require('../IOC/PlayerAware');
+import LevelAware = require('../IOC/LevelAware');
+
+class Drop implements Command, ServerAware, UIAware, PlayerAware, LevelAware {
 
     private goId:number;
     private messageClient:MessageClient;
@@ -15,12 +20,24 @@ class Drop implements Command {
     private level:Level;
     private player:Player;
 
-    constructor(goId:number, messageClient, uiAdapter, player, level) {
+    constructor(goId:number) {
         this.goId = goId;
+    }
+
+    public setMessageClient(messageClient:MessageClient) {
         this.messageClient = messageClient;
+    }
+
+    public setUIAdapter(uiAdapter:UIAdapter) {
         this.uiAdapter = uiAdapter;
-        this.player = player;
+    }
+
+    public setLevel(level:Level) {
         this.level = level;
+    }
+
+    public setPlayer(player:Player) {
+        this.player = player;
     }
 
     public getTurnsRequired():number {

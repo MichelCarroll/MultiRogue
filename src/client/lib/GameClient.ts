@@ -16,6 +16,7 @@ import MessageClient = require('./MessageClient');
 import SocketIOMessageClient = require('./SocketIOMessageClient');
 import DirectMessageClient = require('./DirectMessageClient');
 import ClientParameters = require('./ClientParameters');
+import Command = require('./Command');
 import Message = require('../../common/Message');
 
 var CHAT_LOG_SUCCESS = 'success';
@@ -161,33 +162,12 @@ class GameClient {
         }
     }
 
-    public handleScreenResize()
-    {
+    public handleScreenResize() {
         this.displayAdapter.resize();
     }
 
-    public handleInputChat(text)
-    {
-        if(!this.commander) {
-            return;
-        }
-        this.commander.inputChat(text);
-    }
-
-    public handleItemClickEvent(goId:number)
-    {
-        if(!this.commander) {
-            return;
-        }
-        this.commander.clickItem(goId);
-    }
-
-    public handlePlayerKeyEvent(keyCode:number)
-    {
-        if(!this.commander) {
-            return;
-        }
-        this.commander.pressKey(keyCode);
+    public handleCommand(command:Command) {
+        this.commander.executeCommand(command);
     }
 }
 
