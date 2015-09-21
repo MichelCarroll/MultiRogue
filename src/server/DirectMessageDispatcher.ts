@@ -15,7 +15,6 @@ class DirectMessageDispatcher implements MessageDispatcher {
     }
 
     public emit(message:Message) {
-        console.log(message);
         this.callback(message);
     }
 

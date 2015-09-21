@@ -17,7 +17,6 @@ interface UIAdapter {
     removePlayerFromUI:(playerId:number) => void;
     addItemToUI:(itemId:number, itemName:string) => void;
     removeItemFromUI:(itemId:number) => void;
-    clickedItemFromUI:(itemId:number) => void;
 
 }
 

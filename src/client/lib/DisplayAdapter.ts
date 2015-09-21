@@ -62,7 +62,7 @@ class DisplayAdapter {
             return false;
         };
 
-        var getTileAppearance = function(coord:Vector2D, r:number) {
+        var getTileAppearance = function(coord:Vector2D) {
             var being = self.goLayer.getTopGameObject(coord);
 
             if(being) {

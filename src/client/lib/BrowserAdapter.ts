@@ -37,10 +37,6 @@ class BrowserAdapter implements UIAdapter {
         $('#game-items').find('li[goid="'+itemId+'"]').remove();
     };
 
-    public clickedItemFromUI = function(itemId) {
-        $('#game-items').find('li[pid="'+itemId+'"]').remove();
-    };
-
     public logOnUI = function(message, logTag) {
         while($('#game-log li').length > 200) {
             $('#game-log li:last').remove();
