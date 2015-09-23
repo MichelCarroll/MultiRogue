@@ -9,13 +9,16 @@ class TestUIAdapter implements UIAdapter {
         (position:Vector2D)=>
             {position:Vector2D; token:string; frontColor:string; backColor:string} = null;
 
-    private players = {};
+    private players = [];
     private highlightedPlayer = null;
-    private items = {};
+    private items = [];
     private log:string[] = [];
 
     public addPlayerToUI = function(playerId, playerName) {
-        this.players[playerId] = playerName;
+        this.players.push({
+            id: playerId,
+            name: playerName
+        });
     };
 
     public highlightPlayer = function(playerId) {
@@ -23,18 +26,31 @@ class TestUIAdapter implements UIAdapter {
     };
 
     public removePlayerFromUI = function(playerId) {
-        delete this.players[playerId];
+        var index = this.players.find(function(player) {
+            return player.id == playerId;
+        });
+        if(index !== -1) {
+            delete this.players[index];
+        }
         if(this.highlightedPlayer == playerId) {
             this.highlightedPlayer = null;
         }
     };
 
     public addItemToUI = function(itemId, itemName) {
-        this.items[itemId] = itemName;
+        this.items.push({
+            id: itemId,
+            name: itemName
+        });
     };
 
     public removeItemFromUI = function(itemId) {
-        delete this.items[itemId];
+        var index = this.items.find(function(item) {
+            return item.id == itemId;
+        });
+        if(index !== -1) {
+            delete this.items[index];
+        }
     };
 
     public logOnUI = function(message, logTag) {
@@ -45,7 +61,7 @@ class TestUIAdapter implements UIAdapter {
     };
 
     public clearPlayerList = function() {
-        this.players  = {};
+        this.players = [];
     };
 
     public setGameDisplayAdapter = function(adapter:GameDisplayAdapter) {
