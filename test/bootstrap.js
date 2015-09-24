@@ -63,7 +63,13 @@ var Simulator = {
 
                 obj.logDump = function () {
                     console.log(testAdapter.getLog());
-                }
+                };
+
+                obj.dropsFirstItem = function() {
+                    var items = testAdapter.getItems();
+                    var itemId = items[0].id;
+                    return obj.drops(itemId);
+                };
 
                 //- has item
                 //- has player
@@ -93,6 +99,12 @@ describe('client picking up and dropping stick', function() {
         client.moves(LEFT).moves(LEFT).moves(DOWN).moves(LEFT)
             .picksUpOffFloor();
         should(client.isHoldingItem('Wooden Stick')).be.true();
+    });
+    it('should not be holding stick after dropping it', function() {
+        client.moves(LEFT).moves(LEFT).moves(DOWN).moves(LEFT)
+            .picksUpOffFloor()
+            .dropsFirstItem();
+        should(client.isHoldingItem('Wooden Stick')).be.false();
     });
 });
 

@@ -45,7 +45,7 @@ class TestUIAdapter implements UIAdapter {
     };
 
     public removeItemFromUI = function(itemId) {
-        var index = this.items.find(function(item) {
+        var index = this.items.findIndex(function(item) {
             return item.id == itemId;
         });
         if(index !== -1) {
