@@ -20,15 +20,9 @@ class GameObject implements Serializable {
     protected name:string;
     protected description:string;
 
-    static lastId = 1;
-
-    static getNextId() {
-        return this.lastId++;
-    }
-
-    constructor(token:string, color:string, name:string, description:string) {
+    constructor(id:number, token:string, color:string, name:string, description:string) {
+        this.id = id;
         this.position = new Vector2D(0,0);
-        this.id = GameObject.getNextId();
         this.token = token;
         this.colorHex = color;
         this.name = name;

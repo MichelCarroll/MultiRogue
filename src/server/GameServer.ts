@@ -8,7 +8,7 @@
 var fs = require('fs');
 
 import Being = require('./Being');
-import BeingGenerator = require('./BeingGenerator');
+import Player = require('./Player');
 import Board = require('./Board');
 import Level = require('./Level');
 import LevelGenerator = require('./LevelGenerator');
@@ -43,7 +43,7 @@ class GameServer {
 
     private onConnection(messageDispatcher:MessageDispatcher) {
         var self = this;
-        var player:Being = null;
+        var player:Player = null;
 
         messageDispatcher.on('ready', function() {
             if(!player) {
@@ -53,7 +53,7 @@ class GameServer {
 
         messageDispatcher.on('disconnect', function() {
             if(player) {
-                messageDispatcher.broadcast(new Message('player-left', player.serialize()));
+                messageDispatcher.broadcast(new Message('player-left', player.getBeing().serialize()));
                 self.level.removePlayer(player);
             }
         });
@@ -63,7 +63,7 @@ class GameServer {
             if(!self.level.canPlay(player)) {
                 return;
             }
-            messageDispatcher.broadcast(new Message('being-shouted', {'id': player.getId(), 'text': data.text}));
+            messageDispatcher.broadcast(new Message('being-shouted', {'id': player.getBeing().getId(), 'text': data.text}));
             self.level.useTurns(player, 1);
         });
 
@@ -80,7 +80,7 @@ class GameServer {
                 return;
             }
 
-            messageDispatcher.broadcast(new Message('being-moved', player.serialize()));
+            messageDispatcher.broadcast(new Message('being-moved', player.getBeing().serialize()));
             self.level.useTurns(player, 1);
         });
 
@@ -88,7 +88,7 @@ class GameServer {
             if(!self.level.canPlay(player)) {
                 return;
             }
-            messageDispatcher.broadcast(new Message('being-looked-at-floor', player.serialize()));
+            messageDispatcher.broadcast(new Message('being-looked-at-floor', player.getBeing().serialize()));
             self.level.useTurns(player, 1);
         });
 
@@ -128,33 +128,31 @@ class GameServer {
         });
     }
 
-    private generatePlayer(messageDispatcher:MessageDispatcher):Being {
+    private generatePlayer(messageDispatcher:MessageDispatcher):Player {
         var self = this;
-        var player = (new BeingGenerator(function() {
-            self.callToStartTurns(this, messageDispatcher);
-        })).create();
-
-        this.level.addBeing(player);
+        var player = this.level.addPlayer(function() {
+            self.callToStartTurns(player, messageDispatcher);
+        });
         messageDispatcher.emit(new Message('initiate', {
             'level': this.level.serialize(),
-            'player': player.serialize()
+            'player': player.getBeing().serialize()
         }));
-        messageDispatcher.broadcast(new Message('player-came', player.serialize()));
+        messageDispatcher.broadcast(new Message('player-came', player.getBeing().serialize()));
         this.level.resume();
         return player;
     }
 
-    private handleError(player:Being, error:Error, messageDispatcher:MessageDispatcher) {
+    private handleError(player:Player, error:Error, messageDispatcher:MessageDispatcher) {
         console.log(error);
         messageDispatcher.emit(new Message('debug', error.message));
-        messageDispatcher.broadcast(new Message('player-left', player.serialize()));
+        messageDispatcher.broadcast(new Message('player-left', player.getBeing().serialize()));
         this.level.removePlayer(player);
     }
 
-    private callToStartTurns(player:Being, messageDispatcher:MessageDispatcher) {
+    private callToStartTurns(player:Player, messageDispatcher:MessageDispatcher) {
         messageDispatcher.emit(new Message('its-your-turn', { turns: player.getRemainingTurns() }));
         messageDispatcher.broadcast(new Message('its-another-player-turn', {
-            'id': player.getId(),
+            'id': player.getBeing().getId(),
             'turns': player.getRemainingTurns()
         }));
     }

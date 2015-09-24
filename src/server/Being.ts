@@ -10,15 +10,11 @@ import ROT = require('./ROT');
 
 class Being extends GameObject {
 
-    private turns:number;
-    private callForTurn:()=>void;
     private inventory:Repository<Item>;
 
-    constructor(callForTurn:() => void) {
-        super('@', "#FF0", '', 'a player character');
+    constructor(id:number) {
+        super(id, '@', "#FF0", '', 'a player character');
         this.setName('Player #' + this.getId());
-        this.callForTurn = callForTurn;
-        this.turns = 0;
         this.inventory = new Repository<Item>();
     }
 
@@ -34,24 +30,8 @@ class Being extends GameObject {
         return this.inventory;
     }
 
-    public askToTakeTurn() {
-        this.callForTurn();
-    }
-
-    public giveTurns(turns:number) {
-        this.turns += turns;
-    }
-
     public canBeWalkedThrough() {
         return false;
-    }
-
-    public getRemainingTurns() {
-        return this.turns;
-    }
-
-    public spendTurns(turns:number) {
-        this.turns = Math.max(this.turns - turns, 0);
     }
 
     public serialize() {

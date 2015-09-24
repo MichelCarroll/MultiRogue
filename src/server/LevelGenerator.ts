@@ -5,6 +5,8 @@
 
 var fs = require('fs');
 
+import Repository = require('./Repository');
+import GameObject = require('./GameObject');
 import Being = require('./Being');
 import Item = require('./Item');
 import Board = require('./Board');
@@ -15,16 +17,18 @@ import ROT = require('./ROT');
 class LevelGenerator {
 
     public create():Level {
+        var goRepository =  new Repository<GameObject>();
         var map = new Board(new Vector2D(100,50));
         this.traceMap(map);
-        var level = new Level(map);
-        this.addRandomSticks(level, map, 100);
+        var level = new Level(map, goRepository);
+        this.addRandomSticks(level, map, 100, goRepository);
         return level;
     }
 
-    private addRandomSticks(level:Level, map:Board, n:number) {
+    private addRandomSticks(level:Level, map:Board, n:number, goRepo:Repository<GameObject>) {
         for(var i = 0; i < n; i++) {
             var item = new Item(
+                goRepo.getFreeKey(),
                 '/',
                 ROT.Color.toHex(ROT.Color.randomize([205, 133, 63],[20,20,20])),
                 'Wooden Stick',

@@ -7,9 +7,11 @@ import Serializable = require('./Serializable');
 class Repository<V extends Serializable> implements Serializable {
 
     private objects: { [id:number] : V };
+    private freeKey:number;
 
     constructor() {
         this.objects = {};
+        this.freeKey = 1;
     }
 
     public get(key:number) {
@@ -29,6 +31,7 @@ class Repository<V extends Serializable> implements Serializable {
 
     public set(key:number, val:V) {
         this.objects[key] = val;
+        this.freeKey = Math.max(this.freeKey, key) + 1;
     }
 
     public getAll():V[] {
@@ -36,6 +39,10 @@ class Repository<V extends Serializable> implements Serializable {
         return Object.getOwnPropertyNames(this.objects).map(
             function(key) { return self.objects[key]; }
         );
+    }
+
+    public getFreeKey():number {
+        return this.freeKey;
     }
 
 }
