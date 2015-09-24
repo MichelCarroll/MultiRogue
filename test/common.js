@@ -13,11 +13,12 @@ var PickUpCommand = require('./build/client/lib/Commands/PickUp');
 var FloorLookCommand = require('./build/client/lib/Commands/FloorLook');
 
 
+var UP = [0, -1];
+var RIGHT = [1, 0];
+var DOWN = [0, 1];
+var LEFT = [-1, 0];
+
 var Simulator = {
-    UP: [0, -1],
-    RIGHT: [1, 0],
-    DOWN: [0, 1],
-    LEFT: [-1, 0],
     serverBoots: function() {
         var server = new GameServer(new ServerParameters(null, 19582923));
 
@@ -31,6 +32,22 @@ var Simulator = {
                 obj.moves = function (direction) {
                     client.handleCommand(new MoveCommand(new Vector2D(direction[0], direction[1])));
                     return obj;
+                };
+
+                obj.moveUp = function () {
+                    return obj.moves(UP);
+                };
+
+                obj.moveDown = function () {
+                    return obj.moves(DOWN);
+                };
+
+                obj.moveRight = function () {
+                    return obj.moves(RIGHT);
+                };
+
+                obj.moveLeft = function () {
+                    return obj.moves(LEFT);
                 };
 
                 obj.picksUpOffFloor = function () {
@@ -61,6 +78,12 @@ var Simulator = {
 
                 obj.logDump = function () {
                     console.log(testAdapter.getLog());
+                };
+
+                obj.hasInLog = function(text) {
+                    return testAdapter.getLog().filter(function (log) {
+                        return text === log.message;
+                    }).length > 0;
                 };
 
                 obj.dropsFirstItem = function() {
