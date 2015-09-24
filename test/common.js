@@ -92,6 +92,10 @@ var Simulator = {
                     return obj.drops(itemId);
                 };
 
+                obj.getTileTokenAt = function(x, y) {
+                    return testAdapter.getTileAt(new Vector2D(x,y)).token;
+                };
+
                 //- has item
                 //- has player
                 //- player is highlighted
