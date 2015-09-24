@@ -1,6 +1,4 @@
 
-var should = require("should");
-
 var GameServer = require('./build/server/GameServer');
 var ServerParameters = require('./build/server/ServerParameters');
 var GameClient = require('./build/client/lib/GameClient');
@@ -14,12 +12,12 @@ var ShoutCommand = require('./build/client/lib/Commands/Shout');
 var PickUpCommand = require('./build/client/lib/Commands/PickUp');
 var FloorLookCommand = require('./build/client/lib/Commands/FloorLook');
 
-var UP = [0, -1];
-var RIGHT = [1, 0];
-var DOWN = [0, 1];
-var LEFT = [-1, 0];
 
 var Simulator = {
+    UP: [0, -1],
+    RIGHT: [1, 0],
+    DOWN: [0, 1],
+    LEFT: [-1, 0],
     serverBoots: function() {
         var server = new GameServer(new ServerParameters(null, 19582923));
 
@@ -87,24 +85,4 @@ var Simulator = {
 };
 
 
-describe('client picking up and dropping stick', function() {
-    var client;
-    beforeEach(function(){
-        client = Simulator.serverBoots().clientConnects();
-    });
-    it('should not be holding stick at first', function() {
-        should(client.isHoldingItem('Wooden Stick')).be.false();
-    });
-    it('should be holding stick after picking it up', function() {
-        client.moves(LEFT).moves(LEFT).moves(DOWN).moves(LEFT)
-            .picksUpOffFloor();
-        should(client.isHoldingItem('Wooden Stick')).be.true();
-    });
-    it('should not be holding stick after dropping it', function() {
-        client.moves(LEFT).moves(LEFT).moves(DOWN).moves(LEFT)
-            .picksUpOffFloor()
-            .dropsFirstItem();
-        should(client.isHoldingItem('Wooden Stick')).be.false();
-    });
-});
-
+module.exports = Simulator;

@@ -86,6 +86,15 @@ module.exports = function (grunt) {
                     expand: true
                 }]
             }
+        },
+        mochaTest: {
+            test: {
+                options: {
+                    reporter: 'nyan',
+                    quiet: false
+                },
+                src: ['test/suits/*.js']
+            }
         }
 
     });
@@ -96,6 +105,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-browserify');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-mocha-test');
 
 
     grunt.registerTask('_client', ['browserify:client', 'uglify:client', 'copy:client']);
@@ -104,6 +114,6 @@ module.exports = function (grunt) {
     grunt.registerTask('client', ['clean', 'typescript', '_client']);
     grunt.registerTask('server', ['clean', 'typescript', '_server']);
 
-    grunt.registerTask('test', ['default', 'copy:test']);
+    grunt.registerTask('test', ['default', 'copy:test', 'mochaTest']);
     grunt.registerTask('default', ['clean', 'typescript', '_client', '_server']);
 };
