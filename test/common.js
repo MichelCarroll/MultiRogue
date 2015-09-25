@@ -97,9 +97,14 @@ var Simulator = {
                 };
 
                 obj.isHighlightedPlayerId = function(playerId) {
-                    console.log(testAdapter.getHighlightedPlayerId());
                     return playerId === testAdapter.getHighlightedPlayerId();
                 }
+
+                obj.hasPlayerIdInList = function(playerId) {
+                    return testAdapter.getPlayers().filter(function (player) {
+                            return player.id === playerId;
+                        }).length > 0;
+                };
 
                 //- has item
                 //- has player
