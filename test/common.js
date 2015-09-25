@@ -96,6 +96,11 @@ var Simulator = {
                     return testAdapter.getTileAt(new Vector2D(x,y)).token;
                 };
 
+                obj.isHighlightedPlayerId = function(playerId) {
+                    console.log(testAdapter.getHighlightedPlayerId());
+                    return playerId === testAdapter.getHighlightedPlayerId();
+                }
+
                 //- has item
                 //- has player
                 //- player is highlighted
