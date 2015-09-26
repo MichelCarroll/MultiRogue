@@ -8,8 +8,8 @@
 var fs = require('fs');
 
 import Serializable = require('./Serializable');
-import Vector2D = require('../common/Vector2D');
-import ROT = require('./ROT');
+import Vector2D = require('./Vector2D');
+import ROT = require('./../server/ROT');
 
 class GameObject implements Serializable {
 
@@ -19,14 +19,24 @@ class GameObject implements Serializable {
     protected colorHex:string;
     protected name:string;
     protected description:string;
+    protected isAPLayer:boolean = false;
+    protected canWalkOn:boolean = true;
+    protected canPickUp:boolean = false;
 
-    constructor(id:number, token:string, color:string, name:string, description:string) {
+    constructor(id:number) {
         this.id = id;
-        this.position = new Vector2D(0,0);
-        this.token = token;
+    }
+
+    public setColorHex(color:string) {
         this.colorHex = color;
-        this.name = name;
+    }
+
+    public setDescription(description:string) {
         this.description = description;
+    }
+
+    public setToken(token:string) {
+        this.token = token;
     }
 
     public getId():number {
@@ -45,7 +55,7 @@ class GameObject implements Serializable {
         return this.token;
     }
 
-    protected setName(name:string) {
+    public setName(name:string) {
         this.name = name;
     }
 
@@ -61,12 +71,28 @@ class GameObject implements Serializable {
         return this.colorHex;
     }
 
+    public setCanBeWalkedThrough(flag:boolean) {
+        this.canWalkOn = flag;
+    }
+
+    public setCanBePickedUp(flag:boolean) {
+        this.canPickUp = flag;
+    }
+
     public canBeWalkedThrough():boolean {
-        return true;
+        return this.canWalkOn;
     }
 
     public canBePickedUp():boolean {
-        return false;
+        return this.canPickUp;
+    }
+
+    public setIsPlayer(isAPLayer:boolean) {
+        this.isAPLayer = isAPLayer;
+    }
+
+    public isAPlayer():boolean {
+        return this.isAPLayer;
     }
 
     public serialize() {
@@ -78,11 +104,28 @@ class GameObject implements Serializable {
             'token': this.getToken(),
             'canWalkOn': this.canBeWalkedThrough(),
             'name': this.getName(),
-            'isPlayer': false,
+            'isPlayer': this.isAPlayer(),
             'description': this.getDescription(),
             'canPickUp': this.canBePickedUp(),
             'inventory': {}
         };
+    }
+
+    static fromSerialization(data):GameObject {
+        var go = new GameObject(parseInt(data.id));
+        GameObject.assignSerializedData(go, data);
+        return go;
+    }
+
+    static assignSerializedData(go:GameObject, data) {
+        go.setPosition(new Vector2D(parseInt(data.x), parseInt(data.y)));
+        go.setToken(data.token);
+        go.setColorHex(data.color);
+        go.setIsPlayer(data['isPlayer']);
+        go.setName(data.name);
+        go.setDescription(data.description);
+        go.setCanBeWalkedThrough(data.canWalkOn);
+        go.setCanBePickedUp(data.canPickUp);
     }
 }
 

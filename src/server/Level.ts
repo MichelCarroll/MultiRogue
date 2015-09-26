@@ -7,12 +7,12 @@
 var fs = require('fs');
 
 import SpawnPoint = require('./SpawnPoint');
-import Repository = require('./Repository');
-import GameObject = require('./GameObject');
+import Repository = require('./../common/Repository');
+import GameObject = require('./../common/GameObject');
 import Being = require('./Being');
 import Board = require('./Board');
 import Vector2D = require('../common/Vector2D');
-import Serializable = require('./Serializable');
+import Serializable = require('./../common/Serializable');
 import ROT = require('./ROT');
 import Player = require('./Player');
 

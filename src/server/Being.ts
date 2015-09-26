@@ -3,9 +3,9 @@
 var fs = require('fs');
 
 import Vector2D = require('../common/Vector2D');
-import GameObject = require('./GameObject');
-import Repository = require('./Repository');
-import Item = require('./Item');
+import GameObject = require('./../common/GameObject');
+import Repository = require('./../common/Repository');
+import Item = require('./../common/Item');
 import ROT = require('./ROT');
 
 class Being extends GameObject {
@@ -13,8 +13,15 @@ class Being extends GameObject {
     private inventory:Repository<Item>;
 
     constructor(id:number) {
-        super(id, '@', "#FF0", '', 'a player character');
+        super(id);
+        this.setPosition(new Vector2D(0,0));
+        this.setToken('@');
+        this.setColorHex('#FF0');
+        this.setDescription('a player character');
         this.setName('Player #' + this.getId());
+        this.setCanBeWalkedThrough(false);
+        this.setCanBePickedUp(false);
+        this.isAPLayer = true;
         this.inventory = new Repository<Item>();
     }
 
@@ -28,10 +35,6 @@ class Being extends GameObject {
 
     public getInventory():Repository<Item> {
         return this.inventory;
-    }
-
-    public canBeWalkedThrough() {
-        return false;
     }
 
     public serialize() {

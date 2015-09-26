@@ -5,10 +5,10 @@
 
 var fs = require('fs');
 
-import Repository = require('./Repository');
-import GameObject = require('./GameObject');
+import Repository = require('./../common/Repository');
+import GameObject = require('./../common/GameObject');
 import Being = require('./Being');
-import Item = require('./Item');
+import Item = require('./../common/Item');
 import Board = require('./Board');
 import Level = require('./Level');
 import Vector2D = require('../common/Vector2D');
@@ -27,13 +27,11 @@ class LevelGenerator {
 
     private addRandomSticks(level:Level, map:Board, n:number, goRepo:Repository<GameObject>) {
         for(var i = 0; i < n; i++) {
-            var item = new Item(
-                goRepo.getFreeKey(),
-                '/',
-                ROT.Color.toHex(ROT.Color.randomize([205, 133, 63],[20,20,20])),
-                'Wooden Stick',
-                'a simple piece of wood'
-            );
+            var item = new Item(goRepo.getFreeKey());
+            item.setToken('/');
+            item.setColorHex(ROT.Color.toHex(ROT.Color.randomize([205, 133, 63],[20,20,20])));
+            item.setName('Wooden Stick');
+            item.setDescription('a simple piece of wood');
             item.setPosition(map.getRandomTile());
             level.addImmobile(item);
         }

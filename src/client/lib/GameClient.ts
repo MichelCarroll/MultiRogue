@@ -4,7 +4,7 @@
 
 /// <reference path="../../../definitions/rot.d.ts"/>
 
-import GameObject = require('./GameObject');
+import GameObject = require('../../common/GameObject');
 import Level = require('./Level');
 import Board = require('./Board');
 import UIAdapter = require('./UIAdapter');
@@ -155,7 +155,7 @@ class GameClient {
             if(serializedGameObjects.hasOwnProperty(i)) {
                 var being = GameObject.fromSerialization(serializedGameObjects[i]);
                 this.level.add(being);
-                if(being.isPlayer()) {
+                if(being.isAPlayer()) {
                     this.uiAdapter.addPlayerToUI(being.getId(), being.getName());
                 }
             }

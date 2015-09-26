@@ -2,7 +2,7 @@
  * Created by michelcarroll on 15-03-27.
  */
 
-import GameObject = require('./GameObject');
+import GameObject = require('../../common/GameObject');
 import GameObjectLayer = require('./GameObjectLayer');
 import Vector2D = require('../../common/Vector2D');
 import Player = require('./Player');

@@ -2,7 +2,7 @@
  * Created by michelcarroll on 15-04-03.
  */
 
-import GameObject = require('./GameObject');
+import GameObject = require('../../common/GameObject');
 import Vector2D = require('../../common/Vector2D');
 
 class GameObjectLayer {

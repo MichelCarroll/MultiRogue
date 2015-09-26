@@ -2,28 +2,29 @@
  * Created by michelcarroll on 15-03-22.
  */
 
-import GameObject = require('./GameObject');
+import GameObject = require('../../common/GameObject');
+import Repository = require('../../common/Repository');
 
 class Player extends GameObject {
 
     private actionTurns;
-    private inventory: { [id:number] : GameObject };
+    private inventory:Repository<GameObject>;
 
     constructor(id:number) {
         super(id);
         this.actionTurns = 0;
-        this.inventory = {};
+        this.inventory = new Repository<GameObject>();
     }
 
     public addToInventory(go:GameObject) {
-        this.inventory[go.getId()] = go;
+        this.inventory.set(go.getId(), go);
     }
 
     public removeFromInventory(go:GameObject) {
-        delete this.inventory[go.getId()];
+        this.inventory.delete(go.getId());
     }
 
-    public getInventory():{ [id:number] : GameObject } {
+    public getInventory():Repository<GameObject> {
         return this.inventory;
     }
 
