@@ -2,14 +2,11 @@
  * Created by michelcarroll on 15-03-29.
  */
 
-///<reference path='../../definitions/vendor/node.d.ts' />
-///<reference path='../../definitions/rot.d.ts' />
-
-var fs = require('fs');
+///<reference path='../../definitions/dynamicClassLoader.d.ts' />
 
 import Serializable = require('./Serializable');
 import Vector2D = require('./Vector2D');
-import ROT = require('./../server/ROT');
+var DynamicClassLoader:any = require('./DynamicClassLoader');
 
 class GameObject implements Serializable {
 
