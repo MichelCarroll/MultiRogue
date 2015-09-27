@@ -22,6 +22,11 @@ describe('client logs in and looks around', function() {
         should(client.getTileFrontColorHex(47, 26)).be.eql('#ba8536');
         should(client.getTileBackColorHex(47, 26)).be.eql('#aa0');
     });
+    it('and the player should appear a particular way', function() {
+        should(client.getTileTokenAt(49, 26)).be.eql('@');
+        should(client.getTileFrontColorHex(49, 26)).be.eql('#FF0');
+        should(client.getTileBackColorHex(49, 26)).be.eql('#aa0');
+    });
     it('and the player should appear on top of the stick if he steps on it', function() {
         client.moveLeft().moveLeft();
         should(client.getTileTokenAt(47, 26)).be.eql('@');
