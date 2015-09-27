@@ -56,11 +56,11 @@ class Commander {
     {
         this.inject(command);
 
-        if(!(<Playable>this.player.getComponent('Playable')).getRemainingTurns()) {
+        if(!this.player.getPlayableComponent().getRemainingTurns()) {
             this.uiAdapter.logOnUI("It's not your turn!");
             return;
         }
-        else if((<Playable>this.player.getComponent('Playable')).getRemainingTurns() - command.getTurnsRequired() < 0) {
+        else if(this.player.getPlayableComponent().getRemainingTurns() - command.getTurnsRequired() < 0) {
             this.uiAdapter.logOnUI("You don't have enough turns to do this!");
             return;
         }
@@ -71,10 +71,10 @@ class Commander {
         }
         command.execute();
 
-        (<Playable>this.player.getComponent('Playable')).spendTurns(command.getTurnsRequired());
+        this.player.getPlayableComponent().spendTurns(command.getTurnsRequired());
 
-        if((<Playable>this.player.getComponent('Playable')).getRemainingTurns() > 0) {
-            this.uiAdapter.logOnUI("You have "+(<Playable>this.player.getComponent('Playable')).getRemainingTurns()+" actions left.");
+        if(this.player.getPlayableComponent().getRemainingTurns() > 0) {
+            this.uiAdapter.logOnUI("You have "+this.player.getPlayableComponent().getRemainingTurns()+" actions left.");
         } else {
             this.uiAdapter.logOnUI("Your turn is over.");
         }

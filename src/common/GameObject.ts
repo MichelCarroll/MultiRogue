@@ -9,6 +9,11 @@ import Serializable = require('./Serializable');
 import Vector2D = require('./Vector2D');
 import Repository = require('./Repository');
 import Component = require('./Components/Component');
+import Playable = require('./Components/Playable');
+import Content = require('./Components/Content');
+import Container = require('./Components/Container');
+import Collidable = require('./Components/Collidable');
+import Renderable = require('./Components/Renderable');
 
 class GameObject implements Serializable {
 
@@ -34,6 +39,39 @@ class GameObject implements Serializable {
     public getComponent(type:string):Component {
         return this.components.get(type);
     }
+
+    //----------These should be dynamic-----------
+    public isCollidable():boolean {
+        return this.hasComponent('Collidable');
+    }
+    public isContent():boolean {
+        return this.hasComponent('Content');
+    }
+    public isContainer():boolean {
+        return this.hasComponent('Container');
+    }
+    public isPlayable():boolean {
+        return this.hasComponent('Playable');
+    }
+    public isRenderable():boolean {
+        return this.hasComponent('Renderable');
+    }
+    public getCollidableComponent():Collidable {
+        return <Collidable>this.getComponent('Collidable');
+    }
+    public getContentComponent():Content {
+        return <Content>this.getComponent('Content');
+    }
+    public getContainerComponent():Container {
+        return <Container>this.getComponent('Container');
+    }
+    public getPlayableComponent():Playable {
+        return <Playable>this.getComponent('Playable');
+    }
+    public getRenderableComponent():Renderable {
+        return <Renderable>this.getComponent('Renderable');
+    }
+    //--------------------------------------------
 
     public setId(id:number) {
         this.id = id;

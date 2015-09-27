@@ -107,9 +107,9 @@ class GameClient {
 
         this.messageClient.on('its-your-turn', function(message:Message) {
             var data = message.getData();
-            (<Playable>self.player.getComponent('Playable')).giveTurns(parseInt(data.turns));
+            self.player.getPlayableComponent().giveTurns(parseInt(data.turns));
             self.uiAdapter.highlightPlayer(self.player.getId());
-            self.uiAdapter.logOnUI("It's your turn. You have "+(<Playable>self.player.getComponent('Playable')).getRemainingTurns()+" actions left.", CHAT_LOG_SUCCESS);
+            self.uiAdapter.logOnUI("It's your turn. You have "+self.player.getPlayableComponent().getRemainingTurns()+" actions left.", CHAT_LOG_SUCCESS);
         });
 
         this.messageClient.on('being-shouted', function(message:Message) {

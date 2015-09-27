@@ -60,12 +60,12 @@ class Level {
 
 
     public pickUpByPlayer(go:GameObject, player:GameObject) {
-        (<Container>player.getComponent('Container')).addToInventory(go);
+        player.getContainerComponent().addToInventory(go);
         this.remove(go);
     }
 
     public dropByPlayer(go:GameObject, player:GameObject) {
-        (<Container>player.getComponent('Container')).removeFromInventory(go);
+        player.getContainerComponent().removeFromInventory(go);
         go.setPosition(player.getPosition().copy());
         this.add(go);
     }

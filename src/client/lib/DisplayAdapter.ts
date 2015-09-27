@@ -69,8 +69,8 @@ class DisplayAdapter {
             if(gameObject) {
                 return {
                     position: gameObject.getPosition().copy(),
-                    token: (<Renderable>gameObject.getComponent('Renderable')).getToken(),
-                    frontColor: (<Renderable>gameObject.getComponent('Renderable')).getFrontColorHex(),
+                    token: gameObject.getRenderableComponent().getToken(),
+                    frontColor: gameObject.getRenderableComponent().getFrontColorHex(),
                     backColor: "#aa0"
                 };
             }

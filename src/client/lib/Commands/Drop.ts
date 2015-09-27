@@ -46,7 +46,7 @@ class Drop implements Command, ServerAware, UIAware, PlayerAware, LevelAware {
     }
 
     public canExecute():boolean {
-        var go = (<Container>this.player.getComponent('Container')).getInventory().get(this.goId);
+        var go = this.player.getContainerComponent().getInventory().get(this.goId);
         if(!go) {
             return false;
         }
@@ -54,7 +54,7 @@ class Drop implements Command, ServerAware, UIAware, PlayerAware, LevelAware {
     }
 
     public execute() {
-        var go = (<Container>this.player.getComponent('Container')).getInventory().get(this.goId);
+        var go = this.player.getContainerComponent().getInventory().get(this.goId);
         this.level.dropByPlayer(go, this.player);
         this.uiAdapter.logOnUI("You drop the "+go.getName()+".");
         this.uiAdapter.removeItemFromUI(go.getId());

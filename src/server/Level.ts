@@ -116,17 +116,17 @@ class Level implements Serializable {
         else if(!go.hasComponent('Content')) {
             throw new Error('This GO can\'t be picked up');
         }
-        (<Container>being.getComponent('Container')).addToInventory(go);
+        being.getContainerComponent().addToInventory(go);
         this.goRepository.delete(go.getId());
     }
 
     public dropObject(player:Player, goId:number):GameObject {
         var being = player.getBeing();
-        var go = (<Container>being.getComponent('Container')).getInventory().get(goId);
+        var go = being.getContainerComponent().getInventory().get(goId);
         if(!go) {
             throw new Error('No GO with this ID');
         }
-        (<Container>being.getComponent('Container')).removeFromInventory(go);
+        being.getContainerComponent().removeFromInventory(go);
         go.setPosition(being.getPosition().copy());
         this.goRepository.set(go.getId(), go);
         return go;
@@ -143,12 +143,12 @@ class Level implements Serializable {
     }
 
     public canPlay(player:Player) {
-        return (this.currentPlayer === player && (<Playable>player.getBeing().getComponent('Playable')).getRemainingTurns() > 0);
+        return (this.currentPlayer === player && player.getBeing().getPlayableComponent().getRemainingTurns() > 0);
     }
 
     public useTurns(player:Player, n:number) {
-        (<Playable>player.getBeing().getComponent('Playable')).spendTurns(n);
-        if(!(<Playable>player.getBeing().getComponent('Playable')).getRemainingTurns()) {
+        player.getBeing().getPlayableComponent().spendTurns(n);
+        if(!player.getBeing().getPlayableComponent().getRemainingTurns()) {
             this.nextTurn();
         }
     }
@@ -156,7 +156,7 @@ class Level implements Serializable {
     private nextTurn() {
         this.currentPlayer = this.scheduler.next();
         if(this.currentPlayer) {
-            (<Playable>this.currentPlayer.getBeing().getComponent('Playable')).giveTurns(Level.TURNS_PER_ROUND);
+            this.currentPlayer.getBeing().getPlayableComponent().giveTurns(Level.TURNS_PER_ROUND);
             this.currentPlayer.askToTakeTurn();
         }
     }

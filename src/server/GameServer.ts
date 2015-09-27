@@ -150,11 +150,11 @@ class GameServer {
 
     private callToStartTurns(player:Player, messageDispatcher:MessageDispatcher) {
         messageDispatcher.emit(new Message('its-your-turn', {
-            turns: (<Playable>player.getBeing().getComponent('Playable')).getRemainingTurns()
+            turns: player.getBeing().getPlayableComponent().getRemainingTurns()
         }));
         messageDispatcher.broadcast(new Message('its-another-player-turn', {
             'id': player.getBeing().getId(),
-            'turns': (<Playable>player.getBeing().getComponent('Playable')).getRemainingTurns()
+            'turns': gplayer.getBeing().getPlayableComponent().getRemainingTurns()
         }));
     }
 }
