@@ -1,9 +1,3 @@
-/**
- * Created by michelcarroll on 15-03-29.
- */
-
-
-var fs = require('fs');
 
 import Content = require('./../common/Components/Content');
 import Renderable = require('./../common/Components/Renderable');

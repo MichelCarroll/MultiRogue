@@ -165,6 +165,7 @@ class GameClient {
     }
 
     public handleScreenResize() {
+
         this.displayAdapter.resize();
     }
 
