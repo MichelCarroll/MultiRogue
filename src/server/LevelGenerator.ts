@@ -5,8 +5,9 @@
 
 var fs = require('fs');
 
+import Holdable = require('./../common/Components/Holdable');
 import Renderable = require('./../common/Components/Renderable');
-import Item = require('./../common/Item');
+import GameObject = require('./../common/GameObject');
 import Board = require('./../common/Board');
 import Level = require('./Level');
 import Vector2D = require('../common/Vector2D');
@@ -25,7 +26,7 @@ class LevelGenerator {
     private addRandomSticks(level:Level, map:Board, n:number) {
         var indexLength = map.getTileIndexLength();
         for(var i = 0; i < n; i++) {
-            var item = new Item();
+            var item = new GameObject();
             var renderable = new Renderable();
             renderable.setProperties({
                 'token': '/',
@@ -33,6 +34,7 @@ class LevelGenerator {
                 'backColor': ''
             });
             item.addComponent(renderable);
+            item.addComponent(new Holdable());
             item.setName('Wooden Stick');
             item.setDescription('a simple piece of wood');
             item.setPosition(map.getTileAtIndex(Math.floor(ROT.RNG.getUniform() * indexLength)));

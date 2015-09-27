@@ -84,7 +84,7 @@ class GameObjectLayer {
             return;
         }
         for (var i = 0; i < this.goStacks[key].length; i++) {
-            if (this.goStacks[key][i].canBePickedUp()) {
+            if (this.goStacks[key][i].hasComponent('Holdable')) {
                 return this.goStacks[key][i];
             }
         }

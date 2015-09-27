@@ -16,7 +16,6 @@ class GameObject implements Serializable {
     protected id:number;
     protected name:string;
     protected description:string;
-    protected canPickUp:boolean = false;
     private components:Repository<Component>;
 
     constructor() {
@@ -68,14 +67,6 @@ class GameObject implements Serializable {
         return this.description;
     }
 
-    public setCanBePickedUp(flag:boolean) {
-        this.canPickUp = flag;
-    }
-
-    public canBePickedUp():boolean {
-        return this.canPickUp;
-    }
-
     public serialize() {
         return {
             'id': this.getId(),
@@ -83,7 +74,6 @@ class GameObject implements Serializable {
             'y': this.position.y,
             'name': this.getName(),
             'description': this.getDescription(),
-            'canPickUp': this.canBePickedUp(),
             'inventory': {},
             'components': this.components.getAll().map(function(component:Component) {
                 return Serializer.serialize(component);
@@ -102,7 +92,6 @@ class GameObject implements Serializable {
         this.setPosition(new Vector2D(parseInt(data.x), parseInt(data.y)));
         this.setName(data.name);
         this.setDescription(data.description);
-        this.setCanBePickedUp(data.canPickUp);
         var self = this;
         data.components.forEach(function(componentData:any) {
             self.addComponent(<Component>Serializer.deserialize(componentData));

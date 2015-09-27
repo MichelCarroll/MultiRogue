@@ -13,7 +13,10 @@ class Repository<V extends Serializable> implements Serializable {
         this.objects = {};
     }
 
-    public get(key:any) {
+    public get(key:any):V {
+        if(!this.objects[key]) {
+            throw new Error('Repository does not have object with key '+key);
+        }
         return this.objects[key];
     }
 

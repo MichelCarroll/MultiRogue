@@ -1,6 +1,5 @@
 
 
-import Item = require('./Item');
 import Renderable = require('./Components/Renderable');
 import Collidable = require('./Components/Collidable');
 import Repository = require('./Repository');
@@ -9,7 +8,7 @@ import GameObject = require('./GameObject');
 
 class Being extends GameObject {
 
-    protected inventory:Repository<Item>;
+    protected inventory:Repository<GameObject>;
     protected isAPLayer:boolean = false;
     protected actionTurns:number;
 
@@ -25,10 +24,9 @@ class Being extends GameObject {
         this.addComponent(new Collidable());
         this.setPosition(new Vector2D(0,0));
         this.setDescription('a player character');
-        this.setCanBePickedUp(false);
         this.actionTurns = 0;
         this.isAPLayer = true;
-        this.inventory = new Repository<Item>();
+        this.inventory = new Repository<GameObject>();
     }
 
     public getName():string {
@@ -47,15 +45,18 @@ class Being extends GameObject {
         return this.actionTurns;
     }
 
-    public addToInventory(go:Item) {
+    public addToInventory(go:GameObject) {
+        if(!go.hasComponent('Holdable')) {
+            throw new Error('Can\'t hold this item');
+        }
         this.inventory.set(go.getId(), go);
     }
 
-    public removeFromInventory(go:Item) {
+    public removeFromInventory(go:GameObject) {
         this.inventory.delete(go.getId());
     }
 
-    public getInventory():Repository<Item> {
+    public getInventory():Repository<GameObject> {
         return this.inventory;
     }
 

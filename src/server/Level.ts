@@ -97,7 +97,7 @@ class Level implements Serializable {
         else if(!go.getPosition().equals(being.getPosition())) {
             throw new Error('Player isn\'t on the same position as the GO');
         }
-        else if(!go.canBePickedUp()) {
+        else if(!go.hasComponent('Holdable')) {
             throw new Error('This GO can\'t be picked up');
         }
         being.addToInventory(go);
