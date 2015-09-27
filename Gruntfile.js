@@ -27,7 +27,7 @@ module.exports = function (grunt) {
         dynamic_class_loader: {
             common: {
                 files: {
-                    src: ['src/common/*.ts'],
+                    src: ['src/common/**/*.ts'],
                     dest: 'tmp/common/DynamicClassLoader.ts'
                 }
             }
@@ -140,14 +140,14 @@ module.exports = function (grunt) {
         var classNames = [];
 
         src.src.forEach(function(f){
-            var filename = path.basename(f);
-            var className = filename.replace('.ts', '');
+            var importLocation = path.relative('src/common' ,f).replace('.ts', '');
+            var className = path.basename(f).replace('.ts', '');
             if(grunt.file.read(f).match(new RegExp('interface[ ]+'+className+' ','g'))) {
                 ++i;
                 return;
             }
             classNames.push(className);
-            content += 'import '+className+' = require(\'.\/'+className+'\'); \n\n';
+            content += 'import '+className+' = require(\'.\/'+importLocation+'\'); \n\n';
             if( ++i >= src.src.length) {
                 content += 'var createInstance = function(className, args) {\n'+
                     'switch(className) {\n';

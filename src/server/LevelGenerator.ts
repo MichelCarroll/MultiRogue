@@ -5,8 +5,7 @@
 
 var fs = require('fs');
 
-import Repository = require('./../common/Repository');
-import GameObject = require('./../common/GameObject');
+import Renderable = require('./../common/Components/Renderable');
 import Item = require('./../common/Item');
 import Board = require('./../common/Board');
 import Level = require('./Level');
@@ -16,21 +15,24 @@ import ROT = require('./ROT');
 class LevelGenerator {
 
     public create():Level {
-        var goRepository =  new Repository<GameObject>();
         var map = new Board({}, new Vector2D(100,50));
         this.traceMap(map);
-        var level = new Level(map, goRepository);
-        this.addRandomSticks(level, map, 100, goRepository);
+        var level = new Level(map);
+        this.addRandomSticks(level, map, 100);
         return level;
     }
 
-    private addRandomSticks(level:Level, map:Board, n:number, goRepo:Repository<GameObject>) {
+    private addRandomSticks(level:Level, map:Board, n:number) {
         var indexLength = map.getTileIndexLength();
         for(var i = 0; i < n; i++) {
             var item = new Item();
-            item.setId(goRepo.getFreeKey());
-            item.setToken('/');
-            item.setColorHex(ROT.Color.toHex(ROT.Color.randomize([205, 133, 63],[20,20,20])));
+            var renderable = new Renderable();
+            renderable.setProperties({
+                'token': '/',
+                'frontColor': ROT.Color.toHex(ROT.Color.randomize([205, 133, 63],[20,20,20])),
+                'backColor': ''
+            });
+            item.addComponent(renderable);
             item.setName('Wooden Stick');
             item.setDescription('a simple piece of wood');
             item.setPosition(map.getTileAtIndex(Math.floor(ROT.RNG.getUniform() * indexLength)));

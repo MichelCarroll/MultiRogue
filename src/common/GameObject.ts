@@ -4,8 +4,11 @@
 
 ///<reference path='../../definitions/dynamicClassLoader.d.ts' />
 
+import Serializer = require('./Serializer');
 import Serializable = require('./Serializable');
 import Vector2D = require('./Vector2D');
+import Repository = require('./Repository');
+import Component = require('./Components/Component');
 
 class GameObject implements Serializable {
 
@@ -17,8 +20,23 @@ class GameObject implements Serializable {
     protected description:string;
     protected canWalkOn:boolean = true;
     protected canPickUp:boolean = false;
+    private components:Repository<Component>;
 
     constructor() {
+        this.components = new Repository<Component>();
+    }
+
+    public addComponent(component:Component) {
+        component.setTarget(this);
+        this.components.set(component.getComponentKey(), component);
+    }
+
+    public hasComponent(type:string):boolean {
+        return this.components.has(type);
+    }
+
+    public getComponent(type:string):Component {
+        return this.components.get(type);
     }
 
     public setId(id:number) {
@@ -96,7 +114,10 @@ class GameObject implements Serializable {
             'name': this.getName(),
             'description': this.getDescription(),
             'canPickUp': this.canBePickedUp(),
-            'inventory': {}
+            'inventory': {},
+            'components': this.components.getAll().map(function(component:Component) {
+                return Serializer.serialize(component);
+            })
         };
     }
 
@@ -115,6 +136,10 @@ class GameObject implements Serializable {
         this.setDescription(data.description);
         this.setCanBeWalkedThrough(data.canWalkOn);
         this.setCanBePickedUp(data.canPickUp);
+        var self = this;
+        data.components.forEach(function(componentData:any) {
+            self.addComponent(<Component>Serializer.deserialize(componentData));
+        });
     }
 }
 

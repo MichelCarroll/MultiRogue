@@ -20,10 +20,11 @@ class Level implements Serializable {
     private scheduler:ROT.Scheduler.Simple;
     private currentPlayer:Player;
     private playerSpawnPoint:SpawnPoint;
+    private nextGOKey:number = 1;
 
-    constructor(map:Board, goRepository:Repository<GameObject>) {
+    constructor(map:Board) {
         this.map = map;
-        this.goRepository = goRepository;
+        this.goRepository = new Repository<GameObject>();
         this.scheduler = new ROT.Scheduler.Simple();
         this.currentPlayer = null;
         var self = this;
@@ -39,16 +40,18 @@ class Level implements Serializable {
     }
 
     public addAIBeing(being:Being) {
+        being.setId(this.nextGOKey++);
         this.goRepository.set(being.getId(), being);
     }
 
     public addImmobile(go:GameObject) {
+        go.setId(this.nextGOKey++);
         this.goRepository.set(go.getId(), go);
     }
 
     public addPlayer(callForAction:()=>void) {
         var being = new Being();
-        being.setId(this.goRepository.getFreeKey());
+        being.setId(this.nextGOKey++);
         var player = new Player(being, callForAction);
         var position = this.playerSpawnPoint.generate();
         being.setPosition(position);
