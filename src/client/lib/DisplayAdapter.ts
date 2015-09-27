@@ -3,7 +3,6 @@
 
 import GameObject = require('../../common/GameObject');
 import UIAdapter = require('./UIAdapter');
-import Renderable = require('../../common/Components/Renderable');
 import Vector2D = require('../../common/Vector2D');
 import GameObjectLayer = require('./GameObjectLayer');
 import GameDisplayAdapter = require('./GameDisplayAdapter');
