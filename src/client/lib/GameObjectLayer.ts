@@ -24,10 +24,10 @@ class GameObjectLayer {
 
     public sortStack(stackKey:string) {
         this.goStacks[stackKey].sort(function(a:GameObject,b:GameObject):number {
-            if(a.hasComponent('Collidable') === b.hasComponent('Collidable')) {
+            if(a.isCollidable() === b.isCollidable()) {
                 return 0;
             }
-            else if(a.hasComponent('Collidable')) {
+            else if(a.isCollidable()) {
                 return -1;
             }
             return 1;
@@ -50,7 +50,7 @@ class GameObjectLayer {
             return false;
         }
         for(var i = 0; i < this.goStacks[stackKey].length; i++) {
-            if(this.goStacks[stackKey][i].hasComponent('Collidable')) {
+            if(this.goStacks[stackKey][i].isCollidable()) {
                 return true;
             }
         }
@@ -72,7 +72,7 @@ class GameObjectLayer {
             return;
         }
         for (var i = 0; i < this.goStacks[key].length; i++) {
-            if (this.goStacks[key][i].hasComponent('Collidable')) {
+            if (this.goStacks[key][i].isCollidable()) {
                 return this.goStacks[key][i];
             }
         }
@@ -84,7 +84,7 @@ class GameObjectLayer {
             return;
         }
         for (var i = 0; i < this.goStacks[key].length; i++) {
-            if (this.goStacks[key][i].hasComponent('Content')) {
+            if (this.goStacks[key][i].isContent()) {
                 return this.goStacks[key][i];
             }
         }

@@ -17,7 +17,7 @@ class Container extends Component {
     }
 
     public addToInventory(go:GameObject) {
-        if(!go.hasComponent('Content')) {
+        if(!go.isContent()) {
             throw new Error('Can\'t hold this item');
         }
         this.inventory.set(go.getId(), go);

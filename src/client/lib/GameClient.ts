@@ -157,7 +157,7 @@ class GameClient {
             if(serializedGameObjects.hasOwnProperty(i)) {
                 var gameObject = (<GameObject>Serializer.deserialize(serializedGameObjects[i].data));
                 this.level.add(gameObject);
-                if(gameObject.hasComponent('Playable')) {
+                if(gameObject.isPlayable()) {
                     this.uiAdapter.addPlayerToUI(gameObject.getId(), gameObject.getName());
                 }
             }
