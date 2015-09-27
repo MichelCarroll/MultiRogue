@@ -27,7 +27,7 @@ class GameObjectLayer {
             if(a.hasComponent('Collidable') === b.hasComponent('Collidable')) {
                 return 0;
             }
-            else if(!a.hasComponent('Collidable')) {
+            else if(a.hasComponent('Collidable')) {
                 return -1;
             }
             return 1;

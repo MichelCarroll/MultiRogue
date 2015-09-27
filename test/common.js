@@ -96,6 +96,14 @@ var Simulator = {
                     return testAdapter.getTileAt(new Vector2D(x,y)).token;
                 };
 
+                obj.getTileFrontColorHex = function(x, y) {
+                    return testAdapter.getTileAt(new Vector2D(x,y)).frontColor;
+                };
+
+                obj.getTileBackColorHex = function(x, y) {
+                    return testAdapter.getTileAt(new Vector2D(x,y)).backColor;
+                };
+
                 obj.isHighlightedPlayerId = function(playerId) {
                     return playerId === testAdapter.getHighlightedPlayerId();
                 }
