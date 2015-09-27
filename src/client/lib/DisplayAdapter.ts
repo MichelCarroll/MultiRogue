@@ -1,7 +1,7 @@
 
 /// <reference path="../../../definitions/rot.d.ts"/>
 
-import Being = require('../../common/GameObject');
+import GameObject = require('../../common/GameObject');
 import UIAdapter = require('./UIAdapter');
 import Board = require('../../common/Board');
 import Renderable = require('../../common/Components/Renderable');
@@ -13,7 +13,7 @@ class DisplayAdapter {
 
     private uiAdapter:UIAdapter;
     private map:Board;
-    private player:Being;
+    private player:GameObject;
     private goLayer:GameObjectLayer;
 
 
@@ -21,7 +21,7 @@ class DisplayAdapter {
         this.uiAdapter = uiAdapter;
     }
 
-    public reinitialize(map:Board, player:Being, goLayer:GameObjectLayer) {
+    public reinitialize(map:Board, player:GameObject, goLayer:GameObjectLayer) {
         this.map = map;
         this.player = player;
         this.goLayer = goLayer;
@@ -75,10 +75,21 @@ class DisplayAdapter {
                 };
             }
 
+            if(self.map.tileExists(coord)) {
+                var tile:GameObject = self.map.getTile(coord);
+                var renderable = tile.getRenderableComponent();
+                return {
+                    position: coord,
+                    token: renderable.getToken(),
+                    frontColor: renderable.getFrontColorHex(),
+                    backColor: self.map.tileExists(coord) ? "#aa0": "#660"
+                }
+            }
+
             return {
                 position: coord,
-                token: self.map.getTile(coord),
-                frontColor: "#fff",
+                token: '',
+                frontColor: '#fff',
                 backColor: self.map.tileExists(coord) ? "#aa0": "#660"
             };
         };

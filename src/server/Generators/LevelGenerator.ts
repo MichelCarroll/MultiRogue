@@ -1,6 +1,7 @@
 
 
 import ItemGenerator = require('./ItemGenerator');
+import FloorGenerator = require('./FloorGenerator');
 import Board = require('./../../common/Board');
 import Level = require('./../Level');
 import Vector2D = require('../../common/Vector2D');
@@ -9,7 +10,8 @@ import ROT = require('./../ROT');
 class LevelGenerator {
 
     public create():Level {
-        var map = new Board({}, new Vector2D(100,50));
+        var map = new Board();
+        map.setSize(new Vector2D(100,50));
         this.traceMap(map);
         var level = new Level(map);
         this.addRandomSticks(level, map, 100);
@@ -27,11 +29,11 @@ class LevelGenerator {
         }
     }
 
-    private traceMap(map:Board) {
+    private traceMap(board:Board) {
         var digger = new ROT.Map.Digger(100,50);
         digger.create(function(x, y, value) {
             if (value) { return; } /* do not store walls */
-            map.addTile(new Vector2D(x, y));
+            board.addTile(FloorGenerator.create(new Vector2D(x, y)));
         });
     }
 

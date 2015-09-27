@@ -147,7 +147,7 @@ class Level implements Serializable {
 
     public serialize() {
         return {
-            'map': this.map.getTileMap(),
+            'map': this.map.serialize(),
             'gameObjects': this.goRepository.serialize(),
             'width': this.map.getWidth(),
             'height': this.map.getHeight(),

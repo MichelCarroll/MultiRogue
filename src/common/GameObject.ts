@@ -19,8 +19,8 @@ class GameObject implements Serializable {
 
     protected position:Vector2D;
     protected id:number;
-    protected name:string;
-    protected description:string;
+    protected name:string = '';
+    protected description:string = '';
     private components:Repository<Component>;
 
     constructor() {

@@ -4,34 +4,33 @@
 
 
 import Vector2D = require('./Vector2D');
+import GameObject = require('./GameObject');
+import Repository = require('./Repository');
+import Serializable = require('./Serializable');
 
-class Board {
+class Board implements Serializable {
 
     private size:Vector2D;
-    private tileMap:Object;
-    private tiles:Array<string>;
+    private tiles:Repository<GameObject>;
+    private tilesIndex:Array<string>;
 
-    constructor(tileMap:any, size:Vector2D) {
+    constructor() {
+        this.tilesIndex = [];
+        this.tiles = new Repository<GameObject>();
+    }
+
+    public setSize(size:Vector2D) {
         this.size = size;
-        this.tiles = [];
-        this.tileMap = {};
-        var self = this;
-        Object.keys(tileMap).forEach(function(key) {
-            self.addTileAtKey(key);
-        });
     }
 
     public getTileMap() {
-        return this.tileMap;
+        return this.tiles;
     }
 
-    public addTile(position:Vector2D) {
-        this.addTileAtKey(position.toString());
-    }
-
-    private addTileAtKey(key:string) {
-        this.tiles.push(key);
-        this.tileMap[key] = ".";
+    public addTile(floor:GameObject) {
+        var key = floor.getPosition().toString();
+        this.tiles.set(key, floor);
+        this.tilesIndex.push(key);
     }
 
     public getWidth():number {
@@ -43,22 +42,33 @@ class Board {
     }
 
     public getTileIndexLength():number {
-        return this.tiles.length;
+        return this.tilesIndex.length;
     }
 
     public getTileAtIndex(index:number):Vector2D {
-        return Vector2D.fromString(this.tiles[index]);
+        return Vector2D.fromString(this.tilesIndex[index]);
     }
 
     public tileExists(position:Vector2D) {
-        return (this.tiles.indexOf(position.toString()) > -1);
+        return this.tiles.has(position.toString());
     }
 
     public getTile(position:Vector2D):any {
-        if(this.tileMap[position.toString()]) {
-            return '.';
+        return this.tiles.get(position.toString());
+    }
+
+    public deserialize(data:any) {
+        this.size = Vector2D.fromString(data.size);
+        this.tiles.deserialize(data.tiles);
+        this.tilesIndex = data.tilesIndex;
+    }
+
+    public serialize():any {
+        return {
+            size: this.size.toString(),
+            tiles: this.tiles.serialize(),
+            tilesIndex: this.tilesIndex
         }
-        return '';
     }
 }
 

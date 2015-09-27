@@ -68,7 +68,8 @@ class GameClient {
             self.player.deserialize(data.player);
             self.uiAdapter.logOnUI("You're now connected as "+self.player.getName()+"!", CHAT_LOG_INFO);
 
-            var map = new Board(data.level.map, new Vector2D(parseInt(data.level.width), parseInt(data.level.height)));
+            var map = new Board();
+            map.deserialize(data.level.map);
             self.commander = new Commander(self.uiAdapter, self.messageClient, self.player, self.level, map, self.displayAdapter);
             self.displayAdapter.reinitialize(map, self.player, self.level.getGameObjectLayer());
         });
