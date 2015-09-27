@@ -32,11 +32,11 @@ class GameObject implements Serializable {
         this.components.set(component.getComponentKey(), component);
     }
 
-    public hasComponent(type:string):boolean {
+    private hasComponent(type:string):boolean {
         return this.components.has(type);
     }
 
-    public getComponent(type:string):Component {
+    private getComponent(type:string):Component {
         return this.components.get(type);
     }
 
