@@ -3,10 +3,7 @@
  */
 
 import SpawnPoint = require('./SpawnPoint');
-import Container = require('../common/Components/Container');
-import Playable = require('../common/Components/Playable');
-import Renderable = require('../common/Components/Renderable');
-import Collidable = require('../common/Components/Collidable');
+import BeingGenerator = require('./Generators/BeingGenerator');
 import Repository = require('../common/Repository');
 import GameObject = require('../common/GameObject');
 import Board = require('./../common/Board');
@@ -53,21 +50,8 @@ class Level implements Serializable {
     }
 
     public addPlayer(callForAction:()=>void) {
-        var being = new GameObject();
-        var renderable = new Renderable();
-        renderable.setProperties({
-            'token': '@',
-            'frontColor': '#FF0',
-            'backColor': ''
-        });
-        being.setId(this.nextGOKey++);
-        being.addComponent(renderable);
-        being.addComponent(new Collidable());
-        being.addComponent(new Container());
-        being.addComponent(new Playable());
-        being.setPosition(new Vector2D(0,0));
-        being.setDescription('a player character');
-        being.setName('Player #' + being.getId());
+        var id = this.nextGOKey++;
+        var being = BeingGenerator.createPlayer(id, 'Player #' + id);
         var player = new Player(being, callForAction);
         var position = this.playerSpawnPoint.generate();
         being.setPosition(position);
@@ -138,7 +122,7 @@ class Level implements Serializable {
 
     private getCollidedGameObjects(position:Vector2D) {
         return this.goRepository.getAll().filter(function(element:GameObject, index, array) {
-            return element.hasComponent('Collidable') && element.getPosition().equals(position);
+            return element.isCollidable() && element.getPosition().equals(position);
         });
     }
 

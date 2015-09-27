@@ -9,7 +9,7 @@ var fs = require('fs');
 
 import Player = require('./Player');
 import Level = require('./Level');
-import LevelGenerator = require('./LevelGenerator');
+import LevelGenerator = require('./Generators/LevelGenerator');
 import Vector2D = require('../common/Vector2D');
 import Playable = require('../common/Components/Playable');
 import ROT = require('./ROT');
