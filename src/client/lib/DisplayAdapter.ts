@@ -3,7 +3,7 @@
 
 import Being = require('../../common/Being');
 import UIAdapter = require('./UIAdapter');
-import Board = require('./Board');
+import Board = require('../../common/Board');
 import Vector2D = require('../../common/Vector2D');
 import GameObjectLayer = require('./GameObjectLayer');
 import GameDisplayAdapter = require('./GameDisplayAdapter');

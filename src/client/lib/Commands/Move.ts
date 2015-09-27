@@ -1,7 +1,7 @@
 
 import Command = require('../Command');
 import Being = require('../../../common/Being');
-import Board = require('../Board');
+import Board = require('../../../common/Board');
 import Level = require('../Level');
 import MessageClient = require('../MessageClient');
 import Message = require('../../../common/Message');

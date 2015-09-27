@@ -8,7 +8,7 @@ var fs = require('fs');
 import Repository = require('./../common/Repository');
 import GameObject = require('./../common/GameObject');
 import Item = require('./../common/Item');
-import Board = require('./Board');
+import Board = require('./../common/Board');
 import Level = require('./Level');
 import Vector2D = require('../common/Vector2D');
 import ROT = require('./ROT');
@@ -17,7 +17,7 @@ class LevelGenerator {
 
     public create():Level {
         var goRepository =  new Repository<GameObject>();
-        var map = new Board(new Vector2D(100,50));
+        var map = new Board({}, new Vector2D(100,50));
         this.traceMap(map);
         var level = new Level(map, goRepository);
         this.addRandomSticks(level, map, 100, goRepository);
@@ -25,6 +25,7 @@ class LevelGenerator {
     }
 
     private addRandomSticks(level:Level, map:Board, n:number, goRepo:Repository<GameObject>) {
+        var indexLength = map.getTileIndexLength();
         for(var i = 0; i < n; i++) {
             var item = new Item();
             item.setId(goRepo.getFreeKey());
@@ -32,7 +33,7 @@ class LevelGenerator {
             item.setColorHex(ROT.Color.toHex(ROT.Color.randomize([205, 133, 63],[20,20,20])));
             item.setName('Wooden Stick');
             item.setDescription('a simple piece of wood');
-            item.setPosition(map.getRandomTile());
+            item.setPosition(map.getTileAtIndex(Math.floor(ROT.RNG.getUniform() * indexLength)));
             level.addImmobile(item);
         }
     }

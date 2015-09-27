@@ -6,7 +6,7 @@
 
 import UIAdapter = require('./UIAdapter');
 import Being = require('../../common/Being');
-import Board = require('./Board');
+import Board = require('../../common/Board');
 import Level = require('./Level');
 import DisplayAdapter = require('./DisplayAdapter');
 import BeingCommand = require('./PlayerCommand');

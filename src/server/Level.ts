@@ -6,7 +6,7 @@ import SpawnPoint = require('./SpawnPoint');
 import Repository = require('../common/Repository');
 import GameObject = require('../common/GameObject');
 import Being = require('../common/Being');
-import Board = require('./Board');
+import Board = require('./../common/Board');
 import Vector2D = require('../common/Vector2D');
 import Serializable = require('./../common/Serializable');
 import ROT = require('./ROT');
@@ -27,7 +27,8 @@ class Level implements Serializable {
         this.scheduler = new ROT.Scheduler.Simple();
         this.currentPlayer = null;
         var self = this;
-        this.playerSpawnPoint = new SpawnPoint(this.map.getRandomTile(), 5, function(point:Vector2D):boolean {
+        var randomTile = map.getTileAtIndex(Math.floor(ROT.RNG.getUniform() * map.getTileIndexLength()));
+        this.playerSpawnPoint = new SpawnPoint(randomTile, 5, function(point:Vector2D):boolean {
             return self.isValidSpawnPoint(point);
         });
     }

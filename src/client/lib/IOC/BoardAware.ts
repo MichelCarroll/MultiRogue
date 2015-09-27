@@ -1,6 +1,6 @@
 
 
-import Board = require('../Board');
+import Board = require('../../../common/Board');
 
 interface BoardAware {
     setBoard(board:Board):void;
