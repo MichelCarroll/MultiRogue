@@ -7,8 +7,9 @@ import GameObject = require('./GameObject');
 
 class Being extends GameObject {
 
-    private inventory:Repository<Item>;
-    private actionTurns:number;
+    protected inventory:Repository<Item>;
+    protected isAPLayer:boolean = false;
+    protected actionTurns:number;
 
     constructor() {
         super();
@@ -49,6 +50,14 @@ class Being extends GameObject {
 
     public getInventory():Repository<Item> {
         return this.inventory;
+    }
+
+    public setIsPlayer(isAPLayer:boolean) {
+        this.isAPLayer = isAPLayer;
+    }
+
+    public isAPlayer():boolean {
+        return this.isAPLayer;
     }
 
     public serialize() {

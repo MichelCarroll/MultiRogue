@@ -15,7 +15,6 @@ class GameObject implements Serializable {
     protected colorHex:string;
     protected name:string;
     protected description:string;
-    protected isAPLayer:boolean = false;
     protected canWalkOn:boolean = true;
     protected canPickUp:boolean = false;
 
@@ -86,14 +85,6 @@ class GameObject implements Serializable {
         return this.canPickUp;
     }
 
-    public setIsPlayer(isAPLayer:boolean) {
-        this.isAPLayer = isAPLayer;
-    }
-
-    public isAPlayer():boolean {
-        return this.isAPLayer;
-    }
-
     public serialize() {
         return {
             'id': this.getId(),
@@ -103,7 +94,6 @@ class GameObject implements Serializable {
             'token': this.getToken(),
             'canWalkOn': this.canBeWalkedThrough(),
             'name': this.getName(),
-            'isPlayer': this.isAPlayer(),
             'description': this.getDescription(),
             'canPickUp': this.canBePickedUp(),
             'inventory': {}
@@ -121,7 +111,6 @@ class GameObject implements Serializable {
         this.setPosition(new Vector2D(parseInt(data.x), parseInt(data.y)));
         this.setToken(data.token);
         this.setColorHex(data.color);
-        this.setIsPlayer(data['isPlayer']);
         this.setName(data.name);
         this.setDescription(data.description);
         this.setCanBeWalkedThrough(data.canWalkOn);

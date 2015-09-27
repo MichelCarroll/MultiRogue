@@ -155,10 +155,10 @@ class GameClient {
     {
         for(var i in serializedGameObjects) {
             if(serializedGameObjects.hasOwnProperty(i)) {
-                var being = (<Being>Serializer.deserialize(serializedGameObjects[i].data));
-                this.level.add(being);
-                if(being.isAPlayer()) {
-                    this.uiAdapter.addPlayerToUI(being.getId(), being.getName());
+                var gameObject = (<GameObject>Serializer.deserialize(serializedGameObjects[i].data));
+                this.level.add(gameObject);
+                if((<any>gameObject).constructor.name == 'Being' && (<Being>gameObject).isAPlayer()) {
+                    this.uiAdapter.addPlayerToUI(gameObject.getId(), gameObject.getName());
                 }
             }
         }
