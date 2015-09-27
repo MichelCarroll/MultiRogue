@@ -7,9 +7,7 @@
 
 var fs = require('fs');
 
-import Being = require('./Being');
 import Player = require('./Player');
-import Board = require('./Board');
 import Level = require('./Level');
 import LevelGenerator = require('./LevelGenerator');
 import Vector2D = require('../common/Vector2D');
@@ -150,10 +148,10 @@ class GameServer {
     }
 
     private callToStartTurns(player:Player, messageDispatcher:MessageDispatcher) {
-        messageDispatcher.emit(new Message('its-your-turn', { turns: player.getRemainingTurns() }));
+        messageDispatcher.emit(new Message('its-your-turn', { turns: player.getBeing().getRemainingTurns() }));
         messageDispatcher.broadcast(new Message('its-another-player-turn', {
             'id': player.getBeing().getId(),
-            'turns': player.getRemainingTurns()
+            'turns': player.getBeing().getRemainingTurns()
         }));
     }
 }

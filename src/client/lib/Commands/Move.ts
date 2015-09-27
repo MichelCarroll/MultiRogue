@@ -1,6 +1,6 @@
 
 import Command = require('../Command');
-import Player = require('../Player');
+import Being = require('../../../common/Being');
 import Board = require('../Board');
 import Level = require('../Level');
 import MessageClient = require('../MessageClient');
@@ -15,7 +15,7 @@ import BoardAware = require('../IOC/BoardAware');
 class Move implements Command, ServerAware, BoardAware, PlayerAware, LevelAware {
 
     private direction:Vector2D;
-    private player:Player;
+    private player:Being;
     private board:Board;
     private level:Level;
     private messageClient:MessageClient;
@@ -36,7 +36,7 @@ class Move implements Command, ServerAware, BoardAware, PlayerAware, LevelAware 
         this.level = level;
     }
 
-    public setPlayer(player:Player) {
+    public setPlayer(player:Being) {
         this.player = player;
     }
 

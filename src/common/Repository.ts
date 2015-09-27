@@ -2,6 +2,7 @@
  * Created by michelcarroll on 15-03-29.
  */
 
+import Serializer = require('./Serializer');
 import Serializable = require('./Serializable');
 
 class Repository<V extends Serializable> implements Serializable {
@@ -21,8 +22,18 @@ class Repository<V extends Serializable> implements Serializable {
     public serialize() {
         var self = this;
         return Object.getOwnPropertyNames(this.objects).map(
-            function(key) { return self.objects[key].serialize(); }
+            function(key) { return {
+                key: key,
+                data: Serializer.serialize(self.objects[key])
+            }; }
         );
+    }
+
+    public deserialize(data:any) {
+        var self = this;
+        data.forEach(function(serializedGO) {
+            self.objects[serializedGO.key] = (<V>Serializer.deserialize(serializedGO.data));
+        });
     }
 
     public delete(key:number) {

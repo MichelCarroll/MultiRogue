@@ -7,7 +7,6 @@ var fs = require('fs');
 
 import Repository = require('./../common/Repository');
 import GameObject = require('./../common/GameObject');
-import Being = require('./Being');
 import Item = require('./../common/Item');
 import Board = require('./Board');
 import Level = require('./Level');
@@ -27,7 +26,8 @@ class LevelGenerator {
 
     private addRandomSticks(level:Level, map:Board, n:number, goRepo:Repository<GameObject>) {
         for(var i = 0; i < n; i++) {
-            var item = new Item(goRepo.getFreeKey());
+            var item = new Item();
+            item.setId(goRepo.getFreeKey());
             item.setToken('/');
             item.setColorHex(ROT.Color.toHex(ROT.Color.randomize([205, 133, 63],[20,20,20])));
             item.setName('Wooden Stick');

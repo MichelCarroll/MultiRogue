@@ -4,6 +4,7 @@
 
 interface Serializable {
     serialize():Object;
+    deserialize(data:any);
 }
 
 export = Serializable;

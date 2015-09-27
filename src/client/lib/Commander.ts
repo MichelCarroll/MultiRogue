@@ -5,11 +5,11 @@
 /// <reference path="../../../definitions/rot.d.ts"/>
 
 import UIAdapter = require('./UIAdapter');
-import Player = require('./Player');
+import Being = require('../../common/Being');
 import Board = require('./Board');
 import Level = require('./Level');
 import DisplayAdapter = require('./DisplayAdapter');
-import PlayerCommand = require('./PlayerCommand');
+import BeingCommand = require('./PlayerCommand');
 import Command = require('./Command');
 import Message = require('../../common/Message');
 import MessageClient = require('./MessageClient');
@@ -18,12 +18,12 @@ class Commander {
 
     private uiAdapter:UIAdapter;
     private messageClient:MessageClient;
-    private player:Player;
+    private player:Being;
     private map:Board;
     private level:Level;
     private displayAdapter:DisplayAdapter;
 
-    constructor(uiAdapter:UIAdapter, messageClient:MessageClient, player:Player, level:Level, map:Board, displayAdapter:DisplayAdapter) {
+    constructor(uiAdapter:UIAdapter, messageClient:MessageClient, player:Being, level:Level, map:Board, displayAdapter:DisplayAdapter) {
         this.uiAdapter = uiAdapter;
         this.messageClient = messageClient;
         this.player = player;
@@ -55,11 +55,11 @@ class Commander {
     {
         this.inject(command);
 
-        if(!this.player.getRemainingActionTurns()) {
+        if(!this.player.getRemainingTurns()) {
             this.uiAdapter.logOnUI("It's not your turn!");
             return;
         }
-        else if(this.player.getRemainingActionTurns() - command.getTurnsRequired() < 0) {
+        else if(this.player.getRemainingTurns() - command.getTurnsRequired() < 0) {
             this.uiAdapter.logOnUI("You don't have enough turns to do this!");
             return;
         }
@@ -70,10 +70,10 @@ class Commander {
         }
         command.execute();
 
-        this.player.useTurns(command.getTurnsRequired());
+        this.player.spendTurns(command.getTurnsRequired());
 
-        if(this.player.getRemainingActionTurns() > 0) {
-            this.uiAdapter.logOnUI("You have "+this.player.getRemainingActionTurns()+" actions left.");
+        if(this.player.getRemainingTurns() > 0) {
+            this.uiAdapter.logOnUI("You have "+this.player.getRemainingTurns()+" actions left.");
         } else {
             this.uiAdapter.logOnUI("Your turn is over.");
         }

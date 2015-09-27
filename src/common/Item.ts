@@ -1,11 +1,11 @@
 
-import Vector2D = require('Vector2D');
+import Vector2D = require('./Vector2D');
 import GameObject = require('./GameObject');
 
 class Item extends GameObject {
 
-    constructor(id:number) {
-        super(id);
+    constructor() {
+        super();
         this.setCanBePickedUp(true);
         this.setCanBeWalkedThrough(true);
     }

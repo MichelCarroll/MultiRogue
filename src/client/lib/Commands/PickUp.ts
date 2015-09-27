@@ -1,7 +1,7 @@
 
 import Command = require('../Command');
 import UIAdapter = require('../UIAdapter');
-import Player = require('../Player');
+import Being = require('../../../common/Being');
 import Level = require('../Level');
 import MessageClient = require('../MessageClient');
 import Message = require('../../../common/Message');
@@ -12,12 +12,12 @@ import UIAware = require('../IOC/UIAware');
 import PlayerAware = require('../IOC/PlayerAware');
 import LevelAware = require('../IOC/LevelAware');
 
-class PickUp implements Command, ServerAware, UIAware, PlayerAware, LevelAware {
+class PickUp implements Command, ServerAware, UIAware, LevelAware, PlayerAware {
 
     private messageClient:MessageClient;
     private uiAdapter:UIAdapter;
     private level:Level;
-    private player:Player;
+    private player:Being;
 
     public setMessageClient(messageClient:MessageClient) {
         this.messageClient = messageClient;
@@ -31,7 +31,7 @@ class PickUp implements Command, ServerAware, UIAware, PlayerAware, LevelAware {
         this.level = level;
     }
 
-    public setPlayer(player:Player) {
+    public setPlayer(player:Being) {
         this.player = player;
     }
 

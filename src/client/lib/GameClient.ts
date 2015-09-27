@@ -8,7 +8,7 @@ import GameObject = require('../../common/GameObject');
 import Level = require('./Level');
 import Board = require('./Board');
 import UIAdapter = require('./UIAdapter');
-import Player = require('./Player');
+import Being = require('../../common/Being');
 import DisplayAdapter = require('./DisplayAdapter');
 import Commander = require('./Commander');
 import Vector2D = require('../../common/Vector2D');
@@ -18,6 +18,7 @@ import DirectMessageClient = require('./DirectMessageClient');
 import ClientParameters = require('./ClientParameters');
 import Command = require('./Command');
 import Message = require('../../common/Message');
+import Serializer = require('../../common/Serializer');
 
 var CHAT_LOG_SUCCESS = 'success';
 var CHAT_LOG_WARNING = 'warning';
@@ -27,7 +28,7 @@ var CHAT_LOG_DANGER = 'danger';
 class GameClient {
 
     private level:Level;
-    private player:Player;
+    private player:Being;
     private uiAdapter:UIAdapter;
     private displayAdapter:DisplayAdapter;
     private commander:Commander;
@@ -63,7 +64,8 @@ class GameClient {
                 self.uiAdapter.highlightPlayer(being.getId());
             }
 
-            self.player = Player.fromSerialization(data.player);
+            self.player = new Being();
+            self.player.deserialize(data.player);
             self.uiAdapter.logOnUI("You're now connected as "+self.player.getName()+"!", CHAT_LOG_INFO);
 
             var map = new Board(data.level.map, parseInt(data.level.width), parseInt(data.level.height));
@@ -107,7 +109,7 @@ class GameClient {
             var data = message.getData();
             self.player.giveTurns(parseInt(data.turns));
             self.uiAdapter.highlightPlayer(self.player.getId());
-            self.uiAdapter.logOnUI("It's your turn. You have "+self.player.getRemainingActionTurns()+" actions left.", CHAT_LOG_SUCCESS);
+            self.uiAdapter.logOnUI("It's your turn. You have "+self.player.getRemainingTurns()+" actions left.", CHAT_LOG_SUCCESS);
         });
 
         this.messageClient.on('being-shouted', function(message:Message) {
@@ -153,7 +155,7 @@ class GameClient {
     {
         for(var i in serializedGameObjects) {
             if(serializedGameObjects.hasOwnProperty(i)) {
-                var being = GameObject.fromSerialization(serializedGameObjects[i]);
+                var being = (<Being>Serializer.deserialize(serializedGameObjects[i].data));
                 this.level.add(being);
                 if(being.isAPlayer()) {
                     this.uiAdapter.addPlayerToUI(being.getId(), being.getName());

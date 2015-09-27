@@ -1,7 +1,7 @@
 
 /// <reference path="../../../definitions/rot.d.ts"/>
 
-import Player = require('./Player');
+import Being = require('../../common/Being');
 import UIAdapter = require('./UIAdapter');
 import Board = require('./Board');
 import Vector2D = require('../../common/Vector2D');
@@ -12,7 +12,7 @@ class DisplayAdapter {
 
     private uiAdapter:UIAdapter;
     private map:Board;
-    private player:Player;
+    private player:Being;
     private goLayer:GameObjectLayer;
 
 
@@ -20,7 +20,7 @@ class DisplayAdapter {
         this.uiAdapter = uiAdapter;
     }
 
-    public reinitialize(map:Board, player:Player, goLayer:GameObjectLayer) {
+    public reinitialize(map:Board, player:Being, goLayer:GameObjectLayer) {
         this.map = map;
         this.player = player;
         this.goLayer = goLayer;

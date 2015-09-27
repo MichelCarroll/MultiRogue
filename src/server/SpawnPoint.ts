@@ -2,10 +2,7 @@
  * Created by michelcarroll on 15-03-29.
  */
 
-var fs = require('fs');
-
 import Vector2D = require('../common/Vector2D');
-import Being = require('./Being');
 import ROT = require('./ROT');
 
 class SpawnPoint {

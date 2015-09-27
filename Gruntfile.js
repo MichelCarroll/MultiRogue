@@ -18,7 +18,10 @@ module.exports = function (grunt) {
                 'src': ['dist/client']
             },
             tmp: {
-                'src': ['tmp/common']
+                'src': ['tmp']
+            },
+            test: {
+                'src': ['test/build/**']
             }
         },
         dynamic_class_loader: {
@@ -170,14 +173,14 @@ module.exports = function (grunt) {
 
     });
 
-    grunt.registerTask('transpile', ['copy:pretranspile', 'dynamic_class_loader', 'typescript']);
+    grunt.registerTask('transpile', ['clean:tmp', 'copy:pretranspile', 'dynamic_class_loader', 'typescript']);
 
     grunt.registerTask('_client', ['browserify:client', 'uglify:client', 'copy:client']);
     grunt.registerTask('_server', ['copy:server']);
 
-    grunt.registerTask('client', ['clean', 'transpile', '_client']);
-    grunt.registerTask('server', ['clean', 'transpile', '_server']);
+    grunt.registerTask('client', ['clean:client', 'transpile', '_client']);
+    grunt.registerTask('server', ['clean:server', 'transpile', '_server']);
 
-    grunt.registerTask('test', ['default', 'copy:test', 'mochaTest']);
-    grunt.registerTask('default', ['clean', 'transpile', '_client', '_server']);
+    grunt.registerTask('test', ['clean:test', 'default', 'copy:test', 'mochaTest']);
+    grunt.registerTask('default', ['transpile', '_client', '_server']);
 };

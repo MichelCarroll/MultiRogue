@@ -5,7 +5,7 @@
 import GameObject = require('../../common/GameObject');
 import GameObjectLayer = require('./GameObjectLayer');
 import Vector2D = require('../../common/Vector2D');
-import Player = require('./Player');
+import Being = require('../../common/Being');
 
 class Level {
 
@@ -57,12 +57,12 @@ class Level {
     }
 
 
-    public pickUpByPlayer(go:GameObject, player:Player) {
+    public pickUpByPlayer(go:GameObject, player:Being) {
         player.addToInventory(go);
         this.remove(go);
     }
 
-    public dropByPlayer(go:GameObject, player:Player) {
+    public dropByPlayer(go:GameObject, player:Being) {
         player.removeFromInventory(go);
         go.setPosition(player.getPosition().copy());
         this.add(go);

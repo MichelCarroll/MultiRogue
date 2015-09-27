@@ -2,14 +2,10 @@
  * Created by michelcarroll on 15-03-29.
  */
 
-///<reference path='../../definitions/vendor/node.d.ts' />
-
-var fs = require('fs');
-
 import SpawnPoint = require('./SpawnPoint');
-import Repository = require('./../common/Repository');
-import GameObject = require('./../common/GameObject');
-import Being = require('./Being');
+import Repository = require('../common/Repository');
+import GameObject = require('../common/GameObject');
+import Being = require('../common/Being');
 import Board = require('./Board');
 import Vector2D = require('../common/Vector2D');
 import Serializable = require('./../common/Serializable');
@@ -50,8 +46,9 @@ class Level implements Serializable {
     }
 
     public addPlayer(callForAction:()=>void) {
-        var player = new Player(new Being(this.goRepository.getFreeKey()), callForAction);
-        var being = player.getBeing();
+        var being = new Being();
+        being.setId(this.goRepository.getFreeKey());
+        var player = new Player(being, callForAction);
         var position = this.playerSpawnPoint.generate();
         being.setPosition(position);
         this.goRepository.set(being.getId(), being);
@@ -126,12 +123,12 @@ class Level implements Serializable {
     }
 
     public canPlay(player:Player) {
-        return (this.currentPlayer === player && player.getRemainingTurns() > 0);
+        return (this.currentPlayer === player && player.getBeing().getRemainingTurns() > 0);
     }
 
     public useTurns(player:Player, n:number) {
-        player.spendTurns(n);
-        if(!player.getRemainingTurns()) {
+        player.getBeing().spendTurns(n);
+        if(!player.getBeing().getRemainingTurns()) {
             this.nextTurn();
         }
     }
@@ -139,7 +136,7 @@ class Level implements Serializable {
     private nextTurn() {
         this.currentPlayer = this.scheduler.next();
         if(this.currentPlayer) {
-            this.currentPlayer.giveTurns(Level.TURNS_PER_ROUND);
+            this.currentPlayer.getBeing().giveTurns(Level.TURNS_PER_ROUND);
             this.currentPlayer.askToTakeTurn();
         }
     }
@@ -152,6 +149,10 @@ class Level implements Serializable {
             'height': this.map.getHeight(),
             'current_player_id': this.currentPlayer ? this.currentPlayer.getBeing().getId() : null
         };
+    }
+
+    public deserialize(data:any) {
+
     }
 
 }

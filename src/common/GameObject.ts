@@ -6,7 +6,6 @@
 
 import Serializable = require('./Serializable');
 import Vector2D = require('./Vector2D');
-var DynamicClassLoader:any = require('./DynamicClassLoader');
 
 class GameObject implements Serializable {
 
@@ -20,7 +19,10 @@ class GameObject implements Serializable {
     protected canWalkOn:boolean = true;
     protected canPickUp:boolean = false;
 
-    constructor(id:number) {
+    constructor() {
+    }
+
+    public setId(id:number) {
         this.id = id;
     }
 
@@ -109,20 +111,21 @@ class GameObject implements Serializable {
     }
 
     static fromSerialization(data):GameObject {
-        var go = new GameObject(parseInt(data.id));
-        GameObject.assignSerializedData(go, data);
+        var go = new GameObject();
+        go.deserialize(data);
         return go;
     }
 
-    static assignSerializedData(go:GameObject, data) {
-        go.setPosition(new Vector2D(parseInt(data.x), parseInt(data.y)));
-        go.setToken(data.token);
-        go.setColorHex(data.color);
-        go.setIsPlayer(data['isPlayer']);
-        go.setName(data.name);
-        go.setDescription(data.description);
-        go.setCanBeWalkedThrough(data.canWalkOn);
-        go.setCanBePickedUp(data.canPickUp);
+    public deserialize(data:any) {
+        this.setId(parseInt(data.id));
+        this.setPosition(new Vector2D(parseInt(data.x), parseInt(data.y)));
+        this.setToken(data.token);
+        this.setColorHex(data.color);
+        this.setIsPlayer(data['isPlayer']);
+        this.setName(data.name);
+        this.setDescription(data.description);
+        this.setCanBeWalkedThrough(data.canWalkOn);
+        this.setCanBePickedUp(data.canPickUp);
     }
 }
 

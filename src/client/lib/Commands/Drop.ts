@@ -1,7 +1,7 @@
 
 import Command = require('../Command');
 import UIAdapter = require('../UIAdapter');
-import Player = require('../Player');
+import Being = require('../../../common/Being');
 import Level = require('../Level');
 import MessageClient = require('../MessageClient');
 import Message = require('../../../common/Message');
@@ -18,7 +18,7 @@ class Drop implements Command, ServerAware, UIAware, PlayerAware, LevelAware {
     private messageClient:MessageClient;
     private uiAdapter:UIAdapter;
     private level:Level;
-    private player:Player;
+    private player:Being;
 
     constructor(goId:number) {
         this.goId = goId;
@@ -36,7 +36,7 @@ class Drop implements Command, ServerAware, UIAware, PlayerAware, LevelAware {
         this.level = level;
     }
 
-    public setPlayer(player:Player) {
+    public setPlayer(player:Being) {
         this.player = player;
     }
 
