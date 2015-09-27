@@ -119,12 +119,6 @@ class GameObject implements Serializable {
         };
     }
 
-    static fromSerialization(data):GameObject {
-        var go = new GameObject();
-        go.deserialize(data);
-        return go;
-    }
-
     public deserialize(data:any) {
         this.setId(parseInt(data.id));
         this.setPosition(new Vector2D(parseInt(data.x), parseInt(data.y)));

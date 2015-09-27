@@ -82,7 +82,8 @@ class GameClient {
 
         this.messageClient.on('player-came', function(message:Message) {
             var data = message.getData();
-            var being = GameObject.fromSerialization(data);
+            var being = new GameObject();
+            being.deserialize(data);
             self.level.add(being);
             self.displayAdapter.draw();
             self.uiAdapter.logOnUI(being.getName()+" just connected", CHAT_LOG_INFO);
@@ -140,7 +141,8 @@ class GameClient {
 
         this.messageClient.on('game-object-add', function(message:Message) {
             var data = message.getData();
-            var go = GameObject.fromSerialization(data);
+            var go = new GameObject();
+            go.deserialize(data);
             self.level.add(go);
             self.displayAdapter.draw();
         });
