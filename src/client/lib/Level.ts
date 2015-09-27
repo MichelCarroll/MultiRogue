@@ -3,39 +3,41 @@
  */
 
 import GameObject = require('../../common/GameObject');
+import Repository = require('../../common/Repository');
 import GameObjectLayer = require('./GameObjectLayer');
 import Vector2D = require('../../common/Vector2D');
 import Being = require('../../common/Being');
 
 class Level {
 
-    private gos:{ [id:number] : GameObject };
+    private gos:Repository<GameObject>;
     private layer:GameObjectLayer;
 
     constructor() {
         this.layer = new GameObjectLayer();
-        this.gos = {};
+        this.gos = new Repository<GameObject>();
     }
 
     public add(go:GameObject) {
-        this.gos[go.getId()] = go;
+        this.gos.set(go.getId(),go);
         this.layer.add(go, go.getPosition());
     }
 
     public get(id:number) {
-        if (!this.has(id)) {
+        var go = this.gos.get(id);
+        if (!go) {
             throw new Error('No GO with ID: ' + id);
         }
-        return this.gos[id];
+        return go;
     }
 
     public has(id:number) {
-        return this.gos.hasOwnProperty(id.toString());
+        return !!this.gos.get(id);
     }
 
     public remove(go:GameObject) {
         this.layer.remove(go, go.getPosition());
-        delete this.gos[go.getId()];
+        delete this.gos.delete(go.getId());
     }
 
     public canMoveTo(position:Vector2D):boolean {
