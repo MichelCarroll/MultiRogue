@@ -14,11 +14,11 @@ describe('a client shouts, and another listens', function() {
     it('should have notification after shout happens', function() {
         client.shouts('hi everybody');
         should(client.hasInLog('You shout "hi everybody"!!')).be.true();
-        should(secondClient.hasInLog('Player #101 shouts "hi everybody"!!')).be.true();
+        should(secondClient.hasInLog('Player #1051 shouts "hi everybody"!!')).be.true();
     });
     it('third client should not have notification if connecting after shout happens', function() {
         client.shouts('hi everybody');
         var thirdClient = server.clientConnects();
-        should(thirdClient.hasInLog('Player #101 shouts "hi everybody"!!')).be.false();
+        should(thirdClient.hasInLog('Player #1051 shouts "hi everybody"!!')).be.false();
     });
 });

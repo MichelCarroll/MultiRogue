@@ -22,14 +22,14 @@ describe('many clients log in one another another, taking turns in between', fun
         should(client3.hasInLog("It's not your turn!")).be.true();
     });
     it('correct client should be highlighted', function() {
-        should(client1.isHighlightedPlayerId(101)).be.true();
-        should(client2.isHighlightedPlayerId(101)).be.true();
-        should(client3.isHighlightedPlayerId(101)).be.true();
+        should(client1.isHighlightedPlayerId(1051)).be.true();
+        should(client2.isHighlightedPlayerId(1051)).be.true();
+        should(client3.isHighlightedPlayerId(1051)).be.true();
     });
     it('correct clients should be in player list', function() {
-        should(client1.hasPlayerIdInList(101)).be.true();
-        should(client1.hasPlayerIdInList(102)).be.true();
-        should(client1.hasPlayerIdInList(103)).be.true();
-        should(client1.hasPlayerIdInList(104)).be.false();
+        should(client1.hasPlayerIdInList(1051)).be.true();
+        should(client1.hasPlayerIdInList(1052)).be.true();
+        should(client1.hasPlayerIdInList(1053)).be.true();
+        should(client1.hasPlayerIdInList(1054)).be.false();
     });
 });

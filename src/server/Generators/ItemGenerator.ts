@@ -13,7 +13,8 @@ class ItemGenerator {
         renderable.setProperties({
             'token': '/',
             'frontColor': colorHex,
-            'backColor': ''
+            'backColor': '',
+            'layer': Renderable.ITEM_LAYER
         });
         item.addComponent(renderable);
         item.addComponent(new Content());

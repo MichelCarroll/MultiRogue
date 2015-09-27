@@ -2,7 +2,6 @@
 
 import ItemGenerator = require('./ItemGenerator');
 import FloorGenerator = require('./FloorGenerator');
-import Board = require('./../../common/Board');
 import Level = require('./../Level');
 import Vector2D = require('../../common/Vector2D');
 import ROT = require('./../ROT');
@@ -10,30 +9,29 @@ import ROT = require('./../ROT');
 class LevelGenerator {
 
     public create():Level {
-        var map = new Board();
-        map.setSize(new Vector2D(100,50));
-        this.traceMap(map);
-        var level = new Level(map);
-        this.addRandomSticks(level, map, 100);
+        var level = new Level();
+        level.setSize(new Vector2D(100,50));
+        this.traceMap(level);
+        level.setPlayerSpawnSpot(level.getRandomTile().getPosition());
+        this.addRandomSticks(level, 100);
         return level;
     }
 
-    private addRandomSticks(level:Level, map:Board, n:number) {
-        var indexLength = map.getTileIndexLength();
+    private addRandomSticks(level:Level, n:number) {
         for(var i = 0; i < n; i++) {
             var item = ItemGenerator.createRandomSticks(
                 ROT.Color.toHex(ROT.Color.randomize([205, 133, 63],[20,20,20])),
-                map.getTileAtIndex(Math.floor(ROT.RNG.getUniform() * indexLength))
+                level.getRandomTile().getPosition()
             );
-            level.addImmobile(item);
+            level.addGameObject(item);
         }
     }
 
-    private traceMap(board:Board) {
+    private traceMap(level:Level) {
         var digger = new ROT.Map.Digger(100,50);
         digger.create(function(x, y, value) {
             if (value) { return; } /* do not store walls */
-            board.addTile(FloorGenerator.create(new Vector2D(x, y)));
+            level.addTile(FloorGenerator.create(new Vector2D(x, y)));
         });
     }
 

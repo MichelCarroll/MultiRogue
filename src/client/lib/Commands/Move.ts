@@ -1,7 +1,7 @@
 
 import Command = require('../Command');
 import GameObject = require('../../../common/GameObject');
-import Board = require('../../../common/Board');
+import GameObjectLayer = require('../GameObjectLayer');
 import Level = require('../Level');
 import MessageClient = require('../MessageClient');
 import Message = require('../../../common/Message');
@@ -10,13 +10,13 @@ import Vector2D = require('../../../common/Vector2D');
 import ServerAware = require('../IOC/ServerAware');
 import PlayerAware = require('../IOC/PlayerAware');
 import LevelAware = require('../IOC/LevelAware');
-import BoardAware = require('../IOC/BoardAware');
+import GameObjectLayerAware = require('../IOC/GameObjectLayerAware');
 
-class Move implements Command, ServerAware, BoardAware, PlayerAware, LevelAware {
+class Move implements Command, ServerAware, GameObjectLayerAware, PlayerAware, LevelAware {
 
     private direction:Vector2D;
     private player:GameObject;
-    private board:Board;
+    private goLayer:GameObjectLayer;
     private level:Level;
     private messageClient:MessageClient;
 
@@ -28,8 +28,8 @@ class Move implements Command, ServerAware, BoardAware, PlayerAware, LevelAware 
         this.messageClient = messageClient;
     }
 
-    public setBoard(board:Board) {
-        this.board = board;
+    public setGameObjectLayer(goLayer:GameObjectLayer) {
+        this.goLayer = goLayer;
     }
 
     public setLevel(level:Level) {
@@ -46,7 +46,7 @@ class Move implements Command, ServerAware, BoardAware, PlayerAware, LevelAware 
 
     public canExecute():boolean {
         var coord = this.player.getPosition().addVector(this.direction);
-        if(!this.board.tileExists(coord)) {
+        if(!this.goLayer.getWalkableGameObject(coord)) {
             return false;
         }
         if(!this.level.canMoveTo(coord)) {
@@ -57,7 +57,6 @@ class Move implements Command, ServerAware, BoardAware, PlayerAware, LevelAware 
 
     public execute() {
         var coord = this.player.getPosition().addVector(this.direction);
-        //console.log(coord);
         this.level.move(this.player, coord);
         this.messageClient.send(new Message('being-moved', {
             'id': this.player.getId(),

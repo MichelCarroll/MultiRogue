@@ -12,7 +12,8 @@ class FloorGenerator {
         renderable.setProperties({
             'token': '.',
             'frontColor': '#fff',
-            'backColor': ''
+            'backColor': '',
+            'layer': Renderable.FLOOR_LAYER
         });
         floor.addComponent(renderable);
         floor.addComponent(new Walkable());

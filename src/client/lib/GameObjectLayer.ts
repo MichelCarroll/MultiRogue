@@ -24,13 +24,9 @@ class GameObjectLayer {
 
     public sortStack(stackKey:string) {
         this.goStacks[stackKey].sort(function(a:GameObject,b:GameObject):number {
-            if(a.isCollidable() === b.isCollidable()) {
-                return 0;
-            }
-            else if(a.isCollidable()) {
-                return -1;
-            }
-            return 1;
+            var aLayer = a.isRenderable() ? a.getRenderableComponent().getLayer() : 0;
+            var bLayer = b.isRenderable() ? b.getRenderableComponent().getLayer() : 0;
+            return bLayer - aLayer;
         })
     }
 
@@ -90,13 +86,28 @@ class GameObjectLayer {
         }
     }
 
-    public getTopGameObject(position:Vector2D):GameObject {
+    public getWalkableGameObject(position:Vector2D):GameObject {
         var key = position.toString();
-        if (!this.goStacks[key] || !this.goStacks[key].length) {
+        if (!this.goStacks[key]) {
             return;
         }
+        for (var i = 0; i < this.goStacks[key].length; i++) {
+            if (this.goStacks[key][i].isWalkable()) {
+                return this.goStacks[key][i];
+            }
+        }
+    }
 
-        return this.goStacks[key][0];
+    public getTopRenderableGameObject(position:Vector2D):GameObject {
+        var key = position.toString();
+        if (!this.goStacks[key]) {
+            return;
+        }
+        for (var i = 0; i < this.goStacks[key].length; i++) {
+            if (this.goStacks[key][i].isRenderable()) {
+                return this.goStacks[key][i];
+            }
+        }
     }
 
 }

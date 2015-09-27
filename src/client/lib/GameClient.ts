@@ -6,7 +6,6 @@
 
 import GameObject = require('../../common/GameObject');
 import Level = require('./Level');
-import Board = require('../../common/Board');
 import UIAdapter = require('./UIAdapter');
 import DisplayAdapter = require('./DisplayAdapter');
 import Commander = require('./Commander');
@@ -68,10 +67,9 @@ class GameClient {
             self.player.deserialize(data.player);
             self.uiAdapter.logOnUI("You're now connected as "+self.player.getName()+"!", CHAT_LOG_INFO);
 
-            var map = new Board();
-            map.deserialize(data.level.map);
-            self.commander = new Commander(self.uiAdapter, self.messageClient, self.player, self.level, map, self.displayAdapter);
-            self.displayAdapter.reinitialize(map, self.player, self.level.getGameObjectLayer());
+            var mapSize = new Vector2D(parseInt(data.level.width), parseInt(data.level.height));
+            self.commander = new Commander(self.uiAdapter, self.messageClient, self.player, self.level, self.displayAdapter);
+            self.displayAdapter.reinitialize(mapSize, self.player, self.level.getGameObjectLayer());
         });
 
         this.messageClient.on('being-moved', function(message:Message) {

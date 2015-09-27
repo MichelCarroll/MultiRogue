@@ -15,7 +15,8 @@ class BeingGenerator {
         renderable.setProperties({
             'token': '@',
             'frontColor': '#FF0',
-            'backColor': ''
+            'backColor': '',
+            'layer': Renderable.BEING_LAYER
         });
         being.addComponent(renderable);
         being.addComponent(new Collidable());

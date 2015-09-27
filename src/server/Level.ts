@@ -6,7 +6,6 @@ import SpawnPoint = require('./SpawnPoint');
 import BeingGenerator = require('./Generators/BeingGenerator');
 import Repository = require('../common/Repository');
 import GameObject = require('../common/GameObject');
-import Board = require('./../common/Board');
 import Vector2D = require('../common/Vector2D');
 import Serializable = require('./../common/Serializable');
 import ROT = require('./ROT');
@@ -15,36 +14,54 @@ import Player = require('./Player');
 class Level implements Serializable {
 
     static TURNS_PER_ROUND = 4;
-    private map:Board;
+    private size:Vector2D;
     private goRepository:Repository<GameObject>;
+    private tilesIndex:Repository<GameObject>;
+    private numberedTilesIndex:GameObject[];
     private scheduler:ROT.Scheduler.Simple;
     private currentPlayer:Player;
     private playerSpawnPoint:SpawnPoint;
     private nextGOKey:number = 1;
 
-    constructor(map:Board) {
-        this.map = map;
+    constructor() {
         this.goRepository = new Repository<GameObject>();
         this.scheduler = new ROT.Scheduler.Simple();
         this.currentPlayer = null;
+        this.tilesIndex = new Repository<GameObject>();
+        this.numberedTilesIndex = [];
+    }
+
+    public setPlayerSpawnSpot(position:Vector2D) {
         var self = this;
-        var randomTile = map.getTileAtIndex(Math.floor(ROT.RNG.getUniform() * map.getTileIndexLength()));
-        this.playerSpawnPoint = new SpawnPoint(randomTile, 5, function(point:Vector2D):boolean {
+        this.playerSpawnPoint = new SpawnPoint(position, 5, function(point:Vector2D):boolean {
             return self.isValidSpawnPoint(point);
         });
     }
 
+    public setSize(size:Vector2D) {
+        this.size = size;
+    }
+
+    public getRandomTile():GameObject {
+        if(!this.numberedTilesIndex.length) {
+            return null;
+        }
+        var index = Math.floor(ROT.RNG.getUniform() * this.numberedTilesIndex.length);
+        return this.numberedTilesIndex[index];
+    }
+
     private isValidSpawnPoint(point:Vector2D):boolean {
-        return this.map.tileExists(point) &&
+        return this.tilesIndex.has(point.toString()) &&
             !this.getCollidedGameObjects(point).length;
     }
 
-    public addAIBeing(being:GameObject) {
-        being.setId(this.nextGOKey++);
-        this.goRepository.set(being.getId(), being);
+    public addTile(go:GameObject) {
+        this.addGameObject(go);
+        this.tilesIndex.set(go.getPosition().toString(), go);
+        this.numberedTilesIndex.push(go);
     }
 
-    public addImmobile(go:GameObject) {
+    public addGameObject(go:GameObject) {
         go.setId(this.nextGOKey++);
         this.goRepository.set(go.getId(), go);
     }
@@ -79,7 +96,7 @@ class Level implements Serializable {
     }
 
     public movePlayer(player:Player, position:Vector2D) {
-        if(!this.map.tileExists(position)) {
+        if(!this.tilesIndex.has(position.toString())) {
             throw new Error('Cant move there, no tile there');
         }
         if(this.getCollidedGameObjects(position).length) {
@@ -147,10 +164,9 @@ class Level implements Serializable {
 
     public serialize() {
         return {
-            'map': this.map.serialize(),
             'gameObjects': this.goRepository.serialize(),
-            'width': this.map.getWidth(),
-            'height': this.map.getHeight(),
+            'width': this.size.x,
+            'height': this.size.y,
             'current_player_id': this.currentPlayer ? this.currentPlayer.getBeing().getId() : null
         };
     }

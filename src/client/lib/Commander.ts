@@ -6,12 +6,12 @@
 
 import UIAdapter = require('./UIAdapter');
 import GameObject = require('../../common/GameObject');
-import Board = require('../../common/Board');
 import Playable = require('../../common/Components/Playable');
 import Level = require('./Level');
 import DisplayAdapter = require('./DisplayAdapter');
 import BeingCommand = require('./PlayerCommand');
 import Command = require('./Command');
+import GameObjectLayer = require('./GameObjectLayer');
 import Message = require('../../common/Message');
 import MessageClient = require('./MessageClient');
 
@@ -20,23 +20,23 @@ class Commander {
     private uiAdapter:UIAdapter;
     private messageClient:MessageClient;
     private player:GameObject;
-    private map:Board;
+    private goLayer:GameObjectLayer;
     private level:Level;
     private displayAdapter:DisplayAdapter;
 
-    constructor(uiAdapter:UIAdapter, messageClient:MessageClient, player:GameObject, level:Level, map:Board, displayAdapter:DisplayAdapter) {
+    constructor(uiAdapter:UIAdapter, messageClient:MessageClient, player:GameObject, level:Level, displayAdapter:DisplayAdapter) {
         this.uiAdapter = uiAdapter;
         this.messageClient = messageClient;
         this.player = player;
         this.level = level;
         this.displayAdapter = displayAdapter;
-        this.map = map;
+        this.goLayer = level.getGameObjectLayer();
     }
 
     private inject(command:any)
     {
-        if(command.setBoard) {
-            command.setBoard(this.map);
+        if(command.setGameObjectLayer) {
+            command.setGameObjectLayer(this.goLayer);
         }
         if(command.setLevel) {
             command.setLevel(this.level);

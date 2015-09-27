@@ -3,7 +3,6 @@
 
 import GameObject = require('../../common/GameObject');
 import UIAdapter = require('./UIAdapter');
-import Board = require('../../common/Board');
 import Renderable = require('../../common/Components/Renderable');
 import Vector2D = require('../../common/Vector2D');
 import GameObjectLayer = require('./GameObjectLayer');
@@ -12,7 +11,7 @@ import GameDisplayAdapter = require('./GameDisplayAdapter');
 class DisplayAdapter {
 
     private uiAdapter:UIAdapter;
-    private map:Board;
+    private mapSize:Vector2D;
     private player:GameObject;
     private goLayer:GameObjectLayer;
 
@@ -21,8 +20,8 @@ class DisplayAdapter {
         this.uiAdapter = uiAdapter;
     }
 
-    public reinitialize(map:Board, player:GameObject, goLayer:GameObjectLayer) {
-        this.map = map;
+    public reinitialize(mapSize:Vector2D, player:GameObject, goLayer:GameObjectLayer) {
+        this.mapSize = mapSize;
         this.player = player;
         this.goLayer = goLayer;
 
@@ -30,7 +29,7 @@ class DisplayAdapter {
     }
 
     public resize() {
-        if(!this.map) {
+        if(!this.mapSize) {
             return;
         }
 
@@ -57,14 +56,18 @@ class DisplayAdapter {
         }
 
         var getTileOpacity = function(x:number, y:number) {
-            if(self.map.tileExists(new Vector2D(x, y))) {
+            var position = new Vector2D(x,y);
+            if(self.player.getPosition().equals(position)) {
+                return true;
+            }
+            if(self.goLayer.getWalkableGameObject(position)) {
                 return true;
             }
             return false;
         };
 
         var getTileAppearance = function(coord:Vector2D) {
-            var gameObject = self.goLayer.getTopGameObject(coord);
+            var gameObject = self.goLayer.getTopRenderableGameObject(coord);
 
             if(gameObject) {
                 return {
@@ -75,27 +78,16 @@ class DisplayAdapter {
                 };
             }
 
-            if(self.map.tileExists(coord)) {
-                var tile:GameObject = self.map.getTile(coord);
-                var renderable = tile.getRenderableComponent();
-                return {
-                    position: coord,
-                    token: renderable.getToken(),
-                    frontColor: renderable.getFrontColorHex(),
-                    backColor: self.map.tileExists(coord) ? "#aa0": "#660"
-                }
-            }
-
             return {
                 position: coord,
                 token: '',
                 frontColor: '#fff',
-                backColor: self.map.tileExists(coord) ? "#aa0": "#660"
+                backColor: "#660"
             };
         };
 
         this.uiAdapter.setGameDisplayAdapter(new GameDisplayAdapter(
-            new Vector2D(this.map.getWidth(), this.map.getHeight()),
+            this.mapSize,
             getCamera.bind(this),
             getTileAppearance.bind(this),
             getTileOpacity.bind(this)

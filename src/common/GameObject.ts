@@ -14,6 +14,7 @@ import Content = require('./Components/Content');
 import Container = require('./Components/Container');
 import Collidable = require('./Components/Collidable');
 import Renderable = require('./Components/Renderable');
+import Walkable = require('./Components/Walkable');
 
 class GameObject implements Serializable {
 
@@ -56,6 +57,9 @@ class GameObject implements Serializable {
     public isRenderable():boolean {
         return this.hasComponent('Renderable');
     }
+    public isWalkable():boolean {
+        return this.hasComponent('Walkable');
+    }
     public getCollidableComponent():Collidable {
         return <Collidable>this.getComponent('Collidable');
     }
@@ -70,6 +74,9 @@ class GameObject implements Serializable {
     }
     public getRenderableComponent():Renderable {
         return <Renderable>this.getComponent('Renderable');
+    }
+    public getWalkableComponent():Walkable {
+        return <Renderable>this.getComponent('Walkable');
     }
     //--------------------------------------------
 
