@@ -154,7 +154,7 @@ class GameServer {
         }));
         messageDispatcher.broadcast(new Message('its-another-player-turn', {
             'id': player.getBeing().getId(),
-            'turns': gplayer.getBeing().getPlayableComponent().getRemainingTurns()
+            'turns': player.getBeing().getPlayableComponent().getRemainingTurns()
         }));
     }
 }
