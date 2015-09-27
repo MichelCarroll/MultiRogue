@@ -14,11 +14,8 @@ class GameObject implements Serializable {
 
     protected position:Vector2D;
     protected id:number;
-    protected token:string;
-    protected colorHex:string;
     protected name:string;
     protected description:string;
-    protected canWalkOn:boolean = true;
     protected canPickUp:boolean = false;
     private components:Repository<Component>;
 
@@ -43,16 +40,8 @@ class GameObject implements Serializable {
         this.id = id;
     }
 
-    public setColorHex(color:string) {
-        this.colorHex = color;
-    }
-
     public setDescription(description:string) {
         this.description = description;
-    }
-
-    public setToken(token:string) {
-        this.token = token;
     }
 
     public getId():number {
@@ -67,10 +56,6 @@ class GameObject implements Serializable {
         this.position = position;
     }
 
-    public getToken():string {
-        return this.token;
-    }
-
     public setName(name:string) {
         this.name = name;
     }
@@ -83,20 +68,8 @@ class GameObject implements Serializable {
         return this.description;
     }
 
-    public getColor():string {
-        return this.colorHex;
-    }
-
-    public setCanBeWalkedThrough(flag:boolean) {
-        this.canWalkOn = flag;
-    }
-
     public setCanBePickedUp(flag:boolean) {
         this.canPickUp = flag;
-    }
-
-    public canBeWalkedThrough():boolean {
-        return this.canWalkOn;
     }
 
     public canBePickedUp():boolean {
@@ -108,9 +81,6 @@ class GameObject implements Serializable {
             'id': this.getId(),
             'x': this.position.x,
             'y': this.position.y,
-            'color': this.getColor(),
-            'token': this.getToken(),
-            'canWalkOn': this.canBeWalkedThrough(),
             'name': this.getName(),
             'description': this.getDescription(),
             'canPickUp': this.canBePickedUp(),
@@ -130,11 +100,8 @@ class GameObject implements Serializable {
     public deserialize(data:any) {
         this.setId(parseInt(data.id));
         this.setPosition(new Vector2D(parseInt(data.x), parseInt(data.y)));
-        this.setToken(data.token);
-        this.setColorHex(data.color);
         this.setName(data.name);
         this.setDescription(data.description);
-        this.setCanBeWalkedThrough(data.canWalkOn);
         this.setCanBePickedUp(data.canPickUp);
         var self = this;
         data.components.forEach(function(componentData:any) {

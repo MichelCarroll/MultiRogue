@@ -19,7 +19,7 @@ class Component implements Serializable {
     }
 
     public serialize():any {
-
+        return {};
     }
 
     public deserialize(data:any) {

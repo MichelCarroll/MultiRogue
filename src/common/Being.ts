@@ -2,6 +2,7 @@
 
 import Item = require('./Item');
 import Renderable = require('./Components/Renderable');
+import Collidable = require('./Components/Collidable');
 import Repository = require('./Repository');
 import Vector2D = require('./Vector2D');
 import GameObject = require('./GameObject');
@@ -15,16 +16,15 @@ class Being extends GameObject {
     constructor() {
         super();
         var renderable = new Renderable();
-        renderable.setTarget(this);
         renderable.setProperties({
             'token': '@',
             'frontColor': '#FF0',
             'backColor': ''
         });
         this.addComponent(renderable);
+        this.addComponent(new Collidable());
         this.setPosition(new Vector2D(0,0));
         this.setDescription('a player character');
-        this.setCanBeWalkedThrough(false);
         this.setCanBePickedUp(false);
         this.actionTurns = 0;
         this.isAPLayer = true;

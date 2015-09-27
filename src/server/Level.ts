@@ -122,7 +122,7 @@ class Level implements Serializable {
 
     private getCollidedGameObjects(position:Vector2D) {
         return this.goRepository.getAll().filter(function(element:GameObject, index, array) {
-            return !element.canBeWalkedThrough() && element.getPosition().equals(position);
+            return element.hasComponent('Collidable') && element.getPosition().equals(position);
         });
     }
 
