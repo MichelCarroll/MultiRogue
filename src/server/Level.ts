@@ -3,9 +3,12 @@
  */
 
 import SpawnPoint = require('./SpawnPoint');
+import Container = require('../common/Components/Container');
+import Playable = require('../common/Components/Playable');
+import Renderable = require('../common/Components/Renderable');
+import Collidable = require('../common/Components/Collidable');
 import Repository = require('../common/Repository');
 import GameObject = require('../common/GameObject');
-import Being = require('../common/Being');
 import Board = require('./../common/Board');
 import Vector2D = require('../common/Vector2D');
 import Serializable = require('./../common/Serializable');
@@ -39,7 +42,7 @@ class Level implements Serializable {
             !this.getCollidedGameObjects(point).length;
     }
 
-    public addAIBeing(being:Being) {
+    public addAIBeing(being:GameObject) {
         being.setId(this.nextGOKey++);
         this.goRepository.set(being.getId(), being);
     }
@@ -50,8 +53,21 @@ class Level implements Serializable {
     }
 
     public addPlayer(callForAction:()=>void) {
-        var being = new Being();
+        var being = new GameObject();
+        var renderable = new Renderable();
+        renderable.setProperties({
+            'token': '@',
+            'frontColor': '#FF0',
+            'backColor': ''
+        });
         being.setId(this.nextGOKey++);
+        being.addComponent(renderable);
+        being.addComponent(new Collidable());
+        being.addComponent(new Container());
+        being.addComponent(new Playable());
+        being.setPosition(new Vector2D(0,0));
+        being.setDescription('a player character');
+        being.setName('Player #' + being.getId());
         var player = new Player(being, callForAction);
         var position = this.playerSpawnPoint.generate();
         being.setPosition(position);
@@ -97,20 +113,20 @@ class Level implements Serializable {
         else if(!go.getPosition().equals(being.getPosition())) {
             throw new Error('Player isn\'t on the same position as the GO');
         }
-        else if(!go.hasComponent('Holdable')) {
+        else if(!go.hasComponent('Content')) {
             throw new Error('This GO can\'t be picked up');
         }
-        being.addToInventory(go);
+        (<Container>being.getComponent('Container')).addToInventory(go);
         this.goRepository.delete(go.getId());
     }
 
     public dropObject(player:Player, goId:number):GameObject {
         var being = player.getBeing();
-        var go = being.getInventory().get(goId);
+        var go = (<Container>being.getComponent('Container')).getInventory().get(goId);
         if(!go) {
             throw new Error('No GO with this ID');
         }
-        being.removeFromInventory(go);
+        (<Container>being.getComponent('Container')).removeFromInventory(go);
         go.setPosition(being.getPosition().copy());
         this.goRepository.set(go.getId(), go);
         return go;
@@ -127,12 +143,12 @@ class Level implements Serializable {
     }
 
     public canPlay(player:Player) {
-        return (this.currentPlayer === player && player.getBeing().getRemainingTurns() > 0);
+        return (this.currentPlayer === player && (<Playable>player.getBeing().getComponent('Playable')).getRemainingTurns() > 0);
     }
 
     public useTurns(player:Player, n:number) {
-        player.getBeing().spendTurns(n);
-        if(!player.getBeing().getRemainingTurns()) {
+        (<Playable>player.getBeing().getComponent('Playable')).spendTurns(n);
+        if(!(<Playable>player.getBeing().getComponent('Playable')).getRemainingTurns()) {
             this.nextTurn();
         }
     }
@@ -140,7 +156,7 @@ class Level implements Serializable {
     private nextTurn() {
         this.currentPlayer = this.scheduler.next();
         if(this.currentPlayer) {
-            this.currentPlayer.getBeing().giveTurns(Level.TURNS_PER_ROUND);
+            (<Playable>this.currentPlayer.getBeing().getComponent('Playable')).giveTurns(Level.TURNS_PER_ROUND);
             this.currentPlayer.askToTakeTurn();
         }
     }

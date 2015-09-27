@@ -1,7 +1,7 @@
 
 /// <reference path="../../../definitions/rot.d.ts"/>
 
-import Being = require('../../common/Being');
+import Being = require('../../common/GameObject');
 import UIAdapter = require('./UIAdapter');
 import Board = require('../../common/Board');
 import Renderable = require('../../common/Components/Renderable');

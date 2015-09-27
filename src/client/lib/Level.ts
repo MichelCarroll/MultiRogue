@@ -3,10 +3,10 @@
  */
 
 import GameObject = require('../../common/GameObject');
+import Container = require('../../common/Components/Container');
 import Repository = require('../../common/Repository');
 import GameObjectLayer = require('./GameObjectLayer');
 import Vector2D = require('../../common/Vector2D');
-import Being = require('../../common/Being');
 
 class Level {
 
@@ -59,13 +59,13 @@ class Level {
     }
 
 
-    public pickUpByPlayer(go:GameObject, player:Being) {
-        player.addToInventory(go);
+    public pickUpByPlayer(go:GameObject, player:GameObject) {
+        (<Container>player.getComponent('Container')).addToInventory(go);
         this.remove(go);
     }
 
-    public dropByPlayer(go:GameObject, player:Being) {
-        player.removeFromInventory(go);
+    public dropByPlayer(go:GameObject, player:GameObject) {
+        (<Container>player.getComponent('Container')).removeFromInventory(go);
         go.setPosition(player.getPosition().copy());
         this.add(go);
     }

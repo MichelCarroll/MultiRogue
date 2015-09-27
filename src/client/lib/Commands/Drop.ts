@@ -1,10 +1,11 @@
 
 import Command = require('../Command');
 import UIAdapter = require('../UIAdapter');
-import Being = require('../../../common/Being');
+import GameObject = require('../../../common/GameObject');
 import Level = require('../Level');
 import MessageClient = require('../MessageClient');
 import Message = require('../../../common/Message');
+import Container = require('../../../common/Components/Container');
 import Vector2D = require('../../../common/Vector2D');
 
 import ServerAware = require('../IOC/ServerAware');
@@ -18,7 +19,7 @@ class Drop implements Command, ServerAware, UIAware, PlayerAware, LevelAware {
     private messageClient:MessageClient;
     private uiAdapter:UIAdapter;
     private level:Level;
-    private player:Being;
+    private player:GameObject;
 
     constructor(goId:number) {
         this.goId = goId;
@@ -36,7 +37,7 @@ class Drop implements Command, ServerAware, UIAware, PlayerAware, LevelAware {
         this.level = level;
     }
 
-    public setPlayer(player:Being) {
+    public setPlayer(player:GameObject) {
         this.player = player;
     }
 
@@ -45,7 +46,7 @@ class Drop implements Command, ServerAware, UIAware, PlayerAware, LevelAware {
     }
 
     public canExecute():boolean {
-        var go = this.player.getInventory().get(this.goId);
+        var go = (<Container>this.player.getComponent('Container')).getInventory().get(this.goId);
         if(!go) {
             return false;
         }
@@ -53,7 +54,7 @@ class Drop implements Command, ServerAware, UIAware, PlayerAware, LevelAware {
     }
 
     public execute() {
-        var go = this.player.getInventory().get(this.goId);
+        var go = (<Container>this.player.getComponent('Container')).getInventory().get(this.goId);
         this.level.dropByPlayer(go, this.player);
         this.uiAdapter.logOnUI("You drop the "+go.getName()+".");
         this.uiAdapter.removeItemFromUI(go.getId());

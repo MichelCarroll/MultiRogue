@@ -1,11 +1,11 @@
 
 import Component = require('./Component');
 
-class Holdable extends Component {
+class Content extends Component {
 
     public getComponentKey():string {
-        return 'Holdable';
+        return 'Content';
     }
 }
 
-export = Holdable;
+export = Content;

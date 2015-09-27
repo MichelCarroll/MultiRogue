@@ -5,7 +5,7 @@
 
 var fs = require('fs');
 
-import Holdable = require('./../common/Components/Holdable');
+import Content = require('./../common/Components/Content');
 import Renderable = require('./../common/Components/Renderable');
 import GameObject = require('./../common/GameObject');
 import Board = require('./../common/Board');
@@ -34,7 +34,7 @@ class LevelGenerator {
                 'backColor': ''
             });
             item.addComponent(renderable);
-            item.addComponent(new Holdable());
+            item.addComponent(new Content());
             item.setName('Wooden Stick');
             item.setDescription('a simple piece of wood');
             item.setPosition(map.getTileAtIndex(Math.floor(ROT.RNG.getUniform() * indexLength)));

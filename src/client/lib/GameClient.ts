@@ -8,7 +8,6 @@ import GameObject = require('../../common/GameObject');
 import Level = require('./Level');
 import Board = require('../../common/Board');
 import UIAdapter = require('./UIAdapter');
-import Being = require('../../common/Being');
 import DisplayAdapter = require('./DisplayAdapter');
 import Commander = require('./Commander');
 import Vector2D = require('../../common/Vector2D');
@@ -18,6 +17,7 @@ import DirectMessageClient = require('./DirectMessageClient');
 import ClientParameters = require('./ClientParameters');
 import Command = require('./Command');
 import Message = require('../../common/Message');
+import Playable = require('../../common/Components/Playable');
 import Serializer = require('../../common/Serializer');
 
 var CHAT_LOG_SUCCESS = 'success';
@@ -28,7 +28,7 @@ var CHAT_LOG_DANGER = 'danger';
 class GameClient {
 
     private level:Level;
-    private player:Being;
+    private player:GameObject;
     private uiAdapter:UIAdapter;
     private displayAdapter:DisplayAdapter;
     private commander:Commander;
@@ -64,7 +64,7 @@ class GameClient {
                 self.uiAdapter.highlightPlayer(being.getId());
             }
 
-            self.player = new Being();
+            self.player = new GameObject();
             self.player.deserialize(data.player);
             self.uiAdapter.logOnUI("You're now connected as "+self.player.getName()+"!", CHAT_LOG_INFO);
 
@@ -107,9 +107,9 @@ class GameClient {
 
         this.messageClient.on('its-your-turn', function(message:Message) {
             var data = message.getData();
-            self.player.giveTurns(parseInt(data.turns));
+            (<Playable>self.player.getComponent('Playable')).giveTurns(parseInt(data.turns));
             self.uiAdapter.highlightPlayer(self.player.getId());
-            self.uiAdapter.logOnUI("It's your turn. You have "+self.player.getRemainingTurns()+" actions left.", CHAT_LOG_SUCCESS);
+            self.uiAdapter.logOnUI("It's your turn. You have "+(<Playable>self.player.getComponent('Playable')).getRemainingTurns()+" actions left.", CHAT_LOG_SUCCESS);
         });
 
         this.messageClient.on('being-shouted', function(message:Message) {
@@ -157,7 +157,7 @@ class GameClient {
             if(serializedGameObjects.hasOwnProperty(i)) {
                 var gameObject = (<GameObject>Serializer.deserialize(serializedGameObjects[i].data));
                 this.level.add(gameObject);
-                if((<any>gameObject).constructor.name == 'Being' && (<Being>gameObject).isAPlayer()) {
+                if(gameObject.hasComponent('Playable')) {
                     this.uiAdapter.addPlayerToUI(gameObject.getId(), gameObject.getName());
                 }
             }

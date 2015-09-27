@@ -1,9 +1,9 @@
 
 
-import Being = require('../../../common/Being');
+import GameObject = require('../../../common/GameObject');
 
 interface PlayerAware {
-    setPlayer(player:Being):void;
+    setPlayer(player:GameObject):void;
 }
 
 export = PlayerAware;

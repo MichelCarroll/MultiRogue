@@ -1,9 +1,9 @@
 
-import Being = require('./../common/Being');
+import GameObject = require('./../common/GameObject');
 
 class Player {
 
-    private being:Being;
+    private being:GameObject;
     private callToAction:()=>void;
 
     constructor(being, callToAction) {
@@ -11,7 +11,7 @@ class Player {
         this.callToAction = callToAction;
     }
 
-    public getBeing():Being {
+    public getBeing():GameObject {
         return this.being;
     }
 

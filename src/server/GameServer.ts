@@ -11,6 +11,7 @@ import Player = require('./Player');
 import Level = require('./Level');
 import LevelGenerator = require('./LevelGenerator');
 import Vector2D = require('../common/Vector2D');
+import Playable = require('../common/Components/Playable');
 import ROT = require('./ROT');
 import MessageServer = require('./MessageServer');
 import SocketIOMessageServer = require('./SocketIOMessageServer');
@@ -148,10 +149,12 @@ class GameServer {
     }
 
     private callToStartTurns(player:Player, messageDispatcher:MessageDispatcher) {
-        messageDispatcher.emit(new Message('its-your-turn', { turns: player.getBeing().getRemainingTurns() }));
+        messageDispatcher.emit(new Message('its-your-turn', {
+            turns: (<Playable>player.getBeing().getComponent('Playable')).getRemainingTurns()
+        }));
         messageDispatcher.broadcast(new Message('its-another-player-turn', {
             'id': player.getBeing().getId(),
-            'turns': player.getBeing().getRemainingTurns()
+            'turns': (<Playable>player.getBeing().getComponent('Playable')).getRemainingTurns()
         }));
     }
 }
