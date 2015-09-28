@@ -1,7 +1,7 @@
 
 import Command = require('../Command');
 import GameObject = require('../../../common/GameObject');
-import GameObjectLayer = require('../GameObjectLayer');
+import GameObjectLayer = require('../../../common/GameObjectLayer');
 import Level = require('../Level');
 import MessageClient = require('../MessageClient');
 import Message = require('../../../common/Message');

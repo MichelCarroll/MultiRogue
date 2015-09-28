@@ -11,7 +11,7 @@ import Level = require('./Level');
 import DisplayAdapter = require('./DisplayAdapter');
 import BeingCommand = require('./PlayerCommand');
 import Command = require('./Command');
-import GameObjectLayer = require('./GameObjectLayer');
+import GameObjectLayer = require('../../common/GameObjectLayer');
 import Message = require('../../common/Message');
 import MessageClient = require('./MessageClient');
 

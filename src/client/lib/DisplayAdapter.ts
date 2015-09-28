@@ -4,7 +4,7 @@
 import GameObject = require('../../common/GameObject');
 import UIAdapter = require('./UIAdapter');
 import Vector2D = require('../../common/Vector2D');
-import GameObjectLayer = require('./GameObjectLayer');
+import GameObjectLayer = require('../../common/GameObjectLayer');
 import GameDisplayAdapter = require('./GameDisplayAdapter');
 
 class DisplayAdapter {

@@ -5,7 +5,7 @@
 import GameObject = require('../../common/GameObject');
 import Container = require('../../common/Components/Container');
 import Repository = require('../../common/Repository');
-import GameObjectLayer = require('./GameObjectLayer');
+import GameObjectLayer = require('../../common/GameObjectLayer');
 import Vector2D = require('../../common/Vector2D');
 import Serializer = require('../../common/Serializer');
 
@@ -82,7 +82,7 @@ class Level {
     }
 
     public getTopGroundObject(position:Vector2D):GameObject {
-        return this.layer.getTopWalkableGameObject(position);
+        return this.layer.getNonCollidableGameObject(position);
     }
 
     public getTopItem(position:Vector2D):GameObject {
