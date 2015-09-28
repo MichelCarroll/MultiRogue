@@ -23,6 +23,7 @@ describe('first client connects, then second connects', function() {
         should(client.hasInLog("Player #1052 just connected")).be.true();
     });
     it('first client should see the second player', function() {
+        client.moveRight().moveRight().moveRight().moveRight();
         should(client.getTileTokenAt(55, 26)).be.not.eql('@');
         secondClient = server.clientConnects();
         should(client.getTileTokenAt(55, 26)).be.eql('@');

@@ -2,18 +2,14 @@
  * Created by michelcarroll on 15-04-03.
  */
 
-import GameObject = require('../../common/GameObject');
-import Vector2D = require('../../common/Vector2D');
+import GameObject = require('../common/GameObject');
+import Vector2D = require('../common/Vector2D');
 
 class GameObjectLayer {
 
     private goStacks: { [position:string] : Array<GameObject> }
 
     constructor() {
-        this.goStacks = {};
-    }
-
-    public empty() {
         this.goStacks = {};
     }
 
@@ -66,53 +62,39 @@ class GameObjectLayer {
         return -1;
     }
 
-    public getTopWalkableGameObject(position:Vector2D):GameObject {
-        var key = position.toString();
-        if (!this.goStacks[key]) {
-            return;
-        }
-        for (var i = 0; i < this.goStacks[key].length; i++) {
-            if (this.goStacks[key][i].isCollidable()) {
-                return this.goStacks[key][i];
-            }
-        }
+    public getStackAtPosition(position:Vector2D):Array<GameObject> {
+        var stack = this.goStacks[position.toString()];
+        return stack ? stack : [];
+    }
+
+    public getCollidableGameObject(position:Vector2D):GameObject {
+        return this.getFirstGOWithComponent(position, 'Collidable');
     }
 
     public getTopPickupableGameObject(position:Vector2D):GameObject {
-        var key = position.toString();
-        if (!this.goStacks[key]) {
-            return;
-        }
-        for (var i = 0; i < this.goStacks[key].length; i++) {
-            if (this.goStacks[key][i].isContent()) {
-                return this.goStacks[key][i];
-            }
-        }
+        return this.getFirstGOWithComponent(position, 'Content');
     }
 
     public getWalkableGameObject(position:Vector2D):GameObject {
+        return this.getFirstGOWithComponent(position, 'Walkable');
+    }
+
+    public getTopRenderableGameObject(position:Vector2D):GameObject {
+        return this.getFirstGOWithComponent(position, 'Renderable');
+    }
+
+    public getFirstGOWithComponent(position:Vector2D, componentName:string):GameObject {
         var key = position.toString();
         if (!this.goStacks[key]) {
             return;
         }
         for (var i = 0; i < this.goStacks[key].length; i++) {
-            if (this.goStacks[key][i].isWalkable()) {
+            if (this.goStacks[key][i].hasComponent(componentName)) {
                 return this.goStacks[key][i];
             }
         }
     }
 
-    public getTopRenderableGameObject(position:Vector2D):GameObject {
-        var key = position.toString();
-        if (!this.goStacks[key]) {
-            return;
-        }
-        for (var i = 0; i < this.goStacks[key].length; i++) {
-            if (this.goStacks[key][i].isRenderable()) {
-                return this.goStacks[key][i];
-            }
-        }
-    }
 
 }
 

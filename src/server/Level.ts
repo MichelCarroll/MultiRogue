@@ -2,28 +2,34 @@
  * Created by michelcarroll on 15-03-29.
  */
 
+///<reference path='../../definitions/rot.d.ts' />
+
 import SpawnPoint = require('./SpawnPoint');
 import BeingGenerator = require('./Generators/BeingGenerator');
 import Repository = require('../common/Repository');
 import GameObject = require('../common/GameObject');
+import GameObjectLayer = require('./GameObjectLayer');
 import Vector2D = require('../common/Vector2D');
-import Serializable = require('./../common/Serializable');
 import ROT = require('./ROT');
 import Player = require('./Player');
 
-class Level implements Serializable {
+class Level  {
 
     static TURNS_PER_ROUND = 4;
     private size:Vector2D;
     private goRepository:Repository<GameObject>;
     private tilesIndex:Repository<GameObject>;
+    private gameObjectLayer:GameObjectLayer;
     private numberedTilesIndex:GameObject[];
     private scheduler:ROT.Scheduler.Simple;
     private currentPlayer:Player;
     private playerSpawnPoint:SpawnPoint;
     private nextGOKey:number = 1;
+    private fov:ROT.IFOV;
 
     constructor() {
+        this.fov = new ROT.FOV.DiscreteShadowcasting(this.getTileOpacityCallback.bind(this));
+        this.gameObjectLayer = new GameObjectLayer();
         this.goRepository = new Repository<GameObject>();
         this.scheduler = new ROT.Scheduler.Simple();
         this.currentPlayer = null;
@@ -52,7 +58,7 @@ class Level implements Serializable {
 
     private isValidSpawnPoint(point:Vector2D):boolean {
         return this.tilesIndex.has(point.toString()) &&
-            !this.getCollidedGameObjects(point).length;
+            !this.getCollidedGameObjects(point);
     }
 
     public addTile(go:GameObject) {
@@ -62,8 +68,11 @@ class Level implements Serializable {
     }
 
     public addGameObject(go:GameObject) {
-        go.setId(this.nextGOKey++);
+        if(!go.getId()) {
+            go.setId(this.nextGOKey++);
+        }
         this.goRepository.set(go.getId(), go);
+        this.gameObjectLayer.add(go, go.getPosition());
     }
 
     public addPlayer(callForAction:()=>void) {
@@ -72,7 +81,7 @@ class Level implements Serializable {
         var player = new Player(being, callForAction);
         var position = this.playerSpawnPoint.generate();
         being.setPosition(position);
-        this.goRepository.set(being.getId(), being);
+        this.addGameObject(being);
         this.scheduler.add(player, true);
         return player;
     }
@@ -88,7 +97,9 @@ class Level implements Serializable {
     }
 
     public removePlayer(player:Player) {
-        this.goRepository.delete(player.getBeing().getId());
+        var go = player.getBeing();
+        this.goRepository.delete(go.getId());
+        this.gameObjectLayer.remove(go, go.getPosition());
         this.scheduler.remove(player);
         if(this.currentPlayer === player) {
             this.nextTurn();
@@ -99,10 +110,13 @@ class Level implements Serializable {
         if(!this.tilesIndex.has(position.toString())) {
             throw new Error('Cant move there, no tile there');
         }
-        if(this.getCollidedGameObjects(position).length) {
+        if(this.getCollidedGameObjects(position)) {
             throw new Error('Cant move there, being in the way');
         }
-        player.getBeing().setPosition(position);
+        var go = player.getBeing();
+        this.gameObjectLayer.remove(go, go.getPosition());
+        go.setPosition(position);
+        this.gameObjectLayer.add(go, position);
     }
 
     public pickUpObject(player:Player, goId:number) {
@@ -119,6 +133,7 @@ class Level implements Serializable {
         }
         being.getContainerComponent().addToInventory(go);
         this.goRepository.delete(go.getId());
+        this.gameObjectLayer.remove(go, go.getPosition());
     }
 
     public dropObject(player:Player, goId:number):GameObject {
@@ -130,6 +145,7 @@ class Level implements Serializable {
         being.getContainerComponent().removeFromInventory(go);
         go.setPosition(being.getPosition().copy());
         this.goRepository.set(go.getId(), go);
+        this.gameObjectLayer.add(go, go.getPosition());
         return go;
     }
 
@@ -138,9 +154,7 @@ class Level implements Serializable {
     }
 
     private getCollidedGameObjects(position:Vector2D) {
-        return this.goRepository.getAll().filter(function(element:GameObject, index, array) {
-            return element.isCollidable() && element.getPosition().equals(position);
-        });
+        return !!this.gameObjectLayer.getCollidableGameObject(position);
     }
 
     public canPlay(player:Player) {
@@ -162,17 +176,38 @@ class Level implements Serializable {
         }
     }
 
-    public serialize() {
+    public getTileOpacityCallback(x:number, y:number):boolean {
+        return this.tilesIndex.has(new Vector2D(x, y).toString());
+    }
+
+    public getInitializationInformation() {
         return {
-            'gameObjects': this.goRepository.serialize(),
+            'players': this.goRepository.getAll().filter(function(go:GameObject) {
+                return go.isPlayable();
+            }).map(function(go:GameObject) {
+                return {
+                    id: go.getId(),
+                    name: go.getName()
+                }
+            }),
             'width': this.size.x,
             'height': this.size.y,
             'current_player_id': this.currentPlayer ? this.currentPlayer.getBeing().getId() : null
         };
     }
 
-    public deserialize(data:any) {
-
+    public getViewpoint(player:Player) {
+        var playerGO = player.getBeing();
+        var cameraPos = playerGO.getPosition();
+        var viewpoint = new Repository<GameObject>();
+        var self = this;
+        this.fov.compute(cameraPos.x, cameraPos.y, 5, function(x, y, r) {
+            self.gameObjectLayer.getStackAtPosition(new Vector2D(x, y)).forEach(function(go:GameObject) {
+                viewpoint.set(go.getId(), go);
+            });
+        });
+        viewpoint.set(playerGO.getId(), playerGO);
+        return viewpoint.serialize();
     }
 
 }

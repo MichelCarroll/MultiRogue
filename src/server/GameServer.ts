@@ -62,7 +62,11 @@ class GameServer {
             if(!self.level.canPlay(player)) {
                 return;
             }
-            messageDispatcher.broadcast(new Message('being-shouted', {'id': player.getBeing().getId(), 'text': data.text}));
+            messageDispatcher.broadcast(new Message('being-shouted', {
+                'id': player.getBeing().getId(),
+                'name': player.getBeing().getName(),
+                'text': data.text
+            }));
             self.level.useTurns(player, 1);
         });
 
@@ -79,7 +83,8 @@ class GameServer {
                 return;
             }
 
-            messageDispatcher.broadcast(new Message('being-moved', player.getBeing().serialize()));
+            messageDispatcher.emit(new Message('render', { viewpoint: self.level.getViewpoint(player)}));
+            messageDispatcher.broadcast(new Message('being-moved', { player: player.getBeing().serialize()}));
             self.level.useTurns(player, 1);
         });
 
@@ -89,6 +94,13 @@ class GameServer {
             }
             messageDispatcher.broadcast(new Message('being-looked-at-floor', player.getBeing().serialize()));
             self.level.useTurns(player, 1);
+        });
+
+        messageDispatcher.on('render-request', function() {
+            if(!self.level || !player){
+                return;
+            }
+            messageDispatcher.emit(new Message('render', { viewpoint: self.level.getViewpoint(player)}));
         });
 
         messageDispatcher.on('being-picked-up', function(message:Message) {
@@ -133,7 +145,8 @@ class GameServer {
             self.callToStartTurns(player, messageDispatcher);
         });
         messageDispatcher.emit(new Message('initiate', {
-            'level': this.level.serialize(),
+            'level': this.level.getInitializationInformation(),
+            'viewpoint': this.level.getViewpoint(player),
             'player': player.getBeing().serialize()
         }));
         messageDispatcher.broadcast(new Message('player-came', player.getBeing().serialize()));
@@ -154,6 +167,7 @@ class GameServer {
         }));
         messageDispatcher.broadcast(new Message('its-another-player-turn', {
             'id': player.getBeing().getId(),
+            'name': player.getBeing().getName(),
             'turns': player.getBeing().getPlayableComponent().getRemainingTurns()
         }));
     }

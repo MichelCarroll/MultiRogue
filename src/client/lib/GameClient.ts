@@ -56,26 +56,31 @@ class GameClient {
             var data = message.getData();
             self.uiAdapter.clearPlayerList();
             self.level = new Level();
-            self.createGameObjects(data.level.gameObjects);
-
-            if(data.level.current_player_id) {
-                var being = self.level.get(parseInt(data.level.current_player_id));
-                self.uiAdapter.highlightPlayer(being.getId());
-            }
+            self.level.setViewpoint(data.viewpoint);
 
             self.player = new GameObject();
             self.player.deserialize(data.player);
             self.uiAdapter.logOnUI("You're now connected as "+self.player.getName()+"!", CHAT_LOG_INFO);
 
+            data.level.players.forEach(function(playerData:any) {
+                self.uiAdapter.addPlayerToUI(playerData.id, playerData.name);
+            });
+
+            if(data.level.current_player_id) {
+                self.uiAdapter.highlightPlayer(data.level.current_player_id);
+            }
+
             var mapSize = new Vector2D(parseInt(data.level.width), parseInt(data.level.height));
             self.commander = new Commander(self.uiAdapter, self.messageClient, self.player, self.level, self.displayAdapter);
-            self.displayAdapter.reinitialize(mapSize, self.player, self.level.getGameObjectLayer());
+            self.displayAdapter.reinitialize(mapSize, self.level.getGameObjectLayer());
         });
 
         this.messageClient.on('being-moved', function(message:Message) {
-            var data = message.getData();
-            var being = self.level.get(parseInt(data.id));
-            self.level.move(being, new Vector2D(parseInt(data.x), parseInt(data.y)));
+            self.messageClient.send(new Message('render-request'));
+        });
+
+        this.messageClient.on('render', function(message:Message) {
+            self.level.setViewpoint(message.getData().viewpoint);
             self.displayAdapter.draw();
         });
 
@@ -83,26 +88,24 @@ class GameClient {
             var data = message.getData();
             var being = new GameObject();
             being.deserialize(data);
-            self.level.add(being);
-            self.displayAdapter.draw();
             self.uiAdapter.logOnUI(being.getName()+" just connected", CHAT_LOG_INFO);
             self.uiAdapter.addPlayerToUI(being.getId(), being.getName());
+            self.messageClient.send(new Message('render-request'));
         });
 
         this.messageClient.on('player-left', function(message:Message) {
             var data = message.getData();
-            var being = self.level.get(parseInt(data.id));
-            self.level.remove(being);
-            self.displayAdapter.draw();
+            var being = new GameObject();
+            being.deserialize(data);
             self.uiAdapter.logOnUI(being.getName() + " just disconnected", CHAT_LOG_INFO);
             self.uiAdapter.removePlayerFromUI(parseInt(data.id));
+            self.messageClient.send(new Message('render-request'));
         });
 
         this.messageClient.on('its-another-player-turn', function(message:Message) {
             var data = message.getData();
-            var being = self.level.get(parseInt(data.id));
-            self.uiAdapter.highlightPlayer(being.getId());
-            self.uiAdapter.logOnUI("It's "+being.getName()+"'s turn.");
+            self.uiAdapter.highlightPlayer(data.id);
+            self.uiAdapter.logOnUI("It's "+data.name+"'s turn.");
         });
 
         this.messageClient.on('its-your-turn', function(message:Message) {
@@ -114,8 +117,7 @@ class GameClient {
 
         this.messageClient.on('being-shouted', function(message:Message) {
             var data = message.getData();
-            var being = self.level.get(parseInt(data.id));
-            self.uiAdapter.logOnUI(being.getName()+" shouts \""+data.text+"\"!!", CHAT_LOG_INFO);
+            self.uiAdapter.logOnUI(data.name+" shouts \""+data.text+"\"!!", CHAT_LOG_INFO);
         });
 
         this.messageClient.on('disconnect', function(message:Message) {
@@ -127,42 +129,23 @@ class GameClient {
 
         this.messageClient.on('being-looked-at-floor', function(message:Message) {
             var data = message.getData();
-            var being = self.level.get(parseInt(data.id));
+            var being = new GameObject();
+            being.deserialize(data);
             self.uiAdapter.logOnUI(being.getName()+" inspected an object on the floor.", CHAT_LOG_INFO);
         });
 
         this.messageClient.on('game-object-remove', function(message:Message) {
-            var data = message.getData();
-            var go = self.level.get(parseInt(data.id));
-            self.level.remove(go);
-            self.displayAdapter.draw();
+            self.messageClient.send(new Message('render-request'));
         });
 
         this.messageClient.on('game-object-add', function(message:Message) {
-            var data = message.getData();
-            var go = new GameObject();
-            go.deserialize(data);
-            self.level.add(go);
-            self.displayAdapter.draw();
+            self.messageClient.send(new Message('render-request'));
         });
 
         this.messageClient.on('debug', function(message:Message){
             var data = message.getData();
             self.uiAdapter.logOnUI("Server Error "+data, CHAT_LOG_DANGER);
         });
-    }
-
-    private createGameObjects(serializedGameObjects:any)
-    {
-        for(var i in serializedGameObjects) {
-            if(serializedGameObjects.hasOwnProperty(i)) {
-                var gameObject = (<GameObject>Serializer.deserialize(serializedGameObjects[i].data));
-                this.level.add(gameObject);
-                if(gameObject.isPlayable()) {
-                    this.uiAdapter.addPlayerToUI(gameObject.getId(), gameObject.getName());
-                }
-            }
-        }
     }
 
     public handleScreenResize() {

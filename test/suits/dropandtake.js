@@ -54,7 +54,7 @@ describe('another client signs in and observes the first picking up a stick', fu
         should(secondClient.isHoldingItem('Wooden Stick')).be.false();
     });
     it('should see the stick on the ground before', function() {
-        client.moveLeft().moveLeft().moveUp().moveUp();
+        client.moveLeft().moveLeft().moveUp().moveRight();
         secondClient.moveLeft().moveLeft().moveLeft().moveLeft();
         should(secondClient.getTileTokenAt(47, 26)).be.eql('/');
     });

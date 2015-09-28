@@ -7,6 +7,7 @@ import Container = require('../../common/Components/Container');
 import Repository = require('../../common/Repository');
 import GameObjectLayer = require('./GameObjectLayer');
 import Vector2D = require('../../common/Vector2D');
+import Serializer = require('../../common/Serializer');
 
 class Level {
 
@@ -70,6 +71,15 @@ class Level {
         this.add(go);
     }
 
+    public setViewpoint(data:any) {
+        this.layer.empty();
+        for(var i in data) {
+            if(data.hasOwnProperty(i)) {
+                var go = (<GameObject>Serializer.deserialize(data[i].data));
+                this.layer.add(go, go.getPosition());
+            }
+        }
+    }
 
     public getTopGroundObject(position:Vector2D):GameObject {
         return this.layer.getTopWalkableGameObject(position);
