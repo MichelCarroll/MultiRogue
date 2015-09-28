@@ -83,7 +83,7 @@ class GameServer {
                 return;
             }
 
-            messageDispatcher.emit(new Message('render', { viewpoint: self.level.getViewpoint(player)}));
+            messageDispatcher.emit(new Message('render', { viewpoint: self.level.getViewpoint(player).serialize()}));
             messageDispatcher.broadcast(new Message('being-moved', { player: player.getBeing().serialize()}));
             self.level.useTurns(player, 1);
         });
@@ -100,7 +100,7 @@ class GameServer {
             if(!self.level || !player){
                 return;
             }
-            messageDispatcher.emit(new Message('render', { viewpoint: self.level.getViewpoint(player)}));
+            messageDispatcher.emit(new Message('render', { viewpoint: self.level.getViewpoint(player).serialize()}));
         });
 
         messageDispatcher.on('being-picked-up', function(message:Message) {
@@ -146,7 +146,7 @@ class GameServer {
         });
         messageDispatcher.emit(new Message('initiate', {
             'level': this.level.getInitializationInformation(),
-            'viewpoint': this.level.getViewpoint(player),
+            'viewpoint': this.level.getViewpoint(player).serialize(),
             'player': player.getBeing().serialize()
         }));
         messageDispatcher.broadcast(new Message('player-came', player.getBeing().serialize()));

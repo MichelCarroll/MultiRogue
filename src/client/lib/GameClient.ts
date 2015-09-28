@@ -56,10 +56,10 @@ class GameClient {
             var data = message.getData();
             self.uiAdapter.clearPlayerList();
             self.level = new Level();
-            self.level.setViewpoint(data.viewpoint);
+            self.level.setViewpoint(data.viewpoint.layer);
 
             self.player = new GameObject();
-            self.player.deserialize(data.player);
+            self.player.deserialize(data.viewpoint.player);
             self.uiAdapter.logOnUI("You're now connected as "+self.player.getName()+"!", CHAT_LOG_INFO);
 
             data.level.players.forEach(function(playerData:any) {
@@ -80,7 +80,8 @@ class GameClient {
         });
 
         this.messageClient.on('render', function(message:Message) {
-            self.level.setViewpoint(message.getData().viewpoint);
+            self.level.setViewpoint(message.getData().viewpoint.layer);
+            self.player.deserialize(message.getData().viewpoint.player);
             self.displayAdapter.draw();
         });
 

@@ -71,14 +71,8 @@ class Level {
         this.add(go);
     }
 
-    public setViewpoint(data:any) {
-        this.layer.empty();
-        for(var i in data) {
-            if(data.hasOwnProperty(i)) {
-                var go = (<GameObject>Serializer.deserialize(data[i].data));
-                this.layer.add(go, go.getPosition());
-            }
-        }
+    public setViewpoint(layerData:any) {
+        this.layer.deserialize(layerData);
     }
 
     public getTopGroundObject(position:Vector2D):GameObject {

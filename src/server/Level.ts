@@ -8,6 +8,7 @@ import SpawnPoint = require('./SpawnPoint');
 import BeingGenerator = require('./Generators/BeingGenerator');
 import Repository = require('../common/Repository');
 import GameObject = require('../common/GameObject');
+import Viewpoint = require('./Viewpoint');
 import GameObjectLayer = require('../common/GameObjectLayer');
 import Vector2D = require('../common/Vector2D');
 import ROT = require('./ROT');
@@ -199,15 +200,15 @@ class Level  {
     public getViewpoint(player:Player) {
         var playerGO = player.getBeing();
         var cameraPos = playerGO.getPosition();
-        var viewpoint = new Repository<GameObject>();
+        var layer = new GameObjectLayer();
+        var viewpoint = new Viewpoint();
         var self = this;
         this.fov.compute(cameraPos.x, cameraPos.y, 5, function(x, y, r) {
-            self.gameObjectLayer.getStackAtPosition(new Vector2D(x, y)).forEach(function(go:GameObject) {
-                viewpoint.set(go.getId(), go);
-            });
+            layer.setStack(self.gameObjectLayer.getStackAtPosition(new Vector2D(x, y)), new Vector2D(x, y));
         });
-        viewpoint.set(playerGO.getId(), playerGO);
-        return viewpoint.serialize();
+        viewpoint.setLayer(layer);
+        viewpoint.setPlayer(playerGO);
+        return viewpoint;
     }
 
 }

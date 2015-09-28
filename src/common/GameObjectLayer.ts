@@ -2,10 +2,12 @@
  * Created by michelcarroll on 15-04-03.
  */
 
-import GameObject = require('GameObject');
-import Vector2D = require('Vector2D');
+import GameObject = require('./GameObject');
+import Vector2D = require('./Vector2D');
+import Serializer = require('./Serializer');
+import Serializable = require('./Serializable');
 
-class GameObjectLayer {
+class GameObjectLayer implements Serializable {
 
     private goStacks: { [position:string] : Array<GameObject> }
 
@@ -24,6 +26,10 @@ class GameObjectLayer {
         }
         this.goStacks[key].push(go);
         this.sortStack(key);
+    }
+
+    public setStack(goStack:GameObject[], position:Vector2D) {
+        this.goStacks[position.toString()] = goStack;
     }
 
     public sortStack(stackKey:string) {
@@ -115,6 +121,30 @@ class GameObjectLayer {
         }
     }
 
+    public serialize():any {
+        var data = {};
+        for (var key in this.goStacks) {
+            if (this.goStacks.hasOwnProperty(key)) {
+                data[key] = this.goStacks[key].map(function(go:GameObject) {
+                   return go.serialize();
+                });
+            }
+        }
+        return data;
+    }
+
+    public deserialize(data:any) {
+        this.goStacks = {};
+        for (var key in data) {
+            if (data.hasOwnProperty(key)) {
+                this.goStacks[key] = data[key].map(function(dataGo:any) {
+                    var go = new GameObject();
+                    go.deserialize(dataGo);
+                    return go;
+                });
+            }
+        }
+    }
 }
 
 export = GameObjectLayer;
