@@ -71,11 +71,7 @@ class Commander {
         }
         command.execute();
 
-        this.player.getPlayableComponent().spendTurns(command.getTurnsRequired());
-
-        if(this.player.getPlayableComponent().getRemainingTurns() > 0) {
-            this.uiAdapter.logOnUI("You have "+this.player.getPlayableComponent().getRemainingTurns()+" actions left.");
-        } else {
+        if(this.player.getPlayableComponent().getRemainingTurns() <= 0) {
             this.uiAdapter.logOnUI("Your turn is over.");
         }
 

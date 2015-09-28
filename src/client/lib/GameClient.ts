@@ -111,7 +111,7 @@ class GameClient {
 
         this.messageClient.on('its-your-turn', function(message:Message) {
             var data = message.getData();
-            self.player.getPlayableComponent().giveTurns(parseInt(data.turns));
+            self.player.deserialize(data.player);;
             self.uiAdapter.highlightPlayer(self.player.getId());
             self.uiAdapter.logOnUI("It's your turn. You have "+self.player.getPlayableComponent().getRemainingTurns()+" actions left.", CHAT_LOG_SUCCESS);
         });

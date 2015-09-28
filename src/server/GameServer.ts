@@ -163,7 +163,7 @@ class GameServer {
 
     private callToStartTurns(player:Player, messageDispatcher:MessageDispatcher) {
         messageDispatcher.emit(new Message('its-your-turn', {
-            turns: player.getBeing().getPlayableComponent().getRemainingTurns()
+            player: player.getBeing().serialize()
         }));
         messageDispatcher.broadcast(new Message('its-another-player-turn', {
             'id': player.getBeing().getId(),
