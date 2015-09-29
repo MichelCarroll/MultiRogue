@@ -9,6 +9,7 @@ class TestUIAdapter implements UIAdapter {
         (position:Vector2D)=>
             {position:Vector2D; token:string; frontColor:string; backColor:string} = null;
 
+    private actionPoints:number = 0;
     private players = [];
     private highlightedPlayer = null;
     private items = [];
@@ -23,7 +24,7 @@ class TestUIAdapter implements UIAdapter {
 
     public highlightPlayer = function(playerId) {
         this.highlightedPlayer = playerId;
-    };
+    }
 
     public removePlayerFromUI = function(playerId) {
         var index = this.players.find(function(player) {
@@ -35,14 +36,14 @@ class TestUIAdapter implements UIAdapter {
         if(this.highlightedPlayer == playerId) {
             this.highlightedPlayer = null;
         }
-    };
+    }
 
     public addItemToUI = function(itemId, itemName) {
         this.items.push({
             id: itemId,
             name: itemName
         });
-    };
+    }
 
     public removeItemFromUI = function(itemId) {
         var index = this.items.findIndex(function(item) {
@@ -90,6 +91,14 @@ class TestUIAdapter implements UIAdapter {
 
     public getTileAt(position:Vector2D) {
         return this.getTileCallback(position);
+    }
+    
+    public setRemainingActionPoints(actionPoints:number) {
+        this.actionPoints = actionPoints;
+    }
+
+    public getRemainingActionPoints():number {
+        return this.actionPoints;
     }
 }
 

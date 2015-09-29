@@ -41,7 +41,7 @@ class GameClient {
         if(params.getMessagingServer()) {
             this.messageClient = new DirectMessageClient(params.getMessagingServer());
         } else {
-            this.messageClient = new SocketIOMessageClient(params.getServerAddress());
+            this.messageClient = new SocketIOMessageClient(params.getServerAddress(), true);
         }
         this.messageClient.connect();
         this.hookSocketEvents();
@@ -76,12 +76,13 @@ class GameClient {
         });
 
         this.messageClient.on('being-moved', function(message:Message) {
-            self.messageClient.send(new Message('render-request'));
+            self.messageClient.send(new Message('sync-request'));
         });
 
-        this.messageClient.on('render', function(message:Message) {
+        this.messageClient.on('sync', function(message:Message) {
             self.level.setViewpoint(message.getData().viewpoint.layer);
             self.player.deserialize(message.getData().viewpoint.player);
+            self.uiAdapter.setRemainingActionPoints(self.player.getPlayableComponent().getRemainingTurns());
             self.displayAdapter.draw();
         });
 
@@ -91,7 +92,7 @@ class GameClient {
             being.deserialize(data);
             self.uiAdapter.logOnUI(being.getName()+" just connected", CHAT_LOG_INFO);
             self.uiAdapter.addPlayerToUI(being.getId(), being.getName());
-            self.messageClient.send(new Message('render-request'));
+            self.messageClient.send(new Message('sync-request'));
         });
 
         this.messageClient.on('player-left', function(message:Message) {
@@ -100,7 +101,7 @@ class GameClient {
             being.deserialize(data);
             self.uiAdapter.logOnUI(being.getName() + " just disconnected", CHAT_LOG_INFO);
             self.uiAdapter.removePlayerFromUI(parseInt(data.id));
-            self.messageClient.send(new Message('render-request'));
+            self.messageClient.send(new Message('sync-request'));
         });
 
         this.messageClient.on('its-another-player-turn', function(message:Message) {
@@ -114,6 +115,7 @@ class GameClient {
             self.player.deserialize(data.player);;
             self.uiAdapter.highlightPlayer(self.player.getId());
             self.uiAdapter.logOnUI("It's your turn. You have "+self.player.getPlayableComponent().getRemainingTurns()+" actions left.", CHAT_LOG_SUCCESS);
+            self.uiAdapter.setRemainingActionPoints(self.player.getPlayableComponent().getRemainingTurns());
         });
 
         this.messageClient.on('being-shouted', function(message:Message) {
@@ -136,11 +138,11 @@ class GameClient {
         });
 
         this.messageClient.on('game-object-remove', function(message:Message) {
-            self.messageClient.send(new Message('render-request'));
+            self.messageClient.send(new Message('sync-request'));
         });
 
         this.messageClient.on('game-object-add', function(message:Message) {
-            self.messageClient.send(new Message('render-request'));
+            self.messageClient.send(new Message('sync-request'));
         });
 
         this.messageClient.on('debug', function(message:Message){

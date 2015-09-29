@@ -62,12 +62,13 @@ class GameServer {
             if(!self.level.canPlay(player)) {
                 return;
             }
+            self.level.useTurns(player, 1);
+            messageDispatcher.emit(new Message('sync', { viewpoint: self.level.getViewpoint(player).serialize()}));
             messageDispatcher.broadcast(new Message('being-shouted', {
                 'id': player.getBeing().getId(),
                 'name': player.getBeing().getName(),
                 'text': data.text
             }));
-            self.level.useTurns(player, 1);
         });
 
         messageDispatcher.on('being-moved', function(message:Message) {
@@ -83,24 +84,25 @@ class GameServer {
                 return;
             }
 
-            messageDispatcher.emit(new Message('render', { viewpoint: self.level.getViewpoint(player).serialize()}));
-            messageDispatcher.broadcast(new Message('being-moved', { player: player.getBeing().serialize()}));
             self.level.useTurns(player, 1);
+            messageDispatcher.emit(new Message('sync', { viewpoint: self.level.getViewpoint(player).serialize()}));
+            messageDispatcher.broadcast(new Message('being-moved', { player: player.getBeing().serialize()}));
         });
 
         messageDispatcher.on('being-looked-at-floor', function(message:Message) {
             if(!self.level.canPlay(player)) {
                 return;
             }
-            messageDispatcher.broadcast(new Message('being-looked-at-floor', player.getBeing().serialize()));
             self.level.useTurns(player, 1);
+            messageDispatcher.emit(new Message('sync', { viewpoint: self.level.getViewpoint(player).serialize()}));
+            messageDispatcher.broadcast(new Message('being-looked-at-floor', player.getBeing().serialize()));
         });
 
-        messageDispatcher.on('render-request', function() {
+        messageDispatcher.on('sync-request', function() {
             if(!self.level || !player){
                 return;
             }
-            messageDispatcher.emit(new Message('render', { viewpoint: self.level.getViewpoint(player).serialize()}));
+            messageDispatcher.emit(new Message('sync', { viewpoint: self.level.getViewpoint(player).serialize()}));
         });
 
         messageDispatcher.on('being-picked-up', function(message:Message) {
@@ -116,8 +118,9 @@ class GameServer {
                 return;
             }
 
-            messageDispatcher.broadcast(new Message('game-object-remove', { 'id': parseInt(data.objectId) }));
             self.level.useTurns(player, 1);
+            messageDispatcher.emit(new Message('sync', { viewpoint: self.level.getViewpoint(player).serialize()}));
+            messageDispatcher.broadcast(new Message('game-object-remove', { 'id': parseInt(data.objectId) }));
         });
 
         messageDispatcher.on('being-dropped', function(message:Message) {
@@ -133,9 +136,10 @@ class GameServer {
                 return;
             }
 
-            var go = self.level.getObject(parseInt(data.objectId));
-            messageDispatcher.broadcast(new Message('game-object-add', go.serialize()));
             self.level.useTurns(player, 1);
+            var go = self.level.getObject(parseInt(data.objectId));
+            messageDispatcher.emit(new Message('sync', { viewpoint: self.level.getViewpoint(player).serialize()}));
+            messageDispatcher.broadcast(new Message('game-object-add', go.serialize()));
         });
     }
 

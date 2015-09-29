@@ -28,8 +28,9 @@
     transform: translateY(-50%);
 }
 
-#game-side {
+.game-side {
     height: 100%;
+    padding-top:5%;
     position: relative;
 }
 
@@ -65,4 +66,8 @@
 .list-group-item {
     padding-top: 3px;
     padding-bottom: 3px;
+}
+
+.hidden {
+    display: none;
 }

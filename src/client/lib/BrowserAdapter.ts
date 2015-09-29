@@ -97,6 +97,16 @@ class BrowserAdapter implements UIAdapter {
         this.getTileCallback = adapter.getTileCallback;
         this.setGameCanvas(this.display.getContainer());
     };
+    
+    public setRemainingActionPoints(actionPoints:number) {
+        if(actionPoints <= 0) {
+            $('.action-points-row').addClass('hidden');
+        }
+        else {
+            $('.action-points-row').removeClass('hidden');
+            $('.action-points').text(actionPoints.toString());    
+        }
+    }
 
 }
 

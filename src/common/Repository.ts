@@ -1,6 +1,3 @@
-/**
- * Created by michelcarroll on 15-03-29.
- */
 
 import Serializer = require('./Serializer');
 import Serializable = require('./Serializable');

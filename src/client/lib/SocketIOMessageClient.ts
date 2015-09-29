@@ -13,11 +13,13 @@ declare class SocketIO {
 class SocketIOMessageClient implements MessageClient {
 
     private serverAddress:string;
+    private debug:boolean;
     private socket:Socket;
 
-    constructor(serverAddress:string)
+    constructor(serverAddress:string, debug:boolean = false)
     {
         this.serverAddress = serverAddress;
+        this.debug = debug;
     }
 
     public connect()
@@ -27,13 +29,23 @@ class SocketIOMessageClient implements MessageClient {
 
     public on(name, callback:(message:Message) => void)
     {
+        var self = this;
         this.socket.on(name, function(data:any) {
-            callback(new Message(name, data));
+            var message = new Message(name, data);
+            if(self.debug) {
+                console.log('Received:');
+                console.log(message);
+            }
+            callback(message);
         });
     }
 
     public send(message:Message)
     {
+        if(this.debug) {
+            console.log('Sending:');
+            console.log(message);
+        }
         this.socket.emit(message.getName(), message.getData());
     }
 
