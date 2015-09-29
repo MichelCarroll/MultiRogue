@@ -15,20 +15,27 @@ class SocketIOMessageClient implements MessageClient {
 
     private serverAddress:string;
     private debug:boolean;
+    private onConnect:()=>void;
     private socket:Socket;
 
-    constructor(serverAddress:string, debug:boolean = false) {
+    constructor(serverAddress:string, onConnect:()=>void, debug:boolean = false) {
         this.serverAddress = serverAddress;
         this.debug = debug;
+        this.onConnect = onConnect;
     }
 
     public connect() {
         this.socket = io.connect(this.serverAddress);
+        this.onConnect();
     }
 
     public disconnect() {
         this.socket.disconnect();
         this.socket = null;
+    }
+
+    public isConnected():boolean {
+        return !!this.socket;
     }
 
     public on(name, callback:(message:Message) => void)

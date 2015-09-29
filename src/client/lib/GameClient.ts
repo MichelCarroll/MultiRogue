@@ -38,13 +38,10 @@ class GameClient {
         this.context.uiAdapter = uiAdapter;
         this.context.displayAdapter = new DisplayAdapter(this.context.uiAdapter);
         if(params.getMessagingServer()) {
-            this.context.messageClient = new DirectMessageClient(params.getMessagingServer());
+            this.context.messageClient = new DirectMessageClient(params.getMessagingServer(), this.hookSocketEvents.bind(this));
         } else {
-            this.context.messageClient = new SocketIOMessageClient(params.getServerAddress(), true);
+            this.context.messageClient = new SocketIOMessageClient(params.getServerAddress(), this.hookSocketEvents.bind(this));
         }
-        this.context.messageClient.connect();
-        this.hookSocketEvents();
-        this.context.messageClient.send(new Message('ready'));
         this.commander = new Commander(this.context);
     }
 

@@ -12,6 +12,7 @@ import MoveCommand = require('./Commands/Move');
 import ShoutCommand = require('./Commands/Shout');
 import PickUpCommand = require('./Commands/PickUp');
 import FloorLookCommand = require('./Commands/FloorLook');
+import ConnectCommand = require('./Commands/Connect');
 
 declare var $:any;
 
@@ -64,5 +65,7 @@ $(document).ready(function() {
         var goId = parseInt($(this).attr('goid'));
         game.handleCommand(new DropCommand(goId));
     });
+
+    game.handleCommand(new ConnectCommand());
 
 });

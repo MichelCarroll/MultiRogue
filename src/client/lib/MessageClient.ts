@@ -9,6 +9,7 @@ interface MessageClient {
     send(message:Message):void;
     connect():void;
     disconnect():void;
+    isConnected():boolean;
 
 }
 

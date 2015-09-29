@@ -49,6 +49,11 @@ class Commander {
 
     public executeCommand(command:Command)
     {
+        if(command.hasOwnProperty('setPlayer')) {
+            this.context.uiAdapter.logOnUI("You need to be connected to do this!");
+            return;
+        }
+
         this.inject(command);
 
         if(command.getTurnsRequired() > 0) {

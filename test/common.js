@@ -11,6 +11,7 @@ var MoveCommand = require('./build/client/lib/Commands/Move');
 var ShoutCommand = require('./build/client/lib/Commands/Shout');
 var PickUpCommand = require('./build/client/lib/Commands/PickUp');
 var FloorLookCommand = require('./build/client/lib/Commands/FloorLook');
+var ConnectCommand = require('./build/client/lib/Commands/Connect');
 
 
 var UP = [0, -1];
@@ -26,6 +27,7 @@ var Simulator = {
             clientConnects: function() {
                 var testAdapter = new TestUIAdapter();
                 var client = new GameClient(new ClientParameters(null, server.getMessageServer()), testAdapter);
+                client.handleCommand(new ConnectCommand());
 
                 var obj = {};
 
