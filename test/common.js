@@ -12,6 +12,7 @@ var ShoutCommand = require('./build/client/lib/Commands/Shout');
 var PickUpCommand = require('./build/client/lib/Commands/PickUp');
 var FloorLookCommand = require('./build/client/lib/Commands/FloorLook');
 var ConnectCommand = require('./build/client/lib/Commands/Connect');
+var DisconnectCommand = require('./build/client/lib/Commands/Disconnect');
 
 
 var UP = [0, -1];
@@ -30,6 +31,10 @@ var Simulator = {
                 client.handleCommand(new ConnectCommand());
 
                 var obj = {};
+
+                obj.disconnect = function() {
+                    client.handleCommand(new DisconnectCommand());
+                };
 
                 obj.moves = function (direction) {
                     client.handleCommand(new MoveCommand(new Vector2D(direction[0], direction[1])));
