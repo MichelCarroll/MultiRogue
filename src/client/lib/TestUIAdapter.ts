@@ -27,7 +27,7 @@ class TestUIAdapter implements UIAdapter {
     }
 
     public removePlayerFromUI = function(playerId) {
-        var index = this.players.find(function(player) {
+        var index = this.players.findIndex(function(player) {
             return player.id == playerId;
         });
         if(index !== -1) {

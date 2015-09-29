@@ -54,5 +54,15 @@ describe('first client connects, second connects, then the first client disconne
         client.disconnect();
         should(secondClient.getTileTokenAt(53, 26)).be.not.eql('@');
     });
+    it('it should be second clients turn', function() {
+        should(secondClient.isHighlightedPlayerId(1051)).be.true();
+        client.disconnect();
+        should(secondClient.isHighlightedPlayerId(1052)).be.true();
+    });
+    it('first client should dissapear off player list', function() {
+        should(secondClient.hasPlayerIdInList(1051)).be.true();
+        client.disconnect();
+        should(secondClient.hasPlayerIdInList(1051)).be.false();
+    });
 
 });
