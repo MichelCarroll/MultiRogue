@@ -114,6 +114,10 @@ var Simulator = {
                         }).length > 0;
                 };
 
+                obj.getActionPoints = function() {
+                    return testAdapter.getRemainingActionPoints();
+                };
+
                 //- has item
                 //- has player
                 //- player is highlighted
