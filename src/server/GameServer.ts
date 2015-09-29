@@ -52,8 +52,8 @@ class GameServer {
 
         messageDispatcher.on('disconnect', function() {
             if(player) {
-                messageDispatcher.broadcast(new Message('player-left', player.getBeing().serialize()));
                 self.level.removePlayer(player);
+                messageDispatcher.broadcast(new Message('player-left', player.getBeing().serialize()));
             }
         });
 
