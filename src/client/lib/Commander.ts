@@ -14,68 +14,67 @@ import Command = require('./Command');
 import GameObjectLayer = require('../../common/GameObjectLayer');
 import Message = require('../../common/Message');
 import MessageClient = require('./MessageClient');
+import Context = require('./Context');
 
 class Commander {
 
-    private uiAdapter:UIAdapter;
-    private messageClient:MessageClient;
-    private player:GameObject;
-    private goLayer:GameObjectLayer;
-    private level:Level;
-    private displayAdapter:DisplayAdapter;
+    private context:Context;
 
-    constructor(uiAdapter:UIAdapter, messageClient:MessageClient, player:GameObject, level:Level, displayAdapter:DisplayAdapter) {
-        this.uiAdapter = uiAdapter;
-        this.messageClient = messageClient;
-        this.player = player;
-        this.level = level;
-        this.displayAdapter = displayAdapter;
-        this.goLayer = level.getGameObjectLayer();
+    constructor(context:Context) {
+        this.context = context;
     }
 
     private inject(command:any)
     {
         if(command.setGameObjectLayer) {
-            command.setGameObjectLayer(this.goLayer);
+            command.setGameObjectLayer(this.context.level.getGameObjectLayer());
         }
         if(command.setLevel) {
-            command.setLevel(this.level);
+            command.setLevel(this.context.level);
         }
         if(command.setPlayer) {
-            command.setPlayer(this.player);
+            command.setPlayer(this.context.player);
         }
         if(command.setMessageClient) {
-            command.setMessageClient(this.messageClient);
+            command.setMessageClient(this.context.messageClient);
         }
         if(command.setUIAdapter) {
-            command.setUIAdapter(this.uiAdapter);
+            command.setUIAdapter(this.context.uiAdapter);
         }
+    }
+
+    private getRemainingTurns() {
+        return this.context.player.getPlayableComponent().getRemainingTurns();
     }
 
     public executeCommand(command:Command)
     {
         this.inject(command);
 
-        if(!this.player.getPlayableComponent().getRemainingTurns()) {
-            this.uiAdapter.logOnUI("It's not your turn!");
-            return;
-        }
-        else if(this.player.getPlayableComponent().getRemainingTurns() - command.getTurnsRequired() < 0) {
-            this.uiAdapter.logOnUI("You don't have enough turns to do this!");
-            return;
+        if(command.getTurnsRequired() > 0) {
+            if(!this.getRemainingTurns()) {
+                this.context.uiAdapter.logOnUI("It's not your turn!");
+                return;
+            }
+            else if(this.getRemainingTurns() - command.getTurnsRequired() < 0) {
+                this.context.uiAdapter.logOnUI("You don't have enough turns to do this!");
+                return;
+            }
         }
 
         if(!command.canExecute()) {
-            this.uiAdapter.logOnUI("You can't do that!");
+            this.context.uiAdapter.logOnUI("You can't do that!");
             return;
         }
         command.execute();
 
-        if(this.player.getPlayableComponent().getRemainingTurns() <= 0) {
-            this.uiAdapter.logOnUI("Your turn is over.");
+        if(command.getTurnsRequired() > 0) {
+            if (this.getRemainingTurns() <= 0) {
+                this.context.uiAdapter.logOnUI("Your turn is over.");
+            }
         }
 
-        this.displayAdapter.draw();
+        this.context.displayAdapter.draw();
     }
 }
 
