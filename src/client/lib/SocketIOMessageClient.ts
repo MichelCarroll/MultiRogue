@@ -8,6 +8,7 @@ import MessageClient = require('./MessageClient');
 
 declare class SocketIO {
     connect(url: string): Socket;
+    disconnect():void;
 }
 
 class SocketIOMessageClient implements MessageClient {
@@ -16,19 +17,26 @@ class SocketIOMessageClient implements MessageClient {
     private debug:boolean;
     private socket:Socket;
 
-    constructor(serverAddress:string, debug:boolean = false)
-    {
+    constructor(serverAddress:string, debug:boolean = false) {
         this.serverAddress = serverAddress;
         this.debug = debug;
     }
 
-    public connect()
-    {
+    public connect() {
         this.socket = io.connect(this.serverAddress);
+    }
+
+    public disconnect() {
+        this.socket.disconnect();
+        this.socket = null;
     }
 
     public on(name, callback:(message:Message) => void)
     {
+        if(!this.socket) {
+            return;
+        }
+
         var self = this;
         this.socket.on(name, function(data:any) {
             var message = new Message(name, data);
@@ -42,6 +50,10 @@ class SocketIOMessageClient implements MessageClient {
 
     public send(message:Message)
     {
+        if(!this.socket) {
+            return;
+        }
+
         if(this.debug) {
             console.log('Sending:');
             console.log(message);
