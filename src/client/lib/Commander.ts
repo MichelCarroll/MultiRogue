@@ -7,7 +7,6 @@
 import UIAdapter = require('./UIAdapter');
 import GameObject = require('../../common/GameObject');
 import Playable = require('../../common/Components/Playable');
-import Level = require('./Level');
 import DisplayAdapter = require('./DisplayAdapter');
 import BeingCommand = require('./PlayerCommand');
 import Command = require('./Command');
@@ -28,9 +27,6 @@ class Commander {
     {
         if(command.setGameObjectLayer) {
             command.setGameObjectLayer(this.context.level.getGameObjectLayer());
-        }
-        if(command.setLevel) {
-            command.setLevel(this.context.level);
         }
         if(command.setPlayer) {
             command.setPlayer(this.context.player);

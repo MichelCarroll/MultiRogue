@@ -1,5 +1,5 @@
 
 TESTS:
-disconnecting
+floor looking
 visibility
 turns and notifications

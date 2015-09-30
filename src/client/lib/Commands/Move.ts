@@ -2,22 +2,19 @@
 import Command = require('../Command');
 import GameObject = require('../../../common/GameObject');
 import GameObjectLayer = require('../../../common/GameObjectLayer');
-import Level = require('../Level');
 import MessageClient = require('../MessageClient');
 import Message = require('../../../common/Message');
 import Vector2D = require('../../../common/Vector2D');
 
 import ServerAware = require('../IOC/ServerAware');
 import PlayerAware = require('../IOC/PlayerAware');
-import LevelAware = require('../IOC/LevelAware');
 import GameObjectLayerAware = require('../IOC/GameObjectLayerAware');
 
-class Move implements Command, ServerAware, GameObjectLayerAware, PlayerAware, LevelAware {
+class Move implements Command, ServerAware, GameObjectLayerAware, PlayerAware {
 
     private direction:Vector2D;
     private player:GameObject;
     private goLayer:GameObjectLayer;
-    private level:Level;
     private messageClient:MessageClient;
 
     constructor(direction:Vector2D) {
@@ -30,10 +27,6 @@ class Move implements Command, ServerAware, GameObjectLayerAware, PlayerAware, L
 
     public setGameObjectLayer(goLayer:GameObjectLayer) {
         this.goLayer = goLayer;
-    }
-
-    public setLevel(level:Level) {
-        this.level = level;
     }
 
     public setPlayer(player:GameObject) {
@@ -49,7 +42,7 @@ class Move implements Command, ServerAware, GameObjectLayerAware, PlayerAware, L
         if(!this.goLayer.getWalkableGameObject(coord)) {
             return false;
         }
-        if(!this.level.canMoveTo(coord)) {
+        else if(this.goLayer.blocked(coord.toString())) {
             return false;
         }
         return true;
@@ -57,7 +50,6 @@ class Move implements Command, ServerAware, GameObjectLayerAware, PlayerAware, L
 
     public execute() {
         var coord = this.player.getPosition().addVector(this.direction);
-        this.level.move(this.player, coord);
         this.messageClient.send(new Message('being-moved', {
             'id': this.player.getId(),
             'x': coord.x,

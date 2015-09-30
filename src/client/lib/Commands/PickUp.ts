@@ -2,22 +2,22 @@
 import Command = require('../Command');
 import UIAdapter = require('../UIAdapter');
 import GameObject = require('../../../common/GameObject');
-import Level = require('../Level');
 import MessageClient = require('../MessageClient');
 import Message = require('../../../common/Message');
 import Vector2D = require('../../../common/Vector2D');
+import GameObjectLayer = require('../../../common/GameObjectLayer');
 
 import ServerAware = require('../IOC/ServerAware');
 import UIAware = require('../IOC/UIAware');
 import PlayerAware = require('../IOC/PlayerAware');
-import LevelAware = require('../IOC/LevelAware');
+import GameObjectLayerAware = require('../IOC/GameObjectLayerAware');
 
-class PickUp implements Command, ServerAware, UIAware, LevelAware, PlayerAware {
+class PickUp implements Command, ServerAware, GameObjectLayerAware, UIAware, PlayerAware {
 
     private messageClient:MessageClient;
     private uiAdapter:UIAdapter;
-    private level:Level;
     private player:GameObject;
+    private goLayer:GameObjectLayer;
 
     public setMessageClient(messageClient:MessageClient) {
         this.messageClient = messageClient;
@@ -27,8 +27,8 @@ class PickUp implements Command, ServerAware, UIAware, LevelAware, PlayerAware {
         this.uiAdapter = uiAdapter;
     }
 
-    public setLevel(level:Level) {
-        this.level = level;
+    public setGameObjectLayer(goLayer:GameObjectLayer) {
+        this.goLayer = goLayer;
     }
 
     public setPlayer(player:GameObject) {
@@ -40,7 +40,7 @@ class PickUp implements Command, ServerAware, UIAware, LevelAware, PlayerAware {
     }
 
     public canExecute():boolean {
-        var go = this.level.getTopItem(this.player.getPosition());
+        var go = this.goLayer.getTopPickupableGameObject(this.player.getPosition());
         if(!go) {
             return false;
         }
@@ -48,8 +48,7 @@ class PickUp implements Command, ServerAware, UIAware, LevelAware, PlayerAware {
     }
 
     public execute() {
-        var go = this.level.getTopItem(this.player.getPosition());
-        this.level.pickUpByPlayer(go, this.player);
+        var go = this.goLayer.getTopPickupableGameObject(this.player.getPosition());
         this.uiAdapter.logOnUI("You pick up the "+go.getName()+".");
         this.uiAdapter.addItemToUI(go.getId(), go.getName());
         this.messageClient.send(new Message('being-picked-up', {
