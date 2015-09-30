@@ -1,6 +1,6 @@
 
 
-import Message = require('../../common/Message');
+import Message = require('Message');
 
 
 interface MessageClient {

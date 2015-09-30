@@ -1,6 +1,6 @@
 
 
-import GameObjectLayer = require('../../../common/GameObjectLayer');
+import GameObjectLayer = require('../GameObjectLayer');
 
 interface GameObjectLayerAware {
     setGameObjectLayer(board:GameObjectLayer):void;

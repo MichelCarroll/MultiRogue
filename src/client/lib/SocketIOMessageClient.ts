@@ -4,7 +4,7 @@
 var io:SocketIO = require('socket.io-client');
 import Socket = require('./Socket');
 import Message = require('../../common/Message');
-import MessageClient = require('./MessageClient');
+import MessageClient = require('../../common/MessageClient');
 
 declare class SocketIO {
     connect(url: string): Socket;

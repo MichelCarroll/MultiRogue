@@ -11,32 +11,42 @@ class BrowserAdapter implements UIAdapter {
     private display:ROT.Display = null;
     private size:Vector2D = null;
 
-    public addPlayerToUI = function(playerId, playerName) {
+    public addPlayerToUI(playerId, playerName) {
         $('#game-players').append(
             '<li class="list-group-item" pid="'+playerId+'">'+playerName+'</li>'
         );
-    };
+    }
 
-    public highlightPlayer = function(playerId) {
+    public highlightPlayer(playerId) {
         $('#game-players').find('li.active').removeClass('active');
         $('#game-players').find('li[pid="'+playerId+'"]').addClass('active');
-    };
+    }
 
-    public removePlayerFromUI = function(playerId) {
+    public removePlayerFromUI(playerId) {
         $('#game-players').find('li[pid="'+playerId+'"]').remove();
-    };
+    }
 
-    public addItemToUI = function(itemId, itemName) {
+    public addItemToUI(itemId, itemName) {
         $('#game-items').append(
             $('<li class="list-group-item" goid="'+itemId+'">'+itemName+'</li>')
         );
-    };
+    }
 
-    public removeItemFromUI = function(itemId) {
+    public removeItemFromUI(itemId) {
         $('#game-items').find('li[goid="'+itemId+'"]').remove();
-    };
+    }
 
-    public logOnUI = function(message, logTag) {
+    public emptyItems() {
+        $('#game-items').empty();
+    }
+
+    public getItemIds() {
+        return $('#game-items').find('li').map(function(item){
+            return $(item).attr('goid');
+        });
+    }
+
+    public logOnUI(message, logTag) {
         while($('#game-log li').length > 200) {
             $('#game-log li:last').remove();
         }
@@ -45,21 +55,21 @@ class BrowserAdapter implements UIAdapter {
             className += ' list-group-item-'+logTag;
         }
         $('#game-log').prepend('<li class="'+className+'">'+message+'</li>');
-    };
+    }
 
-    public clearPlayerList = function() {
+    public clearPlayerList() {
         $('#game-players').empty();
-    };
+    }
 
-    public clearMap = function() {
+    public clearMap() {
         $('#game').empty();
-    };
+    }
 
-    private setGameCanvas = function(canvas) {
+    private setGameCanvas(canvas) {
         $('#game').append(canvas);
-    };
+    }
 
-    public drawMap = function() {
+    public drawMap() {
         if(!this.display) {
             return;
         }
@@ -70,9 +80,9 @@ class BrowserAdapter implements UIAdapter {
                 this.display.draw(tile.position.x, tile.position.y, tile.token, tile.frontColor, tile.backColor);
             }
         }
-    };
+    }
 
-    private getBestFontSize = function(size:Vector2D) {
+    private getBestFontSize(size:Vector2D) {
         var characterAspectRatio = 18 / 11;
         var heightFactor = $('#game').innerHeight() / size.y;
         var widthFactor = $('#game').innerWidth() / size.x * characterAspectRatio;
@@ -82,9 +92,9 @@ class BrowserAdapter implements UIAdapter {
             factor = heightFactor;
         }
         return Math.floor(factor);
-    };
+    }
 
-    public setGameDisplayAdapter = function(adapter:GameDisplayAdapter) {
+    public setGameDisplayAdapter(adapter:GameDisplayAdapter) {
         if(this.display) {
             this.clearMap();
         }
@@ -96,7 +106,7 @@ class BrowserAdapter implements UIAdapter {
         });
         this.getTileCallback = adapter.getTileCallback;
         this.setGameCanvas(this.display.getContainer());
-    };
+    }
     
     public setRemainingActionPoints(actionPoints:number) {
         if(actionPoints <= 0) {

@@ -1,21 +1,18 @@
 
 import Command = require('../Command');
-import UIAdapter = require('../UIAdapter');
-import GameObject = require('../../../common/GameObject');
+import GameObject = require('../GameObject');
 import MessageClient = require('../MessageClient');
-import Message = require('../../../common/Message');
-import Container = require('../../../common/Components/Container');
-import Vector2D = require('../../../common/Vector2D');
+import Message = require('../Message');
+import Container = require('../Components/Container');
+import Vector2D = require('../Vector2D');
 
 import ServerAware = require('../IOC/ServerAware');
-import UIAware = require('../IOC/UIAware');
 import PlayerAware = require('../IOC/PlayerAware');
 
-class Drop implements Command, ServerAware, UIAware, PlayerAware {
+class Drop implements Command, ServerAware, PlayerAware {
 
     private goId:number;
     private messageClient:MessageClient;
-    private uiAdapter:UIAdapter;
     private player:GameObject;
 
     constructor(goId:number) {
@@ -24,10 +21,6 @@ class Drop implements Command, ServerAware, UIAware, PlayerAware {
 
     public setMessageClient(messageClient:MessageClient) {
         this.messageClient = messageClient;
-    }
-
-    public setUIAdapter(uiAdapter:UIAdapter) {
-        this.uiAdapter = uiAdapter;
     }
 
     public setPlayer(player:GameObject) {
@@ -42,10 +35,13 @@ class Drop implements Command, ServerAware, UIAware, PlayerAware {
         return this.player.getContainerComponent().getInventory().has(this.goId);
     }
 
+    public getFeedbackMessage() {
+        var go = this.player.getContainerComponent().getInventory().get(this.goId);
+        return "You drop the "+go.getName()+".";
+    }
+
     public execute() {
         var go = this.player.getContainerComponent().getInventory().get(this.goId);
-        this.uiAdapter.logOnUI("You drop the "+go.getName()+".");
-        this.uiAdapter.removeItemFromUI(go.getId());
         this.messageClient.send(new Message('being-dropped', {
             'playerId': this.player.getId(),
             'objectId': go.getId()

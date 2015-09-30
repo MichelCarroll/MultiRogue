@@ -1,6 +1,6 @@
 
 
-import GameObject = require('../../../common/GameObject');
+import GameObject = require('../GameObject');
 
 interface PlayerAware {
     setPlayer(player:GameObject):void;

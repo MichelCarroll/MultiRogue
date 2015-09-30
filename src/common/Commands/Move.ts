@@ -1,10 +1,10 @@
 
 import Command = require('../Command');
-import GameObject = require('../../../common/GameObject');
-import GameObjectLayer = require('../../../common/GameObjectLayer');
+import GameObject = require('../GameObject');
+import GameObjectLayer = require('../GameObjectLayer');
 import MessageClient = require('../MessageClient');
-import Message = require('../../../common/Message');
-import Vector2D = require('../../../common/Vector2D');
+import Message = require('../Message');
+import Vector2D = require('../Vector2D');
 
 import ServerAware = require('../IOC/ServerAware');
 import PlayerAware = require('../IOC/PlayerAware');
@@ -35,6 +35,10 @@ class Move implements Command, ServerAware, GameObjectLayerAware, PlayerAware {
 
     public getTurnsRequired():number {
         return 1;
+    }
+
+    public getFeedbackMessage() {
+        return '';
     }
 
     public canExecute():boolean {

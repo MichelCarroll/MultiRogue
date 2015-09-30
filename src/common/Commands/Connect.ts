@@ -1,11 +1,11 @@
 
 import Command = require('../Command');
 import MessageClient = require('../MessageClient');
-import Message = require('../../../common/Message');
+import Message = require('../Message');
 
 import ServerAware = require('../IOC/ServerAware');
 
-class Disconnect implements Command, ServerAware {
+class Connect implements Command, ServerAware {
 
     private messageClient:MessageClient;
 
@@ -18,12 +18,17 @@ class Disconnect implements Command, ServerAware {
     }
 
     public canExecute():boolean {
-        return this.messageClient.isConnected();
+        return !this.messageClient.isConnected();
+    }
+
+    public getFeedbackMessage() {
+        return '';
     }
 
     public execute() {
-        this.messageClient.disconnect();
+        this.messageClient.connect();
+        this.messageClient.send(new Message('ready'));
     }
 }
 
-export = Disconnect;
+export = Connect;

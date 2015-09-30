@@ -9,10 +9,10 @@ import GameObject = require('../../common/GameObject');
 import Playable = require('../../common/Components/Playable');
 import DisplayAdapter = require('./DisplayAdapter');
 import BeingCommand = require('./PlayerCommand');
-import Command = require('./Command');
+import Command = require('../../common/Command');
 import GameObjectLayer = require('../../common/GameObjectLayer');
 import Message = require('../../common/Message');
-import MessageClient = require('./MessageClient');
+import MessageClient = require('../../common/MessageClient');
 import Context = require('./Context');
 
 class Commander {
@@ -67,7 +67,13 @@ class Commander {
             this.context.uiAdapter.logOnUI("You can't do that!");
             return;
         }
+
+        var feedbackMessage = command.getFeedbackMessage(); //race condition
         command.execute();
+
+        if(feedbackMessage.length > 0) {
+            this.context.uiAdapter.logOnUI(feedbackMessage);
+        }
 
         if(command.getTurnsRequired() > 0) {
             if (this.getRemainingTurns() <= 0) {

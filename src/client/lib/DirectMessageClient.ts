@@ -1,7 +1,7 @@
 
 
 import Message = require('../../common/Message');
-import MessageClient = require('./MessageClient');
+import MessageClient = require('../../common/MessageClient');
 import DirectMessageServer = require('../../server/DirectMessageServer');
 
 class DirectMessageClient implements MessageClient {

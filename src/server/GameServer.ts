@@ -89,15 +89,6 @@ class GameServer {
             messageDispatcher.broadcast(new Message('being-moved', { player: player.getBeing().serialize()}));
         });
 
-        messageDispatcher.on('being-looked-at-floor', function(message:Message) {
-            if(!self.level.canPlay(player)) {
-                return;
-            }
-            self.level.useTurns(player, 1);
-            messageDispatcher.emit(new Message('sync', { viewpoint: self.level.getViewpoint(player).serialize()}));
-            messageDispatcher.broadcast(new Message('being-looked-at-floor', player.getBeing().serialize()));
-        });
-
         messageDispatcher.on('sync-request', function() {
             if(!self.level || !player){
                 return;

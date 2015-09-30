@@ -6,13 +6,12 @@ var ClientParameters = require('./build/client/lib/ClientParameters');
 var TestUIAdapter = require('./build/client/lib/TestUIAdapter');
 var Vector2D = require('./build/common/Vector2D');
 
-var DropCommand = require('./build/client/lib/Commands/Drop');
-var MoveCommand = require('./build/client/lib/Commands/Move');
-var ShoutCommand = require('./build/client/lib/Commands/Shout');
-var PickUpCommand = require('./build/client/lib/Commands/PickUp');
-var FloorLookCommand = require('./build/client/lib/Commands/FloorLook');
-var ConnectCommand = require('./build/client/lib/Commands/Connect');
-var DisconnectCommand = require('./build/client/lib/Commands/Disconnect');
+var DropCommand = require('./build/common/Commands/Drop');
+var MoveCommand = require('./build/common/Commands/Move');
+var ShoutCommand = require('./build/common/Commands/Shout');
+var PickUpCommand = require('./build/common/Commands/PickUp');
+var ConnectCommand = require('./build/common/Commands/Connect');
+var DisconnectCommand = require('./build/common/Commands/Disconnect');
 
 
 var UP = [0, -1];

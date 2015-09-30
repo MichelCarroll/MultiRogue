@@ -7,12 +7,11 @@ import ClientParameters = require('./ClientParameters');
 import GameDisplayAdapter = require('./GameDisplayAdapter');
 import Vector2D = require('../../common/Vector2D');
 
-import DropCommand = require('./Commands/Drop');
-import MoveCommand = require('./Commands/Move');
-import ShoutCommand = require('./Commands/Shout');
-import PickUpCommand = require('./Commands/PickUp');
-import FloorLookCommand = require('./Commands/FloorLook');
-import ConnectCommand = require('./Commands/Connect');
+import DropCommand = require('../../common/Commands/Drop');
+import MoveCommand = require('../../common/Commands/Move');
+import ShoutCommand = require('../../common/Commands/Shout');
+import PickUpCommand = require('../../common/Commands/PickUp');
+import ConnectCommand = require('../../common/Commands/Connect');
 
 declare var $:any;
 
@@ -43,7 +42,6 @@ $(document).ready(function() {
         map[ROT.VK_RIGHT] = new MoveCommand(new Vector2D(1,  0));
         map[ROT.VK_DOWN] =  new MoveCommand(new Vector2D(0,  1));
         map[ROT.VK_LEFT] =  new MoveCommand(new Vector2D(-1, 0));
-        map[ROT.VK_PERIOD]= new FloorLookCommand();
         map[ROT.VK_K]=      new PickUpCommand();
         return map;
     }

@@ -10,11 +10,11 @@ import UIAdapter = require('./UIAdapter');
 import DisplayAdapter = require('./DisplayAdapter');
 import Commander = require('./Commander');
 import Vector2D = require('../../common/Vector2D');
-import MessageClient = require('./MessageClient');
+import MessageClient = require('../../common/MessageClient');
 import SocketIOMessageClient = require('./SocketIOMessageClient');
 import DirectMessageClient = require('./DirectMessageClient');
 import ClientParameters = require('./ClientParameters');
-import Command = require('./Command');
+import Command = require('../../common/Command');
 import Message = require('../../common/Message');
 import Playable = require('../../common/Components/Playable');
 import Serializer = require('../../common/Serializer');
@@ -107,10 +107,6 @@ class GameClient {
             self.context.displayAdapter.clear();
         });
 
-        this.context.messageClient.on('being-looked-at-floor', function(message:Message) {
-            self.context.uiAdapter.logOnUI(message.getData().name+" inspected an object on the floor.", CHAT_LOG_INFO);
-        });
-
         this.context.messageClient.on('game-object-remove', function(message:Message) {
             self.requestSync();
         });
@@ -150,7 +146,17 @@ class GameClient {
     private sync(viewpoint:any) {
         this.context.level.setViewpoint(viewpoint.layer);
         this.context.player.deserialize(viewpoint.player);
+        this.syncInventory();
         this.context.uiAdapter.setRemainingActionPoints(this.context.player.getPlayableComponent().getRemainingTurns());
+    }
+
+    private syncInventory() {
+        var gos = this.context.player.getContainerComponent().getInventory().getAll();
+        this.context.uiAdapter.emptyItems(); // this can be drastically improved...
+        var self = this;
+        gos.forEach(function(go:GameObject) {
+            self.context.uiAdapter.addItemToUI(go.getId(), go.getName());
+        });
     }
 
     public handleScreenResize() {

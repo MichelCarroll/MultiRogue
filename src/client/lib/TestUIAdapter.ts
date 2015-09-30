@@ -10,23 +10,27 @@ class TestUIAdapter implements UIAdapter {
             {position:Vector2D; token:string; frontColor:string; backColor:string} = null;
 
     private actionPoints:number = 0;
-    private players = [];
+    private players:any = [];
     private highlightedPlayer = null;
-    private items = [];
-    private log:string[] = [];
+    private items:any = [];
+    private log:any[] = [];
 
-    public addPlayerToUI = function(playerId, playerName) {
+    public emptyItems() {
+        this.items = [];
+    }
+
+    public addPlayerToUI(playerId, playerName) {
         this.players.push({
             id: playerId,
             name: playerName
         });
-    };
+    }
 
-    public highlightPlayer = function(playerId) {
+    public highlightPlayer(playerId) {
         this.highlightedPlayer = playerId;
     }
 
-    public removePlayerFromUI = function(playerId) {
+    public removePlayerFromUI(playerId) {
         var index = this.players.findIndex(function(player) {
             return player.id == playerId;
         });
@@ -38,39 +42,39 @@ class TestUIAdapter implements UIAdapter {
         }
     }
 
-    public addItemToUI = function(itemId, itemName) {
+    public addItemToUI(itemId, itemName) {
         this.items.push({
             id: itemId,
             name: itemName
         });
     }
 
-    public removeItemFromUI = function(itemId) {
+    public removeItemFromUI(itemId) {
         var index = this.items.findIndex(function(item) {
             return item.id == itemId;
         });
         if(index !== -1) {
             delete this.items[index];
         }
-    };
+    }
 
-    public logOnUI = function(message, logTag) {
+    public logOnUI(message, logTag) {
         this.log.push({
             'message': message,
             'tag': logTag
         });
-    };
+    }
 
-    public clearPlayerList = function() {
+    public clearPlayerList() {
         this.players = [];
-    };
+    }
 
-    public setGameDisplayAdapter = function(adapter:GameDisplayAdapter) {
+    public setGameDisplayAdapter(adapter:GameDisplayAdapter) {
         this.getTileCallback = adapter.getTileCallback;
-    };
+    }
 
-    public clearMap = function() {};
-    public drawMap = function() {};
+    public clearMap() {}
+    public drawMap() {}
 
 
     public getPlayers() {
@@ -83,6 +87,12 @@ class TestUIAdapter implements UIAdapter {
 
     public getItems() {
         return this.items;
+    }
+
+    public getItemIds() {
+        return this.items.map(function(item) {
+            return item.id;
+        });
     }
 
     public getHighlightedPlayerId() {
