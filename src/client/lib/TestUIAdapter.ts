@@ -89,12 +89,6 @@ class TestUIAdapter implements UIAdapter {
         return this.items;
     }
 
-    public getItemIds() {
-        return this.items.map(function(item) {
-            return item.id;
-        });
-    }
-
     public getHighlightedPlayerId() {
         return this.highlightedPlayer;
     }

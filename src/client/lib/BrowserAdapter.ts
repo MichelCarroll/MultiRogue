@@ -40,12 +40,6 @@ class BrowserAdapter implements UIAdapter {
         $('#game-items').empty();
     }
 
-    public getItemIds() {
-        return $('#game-items').find('li').map(function(item){
-            return $(item).attr('goid');
-        });
-    }
-
     public logOnUI(message, logTag) {
         while($('#game-log li').length > 200) {
             $('#game-log li:last').remove();

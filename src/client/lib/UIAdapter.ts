@@ -18,7 +18,6 @@ interface UIAdapter {
     addItemToUI(itemId:number, itemName:string):void;
     removeItemFromUI(itemId:number):void;
     setRemainingActionPoints(actionPoints:number):void;
-    getItemIds():number[];
     emptyItems():void;
 
 }
