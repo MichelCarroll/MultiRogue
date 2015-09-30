@@ -39,11 +39,7 @@ class Drop implements Command, ServerAware, UIAware, PlayerAware {
     }
 
     public canExecute():boolean {
-        var go = this.player.getContainerComponent().getInventory().get(this.goId);
-        if(!go) {
-            return false;
-        }
-        return true;
+        return this.player.getContainerComponent().getInventory().has(this.goId);
     }
 
     public execute() {

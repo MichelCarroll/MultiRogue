@@ -98,6 +98,9 @@ var Simulator = {
                     var itemId = items[0].id;
                     return obj.drops(itemId);
                 };
+                obj.dropsItem = function(itemId) {
+                    return obj.drops(itemId);
+                }
 
                 obj.getTileTokenAt = function(x, y) {
                     return testAdapter.getTileAt(new Vector2D(x,y)).token;
