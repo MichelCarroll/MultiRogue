@@ -6,3 +6,7 @@ TESTS:
 visibility
 turns and notifications
 unit tests for hybrid direct/socketio connecting/disconnecting
+
+
+BUG:
+when mixing AI being and player beings, active player on HUD is sometimes wrong. and maybe so is the being ID ?
