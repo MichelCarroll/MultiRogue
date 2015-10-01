@@ -20,6 +20,7 @@ import Playable = require('../../common/Components/Playable');
 import Serializer = require('../../common/Serializer');
 import Context = require('./Context');
 
+
 var CHAT_LOG_SUCCESS = 'success';
 var CHAT_LOG_WARNING = 'warning';
 var CHAT_LOG_INFO = 'info';
@@ -37,10 +38,10 @@ class GameClient {
         this.context = new Context();
         this.context.uiAdapter = uiAdapter;
         this.context.displayAdapter = new DisplayAdapter(this.context.uiAdapter);
-        if(params.getMessagingServer()) {
-            this.context.messageClient = new DirectMessageClient(params.getMessagingServer(), this.hookSocketEvents.bind(this));
+        if(params.messagingServer) {
+            this.context.messageClient = new DirectMessageClient(params.messagingServer, this.hookSocketEvents.bind(this));
         } else {
-            this.context.messageClient = new SocketIOMessageClient(params.getServerAddress(), this.hookSocketEvents.bind(this));
+            this.context.messageClient = new SocketIOMessageClient(params.serverAddress, this.hookSocketEvents.bind(this));
         }
         this.commander = new Commander(this.context);
     }

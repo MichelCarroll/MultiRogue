@@ -24,7 +24,7 @@ $(document).ready(function() {
         url = 'http://'+document.location.hostname;
     }
 
-    var game = new GameClient(new ClientParameters(url+':3000'), new BrowserAdapter());
+    var game = new GameClient({serverAddress:url+':3000'}, new BrowserAdapter());
 
     $('#game-chat-button').click(function() {
         var text = $('#game-chat').val();
