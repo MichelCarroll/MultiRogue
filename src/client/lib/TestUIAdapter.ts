@@ -1,6 +1,7 @@
 
-import GameDisplayAdapter = require('./GameDisplayAdapter');
 import Vector2D = require('../../common/Vector2D');
+
+import GameDisplayAdapter = require('./GameDisplayAdapter');
 import UIAdapter = require('./UIAdapter');
 
 class TestUIAdapter implements UIAdapter {

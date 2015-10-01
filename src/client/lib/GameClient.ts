@@ -5,19 +5,20 @@
 /// <reference path="../../../definitions/rot.d.ts"/>
 
 import GameObject = require('../../common/GameObject');
-import Level = require('./Level');
-import UIAdapter = require('./UIAdapter');
-import DisplayAdapter = require('./DisplayAdapter');
-import Commander = require('./Commander');
 import Vector2D = require('../../common/Vector2D');
-import MessageClient = require('../../common/MessageClient');
-import SocketIOMessageClient = require('./SocketIOMessageClient');
-import DirectMessageClient = require('./DirectMessageClient');
-import ClientParameters = require('./ClientParameters');
 import Command = require('../../common/Command');
 import Message = require('../../common/Message');
 import Playable = require('../../common/Components/Playable');
 import Serializer = require('../../common/Serializer');
+
+import Level = require('./Level');
+import UIAdapter = require('./UIAdapter');
+import DisplayAdapter = require('./DisplayAdapter');
+import Commander = require('./Commander');
+import MessageClient = require('../../common/MessageClient');
+import SocketIOMessageClient = require('./SocketIOMessageClient');
+import DirectMessageClient = require('./DirectMessageClient');
+import ClientParameters = require('./ClientParameters');
 import Context = require('./Context');
 
 

@@ -1,7 +1,8 @@
 
-import UIAdapter = require('./UIAdapter');
 import MessageClient = require('../../common/MessageClient');
 import GameObject = require('../../common/GameObject');
+
+import UIAdapter = require('./UIAdapter');
 import Level = require('./Level');
 import DisplayAdapter = require('./DisplayAdapter');
 

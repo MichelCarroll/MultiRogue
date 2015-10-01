@@ -3,6 +3,7 @@
  */
 
 import Vector2D = require('../../common/Vector2D');
+
 import GameDisplayAdapter = require('./GameDisplayAdapter');
 
 interface UIAdapter {

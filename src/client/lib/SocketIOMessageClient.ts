@@ -2,9 +2,11 @@
 /// <reference path="../../../definitions/vendor/socket.io-client.d.ts"/>
 
 var io:SocketIO = require('socket.io-client');
-import Socket = require('./Socket');
+
 import Message = require('../../common/Message');
 import MessageClient = require('../../common/MessageClient');
+
+import Socket = require('./Socket');
 
 declare class SocketIO {
     connect(url: string): Socket;

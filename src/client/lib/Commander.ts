@@ -4,15 +4,16 @@
 
 /// <reference path="../../../definitions/rot.d.ts"/>
 
-import UIAdapter = require('./UIAdapter');
 import GameObject = require('../../common/GameObject');
-import Playable = require('../../common/Components/Playable');
-import DisplayAdapter = require('./DisplayAdapter');
-import BeingCommand = require('./PlayerCommand');
 import Command = require('../../common/Command');
 import GameObjectLayer = require('../../common/GameObjectLayer');
+import Playable = require('../../common/Components/Playable');
 import Message = require('../../common/Message');
 import MessageClient = require('../../common/MessageClient');
+
+import UIAdapter = require('./UIAdapter');
+import DisplayAdapter = require('./DisplayAdapter');
+import BeingCommand = require('./PlayerCommand');
 import Context = require('./Context');
 
 class Commander {
