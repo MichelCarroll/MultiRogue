@@ -7,16 +7,20 @@
 
 var fs = require('fs');
 
-import Player = require('./Player');
-import Level = require('./Level');
-import LevelGenerator = require('./Generators/LevelGenerator');
 import Vector2D = require('../common/Vector2D');
 import Playable = require('../common/Components/Playable');
+import Message = require('../common/Message');
+
 import ROT = require('./ROT');
+import LevelGenerator = require('./Generators/LevelGenerator');
+import Player = require('./Player');
+import Level = require('./Level');
 import MessageServer = require('./MessageServer');
 import MessageDispatcher = require('./MessageDispatcher');
 import ServerParameters = require('./ServerParameters');
-import Message = require('../common/Message');
+
+import ArtificialClient = require('./ArtificialClient');
+import DirectMessageDispatcher = require('./DirectMessageDispatcher');
 
 class GameServer {
 
@@ -28,6 +32,10 @@ class GameServer {
         this.level = (new LevelGenerator()).create();
         this.messageServer = new MessageServer(params.port);
         this.messageServer.start(this.onConnection.bind(this));
+
+        if(params.includeFakeClient) {
+            new ArtificialClient(this.messageServer);
+        }
     }
 
     public getMessageServer():MessageServer {

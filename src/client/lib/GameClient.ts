@@ -18,7 +18,7 @@ import DisplayAdapter = require('./DisplayAdapter');
 import Commander = require('./Commander');
 import MessageClient = require('../../common/MessageClient');
 import SocketIOMessageClient = require('./SocketIOMessageClient');
-import DirectMessageClient = require('./DirectMessageClient');
+import DirectMessageClient = require('../../common/DirectMessageClient');
 import ClientParameters = require('./ClientParameters');
 import Context = require('./Context');
 
