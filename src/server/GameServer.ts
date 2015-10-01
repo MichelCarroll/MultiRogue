@@ -14,8 +14,6 @@ import Vector2D = require('../common/Vector2D');
 import Playable = require('../common/Components/Playable');
 import ROT = require('./ROT');
 import MessageServer = require('./MessageServer');
-import SocketIOMessageServer = require('./SocketIOMessageServer');
-import DirectMessageServer = require('./DirectMessageServer');
 import MessageDispatcher = require('./MessageDispatcher');
 import ServerParameters = require('./ServerParameters');
 import Message = require('../common/Message');
@@ -28,11 +26,7 @@ class GameServer {
     constructor(params:ServerParameters) {
         ROT.RNG.setSeed(params.randomSeed);
         this.level = (new LevelGenerator()).create();
-        if(params.port) {
-            this.messageServer = new SocketIOMessageServer(params.port);
-        } else {
-            this.messageServer = new DirectMessageServer();
-        }
+        this.messageServer = new MessageServer(params.port);
         this.messageServer.start(this.onConnection.bind(this));
     }
 

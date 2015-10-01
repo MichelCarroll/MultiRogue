@@ -5,3 +5,4 @@ the Level class on the server is a real cluster**** of functionality. typical "m
 TESTS:
 visibility
 turns and notifications
+unit tests for hybrid direct/socketio connecting/disconnecting
