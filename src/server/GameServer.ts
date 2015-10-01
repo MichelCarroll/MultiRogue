@@ -26,10 +26,10 @@ class GameServer {
     private messageServer:MessageServer;
 
     constructor(params:ServerParameters) {
-        ROT.RNG.setSeed(params.getRandomSeed());
+        ROT.RNG.setSeed(params.randomSeed);
         this.level = (new LevelGenerator()).create();
-        if(params.getPort()) {
-            this.messageServer = new SocketIOMessageServer(params.getPort());
+        if(params.port) {
+            this.messageServer = new SocketIOMessageServer(params.port);
         } else {
             this.messageServer = new DirectMessageServer();
         }

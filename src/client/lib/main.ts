@@ -3,7 +3,6 @@
 
 import GameClient = require('./GameClient');
 import BrowserAdapter = require('./BrowserAdapter');
-import ClientParameters = require('./ClientParameters');
 import GameDisplayAdapter = require('./GameDisplayAdapter');
 import Vector2D = require('../../common/Vector2D');
 

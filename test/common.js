@@ -1,8 +1,6 @@
 
 var GameServer = require('./build/server/GameServer');
-var ServerParameters = require('./build/server/ServerParameters');
 var GameClient = require('./build/client/lib/GameClient');
-var ClientParameters = require('./build/client/lib/ClientParameters');
 var TestUIAdapter = require('./build/client/lib/TestUIAdapter');
 var Vector2D = require('./build/common/Vector2D');
 
@@ -21,7 +19,7 @@ var LEFT = [-1, 0];
 
 var Simulator = {
     serverBoots: function() {
-        var server = new GameServer(new ServerParameters(null, 19582923));
+        var server = new GameServer({randomSeed: 19582923});
 
         return {
             clientConnects: function() {
