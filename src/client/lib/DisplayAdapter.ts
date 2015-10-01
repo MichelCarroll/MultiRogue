@@ -1,26 +1,23 @@
 
 /// <reference path="../../../definitions/rot.d.ts"/>
 
-import GameObject = require('../../common/GameObject');
 import Vector2D = require('../../common/Vector2D');
-import GameObjectLayer = require('../../common/GameObjectLayer');
 
 import UIAdapter = require('./UIAdapter');
+import Context = require('./Context');
 import GameDisplayAdapter = require('./GameDisplayAdapter');
 
 class DisplayAdapter {
 
-    private uiAdapter:UIAdapter;
+    private context:Context;
     private mapSize:Vector2D;
-    private goLayer:GameObjectLayer;
 
-    constructor(uiAdapter:UIAdapter) {
-        this.uiAdapter = uiAdapter;
+    constructor(context:Context) {
+        this.context = context;
     }
 
-    public reinitialize(mapSize:Vector2D, goLayer:GameObjectLayer) {
+    public reinitialize(mapSize:Vector2D) {
         this.mapSize = mapSize;
-        this.goLayer = goLayer;
 
         this.recreateGameDisplay();
     }
@@ -34,11 +31,11 @@ class DisplayAdapter {
     }
 
     public draw() {
-        this.uiAdapter.drawMap();
+        this.context.getUIAdapter().drawMap();
     }
 
     public clear() {
-        this.uiAdapter.clearMap();
+        this.context.getUIAdapter().clearMap();
     }
 
     private recreateGameDisplay()
@@ -46,7 +43,7 @@ class DisplayAdapter {
         var self = this;
 
         var getTileAppearance = function(coord:Vector2D) {
-            var gameObject = self.goLayer.getTopRenderableGameObject(coord);
+            var gameObject = self.context.getLevel().getGameObjectLayer().getTopRenderableGameObject(coord);
 
             if(gameObject) {
                 return {
@@ -65,11 +62,11 @@ class DisplayAdapter {
             };
         };
 
-        this.uiAdapter.setGameDisplayAdapter(new GameDisplayAdapter(
+        this.context.getUIAdapter().setGameDisplayAdapter(new GameDisplayAdapter(
             this.mapSize,
             getTileAppearance.bind(this)
         ));
-        this.uiAdapter.drawMap();
+        this.context.getUIAdapter().drawMap();
     }
 }
 

@@ -1,9 +1,9 @@
 
-import Repository = require('./../common/Repository');
-import GameObject = require('./../common/GameObject');
-import GameObjectLayer = require('./../common/GameObjectLayer');
-import Serializable = require('./../common/Serializable');
-import Serializer = require('./../common/Serializer');
+import Repository = require('./Repository');
+import GameObject = require('./GameObject');
+import GameObjectLayer = require('./GameObjectLayer');
+import Serializable = require('./Serializable');
+import Serializer = require('./Serializer');
 
 class Viewpoint implements Serializable {
 
@@ -12,6 +12,7 @@ class Viewpoint implements Serializable {
 
     constructor() {
         this.layer = new GameObjectLayer();
+        this.player = new GameObject();
     }
 
 
@@ -23,6 +24,14 @@ class Viewpoint implements Serializable {
         this.player = go;
     }
 
+    public getPlayer():GameObject {
+        return this.player;
+    }
+
+    public getLayer():GameObjectLayer {
+        return this.layer;
+    }
+
     public serialize():any {
         return {
             'layer': this.layer.serialize(),
@@ -31,7 +40,8 @@ class Viewpoint implements Serializable {
     }
 
     public deserialize(data:any) {
-        //not meant to be deserialized
+        this.layer.deserialize(data.layer);
+        this.player.deserialize(data.player);
     }
 
 }

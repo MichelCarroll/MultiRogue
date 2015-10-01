@@ -47,8 +47,18 @@ class GameServer {
         messageDispatcher.on('disconnect', function() {
             if(player) {
                 self.level.removePlayer(player);
-                messageDispatcher.broadcast(new Message('player-left', player.getBeing().serialize()));
+                messageDispatcher.broadcast(new Message('player-left', {
+                    player: player.getBeing()
+                }));
             }
+        });
+
+        messageDispatcher.on('idle', function() {
+            if(!self.level.canPlay(player)) {
+                return;
+            }
+            self.level.useTurns(player, 1);
+            messageDispatcher.emit(new Message('sync', { viewpoint: self.level.getViewpoint(player)}));
         });
 
         messageDispatcher.on('shout', function(message:Message) {
@@ -57,7 +67,7 @@ class GameServer {
                 return;
             }
             self.level.useTurns(player, 1);
-            messageDispatcher.emit(new Message('sync', { viewpoint: self.level.getViewpoint(player).serialize()}));
+            messageDispatcher.emit(new Message('sync', { viewpoint: self.level.getViewpoint(player)}));
             messageDispatcher.broadcast(new Message('being-shouted', {
                 'id': player.getBeing().getId(),
                 'name': player.getBeing().getName(),
@@ -79,15 +89,15 @@ class GameServer {
             }
 
             self.level.useTurns(player, 1);
-            messageDispatcher.emit(new Message('sync', { viewpoint: self.level.getViewpoint(player).serialize()}));
-            messageDispatcher.broadcast(new Message('being-moved', { player: player.getBeing().serialize()}));
+            messageDispatcher.emit(new Message('sync', { viewpoint: self.level.getViewpoint(player)}));
+            messageDispatcher.broadcast(new Message('being-moved', { player: player.getBeing()}));
         });
 
         messageDispatcher.on('sync-request', function() {
             if(!self.level || !player){
                 return;
             }
-            messageDispatcher.emit(new Message('sync', { viewpoint: self.level.getViewpoint(player).serialize()}));
+            messageDispatcher.emit(new Message('sync', { viewpoint: self.level.getViewpoint(player)}));
         });
 
         messageDispatcher.on('being-picked-up', function(message:Message) {
@@ -104,7 +114,7 @@ class GameServer {
             }
 
             self.level.useTurns(player, 1);
-            messageDispatcher.emit(new Message('sync', { viewpoint: self.level.getViewpoint(player).serialize()}));
+            messageDispatcher.emit(new Message('sync', { viewpoint: self.level.getViewpoint(player)}));
             messageDispatcher.broadcast(new Message('game-object-remove', { 'id': parseInt(data.objectId) }));
         });
 
@@ -123,8 +133,8 @@ class GameServer {
 
             self.level.useTurns(player, 1);
             var go = self.level.getObject(parseInt(data.objectId));
-            messageDispatcher.emit(new Message('sync', { viewpoint: self.level.getViewpoint(player).serialize()}));
-            messageDispatcher.broadcast(new Message('game-object-add', go.serialize()));
+            messageDispatcher.emit(new Message('sync', { viewpoint: self.level.getViewpoint(player)}));
+            messageDispatcher.broadcast(new Message('game-object-add', { go: go }));
         });
     }
 
@@ -135,10 +145,10 @@ class GameServer {
         });
         messageDispatcher.emit(new Message('initiate', {
             'level': this.level.getInitializationInformation(),
-            'viewpoint': this.level.getViewpoint(player).serialize(),
-            'player': player.getBeing().serialize()
+            'viewpoint': this.level.getViewpoint(player),
+            'player': player.getBeing()
         }));
-        messageDispatcher.broadcast(new Message('player-came', player.getBeing().serialize()));
+        messageDispatcher.broadcast(new Message('player-came', {  player: player.getBeing() }));
         this.level.resume();
         return player;
     }
@@ -146,14 +156,12 @@ class GameServer {
     private handleError(player:Player, error:Error, messageDispatcher:MessageDispatcher) {
         console.log(error);
         messageDispatcher.emit(new Message('debug', error.message));
-        messageDispatcher.broadcast(new Message('player-left', player.getBeing().serialize()));
+        messageDispatcher.broadcast(new Message('player-left', {  player: player.getBeing() }));
         this.level.removePlayer(player);
     }
 
     private callToStartTurns(player:Player, messageDispatcher:MessageDispatcher) {
-        messageDispatcher.emit(new Message('its-your-turn', {
-            player: player.getBeing().serialize()
-        }));
+        messageDispatcher.emit(new Message('its-your-turn', {  player: player.getBeing() }));
         messageDispatcher.broadcast(new Message('its-another-player-turn', {
             'id': player.getBeing().getId(),
             'name': player.getBeing().getName(),

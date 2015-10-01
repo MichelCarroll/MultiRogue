@@ -7,7 +7,7 @@ import Container = require('../../common/Components/Container');
 import Repository = require('../../common/Repository');
 import GameObjectLayer = require('../../common/GameObjectLayer');
 import Vector2D = require('../../common/Vector2D');
-import Serializer = require('../../common/Serializer');
+import Viewpoint = require('../../common/Viewpoint');
 
 class Level {
 
@@ -71,8 +71,8 @@ class Level {
         this.add(go);
     }
 
-    public setViewpoint(layerData:any) {
-        this.layer.deserialize(layerData);
+    public setViewpoint(viewpoint:Viewpoint) {
+        this.layer = viewpoint.getLayer();
     }
 
     public getTopGroundObject(position:Vector2D):GameObject {

@@ -1,6 +1,10 @@
 
 import Message = require('../common/Message');
 import MessageDispatcher = require('./MessageDispatcher');
+import Serializer = require('../common/Serializer');
+
+
+var util = require('util');
 
 class SocketIOMessageDispatcher implements MessageDispatcher {
 
@@ -14,8 +18,20 @@ class SocketIOMessageDispatcher implements MessageDispatcher {
         this.onDisconnect = onDisconnect;
     }
 
+    private serializeData(data):any {
+        if(!data) {
+            return {};
+        }
+        Object.getOwnPropertyNames(data).forEach(function(name) {
+            if(typeof data[name] == 'object' && data[name].serialize) {
+                data[name] = Serializer.serialize(data[name]);
+            }
+        });
+        return data;
+    }
+
     public emit(message:Message) {
-        this.socket.emit(message.getName(), message.getData());
+        this.socket.emit(message.getName(), this.serializeData(message.getData()));
     }
 
     public on(name:string, callback:(message:Message)=>void) {

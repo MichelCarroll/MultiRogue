@@ -5,6 +5,7 @@ var io:SocketIO = require('socket.io-client');
 
 import Message = require('../../common/Message');
 import MessageClient = require('../../common/MessageClient');
+import Serializer = require('../../common/Serializer');
 
 import Socket = require('./Socket');
 
@@ -48,6 +49,13 @@ class SocketIOMessageClient implements MessageClient {
 
         var self = this;
         this.socket.on(name, function(data:any) {
+            if(data) {
+                Object.getOwnPropertyNames(data).forEach(function(name) {
+                    if(data[name].__className) {
+                        data[name] = Serializer.deserialize(data[name]);
+                    }
+                });
+            }
             var message = new Message(name, data);
             if(self.debug) {
                 console.log('Received:');

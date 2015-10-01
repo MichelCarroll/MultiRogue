@@ -17,24 +17,24 @@ class Commander {
     private inject(command:any)
     {
         if(command.setGameObjectLayer) {
-            command.setGameObjectLayer(this.context.level.getGameObjectLayer());
+            command.setGameObjectLayer(this.context.getLevel().getGameObjectLayer());
         }
         if(command.setPlayer) {
-            command.setPlayer(this.context.player);
+            command.setPlayer(this.context.getPlayer());
         }
         if(command.setMessageClient) {
-            command.setMessageClient(this.context.messageClient);
+            command.setMessageClient(this.context.getMessageClient());
         }
     }
 
     private getRemainingTurns() {
-        return this.context.player.getPlayableComponent().getRemainingTurns();
+        return this.context.getPlayer().getPlayableComponent().getRemainingTurns();
     }
 
     public executeCommand(command:Command)
     {
         if(command.hasOwnProperty('setPlayer')) {
-            this.context.uiAdapter.logOnUI("You need to be connected to do this!");
+            this.context.getUIAdapter().logOnUI("You need to be connected to do this!");
             return;
         }
 
@@ -42,17 +42,17 @@ class Commander {
 
         if(command.getTurnsRequired() > 0) {
             if(!this.getRemainingTurns()) {
-                this.context.uiAdapter.logOnUI("It's not your turn!");
+                this.context.getUIAdapter().logOnUI("It's not your turn!");
                 return;
             }
             else if(this.getRemainingTurns() - command.getTurnsRequired() < 0) {
-                this.context.uiAdapter.logOnUI("You don't have enough turns to do this!");
+                this.context.getUIAdapter().logOnUI("You don't have enough turns to do this!");
                 return;
             }
         }
 
         if(!command.canExecute()) {
-            this.context.uiAdapter.logOnUI("You can't do that!");
+            this.context.getUIAdapter().logOnUI("You can't do that!");
             return;
         }
 
@@ -60,12 +60,12 @@ class Commander {
         command.execute();
 
         if(feedbackMessage.length > 0) {
-            this.context.uiAdapter.logOnUI(feedbackMessage);
+            this.context.getUIAdapter().logOnUI(feedbackMessage);
         }
 
         if(command.getTurnsRequired() > 0) {
             if (this.getRemainingTurns() <= 0) {
-                this.context.uiAdapter.logOnUI("Your turn is over.");
+                this.context.getUIAdapter().logOnUI("Your turn is over.");
             }
         }
     }

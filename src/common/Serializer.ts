@@ -9,8 +9,8 @@ class Serializer {
 
     static serialize(object:Serializable):any {
         return {
-            'className': (<any>object).constructor.name,
-            'properties': object.serialize()
+            '__className': (<any>object).constructor.name,
+            '__properties': object.serialize()
         };
     }
 
@@ -18,11 +18,11 @@ class Serializer {
         if(!DynamicClassLoader) {
             DynamicClassLoader = require('./DynamicClassLoader'); //to avoid circular dependencies
         }
-        var object:Serializable = DynamicClassLoader(data.className);
+        var object:Serializable = DynamicClassLoader(data.__className);
         if(!object) {
-            throw new Error('Cannot instanciate the class '+data.className);
+            throw new Error('Cannot instanciate the class '+data.__className);
         }
-        object.deserialize(data.properties);
+        object.deserialize(data.__properties);
         return object;
     }
 }
