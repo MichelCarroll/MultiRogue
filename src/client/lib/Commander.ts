@@ -13,7 +13,6 @@ import MessageClient = require('../../common/MessageClient');
 
 import UIAdapter = require('./UIAdapter');
 import DisplayAdapter = require('./DisplayAdapter');
-import BeingCommand = require('./PlayerCommand');
 import Context = require('./Context');
 
 class Commander {
