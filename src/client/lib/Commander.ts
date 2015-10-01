@@ -2,17 +2,8 @@
  * Created by michelcarroll on 15-04-03.
  */
 
-/// <reference path="../../../definitions/rot.d.ts"/>
-
-import GameObject = require('../../common/GameObject');
 import Command = require('../../common/Command');
-import GameObjectLayer = require('../../common/GameObjectLayer');
-import Playable = require('../../common/Components/Playable');
-import Message = require('../../common/Message');
-import MessageClient = require('../../common/MessageClient');
 
-import UIAdapter = require('./UIAdapter');
-import DisplayAdapter = require('./DisplayAdapter');
 import Context = require('./Context');
 
 class Commander {
@@ -33,9 +24,6 @@ class Commander {
         }
         if(command.setMessageClient) {
             command.setMessageClient(this.context.messageClient);
-        }
-        if(command.setUIAdapter) {
-            command.setUIAdapter(this.context.uiAdapter);
         }
     }
 
@@ -80,8 +68,6 @@ class Commander {
                 this.context.uiAdapter.logOnUI("Your turn is over.");
             }
         }
-
-        this.context.displayAdapter.draw();
     }
 }
 

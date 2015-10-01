@@ -167,6 +167,7 @@ class GameClient {
 
     public handleCommand(command:Command) {
         this.commander.executeCommand(command);
+        this.context.displayAdapter.draw();
     }
 }
 
