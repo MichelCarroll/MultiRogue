@@ -33,19 +33,20 @@ class ArtificialClient {
 
         this.messageClient.on('sync', function(message:Message) {
             self.viewpoint = (message.getData().viewpoint);
-            self.takeTurnIfApplicable();
         });
 
         this.messageClient.on('player-came', function(message:Message) {
             connectedActors++;
             self.isAloneOnServer = connectedActors == 0;
             self.messageClient.send(new Message('sync-request'));
+            self.takeTurnIfApplicable();
         });
 
         this.messageClient.on('player-left', function(message:Message) {
             connectedActors--;
             self.isAloneOnServer = connectedActors == 0;
             self.messageClient.send(new Message('sync-request'));
+            self.takeTurnIfApplicable();
         });
 
         this.messageClient.on('initiate', function(message:Message) {
