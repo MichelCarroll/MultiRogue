@@ -37,6 +37,10 @@ class Vector2D {
     public addVector(vector:Vector2D):Vector2D {
         return new Vector2D(this.x + vector.x, this.y + vector.y);
     }
+
+    public distanceFrom(vector:Vector2D):number {
+        return Math.sqrt(Math.pow(this.x - vector.x, 2) + Math.pow(this.y - vector.y, 2));
+    }
 }
 
 export = Vector2D;

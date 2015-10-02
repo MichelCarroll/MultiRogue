@@ -124,6 +124,9 @@ class Level  {
     }
 
     public moveActor(player:Actor, position:Vector2D) {
+        if(position.distanceFrom(player.getBeing().getPosition()) >= 2) { //diag is ok, and it's 1.4
+            throw new Error('Cant move that many spaces away');
+        }
         if(!this.tilesIndex.has(position.toString())) {
             throw new Error('Cant move there, no tile there');
         }

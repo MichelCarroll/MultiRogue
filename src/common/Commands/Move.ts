@@ -43,7 +43,10 @@ class Move implements Command, ServerAware, GameObjectLayerAware, PlayerAware {
 
     public canExecute():boolean {
         var coord = this.player.getPosition().addVector(this.direction);
-        if(!this.goLayer.getWalkableGameObject(coord)) {
+        if(coord.distanceFrom(this.player.getPosition()) >= 2) { //diag is ok, and it's 1.4
+            return false;
+        }
+        else if(!this.goLayer.getWalkableGameObject(coord)) {
             return false;
         }
         else if(this.goLayer.blocked(coord)) {

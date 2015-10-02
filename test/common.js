@@ -16,6 +16,10 @@ var UP = [0, -1];
 var RIGHT = [1, 0];
 var DOWN = [0, 1];
 var LEFT = [-1, 0];
+var RIGHTUP = [1, -1];
+var LEFTDOWN = [-1, 1];
+var RIGHTDOWN = [1, 1];
+var LEFTUP = [-1, -1];
 
 var Simulator = {
     serverBoots: function() {
@@ -36,6 +40,26 @@ var Simulator = {
                 obj.moves = function (direction) {
                     client.handleCommand(new MoveCommand(new Vector2D(direction[0], direction[1])));
                     return obj;
+                };
+
+                obj.moveRightUp = function () {
+                    return obj.moves(RIGHTUP);
+                };
+
+                obj.move = function (x,y) {
+                    return obj.moves([x,y]);
+                };
+
+                obj.moveRightDown = function () {
+                    return obj.moves(RIGHTDOWN);
+                };
+
+                obj.moveLeftUp = function () {
+                    return obj.moves(LEFTUP);
+                };
+
+                obj.moveLeftDown = function () {
+                    return obj.moves(LEFTDOWN);
                 };
 
                 obj.moveUp = function () {
