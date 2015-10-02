@@ -81,8 +81,9 @@ class ArtificialClient {
         var self = this;
         setImmediate(function() {
             if(!self.currentTarget || !self.viewpoint.getLayer().findGameObject(self.currentTarget.getId())) {
-                self.currentTarget = self.searchClosestPlayer();
+                self.currentTarget = self.searchClosestPlayer()
                 if(self.currentTarget) {
+                    self.shout('*looks at '+self.currentTarget.getName()+'* Fresh meat..');
                     self.moveTowards(self.currentTarget.getPosition());
                 }
                 else {
