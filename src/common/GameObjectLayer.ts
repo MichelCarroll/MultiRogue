@@ -98,6 +98,22 @@ class GameObjectLayer implements Serializable {
         return this.getFirstGOWithComponent(position, 'Renderable');
     }
 
+    public getAllGoWithComponents(componentNames:string[]):GameObject[] {
+        var gos = [];
+        var self = this;
+        Object.getOwnPropertyNames(this.goStacks).forEach(function(key) {
+            Array.prototype.push.apply(gos, self.goStacks[key].filter(function(go:GameObject) {
+                for(var i = 0; i < componentNames.length; i++) {
+                    if(!go.hasComponent(componentNames[i])) {
+                        return false;
+                    }
+                }
+                return true;
+            }));
+        });
+        return gos;
+    }
+
     public getFirstGOWithoutComponent(position:Vector2D, componentName:string):GameObject {
         var key = position.toString();
         if (!this.goStacks[key]) {

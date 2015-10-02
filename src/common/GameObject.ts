@@ -15,6 +15,7 @@ import Container = require('./Components/Container');
 import Collidable = require('./Components/Collidable');
 import Renderable = require('./Components/Renderable');
 import Walkable = require('./Components/Walkable');
+import Allegiancable = require('./Components/Allegiancable');
 
 class GameObject implements Serializable {
 
@@ -59,6 +60,12 @@ class GameObject implements Serializable {
     }
     public isWalkable():boolean {
         return this.hasComponent('Walkable');
+    }
+    public isAllegiancable():boolean {
+        return this.hasComponent('Allegiancable');
+    }
+    public getAllegiancableComponent():Allegiancable {
+        return <Allegiancable>this.getComponent('Allegiancable');
     }
     public getCollidableComponent():Collidable {
         return <Collidable>this.getComponent('Collidable');

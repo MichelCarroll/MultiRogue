@@ -80,7 +80,9 @@ class Level  {
     public addActor(isPlayer:boolean, callForAction:()=>void) {
         var id = this.nextGOKey++;
         var name = isPlayer ? 'Player #' + id : 'Robot #' + id;
-        var being = BeingGenerator.createActor(id, name, isPlayer ? '#FF0' : '#888');
+        var color = isPlayer ? '#FF0' : '#888';
+        var allegiance = isPlayer ? 'player' : 'robot';
+        var being = BeingGenerator.createActor(id, name, color, allegiance);
         var actor = new Actor(being, callForAction, isPlayer);
         var position = this.playerSpawnPoint.generate();
         being.setPosition(position);

@@ -9,6 +9,7 @@ import Viewpoint = require('../common/Viewpoint');
 
 import ConnectCommand = require('../common/Commands/Connect');
 import MoveCommand = require('../common/Commands/Move');
+import ShoutCommand = require('../common/Commands/Shout');
 
 import ROT = require('./ROT');
 import Actor = require('./Actor');
@@ -76,9 +77,27 @@ class ArtificialClient {
         }
         var self = this;
         setImmediate(function() {
-            self.moveInRandomDirection();
+            var playerTarget = self.searchClosestPlayer();
+            if(playerTarget) {
+                self.shout('I see you '+playerTarget.getName());
+            } else {
+                self.moveInRandomDirection();
+            }
             self.messageClient.send(new Message('idle'));
         });
+    }
+
+    private searchClosestPlayer():GameObject {
+        var closestPlayer:GameObject = null;
+        var currentPos:Vector2D = this.viewpoint.getActor().getPosition();
+        this.viewpoint.getLayer().getAllGoWithComponents(['Playable', 'Allegiancable']).forEach(function(being) {
+            if(being.getAllegiancableComponent().getName() == 'player'
+                && (!closestPlayer
+                || (being.getPosition().distanceFrom(currentPos)) < (closestPlayer.getPosition().distanceFrom(currentPos)))) {
+                closestPlayer = being;
+            }
+        });
+        return closestPlayer;
     }
 
     private moveInRandomDirection() {
@@ -98,6 +117,17 @@ class ArtificialClient {
             }
         }
     }
+
+    private shout(text:string):boolean {
+        var command = new ShoutCommand(text);
+        command.setMessageClient(this.messageClient);
+        var canDo = command.canExecute();
+        if(canDo) {
+            command.execute();
+        }
+        return canDo;
+    }
+
 
     private attemptMove(velocity:Vector2D):boolean {
         var command = new MoveCommand(velocity);
