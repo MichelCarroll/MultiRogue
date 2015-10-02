@@ -9,12 +9,12 @@ import GameObject = require('./../../common/GameObject');
 
 class BeingGenerator {
 
-    static createActor(id:number, name:string):GameObject {
+    static createActor(id:number, name:string, colorHex:string):GameObject {
         var being = new GameObject();
         var renderable = new Renderable();
         renderable.setProperties({
             'token': '@',
-            'frontColor': '#FF0',
+            'frontColor': colorHex,
             'backColor': '',
             'layer': Renderable.BEING_LAYER
         });
