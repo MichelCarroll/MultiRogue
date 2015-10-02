@@ -22,7 +22,7 @@ describe('client connects in a level with a follow bot in it', function() {
     it('should not be alone', function() {
         should(client.hasInLog("You're now connected as Player #1052!")).be.true();
     });
-    
+
     it('nothing should happen if player stays where he is', function(done) {
         client.wait().then(function() {
             return client.idle().wait();
@@ -38,6 +38,16 @@ describe('client connects in a level with a follow bot in it', function() {
         }).then(function() {
             should(robotStartsChase()).be.true();
             should(robotStopsChase()).be.false();
+        }).done(done, done);
+    });
+
+    it('robot should follow player when he sees him', function(done) {
+        client.wait().then(function() {
+            client.moveLeft().moveLeft().moveLeft().moveLeft();
+            should(client.getTileTokenAt(49, 27)).be.eql('@'); //robot wandered down
+            return client.wait();
+        }).then(function() {
+            should(client.getTileTokenAt(50, 26)).be.eql('@');
         }).done(done, done);
     });
 });
