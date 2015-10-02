@@ -1,4 +1,6 @@
 
+var Q = require('q');
+
 var GameServer = require('./build/server/GameServer');
 var GameClient = require('./build/client/lib/GameClient');
 var TestUIAdapter = require('./build/client/lib/TestUIAdapter');
@@ -38,11 +40,11 @@ var Simulator = {
                     client.handleCommand(new DisconnectCommand());
                 };
 
-                obj.wait = function(callback) {
-                    setImmediate(function() {
-                       callback();
-                    });
-                };
+                obj.wait = function() {
+                    var deferred = Q.defer();
+                    setImmediate(deferred.resolve);
+                    return deferred.promise;
+                }
 
                 obj.moves = function (direction) {
                     client.handleCommand(new MoveCommand(new Vector2D(direction[0], direction[1])));
