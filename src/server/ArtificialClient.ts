@@ -21,6 +21,7 @@ import MessageServer = require('./MessageServer');
 class ArtificialClient {
 
     private currentTarget:GameObject = null;
+    private lastSeen:Vector2D = null;
     private viewpoint:Viewpoint;
     private messageClient:MessageClient;
     private isAloneOnServer = true;
@@ -80,18 +81,31 @@ class ArtificialClient {
         }
         var self = this;
         setImmediate(function() {
-            if(!self.currentTarget || !self.viewpoint.getLayer().findGameObject(self.currentTarget.getId())) {
-                self.currentTarget = self.searchClosestPlayer()
+            if(self.currentTarget) {
+                self.currentTarget = self.viewpoint.getLayer().findGameObject(self.currentTarget.getId());
                 if(self.currentTarget) {
+                    self.lastSeen = self.currentTarget.getPosition();
+                }
+            }
+
+            if(self.lastSeen && self.viewpoint.getActor().getPosition().equals(self.lastSeen)) {
+                self.shout('Hmm... Where did he go..?');
+                self.lastSeen = null;
+            }
+
+            if(!self.currentTarget && !self.lastSeen) {
+                self.currentTarget = self.searchClosestPlayer();
+                if(self.currentTarget) {
+                    self.lastSeen = self.currentTarget.getPosition();
                     self.shout('*looks at '+self.currentTarget.getName()+'* Fresh meat..');
-                    self.moveTowards(self.currentTarget.getPosition());
+                    self.moveTowards(self.lastSeen);
                 }
                 else {
                     self.moveInRandomDirection();
                 }
             }
-            else if(self.currentTarget) {
-                self.moveTowards(self.currentTarget.getPosition());
+            else if(self.lastSeen) {
+                self.moveTowards(self.lastSeen);
             } else {
                 self.moveInRandomDirection();
             }

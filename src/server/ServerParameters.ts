@@ -2,7 +2,7 @@
 
 interface ServerParameters {
     port?:number;
-    includeFakeClient?:boolean;
+    includeFollowBot?:boolean;
     randomSeed:number;
 }
 

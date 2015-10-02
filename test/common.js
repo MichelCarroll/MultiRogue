@@ -10,6 +10,7 @@ var ShoutCommand = require('./build/common/Commands/Shout');
 var PickUpCommand = require('./build/common/Commands/PickUp');
 var ConnectCommand = require('./build/common/Commands/Connect');
 var DisconnectCommand = require('./build/common/Commands/Disconnect');
+var IdleCommand = require('./build/common/Commands/Idle');
 
 
 var UP = [0, -1];
@@ -22,8 +23,8 @@ var RIGHTDOWN = [1, 1];
 var LEFTUP = [-1, -1];
 
 var Simulator = {
-    serverBoots: function() {
-        var server = new GameServer({randomSeed: 19582923});
+    serverBoots: function(configs) {
+        var server = new GameServer(Object.assign(configs ? configs : {}, {randomSeed: 19582923}));
 
         return {
             clientConnects: function() {
@@ -37,8 +38,19 @@ var Simulator = {
                     client.handleCommand(new DisconnectCommand());
                 };
 
+                obj.wait = function(callback) {
+                    setImmediate(function() {
+                       callback();
+                    });
+                };
+
                 obj.moves = function (direction) {
                     client.handleCommand(new MoveCommand(new Vector2D(direction[0], direction[1])));
+                    return obj;
+                };
+
+                obj.idle = function() {
+                    client.handleCommand(new IdleCommand());
                     return obj;
                 };
 
@@ -83,11 +95,6 @@ var Simulator = {
                     return obj;
                 };
 
-                obj.looksAtFloor = function () {
-                    client.handleCommand(new FloorLookCommand());
-                    return obj;
-                };
-
                 obj.drops = function (objectId) {
                     client.handleCommand(new DropCommand(objectId));
                     return obj;
@@ -98,14 +105,16 @@ var Simulator = {
                     return obj;
                 };
 
+
+                //CHECKS
+                obj.logDump = function () {
+                    console.log(testAdapter.getLog());
+                };
+
                 obj.isHoldingItem = function (itemName) {
                     return testAdapter.getItems().filter(function (item) {
                             return itemName === item.name;
                         }).length > 0;
-                };
-
-                obj.logDump = function () {
-                    console.log(testAdapter.getLog());
                 };
 
                 obj.hasInLog = function(text) {

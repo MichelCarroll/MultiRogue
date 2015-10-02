@@ -33,7 +33,7 @@ class GameServer {
         this.messageServer = new MessageServer(params.port);
         this.messageServer.start(this.onConnection.bind(this));
 
-        if(params.includeFakeClient) {
+        if(params.includeFollowBot) {
             new ArtificialClient(this.messageServer);
         }
     }
@@ -100,7 +100,7 @@ class GameServer {
 
             self.level.useTurns(actor, 1);
             messageDispatcher.emit(new Message('sync', { viewpoint: self.level.getViewpoint(actor)}));
-            messageDispatcher.broadcast(new Message('being-moved', { player: actor.getBeing()}));
+            messageDispatcher.broadcast(new Message('being-moved', { actor_id: actor.getBeing().getId()}));
         });
 
         messageDispatcher.on('sync-request', function() {
