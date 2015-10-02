@@ -45,7 +45,7 @@ class GameObjectLayer implements Serializable {
         if(!this.goStacks[key]) {
             return;
         }
-        var index = this.findGameObjectIndex(position.toString(), go);
+        var index = this.findGameObjectIndexAtPosition(position.toString(), go);
         if(index !== -1) {
             this.goStacks[key].splice(index, 1);
         }
@@ -64,7 +64,27 @@ class GameObjectLayer implements Serializable {
         return false;
     }
 
-    public findGameObjectIndex(stackKey:string, go:GameObject):number {
+    public findGameObject(goId:number):GameObject {
+        var go:GameObject = null;
+        var self = this;
+        var stackKeys = Object.getOwnPropertyNames(this.goStacks);
+        for(var i = 0; i < stackKeys.length; i++) {
+            go = self.findGameObjectAtPosition(stackKeys[i], goId);
+            if(go) {
+                return go;
+            }
+        }
+    }
+
+    public findGameObjectAtPosition(stackKey:string, goId:number):GameObject {
+        for(var i = 0; i < this.goStacks[stackKey].length; i++) {
+            if(this.goStacks[stackKey][i].getId() === goId) {
+                return this.goStacks[stackKey][i];
+            }
+        }
+    }
+
+    public findGameObjectIndexAtPosition(stackKey:string, go:GameObject):number {
         for(var i = 0; i < this.goStacks[stackKey].length; i++) {
             if(this.goStacks[stackKey][i].getId() === go.getId()) {
                 return i;

@@ -17,6 +17,43 @@ class Vector2D {
         return new Vector2D(this.x + x, this.y + y);
     }
 
+    public length():number {
+        return Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
+    }
+
+    public unit():Vector2D {
+        var length = this.length();
+        if(length == 0) {
+            return new Vector2D(0,0);
+        }
+        return new Vector2D(this.x / length, this.y / length);
+    }
+
+    public getDirectionVector():Vector2D {
+        var unit = this.unit();
+        if(unit.x > 0) {
+            if(unit.y > 0.5) {
+                return new Vector2D(0,1);
+            } else if(unit.y > 0) {
+                return new Vector2D(1,1);
+            } else if(unit.y > -0.5) {
+                return new Vector2D(1,-1);
+            } else {
+                return new Vector2D(0,-1);
+            }
+        } else {
+            if(unit.y > 0.5) {
+                return new Vector2D(0,1);
+            } else if(unit.y > 0) {
+                return new Vector2D(-1,1);
+            } else if(unit.y > -0.5) {
+                return new Vector2D(-1,-1);
+            } else {
+                return new Vector2D(0,-1);
+            }
+        }
+    }
+
     public copy():Vector2D {
         return new Vector2D(this.x, this.y);
     }
@@ -34,12 +71,16 @@ class Vector2D {
         return this.x === coord.x && this.y === coord.y;
     }
 
+    public subVector(vector:Vector2D):Vector2D {
+        return new Vector2D(this.x - vector.x, this.y - vector.y);
+    }
+
     public addVector(vector:Vector2D):Vector2D {
         return new Vector2D(this.x + vector.x, this.y + vector.y);
     }
 
     public distanceFrom(vector:Vector2D):number {
-        return Math.sqrt(Math.pow(this.x - vector.x, 2) + Math.pow(this.y - vector.y, 2));
+        return this.subVector(vector).length();
     }
 }
 

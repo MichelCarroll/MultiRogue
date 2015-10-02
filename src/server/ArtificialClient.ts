@@ -1,4 +1,6 @@
 
+///<reference path='../../definitions/rot.d.ts' />
+
 import GameObject = require('../common/GameObject');
 import GameObjectLayer = require('../common/GameObjectLayer');
 import Vector2D = require('../common/Vector2D');
@@ -18,6 +20,7 @@ import MessageServer = require('./MessageServer');
 
 class ArtificialClient {
 
+    private currentTarget:GameObject = null;
     private viewpoint:Viewpoint;
     private messageClient:MessageClient;
     private isAloneOnServer = true;
@@ -77,9 +80,17 @@ class ArtificialClient {
         }
         var self = this;
         setImmediate(function() {
-            var playerTarget = self.searchClosestPlayer();
-            if(playerTarget) {
-                self.shout('I see you '+playerTarget.getName());
+            if(!self.currentTarget || !self.viewpoint.getLayer().findGameObject(self.currentTarget.getId())) {
+                self.currentTarget = self.searchClosestPlayer();
+                if(self.currentTarget) {
+                    self.moveTowards(self.currentTarget.getPosition());
+                }
+                else {
+                    self.moveInRandomDirection();
+                }
+            }
+            else if(self.currentTarget) {
+                self.moveTowards(self.currentTarget.getPosition());
             } else {
                 self.moveInRandomDirection();
             }
@@ -98,6 +109,12 @@ class ArtificialClient {
             }
         });
         return closestPlayer;
+    }
+
+    private moveTowards(target:Vector2D) {
+        var me = this.viewpoint.getActor().getPosition();
+        var velocity = target.subVector(me).getDirectionVector();
+        this.attemptMove(velocity);
     }
 
     private moveInRandomDirection() {
