@@ -42,7 +42,7 @@ class Level {
     }
 
     public canMoveTo(position:Vector2D):boolean {
-        if (this.layer.blocked(position.toString())) {
+        if (this.layer.blocked(position)) {
             return false;
         }
         return true;

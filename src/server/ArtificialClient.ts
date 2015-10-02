@@ -1,12 +1,16 @@
 
 import GameObject = require('../common/GameObject');
 import GameObjectLayer = require('../common/GameObjectLayer');
+import Vector2D = require('../common/Vector2D');
 import Message = require('../common/Message');
 import MessageClient = require('../common/MessageClient');
 import DirectMessageClient = require('../common/DirectMessageClient');
-import ConnectCommand = require('../common/Commands/Connect');
 import Viewpoint = require('../common/Viewpoint');
 
+import ConnectCommand = require('../common/Commands/Connect');
+import MoveCommand = require('../common/Commands/Move');
+
+import ROT = require('./ROT');
 import Actor = require('./Actor');
 import MessageServer = require('./MessageServer');
 
@@ -72,8 +76,39 @@ class ArtificialClient {
         }
         var self = this;
         setImmediate(function() {
+            self.moveInRandomDirection();
             self.messageClient.send(new Message('idle'));
         });
+    }
+
+    private moveInRandomDirection() {
+        var positionBag = [
+            new Vector2D(1,0),
+            new Vector2D(0,1),
+            new Vector2D(-1,0),
+            new Vector2D(0,-1),
+        ];
+        for(var i = 0; i < positionBag.length; i++) {
+            var index = Math.floor(ROT.RNG.getUniform() * positionBag.length);
+            if(!this.attemptMove(positionBag[index])) {
+                positionBag.splice(index, 1);
+            }
+            else {
+                return;
+            }
+        }
+    }
+
+    private attemptMove(velocity:Vector2D):boolean {
+        var command = new MoveCommand(velocity);
+        command.setGameObjectLayer(this.viewpoint.getLayer());
+        command.setPlayer(this.viewpoint.getActor());
+        command.setMessageClient(this.messageClient);
+        var canDo = command.canExecute();
+        if(canDo) {
+            command.execute();
+        }
+        return canDo;
     }
 
 }

@@ -46,7 +46,7 @@ class Move implements Command, ServerAware, GameObjectLayerAware, PlayerAware {
         if(!this.goLayer.getWalkableGameObject(coord)) {
             return false;
         }
-        else if(this.goLayer.blocked(coord.toString())) {
+        else if(this.goLayer.blocked(coord)) {
             return false;
         }
         return true;

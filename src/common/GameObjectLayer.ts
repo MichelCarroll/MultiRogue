@@ -51,7 +51,8 @@ class GameObjectLayer implements Serializable {
         }
     }
 
-    public blocked(stackKey:string):boolean {
+    public blocked(position:Vector2D):boolean {
+        var stackKey = position.toString();
         if(!this.goStacks[stackKey]) {
             return false;
         }
