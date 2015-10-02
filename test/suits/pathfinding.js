@@ -20,10 +20,16 @@ describe('client connects in a level with a follow bot in it', function() {
         }).then(function() {
             return client.idle().wait();
         }).then(function() {
-            should(client.hasInLog("*looksg at Player #1052* Fresh meat..")).be.false();
-            should(client.hasInLog("Hmm... Where did he go..?")).be.false();
-            done();
-        });
-
+            should(client.hasInLog("Robot #1051 shouts \"*looks at Player #1052* Fresh meat..\"!!")).be.false();
+            should(client.hasInLog("Robot #1051 shouts \"Hmm... Where did he go..?\"!!")).be.false();
+        }).done(done, done);
+    });
+    it('robot should react if player moves close to him', function(done) {
+        client.wait().then(function() {
+            return client.moveLeft().moveLeft().moveLeft().moveLeft().wait();
+        }).then(function() {
+            should(client.hasInLog("Robot #1051 shouts \"*looks at Player #1052* Fresh meat..\"!!")).be.true();
+            should(client.hasInLog("Robot #1051 shouts \"Hmm... Where did he go..?\"!!")).be.false();
+        }).done(done, done);
     });
 });
