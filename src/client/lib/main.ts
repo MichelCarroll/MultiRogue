@@ -63,6 +63,6 @@ $(document).ready(function() {
         game.handleCommand(new DropCommand(goId));
     });
 
-    game.handleCommand(new ConnectCommand());
+    game.handleCommand(new ConnectCommand(ConnectCommand.PLAYER));
 
 });

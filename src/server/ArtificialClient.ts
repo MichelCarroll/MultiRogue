@@ -4,9 +4,10 @@ import GameObjectLayer = require('../common/GameObjectLayer');
 import Message = require('../common/Message');
 import MessageClient = require('../common/MessageClient');
 import DirectMessageClient = require('../common/DirectMessageClient');
+import ConnectCommand = require('../common/Commands/Connect');
 import Viewpoint = require('../common/Viewpoint');
 
-import Player = require('./Player');
+import Actor = require('./Actor');
 import MessageServer = require('./MessageServer');
 
 
@@ -21,12 +22,14 @@ class ArtificialClient {
         this.messageClient = new DirectMessageClient(messageServer, function() {
             self.hookOnEvents();
         });
-        this.messageClient.connect();
+        var command = new ConnectCommand(ConnectCommand.AI);
+        command.setMessageClient(this.messageClient);
+        command.execute();
     }
 
     private hookOnEvents() {
         var self = this;
-        var connectedPlayers = 0;
+        var connectedActors = 0;
 
         this.messageClient.on('sync', function(message:Message) {
             self.viewpoint = (message.getData().viewpoint);
@@ -34,37 +37,42 @@ class ArtificialClient {
         });
 
         this.messageClient.on('player-came', function(message:Message) {
-            connectedPlayers++;
-            self.isAloneOnServer = connectedPlayers == 0;
+            connectedActors++;
+            self.isAloneOnServer = connectedActors == 0;
             self.messageClient.send(new Message('sync-request'));
         });
 
         this.messageClient.on('player-left', function(message:Message) {
-            connectedPlayers--;
-            self.isAloneOnServer = connectedPlayers == 0;
-            this.messageClient.send(new Message('sync-request'));
+            connectedActors--;
+            self.isAloneOnServer = connectedActors == 0;
+            self.messageClient.send(new Message('sync-request'));
         });
 
         this.messageClient.on('initiate', function(message:Message) {
             self.viewpoint = message.getData().viewpoint;
-            connectedPlayers = message.getData().level.players.length;
-            self.isAloneOnServer = connectedPlayers == 0;
+            connectedActors = message.getData().level.players.length;
+            self.isAloneOnServer = connectedActors == 0;
         });
 
         this.messageClient.on('its-your-turn', function(message:Message) {
-            self.viewpoint.setPlayer(message.getData().player);
+            self.viewpoint.setActor(message.getData().player);
             self.takeTurnIfApplicable();
         });
 
-        this.messageClient.send(new Message('ready'));
+        this.messageClient.send(new Message('ready', {
+            'type': 'ai'
+        }));
     }
 
     private takeTurnIfApplicable() {
-        var remainingTurns = this.viewpoint.getPlayer().getPlayableComponent().getRemainingTurns();
+        var remainingTurns = this.viewpoint.getActor().getPlayableComponent().getRemainingTurns();
         if(remainingTurns == 0 || this.isAloneOnServer) {
             return;
         }
-        this.messageClient.send(new Message('idle'));
+        var self = this;
+        setImmediate(function() {
+            self.messageClient.send(new Message('idle'));
+        });
     }
 
 }

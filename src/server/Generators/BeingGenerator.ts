@@ -9,7 +9,7 @@ import GameObject = require('./../../common/GameObject');
 
 class BeingGenerator {
 
-    static createPlayer(id:number, name:string):GameObject {
+    static createActor(id:number, name:string):GameObject {
         var being = new GameObject();
         var renderable = new Renderable();
         renderable.setProperties({

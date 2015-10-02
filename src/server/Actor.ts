@@ -1,14 +1,20 @@
 
 import GameObject = require('./../common/GameObject');
 
-class Player {
+class Actor {
 
+    private _isPlayer:boolean;
     private being:GameObject;
     private callToAction:()=>void;
 
-    constructor(being, callToAction) {
+    constructor(being, callToAction, isPlayer) {
         this.being = being;
         this.callToAction = callToAction;
+        this._isPlayer = isPlayer;
+    }
+
+    public isPlayer():boolean {
+        return this._isPlayer;
     }
 
     public getBeing():GameObject {
@@ -20,4 +26,4 @@ class Player {
     }
 }
 
-export = Player;
+export = Actor;

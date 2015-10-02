@@ -12,7 +12,7 @@ import Viewpoint = require('../common/Viewpoint');
 import GameObjectLayer = require('../common/GameObjectLayer');
 import Vector2D = require('../common/Vector2D');
 import ROT = require('./ROT');
-import Player = require('./Player');
+import Actor = require('./Actor');
 
 class Level  {
 
@@ -23,7 +23,8 @@ class Level  {
     private gameObjectLayer:GameObjectLayer;
     private numberedTilesIndex:GameObject[];
     private scheduler:ROT.Scheduler.Simple;
-    private currentPlayer:Player;
+    private currentActor:Actor;
+    private players:Actor[] = [];
     private playerSpawnPoint:SpawnPoint;
     private nextGOKey:number = 1;
     private fov:ROT.IFOV;
@@ -33,12 +34,12 @@ class Level  {
         this.gameObjectLayer = new GameObjectLayer();
         this.goRepository = new Repository<GameObject>();
         this.scheduler = new ROT.Scheduler.Simple();
-        this.currentPlayer = null;
+        this.currentActor = null;
         this.tilesIndex = new Repository<GameObject>();
         this.numberedTilesIndex = [];
     }
 
-    public setPlayerSpawnSpot(position:Vector2D) {
+    public setActorSpawnSpot(position:Vector2D) {
         var self = this;
         this.playerSpawnPoint = new SpawnPoint(position, 5, function(point:Vector2D):boolean {
             return self.isValidSpawnPoint(point);
@@ -76,38 +77,53 @@ class Level  {
         this.gameObjectLayer.add(go, go.getPosition());
     }
 
-    public addPlayer(callForAction:()=>void) {
+    public addActor(isPlayer:boolean, callForAction:()=>void) {
         var id = this.nextGOKey++;
-        var being = BeingGenerator.createPlayer(id, 'Player #' + id);
-        var player = new Player(being, callForAction);
+        var name = isPlayer ? 'Player #' + id : 'Robot #' + id;
+        var being = BeingGenerator.createActor(id, name);
+        var actor = new Actor(being, callForAction, isPlayer);
         var position = this.playerSpawnPoint.generate();
         being.setPosition(position);
         this.addGameObject(being);
-        this.scheduler.add(player, true);
-        return player;
+        if(isPlayer) {
+            this.addPlayer(actor);
+        }
+        this.scheduler.add(actor, true);
+        return actor;
+    }
+
+    public addPlayer(player:Actor) {
+        this.players.push(player);
+    }
+
+    public removePlayer(player:Actor) {
+        this.players.splice(this.players.indexOf(player), 1);
     }
 
     public isPaused():boolean {
-        return (this.currentPlayer === null);
+        return (this.currentActor === null);
     }
 
     public resume() {
-        if(!this.currentPlayer) {
+        if(!this.currentActor) {
             this.nextTurn();
         }
     }
 
-    public removePlayer(player:Player) {
-        var go = player.getBeing();
+    public removeActor(actor:Actor) {
+        var go = actor.getBeing();
         this.goRepository.delete(go.getId());
         this.gameObjectLayer.remove(go, go.getPosition());
-        this.scheduler.remove(player);
-        if(this.currentPlayer === player) {
+        this.scheduler.remove(actor);
+        if(actor.isPlayer()) {
+            this.removePlayer(actor);
+        }
+        if(this.currentActor === actor) {
             this.nextTurn();
         }
     }
 
-    public movePlayer(player:Player, position:Vector2D) {
+    public moveActor(player:Actor, position:Vector2D) {
         if(!this.tilesIndex.has(position.toString())) {
             throw new Error('Cant move there, no tile there');
         }
@@ -120,14 +136,14 @@ class Level  {
         this.gameObjectLayer.add(go, position);
     }
 
-    public pickUpObject(player:Player, goId:number) {
+    public pickUpObject(player:Actor, goId:number) {
         var being = player.getBeing();
         var go = this.goRepository.get(goId);
         if(!go) {
             throw new Error('No GO with this ID');
         }
         else if(!go.getPosition().equals(being.getPosition())) {
-            throw new Error('Player isn\'t on the same position as the GO');
+            throw new Error('Actor isn\'t on the same position as the GO');
         }
         else if(!go.isContent()) {
             throw new Error('This GO can\'t be picked up');
@@ -137,7 +153,7 @@ class Level  {
         this.gameObjectLayer.remove(go, go.getPosition());
     }
 
-    public dropObject(player:Player, goId:number):GameObject {
+    public dropObject(player:Actor, goId:number):GameObject {
         var being = player.getBeing();
         var go = being.getContainerComponent().getInventory().get(goId);
         if(!go) {
@@ -158,11 +174,11 @@ class Level  {
         return !!this.gameObjectLayer.getCollidableGameObject(position);
     }
 
-    public canPlay(player:Player) {
-        return (this.currentPlayer === player && player.getBeing().getPlayableComponent().getRemainingTurns() > 0);
+    public canPlay(player:Actor) {
+        return (this.currentActor === player && player.getBeing().getPlayableComponent().getRemainingTurns() > 0);
     }
 
-    public useTurns(player:Player, n:number) {
+    public useTurns(player:Actor, n:number) {
         player.getBeing().getPlayableComponent().spendTurns(n);
         if(!player.getBeing().getPlayableComponent().getRemainingTurns()) {
             this.nextTurn();
@@ -170,10 +186,10 @@ class Level  {
     }
 
     private nextTurn() {
-        this.currentPlayer = this.scheduler.next();
-        if(this.currentPlayer) {
-            this.currentPlayer.getBeing().getPlayableComponent().giveTurns(Level.TURNS_PER_ROUND);
-            this.currentPlayer.askToTakeTurn();
+        this.currentActor = this.scheduler.next();
+        if(this.currentActor) {
+            this.currentActor.getBeing().getPlayableComponent().giveTurns(Level.TURNS_PER_ROUND);
+            this.currentActor.askToTakeTurn();
         }
     }
 
@@ -183,21 +199,19 @@ class Level  {
 
     public getInitializationInformation() {
         return {
-            'players': this.goRepository.getAll().filter(function(go:GameObject) {
-                return go.isPlayable();
-            }).map(function(go:GameObject) {
+            'players': this.players.map(function(actor:Actor) {
                 return {
-                    id: go.getId(),
-                    name: go.getName()
+                    id: actor.getBeing().getId(),
+                    name: actor.getBeing().getName()
                 }
             }),
             'width': this.size.x,
             'height': this.size.y,
-            'current_player_id': this.currentPlayer ? this.currentPlayer.getBeing().getId() : null
+            'current_player_id': this.currentActor ? this.currentActor.getBeing().getId() : null
         };
     }
 
-    public getViewpoint(player:Player) {
+    public getViewpoint(player:Actor) {
         var playerGO = player.getBeing();
         var cameraPos = playerGO.getPosition();
         var layer = new GameObjectLayer();
@@ -207,7 +221,7 @@ class Level  {
             layer.setStack(self.gameObjectLayer.getStackAtPosition(new Vector2D(x, y)), new Vector2D(x, y));
         });
         viewpoint.setLayer(layer);
-        viewpoint.setPlayer(playerGO);
+        viewpoint.setActor(playerGO);
         return viewpoint;
     }
 

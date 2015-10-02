@@ -7,7 +7,15 @@ import ServerAware = require('../IOC/ServerAware');
 
 class Connect implements Command, ServerAware {
 
+    public static AI = 'ai';
+    public static PLAYER = 'player';
+
     private messageClient:MessageClient;
+    private type:string;
+
+    constructor(type:string) {
+        this.type = type;
+    }
 
     public setMessageClient(messageClient:MessageClient) {
         this.messageClient = messageClient;
@@ -27,7 +35,9 @@ class Connect implements Command, ServerAware {
 
     public execute() {
         this.messageClient.connect();
-        this.messageClient.send(new Message('ready'));
+        this.messageClient.send(new Message('ready', {
+            'type': this.type
+        }));
     }
 }
 

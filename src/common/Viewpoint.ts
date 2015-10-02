@@ -8,11 +8,11 @@ import Serializer = require('./Serializer');
 class Viewpoint implements Serializable {
 
     public layer:GameObjectLayer;
-    private player:GameObject;
+    private actor:GameObject;
 
     constructor() {
         this.layer = new GameObjectLayer();
-        this.player = new GameObject();
+        this.actor = new GameObject();
     }
 
 
@@ -20,12 +20,12 @@ class Viewpoint implements Serializable {
         this.layer = layer;
     }
 
-    public setPlayer(go:GameObject) {
-        this.player = go;
+    public setActor(go:GameObject) {
+        this.actor = go;
     }
 
-    public getPlayer():GameObject {
-        return this.player;
+    public getActor():GameObject {
+        return this.actor;
     }
 
     public getLayer():GameObjectLayer {
@@ -35,13 +35,13 @@ class Viewpoint implements Serializable {
     public serialize():any {
         return {
             'layer': this.layer.serialize(),
-            'player': this.player.serialize()
+            'player': this.actor.serialize()
         };
     }
 
     public deserialize(data:any) {
         this.layer.deserialize(data.layer);
-        this.player.deserialize(data.player);
+        this.actor.deserialize(data.player);
     }
 
 }

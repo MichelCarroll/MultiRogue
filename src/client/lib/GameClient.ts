@@ -146,7 +146,7 @@ class GameClient {
 
     private sync(viewpoint:Viewpoint) {
         this.context.getLevel().setViewpoint(viewpoint);
-        this.context.setPlayer(viewpoint.getPlayer());
+        this.context.setPlayer(viewpoint.getActor());
         this.syncInventory();
         this.context.getUIAdapter().setRemainingActionPoints(this.context.getPlayer().getPlayableComponent().getRemainingTurns());
     }

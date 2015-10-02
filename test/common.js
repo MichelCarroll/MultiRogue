@@ -25,7 +25,7 @@ var Simulator = {
             clientConnects: function() {
                 var testAdapter = new TestUIAdapter();
                 var client = new GameClient({ messagingServer: server.getMessageServer()}, testAdapter);
-                client.handleCommand(new ConnectCommand());
+                client.handleCommand(new ConnectCommand(ConnectCommand.PLAYER));
 
                 var obj = {};
 
