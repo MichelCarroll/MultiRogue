@@ -44,10 +44,32 @@ describe('client connects in a level with a follow bot in it', function() {
     it('robot should follow player when he sees him', function(done) {
         client.wait().then(function() {
             client.moveLeft().moveLeft().moveLeft().moveLeft();
-            should(client.getTileTokenAt(49, 27)).be.eql('@'); //robot wandered down
+            should(client.getTileTokenAt(49, 25)).be.eql('@'); //robot wandered up
             return client.wait();
         }).then(function() {
             should(client.getTileTokenAt(50, 26)).be.eql('@');
+        }).done(done, done);
+    });
+
+    it('robot should lose player if he runs away', function(done) {
+        client.wait().then(function() {
+            should(robotStopsChase()).be.false();
+            return client.moveLeft().moveLeft().moveLeft().moveLeft().wait();
+        }).then(function() {
+            return client.moveRight().moveRight().moveRight().moveRight().wait();
+        }).then(function() {
+            return client.moveRightUp().moveRight().moveRight().moveRight().wait();
+        }).then(function() {
+            return client.idle().wait();
+        }).then(function() {
+            return client.idle().wait();
+        }).then(function() {
+            return client.idle().wait();
+        }).then(function() {
+            should(robotStopsChase()).be.false();
+            return client.idle().wait();
+        }).then(function() {
+            should(robotStopsChase()).be.true();
         }).done(done, done);
     });
 });

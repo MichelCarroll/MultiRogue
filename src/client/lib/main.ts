@@ -11,6 +11,8 @@ import MoveCommand = require('../../common/Commands/Move');
 import ShoutCommand = require('../../common/Commands/Shout');
 import PickUpCommand = require('../../common/Commands/PickUp');
 import ConnectCommand = require('../../common/Commands/Connect');
+import IdleCommand = require('../../common/Commands/Idle');
+
 
 declare var $:any;
 
@@ -42,6 +44,7 @@ $(document).ready(function() {
         map[ROT.VK_DOWN] =  new MoveCommand(new Vector2D(0,  1));
         map[ROT.VK_LEFT] =  new MoveCommand(new Vector2D(-1, 0));
         map[ROT.VK_K]=      new PickUpCommand();
+        map[ROT.VK_PERIOD]= new IdleCommand();
         return map;
     }
 

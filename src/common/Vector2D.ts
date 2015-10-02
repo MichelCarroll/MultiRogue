@@ -32,25 +32,25 @@ class Vector2D {
     public getDirectionVector():Vector2D {
         var unit = this.unit();
         if(unit.x > 0) {
-            if(unit.y > 0.66) {
+            if(unit.y > 0.72) {
                 return new Vector2D(0,1);
             } else if(unit.y > 0.33) {
                 return new Vector2D(1,1);
             } else if(unit.y > -0.33) {
                 return new Vector2D(1,0);
-            } else if(unit.y > -0.66) {
+            } else if(unit.y > -0.72) {
                 return new Vector2D(1,-1);
             } else {
                 return new Vector2D(0,-1);
             }
         } else {
-            if(unit.y > 0.66) {
+            if(unit.y > 0.72) {
                 return new Vector2D(0,1);
             } else if(unit.y > 0.33) {
                 return new Vector2D(-1,1);
             } else if(unit.y > -0.33) {
                 return new Vector2D(-1,0);
-            } else if(unit.y > -0.66) {
+            } else if(unit.y > -0.72) {
                 return new Vector2D(-1,-1);
             } else {
                 return new Vector2D(0,-1);

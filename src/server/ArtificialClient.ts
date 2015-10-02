@@ -138,6 +138,10 @@ class ArtificialClient {
             new Vector2D(0,1),
             new Vector2D(-1,0),
             new Vector2D(0,-1),
+            new Vector2D(1,1),
+            new Vector2D(-1,1),
+            new Vector2D(-1,-1),
+            new Vector2D(1,-1),
         ];
         for(var i = 0; i < positionBag.length; i++) {
             var index = Math.floor(ROT.RNG.getUniform() * positionBag.length);

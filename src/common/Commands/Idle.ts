@@ -7,12 +7,7 @@ import ServerAware = require('../IOC/ServerAware');
 
 class Idle implements Command, ServerAware{
 
-    private text:string;
     private messageClient:MessageClient;
-
-    constructor(text:string) {
-        this.text = text;
-    }
 
     public setMessageClient(messageClient:MessageClient) {
         this.messageClient = messageClient;
