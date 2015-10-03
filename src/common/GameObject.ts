@@ -7,7 +7,7 @@
 import Serializer = require('./Serializer');
 import Serializable = require('./Serializable');
 import Vector2D = require('./Vector2D');
-import Repository = require('./Repository');
+import Map = require('./Map');
 import Component = require('./Components/Component');
 import Playable = require('./Components/Playable');
 import Content = require('./Components/Content');
@@ -23,10 +23,10 @@ class GameObject implements Serializable {
     protected id:number;
     protected name:string = '';
     protected description:string = '';
-    private components:Repository<Component>;
+    private components:Map<Component>;
 
     constructor() {
-        this.components = new Repository<Component>();
+        this.components = new Map<Component>();
     }
 
     public addComponent(component:Component) {

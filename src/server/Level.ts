@@ -6,7 +6,7 @@
 
 import SpawnPoint = require('./SpawnPoint');
 import BeingGenerator = require('./Generators/BeingGenerator');
-import Repository = require('../common/Repository');
+import Map = require('../common/Map');
 import GameObject = require('../common/GameObject');
 import Viewpoint = require('../common/Viewpoint');
 import GameObjectLayer = require('../common/GameObjectLayer');
@@ -19,8 +19,8 @@ class Level  {
     static TURNS_PER_ROUND = 4;
     static MAXIMUM_RANGE = 5;
     private size:Vector2D;
-    private goRepository:Repository<GameObject>;
-    private tilesIndex:Repository<GameObject>;
+    private goMap:Map<GameObject>;
+    private tilesIndex:Map<GameObject>;
     private gameObjectLayer:GameObjectLayer;
     private numberedTilesIndex:GameObject[] = [];
     private scheduler:ROT.Scheduler.Simple;
@@ -33,9 +33,9 @@ class Level  {
     constructor(size:Vector2D) {
         this.fov = new ROT.FOV.DiscreteShadowcasting(this.getTileOpacityCallback.bind(this));
         this.gameObjectLayer = new GameObjectLayer();
-        this.goRepository = new Repository<GameObject>();
+        this.goMap = new Map<GameObject>();
         this.scheduler = new ROT.Scheduler.Simple();
-        this.tilesIndex = new Repository<GameObject>();
+        this.tilesIndex = new Map<GameObject>();
         this.size = size;
     }
 
@@ -69,7 +69,7 @@ class Level  {
         if(!go.getId()) {
             go.setId(this.nextGOKey++);
         }
-        this.goRepository.set(go.getId(), go);
+        this.goMap.set(go.getId(), go);
         this.gameObjectLayer.add(go, go.getPosition());
     }
 
@@ -107,7 +107,7 @@ class Level  {
 
     public removeActor(actor:Actor) {
         var go = actor.getBeing();
-        this.goRepository.delete(go.getId());
+        this.goMap.delete(go.getId());
         this.gameObjectLayer.remove(go, go.getPosition());
         this.scheduler.remove(actor);
         if(actor.isPlayer()) {
@@ -136,7 +136,7 @@ class Level  {
 
     public pickUpObject(player:Actor, goId:number) {
         var being = player.getBeing();
-        var go = this.goRepository.get(goId);
+        var go = this.goMap.get(goId);
         if(!go.getPosition().equals(being.getPosition())) {
             throw new Error('Actor isn\'t on the same position as the GO');
         }
@@ -144,7 +144,7 @@ class Level  {
             throw new Error('This GO can\'t be picked up');
         }
         being.getContainerComponent().addToInventory(go);
-        this.goRepository.delete(go.getId());
+        this.goMap.delete(go.getId());
         this.gameObjectLayer.remove(go, go.getPosition());
     }
 
@@ -153,7 +153,7 @@ class Level  {
         var go = being.getContainerComponent().getInventory().get(goId);
         being.getContainerComponent().removeFromInventory(go);
         go.setPosition(being.getPosition().copy());
-        this.goRepository.set(go.getId(), go);
+        this.goMap.set(go.getId(), go);
         this.gameObjectLayer.add(go, go.getPosition());
         return go;
     }

@@ -4,19 +4,19 @@
 
 import GameObject = require('../../common/GameObject');
 import Container = require('../../common/Components/Container');
-import Repository = require('../../common/Repository');
+import Map = require('../../common/Map');
 import GameObjectLayer = require('../../common/GameObjectLayer');
 import Vector2D = require('../../common/Vector2D');
 import Viewpoint = require('../../common/Viewpoint');
 
 class Level {
 
-    private gos:Repository<GameObject>;
+    private gos:Map<GameObject>;
     private layer:GameObjectLayer;
 
     constructor() {
         this.layer = new GameObjectLayer();
-        this.gos = new Repository<GameObject>();
+        this.gos = new Map<GameObject>();
     }
 
     public add(go:GameObject) {

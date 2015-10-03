@@ -1,5 +1,5 @@
 
-import Repository = require('./Repository');
+import Map = require('./Map');
 import GameObject = require('./GameObject');
 import GameObjectLayer = require('./GameObjectLayer');
 import Serializable = require('./Serializable');

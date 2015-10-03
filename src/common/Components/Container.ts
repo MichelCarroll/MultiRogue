@@ -1,15 +1,15 @@
 
 import Component = require('./Component');
-import Repository = require('../Repository');
+import Map = require('../Map');
 import GameObject = require('../GameObject');
 
 class Container extends Component {
 
-    protected inventory:Repository<GameObject>;
+    protected inventory:Map<GameObject>;
 
     constructor() {
         super();
-        this.inventory = new Repository<GameObject>();
+        this.inventory = new Map<GameObject>();
     }
 
     public getComponentKey():string {
@@ -27,7 +27,7 @@ class Container extends Component {
         this.inventory.delete(go.getId());
     }
 
-    public getInventory():Repository<GameObject> {
+    public getInventory():Map<GameObject> {
         return this.inventory;
     }
 

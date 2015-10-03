@@ -2,7 +2,7 @@
 import Serializer = require('./Serializer');
 import Serializable = require('./Serializable');
 
-class Repository<V extends Serializable> implements Serializable {
+class Map<V extends Serializable> implements Serializable {
 
     private objects:any;
 
@@ -12,7 +12,7 @@ class Repository<V extends Serializable> implements Serializable {
 
     public get(key:any):V {
         if(!this.objects[key]) {
-            throw new Error('Repository does not have object with key '+key);
+            throw new Error('Map does not have object with key '+key);
         }
         return this.objects[key];
     }
@@ -55,4 +55,4 @@ class Repository<V extends Serializable> implements Serializable {
 
 }
 
-export = Repository;
+export = Map;
