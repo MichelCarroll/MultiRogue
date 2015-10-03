@@ -7,6 +7,7 @@
 import SpawnPoint = require('./SpawnPoint');
 import BeingGenerator = require('./Generators/BeingGenerator');
 import Map = require('../common/Map');
+import Repository = require('../common/Repository');
 import GameObject = require('../common/GameObject');
 import Viewpoint = require('../common/Viewpoint');
 import GameObjectLayer = require('../common/GameObjectLayer');
@@ -19,7 +20,7 @@ class Level  {
     static TURNS_PER_ROUND = 4;
     static MAXIMUM_RANGE = 5;
     private size:Vector2D;
-    private goMap:Map<GameObject>;
+    private goMap:Repository;
     private tilesIndex:Map<GameObject>;
     private gameObjectLayer:GameObjectLayer;
     private numberedTilesIndex:GameObject[] = [];
@@ -27,13 +28,12 @@ class Level  {
     private currentActor:Actor = null;
     private players:Actor[] = [];
     private playerSpawnPoint:SpawnPoint;
-    private nextGOKey:number = 1;
     private fov:ROT.IFOV;
 
     constructor(size:Vector2D) {
         this.fov = new ROT.FOV.DiscreteShadowcasting(this.getTileOpacityCallback.bind(this));
         this.gameObjectLayer = new GameObjectLayer();
-        this.goMap = new Map<GameObject>();
+        this.goMap = new Repository();
         this.scheduler = new ROT.Scheduler.Simple();
         this.tilesIndex = new Map<GameObject>();
         this.size = size;
@@ -66,20 +66,18 @@ class Level  {
     }
 
     public addGameObject(go:GameObject) {
-        if(!go.getId()) {
-            go.setId(this.nextGOKey++);
-        }
-        this.goMap.set(go.getId(), go);
+        this.goMap.insert(go);
         this.gameObjectLayer.add(go, go.getPosition());
     }
 
     public addActor(isPlayer:boolean, callForAction:()=>void) {
         var generator = new BeingGenerator();
-        var being = isPlayer ? generator.createPlayer(this.nextGOKey++) : generator.createRobot(this.nextGOKey++);
+        var being = isPlayer ? generator.createPlayer() : generator.createRobot();
         var actor = new Actor(being, callForAction, isPlayer);
         var position = this.playerSpawnPoint.generate();
         being.setPosition(position);
         this.addGameObject(being);
+        being.setName(isPlayer ? 'Player #'+being.getId() : 'Robot #'+being.getId());
         if(isPlayer) {
             this.addPlayer(actor);
         }
@@ -153,7 +151,7 @@ class Level  {
         var go = being.getContainerComponent().getInventory().get(goId);
         being.getContainerComponent().removeFromInventory(go);
         go.setPosition(being.getPosition().copy());
-        this.goMap.set(go.getId(), go);
+        this.goMap.insert(go);
         this.gameObjectLayer.add(go, go.getPosition());
         return go;
     }

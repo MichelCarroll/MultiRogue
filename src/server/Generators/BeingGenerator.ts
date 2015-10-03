@@ -10,15 +10,15 @@ import GameObject = require('./../../common/GameObject');
 
 class BeingGenerator {
 
-    public createRobot(id:number):GameObject {
-        return this.createActor(id, 'Robot #' + id, '#888', 'robot');
+    public createRobot():GameObject {
+        return this.createActor('Robot', '#888', 'robot');
     }
 
-    public createPlayer(id:number):GameObject {
-        return this.createActor(id, 'Player #' + id, '#FF0', 'player');
+    public createPlayer():GameObject {
+        return this.createActor('Player', '#FF0', 'player');
     }
 
-    private createActor(id:number, name:string, colorHex:string, allegianceName:string):GameObject {
+    private createActor(name:string, colorHex:string, allegianceName:string):GameObject {
         var being = new GameObject();
         var renderable = new Renderable();
         renderable.setProperties({
@@ -37,7 +37,6 @@ class BeingGenerator {
         being.setPosition(new Vector2D(0,0));
         being.setDescription('a player character');
         being.setName(name);
-        being.setId(id);
         return being;
     }
 
