@@ -74,11 +74,8 @@ class Level  {
     }
 
     public addActor(isPlayer:boolean, callForAction:()=>void) {
-        var id = this.nextGOKey++;
-        var name = isPlayer ? 'Player #' + id : 'Robot #' + id;
-        var color = isPlayer ? '#FF0' : '#888';
-        var allegiance = isPlayer ? 'player' : 'robot';
-        var being = BeingGenerator.createActor(id, name, color, allegiance);
+        var generator = new BeingGenerator();
+        var being = isPlayer ? generator.createPlayer(this.nextGOKey++) : generator.createRobot(this.nextGOKey++);
         var actor = new Actor(being, callForAction, isPlayer);
         var position = this.playerSpawnPoint.generate();
         being.setPosition(position);
@@ -161,7 +158,7 @@ class Level  {
         return go;
     }
 
-    private getCollidedGameObjects(position:Vector2D) {
+    private getCollidedGameObjects(position:Vector2D):boolean {
         return !!this.gameObjectLayer.getCollidableGameObject(position);
     }
 

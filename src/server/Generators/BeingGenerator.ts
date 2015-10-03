@@ -10,7 +10,15 @@ import GameObject = require('./../../common/GameObject');
 
 class BeingGenerator {
 
-    static createActor(id:number, name:string, colorHex:string, allegianceName:string):GameObject {
+    public createRobot(id:number):GameObject {
+        return this.createActor(id, 'Robot #' + id, '#888', 'robot');
+    }
+
+    public createPlayer(id:number):GameObject {
+        return this.createActor(id, 'Player #' + id, '#FF0', 'player');
+    }
+
+    private createActor(id:number, name:string, colorHex:string, allegianceName:string):GameObject {
         var being = new GameObject();
         var renderable = new Renderable();
         renderable.setProperties({
