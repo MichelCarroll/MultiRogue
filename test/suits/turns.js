@@ -9,12 +9,12 @@ describe('many clients log in one another another, taking turns in between', fun
     beforeEach(function(){
         var server = Simulator.serverBoots();
         client1 = server.clientConnects();
-        client1.shouts('lol');
+        client1.idle();
         client2 = server.clientConnects();
-        client1.shouts('lol').shouts('lol').shouts('lol');
+        client1.idle();
         client3 = server.clientConnects();
-        client2.shouts('lol').shouts('lol').shouts('lol').shouts('lol');
-        client3.shouts('lol');
+        client2.idle();
+        client3.idle();
     });
     it('clients who didnt follow order get notification', function() {
         should(client1.hasInLog("It's not your turn!")).be.false();

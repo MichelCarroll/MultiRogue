@@ -20,7 +20,7 @@ class Shout implements Command, ServerAware{
     }
 
     public getTurnsRequired():number {
-        return 1;
+        return 0;
     }
 
     public canExecute():boolean {

@@ -54,20 +54,17 @@ describe('client connects in a level with a follow bot in it', function() {
     it('robot should lose player if he runs away', function(done) {
         client.wait().then(function() {
             should(robotStopsChase()).be.false();
-            return client.moveLeft().moveLeft().moveLeft().moveLeft().wait();
+            return client.moveLeft().moveRight().moveRight().moveRight().wait();
+        }).then(function() {
+            return client.moveRight().moveRight().moveRightUp().moveRight().wait();
         }).then(function() {
             return client.moveRight().moveRight().moveRight().moveRight().wait();
         }).then(function() {
-            return client.moveRightUp().moveRight().moveRight().moveRight().wait();
+            return client.moveRight().moveRight().moveRight().moveRight().wait();
         }).then(function() {
-            return client.idle().wait();
+            return client.moveRight().moveRight().moveRightDown().moveRight().wait();
         }).then(function() {
-            return client.idle().wait();
-        }).then(function() {
-            return client.idle().wait();
-        }).then(function() {
-            should(robotStopsChase()).be.false();
-            return client.idle().wait();
+            return client.moveRight().moveRight().moveRight().moveRight().wait();
         }).then(function() {
             should(robotStopsChase()).be.true();
         }).done(done, done);

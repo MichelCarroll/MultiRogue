@@ -42,6 +42,7 @@ class ArtificialClient {
 
         this.messageClient.on('sync', function(message:Message) {
             self.viewpoint = (message.getData().viewpoint);
+            self.refreshTarget();
         });
 
         this.messageClient.on('player-came', function(message:Message) {
@@ -56,6 +57,10 @@ class ArtificialClient {
             self.isAloneOnServer = connectedActors == 0;
             self.messageClient.send(new Message('sync-request'));
             self.takeTurnIfApplicable();
+        });
+
+        this.messageClient.on('being-moved', function(message:Message) {
+            self.messageClient.send(new Message('sync-request'));
         });
 
         this.messageClient.on('initiate', function(message:Message) {
@@ -81,36 +86,37 @@ class ArtificialClient {
         }
         var self = this;
         setImmediate(function() {
-            if(self.currentTarget) {
-                self.currentTarget = self.viewpoint.getLayer().findGameObject(self.currentTarget.getId());
-                if(self.currentTarget) {
-                    self.lastSeen = self.currentTarget.getPosition();
+            if(self.lastSeen) {
+                var couldMove = self.moveTowards(self.lastSeen);
+                if(!couldMove) {
+                    self.lastSeen = null;
                 }
-            }
-
-            if(self.lastSeen && self.viewpoint.getActor().getPosition().equals(self.lastSeen)) {
-                self.shout('Hmm... Where did he go..?');
-                self.lastSeen = null;
-            }
-
-            if(!self.currentTarget && !self.lastSeen) {
-                self.currentTarget = self.searchClosestPlayer();
-                if(self.currentTarget) {
-                    self.lastSeen = self.currentTarget.getPosition();
-                    self.shout('*looks at '+self.currentTarget.getName()+'* Fresh meat..');
-                    self.moveTowards(self.lastSeen);
+                else if(self.viewpoint.getActor().getPosition().equals(self.lastSeen)) {
+                    self.shout('Hmm... Where did he go..?');
+                    self.lastSeen = null;
                 }
-                else {
-                    self.moveInRandomDirection();
-                }
-            }
-            else if(self.lastSeen) {
-                self.moveTowards(self.lastSeen);
             } else {
                 self.moveInRandomDirection();
             }
             self.messageClient.send(new Message('idle'));
         });
+    }
+
+    private refreshTarget() {
+        if(this.currentTarget) {
+            this.currentTarget = this.viewpoint.getLayer().findGameObject(this.currentTarget.getId());
+            if(this.currentTarget) {
+                this.lastSeen = this.currentTarget.getPosition();
+            }
+        }
+
+        if(!this.currentTarget && !this.lastSeen) {
+            this.currentTarget = this.searchClosestPlayer();
+            if(this.currentTarget) {
+                this.lastSeen = this.currentTarget.getPosition();
+                this.shout('*looks at '+this.currentTarget.getName()+'* Fresh meat..');
+            }
+        }
     }
 
     private searchClosestPlayer():GameObject {
@@ -126,10 +132,10 @@ class ArtificialClient {
         return closestPlayer;
     }
 
-    private moveTowards(target:Vector2D) {
+    private moveTowards(target:Vector2D):boolean {
         var me = this.viewpoint.getActor().getPosition();
         var velocity = target.subVector(me).getDirectionVector();
-        this.attemptMove(velocity);
+        return this.attemptMove(velocity);
     }
 
     private moveInRandomDirection() {

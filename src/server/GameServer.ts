@@ -73,10 +73,6 @@ class GameServer {
 
         messageDispatcher.on('shout', function(message:Message) {
             var data = message.getData();
-            if(!self.level.canPlay(actor)) {
-                return;
-            }
-            self.level.useTurns(actor, 1);
             messageDispatcher.emit(new Message('sync', { viewpoint: self.level.getViewpoint(actor)}));
             messageDispatcher.broadcast(new Message('being-shouted', {
                 'id': actor.getBeing().getId(),
