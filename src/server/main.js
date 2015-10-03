@@ -10,5 +10,5 @@ var randomSeed = 19582923;
 var server = new GameServer({
     randomSeed: randomSeed,
     port: 3000,
-    includeFollowBot: true
+    numberFollowBots: 1
 });

@@ -15,7 +15,7 @@ describe('client connects in a level with a follow bot in it', function() {
     };
 
     beforeEach(function(){
-        server = Simulator.serverBoots({includeFollowBot: true});
+        server = Simulator.serverBoots({numberFollowBots: 1});
         client = server.clientConnects();
     });
 

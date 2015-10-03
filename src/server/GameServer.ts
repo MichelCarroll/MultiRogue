@@ -33,7 +33,8 @@ class GameServer {
         this.messageServer = new MessageServer(params.port);
         this.messageServer.start(this.onConnection.bind(this));
 
-        if(params.includeFollowBot) {
+        var numBots = params.numberFollowBots ? params.numberFollowBots : 0;
+        for(var i = 0; i < numBots; i++) {
             new ArtificialClient(this.messageServer);
         }
     }
