@@ -9,8 +9,7 @@ import ROT = require('./../ROT');
 class LevelGenerator {
 
     public create():Level {
-        var level = new Level();
-        level.setSize(new Vector2D(100,50));
+        var level = new Level(new Vector2D(100,50));
         this.traceMap(level);
         level.setActorSpawnSpot(level.getRandomTile().getPosition());
         this.addRandomSticks(level, 100);

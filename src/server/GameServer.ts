@@ -8,6 +8,7 @@
 var fs = require('fs');
 
 import Vector2D = require('../common/Vector2D');
+import GameObject = require('../common/GameObject');
 import Playable = require('../common/Components/Playable');
 import Message = require('../common/Message');
 
@@ -132,14 +133,13 @@ class GameServer {
             }
 
             try {
-                self.level.dropObject(actor, parseInt(data.objectId));
+                var go = self.level.dropObject(actor, parseInt(data.objectId));
             } catch(error) {
                 self.handleError(actor, error, messageDispatcher);
                 return;
             }
 
             self.level.useTurns(actor, 1);
-            var go = self.level.getObject(parseInt(data.objectId));
             messageDispatcher.emit(new Message('sync', { viewpoint: self.level.getViewpoint(actor)}));
             messageDispatcher.broadcast(new Message('game-object-add', { go: go }));
         });

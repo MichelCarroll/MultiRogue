@@ -22,22 +22,21 @@ class Level  {
     private goRepository:Repository<GameObject>;
     private tilesIndex:Repository<GameObject>;
     private gameObjectLayer:GameObjectLayer;
-    private numberedTilesIndex:GameObject[];
+    private numberedTilesIndex:GameObject[] = [];
     private scheduler:ROT.Scheduler.Simple;
-    private currentActor:Actor;
+    private currentActor:Actor = null;
     private players:Actor[] = [];
     private playerSpawnPoint:SpawnPoint;
     private nextGOKey:number = 1;
     private fov:ROT.IFOV;
 
-    constructor() {
+    constructor(size:Vector2D) {
         this.fov = new ROT.FOV.DiscreteShadowcasting(this.getTileOpacityCallback.bind(this));
         this.gameObjectLayer = new GameObjectLayer();
         this.goRepository = new Repository<GameObject>();
         this.scheduler = new ROT.Scheduler.Simple();
-        this.currentActor = null;
         this.tilesIndex = new Repository<GameObject>();
-        this.numberedTilesIndex = [];
+        this.size = size;
     }
 
     public setActorSpawnSpot(position:Vector2D) {
@@ -45,10 +44,6 @@ class Level  {
         this.playerSpawnPoint = new SpawnPoint(position, 5, function(point:Vector2D):boolean {
             return self.isValidSpawnPoint(point);
         });
-    }
-
-    public setSize(size:Vector2D) {
-        this.size = size;
     }
 
     public getRandomTile():GameObject {
@@ -145,10 +140,7 @@ class Level  {
     public pickUpObject(player:Actor, goId:number) {
         var being = player.getBeing();
         var go = this.goRepository.get(goId);
-        if(!go) {
-            throw new Error('No GO with this ID');
-        }
-        else if(!go.getPosition().equals(being.getPosition())) {
+        if(!go.getPosition().equals(being.getPosition())) {
             throw new Error('Actor isn\'t on the same position as the GO');
         }
         else if(!go.isContent()) {
@@ -162,18 +154,11 @@ class Level  {
     public dropObject(player:Actor, goId:number):GameObject {
         var being = player.getBeing();
         var go = being.getContainerComponent().getInventory().get(goId);
-        if(!go) {
-            throw new Error('No GO with this ID');
-        }
         being.getContainerComponent().removeFromInventory(go);
         go.setPosition(being.getPosition().copy());
         this.goRepository.set(go.getId(), go);
         this.gameObjectLayer.add(go, go.getPosition());
         return go;
-    }
-
-    public getObject(goId:number):GameObject {
-        return this.goRepository.get(goId);
     }
 
     private getCollidedGameObjects(position:Vector2D) {
