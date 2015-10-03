@@ -17,6 +17,7 @@ import Actor = require('./Actor');
 class Level  {
 
     static TURNS_PER_ROUND = 4;
+    static MAXIMUM_RANGE = 5;
     private size:Vector2D;
     private goRepository:Repository<GameObject>;
     private tilesIndex:Repository<GameObject>;
@@ -222,7 +223,7 @@ class Level  {
         var layer = new GameObjectLayer();
         var viewpoint = new Viewpoint();
         var self = this;
-        this.fov.compute(cameraPos.x, cameraPos.y, 5, function(x, y, r) {
+        this.fov.compute(cameraPos.x, cameraPos.y, Level.MAXIMUM_RANGE, function(x, y, r) {
             layer.setStack(self.gameObjectLayer.getStackAtPosition(new Vector2D(x, y)), new Vector2D(x, y));
         });
         viewpoint.setLayer(layer);
