@@ -79,10 +79,10 @@ class GameServer {
 
         messageDispatcher.on('command', function(message:Message) {
             var command:Command = message.getData().command;
+            self.inject(command, self.level.getGameObjectLayer(), actor.getBeing(), messageDispatcher);
             if(command.getTurnsRequired() > 0 && !self.level.canPlay(actor)) {
                 self.handleError(actor, new Error('Not your turn'), messageDispatcher);
             }
-            self.inject(command, self.level.getGameObjectLayer(), actor.getBeing(), messageDispatcher);
             if(!command.canExecute()) {
                 self.handleError(actor, new Error('Can\'t execute'), messageDispatcher);
             }

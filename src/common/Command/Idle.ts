@@ -12,7 +12,7 @@ class Idle implements Command, PlayerAware {
     private player:GameObject;
 
     public getTurnsRequired():number {
-        return this.player.getPlayableComponent().getRemainingTurns();
+        return Math.max(1, this.player.getPlayableComponent().getRemainingTurns());
     }
 
     public setPlayer(player:GameObject) {
