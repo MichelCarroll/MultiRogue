@@ -22,16 +22,11 @@ class Level  {
     static MAXIMUM_RANGE = 5;
 
     private size:Vector2D;
-    private tilesIndex:Map<GameObject>;
     private numberedTilesIndex:GameObject[] = [];
-
     private goMap:Repository;
     private gameObjectLayer:GameObjectLayer;
-
     private playerSpawnPoint:SpawnPoint;
-
     private fov:ROT.IFOV;
-
     private scheduler:ROT.Scheduler.Simple;
     private players:Actor[] = [];
     private currentActor:Actor = null;
@@ -42,7 +37,6 @@ class Level  {
         this.gameObjectLayer = new GameObjectLayer();
         this.goMap = new Repository();
         this.scheduler = new ROT.Scheduler.Simple();
-        this.tilesIndex = new Map<GameObject>();
         this.size = size;
     }
 
@@ -62,13 +56,12 @@ class Level  {
     }
 
     private isValidSpawnPoint(point:Vector2D):boolean {
-        return this.tilesIndex.has(point.toString()) &&
+        return this.gameObjectLayer.getWalkableGameObject(point) &&
             !this.getCollidedGameObjects(point);
     }
 
     public addTile(go:GameObject) {
         this.addGameObject(go);
-        this.tilesIndex.set(go.getPosition().toString(), go);
         this.numberedTilesIndex.push(go);
     }
 
@@ -127,7 +120,7 @@ class Level  {
         if(position.distanceFrom(player.getBeing().getPosition()) >= 2) { //diag is ok, and it's 1.4
             throw new Error('Cant move that many spaces away');
         }
-        if(!this.tilesIndex.has(position.toString())) {
+        if(!this.gameObjectLayer.getWalkableGameObject(position)) {
             throw new Error('Cant move there, no tile there');
         }
         if(this.getCollidedGameObjects(position)) {
@@ -187,7 +180,7 @@ class Level  {
     }
 
     public getTileOpacityCallback(x:number, y:number):boolean {
-        return this.tilesIndex.has(new Vector2D(x, y).toString());
+        return !!this.gameObjectLayer.getWalkableGameObject(new Vector2D(x, y));
     }
 
     public getInitializationInformation() {
