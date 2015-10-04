@@ -1,6 +1,6 @@
 
 import Message = require('../common/Message');
-import MessageDispatcher = require('./MessageDispatcher');
+import MessageDispatcher = require('../common/MessageDispatcher');
 import Serializer = require('../common/Serializer');
 import Referencer = require('../common/Referencer');
 

@@ -18,7 +18,7 @@ import LevelGenerator = require('./Generators/LevelGenerator');
 import Actor = require('./Actor');
 import Level = require('./Level');
 import MessageServer = require('./MessageServer');
-import MessageDispatcher = require('./MessageDispatcher');
+import MessageDispatcher = require('../common/MessageDispatcher');
 import ServerParameters = require('./ServerParameters');
 
 import ArtificialClient = require('./ArtificialClient');
