@@ -133,7 +133,7 @@ class GameServer {
             }
 
             try {
-                var go = self.level.dropObject(actor, parseInt(data.objectId));
+                self.level.dropObject(actor, parseInt(data.objectId));
             } catch(error) {
                 self.handleError(actor, error, messageDispatcher);
                 return;

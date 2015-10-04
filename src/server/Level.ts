@@ -47,8 +47,7 @@ class Level  {
     }
 
     private isValidSpawnPoint(point:Vector2D):boolean {
-        return this.gameObjectLayer.getWalkableGameObject(point) &&
-            !this.getCollidedGameObjects(point);
+        return this.gameObjectLayer.getWalkableGameObject(point) && !this.positionHasCollidables(point);
     }
 
     public addGameObject(go:GameObject) {
@@ -131,16 +130,15 @@ class Level  {
         this.gameObjectLayer.remove(go, go.getPosition());
     }
 
-    public dropObject(player:Actor, goId:number):GameObject {
+    public dropObject(player:Actor, goId:number) {
         var being = player.getBeing();
         var go = being.getContainerComponent().getInventory().get(goId);
         being.getContainerComponent().removeFromInventory(go);
         go.setPosition(being.getPosition().copy());
         this.gameObjectLayer.add(go, go.getPosition());
-        return go;
     }
 
-    private getCollidedGameObjects(position:Vector2D):boolean {
+    private positionHasCollidables(position:Vector2D):boolean {
         return !!this.gameObjectLayer.getCollidableGameObject(position);
     }
 
