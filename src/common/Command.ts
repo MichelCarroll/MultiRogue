@@ -1,7 +1,8 @@
 
 import MessageClient = require('./MessageClient');
+import Serializable = require('./Serializable');
 
-interface Command {
+interface Command extends Serializable {
 
     getTurnsRequired():number;
     canExecute():boolean;

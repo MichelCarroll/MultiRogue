@@ -135,7 +135,7 @@ class GameServer {
             }
 
             try {
-                self.level.dropObject(actor, data.object);
+                self.level.dropObject(actor, data.target);
             } catch(error) {
                 self.handleError(actor, error, messageDispatcher);
                 return;

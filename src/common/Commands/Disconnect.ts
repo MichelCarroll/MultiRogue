@@ -28,6 +28,14 @@ class Disconnect implements Command, ServerAware {
     public dispatch(messageClient:MessageClient) {
         messageClient.disconnect();
     }
+
+    public serialize():any {
+        return {};
+    }
+
+    public deserialize(data:any) {
+
+    }
 }
 
 export = Disconnect;

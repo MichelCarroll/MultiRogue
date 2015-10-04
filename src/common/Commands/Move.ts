@@ -55,6 +55,16 @@ class Move implements Command, GameObjectLayerAware, PlayerAware {
             'destination': coord
         }));
     }
+
+    public serialize():any {
+        return {
+            direction: this.direction
+        }
+    }
+
+    public deserialize(data:any) {
+        this.direction = data.direction;
+    }
 }
 
 export = Move;

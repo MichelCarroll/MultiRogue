@@ -39,6 +39,16 @@ class Connect implements Command, ServerAware {
             'type': this.type
         }));
     }
+
+    public serialize():any {
+        return {
+            type: this.type
+        }
+    }
+
+    public deserialize(data:any) {
+        this.type = data.type;
+    }
 }
 
 export = Connect;

@@ -20,6 +20,14 @@ class Idle implements Command {
     public dispatch(messageClient:MessageClient) {
         messageClient.send(new Message('idle'));
     }
+
+    public serialize():any {
+
+    }
+
+    public deserialize(data:any) {
+
+    }
 }
 
 export = Idle;

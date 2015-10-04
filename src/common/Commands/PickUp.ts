@@ -45,6 +45,14 @@ class PickUp implements Command, GameObjectLayerAware, PlayerAware {
             'object': go
         }));
     }
+
+    public serialize():any {
+        return {};
+    }
+
+    public deserialize(data:any) {
+
+    }
 }
 
 export = PickUp;

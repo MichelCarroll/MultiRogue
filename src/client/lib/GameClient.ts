@@ -4,6 +4,7 @@
 
 /// <reference path="../../../definitions/rot.d.ts"/>
 
+import DropCommand = require('../../common/Commands/Drop');
 import GameObject = require('../../common/GameObject');
 import Vector2D = require('../../common/Vector2D');
 import Command = require('../../common/Command');
@@ -156,6 +157,11 @@ class GameClient {
         gos.forEach(function(go:GameObject) {
             self.context.getUIAdapter().addItemToUI(go.getId(), go.getName());
         });
+    }
+
+    public handleDropCommand(goId:number) {
+        var go = this.context.getPlayer().getContainerComponent().getInventory().get(goId);
+        this.handleCommand(new DropCommand(go));
     }
 
     public handleScreenResize() {

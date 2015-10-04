@@ -98,7 +98,7 @@ var Simulator = {
                 };
 
                 obj.drops = function (objectId) {
-                    client.handleCommand(new DropCommand(objectId));
+                    client.handleDropCommand(objectId);
                     return obj;
                 };
 

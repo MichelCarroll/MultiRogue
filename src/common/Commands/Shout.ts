@@ -29,6 +29,16 @@ class Shout implements Command {
             'text': this.text
         }));
     }
+
+    public serialize():any {
+        return {
+            text: this.text
+        }
+    }
+
+    public deserialize(data:any) {
+        this.text = data.text;
+    }
 }
 
 export = Shout;

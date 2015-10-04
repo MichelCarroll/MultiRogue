@@ -6,7 +6,6 @@ import BrowserAdapter = require('./BrowserAdapter');
 import GameDisplayAdapter = require('./GameDisplayAdapter');
 import Vector2D = require('../../common/Vector2D');
 
-import DropCommand = require('../../common/Commands/Drop');
 import MoveCommand = require('../../common/Commands/Move');
 import ShoutCommand = require('../../common/Commands/Shout');
 import PickUpCommand = require('../../common/Commands/PickUp');
@@ -63,7 +62,7 @@ $(document).ready(function() {
 
     $('#game-items').on('click', 'li', function() {
         var goId = parseInt($(this).attr('goid'));
-        game.handleCommand(new DropCommand(goId));
+        game.handleDropCommand(goId);
     });
 
     game.handleCommand(new ConnectCommand(ConnectCommand.PLAYER));

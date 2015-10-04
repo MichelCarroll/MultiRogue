@@ -65,16 +65,3 @@ describe('another client signs in and observes the first picking up a stick', fu
         should(secondClient.getTileTokenAt(47, 26)).not.be.eql('/');
     });
 });
-
-describe('client using hud in unintented ways', function() {
-    var client;
-    beforeEach(function() {
-        var server = Simulator.serverBoots();
-        client = server.clientConnects();
-    });
-    it('should be notified if trying to drop unexistant stick', function() {
-        should(client.hasInLog('You can\'t do that!')).be.false();
-        client.dropsItem(999);
-        should(client.hasInLog('You can\'t do that!')).be.true();
-    });
-});
