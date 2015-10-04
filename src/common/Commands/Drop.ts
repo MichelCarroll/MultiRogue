@@ -6,21 +6,15 @@ import Message = require('../Message');
 import Container = require('../Components/Container');
 import Vector2D = require('../Vector2D');
 
-import ServerAware = require('../IOC/ServerAware');
 import PlayerAware = require('../IOC/PlayerAware');
 
-class Drop implements Command, ServerAware, PlayerAware {
+class Drop implements Command, PlayerAware {
 
     private goId:number;
-    private messageClient:MessageClient;
     private player:GameObject;
 
     constructor(goId:number) {
         this.goId = goId;
-    }
-
-    public setMessageClient(messageClient:MessageClient) {
-        this.messageClient = messageClient;
     }
 
     public setPlayer(player:GameObject) {
@@ -40,9 +34,9 @@ class Drop implements Command, ServerAware, PlayerAware {
         return "You drop the "+go.getName()+".";
     }
 
-    public execute() {
+    public execute(messageClient:MessageClient) {
         var go = this.player.getContainerComponent().getInventory().get(this.goId);
-        this.messageClient.send(new Message('being-dropped', {
+        messageClient.send(new Message('being-dropped', {
             'playerId': this.player.getId(),
             'objectId': go.getId()
         }));

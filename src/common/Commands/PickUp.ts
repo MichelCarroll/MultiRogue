@@ -6,19 +6,13 @@ import Message = require('../Message');
 import Vector2D = require('../Vector2D');
 import GameObjectLayer = require('../GameObjectLayer');
 
-import ServerAware = require('../IOC/ServerAware');
 import PlayerAware = require('../IOC/PlayerAware');
 import GameObjectLayerAware = require('../IOC/GameObjectLayerAware');
 
-class PickUp implements Command, ServerAware, GameObjectLayerAware, PlayerAware {
+class PickUp implements Command, GameObjectLayerAware, PlayerAware {
 
-    private messageClient:MessageClient;
     private player:GameObject;
     private goLayer:GameObjectLayer;
-
-    public setMessageClient(messageClient:MessageClient) {
-        this.messageClient = messageClient;
-    }
 
     public setGameObjectLayer(goLayer:GameObjectLayer) {
         this.goLayer = goLayer;
@@ -45,9 +39,9 @@ class PickUp implements Command, ServerAware, GameObjectLayerAware, PlayerAware 
         return "You pick up the "+go.getName()+".";
     }
 
-    public execute() {
+    public execute(messageClient:MessageClient) {
         var go = this.goLayer.getTopPickupableGameObject(this.player.getPosition());
-        this.messageClient.send(new Message('being-picked-up', {
+        messageClient.send(new Message('being-picked-up', {
             'playerId': this.player.getId(),
             'objectId': go.getId()
         }));

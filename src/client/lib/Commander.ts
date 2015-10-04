@@ -57,7 +57,7 @@ class Commander {
         }
 
         var feedbackMessage = command.getFeedbackMessage(); //race condition
-        command.execute();
+        command.execute(this.context.getMessageClient());
 
         if(feedbackMessage.length > 0) {
             this.context.getUIAdapter().logOnUI(feedbackMessage);

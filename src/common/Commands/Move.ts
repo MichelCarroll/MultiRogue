@@ -6,23 +6,17 @@ import MessageClient = require('../MessageClient');
 import Message = require('../Message');
 import Vector2D = require('../Vector2D');
 
-import ServerAware = require('../IOC/ServerAware');
 import PlayerAware = require('../IOC/PlayerAware');
 import GameObjectLayerAware = require('../IOC/GameObjectLayerAware');
 
-class Move implements Command, ServerAware, GameObjectLayerAware, PlayerAware {
+class Move implements Command, GameObjectLayerAware, PlayerAware {
 
     private direction:Vector2D;
     private player:GameObject;
     private goLayer:GameObjectLayer;
-    private messageClient:MessageClient;
 
     constructor(direction:Vector2D) {
         this.direction = direction;
-    }
-
-    public setMessageClient(messageClient:MessageClient) {
-        this.messageClient = messageClient;
     }
 
     public setGameObjectLayer(goLayer:GameObjectLayer) {
@@ -55,9 +49,9 @@ class Move implements Command, ServerAware, GameObjectLayerAware, PlayerAware {
         return true;
     }
 
-    public execute() {
+    public execute(messageClient:MessageClient) {
         var coord = this.player.getPosition().addVector(this.direction);
-        this.messageClient.send(new Message('being-moved', {
+        messageClient.send(new Message('being-moved', {
             'id': this.player.getId(),
             'x': coord.x,
             'y': coord.y

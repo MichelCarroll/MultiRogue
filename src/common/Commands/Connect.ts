@@ -33,9 +33,9 @@ class Connect implements Command, ServerAware {
         return '';
     }
 
-    public execute() {
-        this.messageClient.connect();
-        this.messageClient.send(new Message('ready', {
+    public execute(messageClient:MessageClient) {
+        messageClient.connect();
+        messageClient.send(new Message('ready', {
             'type': this.type
         }));
     }

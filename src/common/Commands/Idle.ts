@@ -3,15 +3,7 @@ import Command = require('../Command');
 import MessageClient = require('../MessageClient');
 import Message = require('../Message');
 
-import ServerAware = require('../IOC/ServerAware');
-
-class Idle implements Command, ServerAware{
-
-    private messageClient:MessageClient;
-
-    public setMessageClient(messageClient:MessageClient) {
-        this.messageClient = messageClient;
-    }
+class Idle implements Command {
 
     public getTurnsRequired():number {
         return 1;
@@ -25,8 +17,8 @@ class Idle implements Command, ServerAware{
         return "You do nothing.";
     }
 
-    public execute() {
-        this.messageClient.send(new Message('idle'));
+    public execute(messageClient:MessageClient) {
+        messageClient.send(new Message('idle'));
     }
 }
 

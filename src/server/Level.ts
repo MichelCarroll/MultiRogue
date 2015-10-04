@@ -17,18 +17,25 @@ import Actor = require('./Actor');
 
 class Level  {
 
+    static SPAWN_RADIUS = 5;
     static TURNS_PER_ROUND = 4;
     static MAXIMUM_RANGE = 5;
+
     private size:Vector2D;
-    private goMap:Repository;
     private tilesIndex:Map<GameObject>;
-    private gameObjectLayer:GameObjectLayer;
     private numberedTilesIndex:GameObject[] = [];
-    private scheduler:ROT.Scheduler.Simple;
-    private currentActor:Actor = null;
-    private players:Actor[] = [];
+
+    private goMap:Repository;
+    private gameObjectLayer:GameObjectLayer;
+
     private playerSpawnPoint:SpawnPoint;
+
     private fov:ROT.IFOV;
+
+    private scheduler:ROT.Scheduler.Simple;
+    private players:Actor[] = [];
+    private currentActor:Actor = null;
+
 
     constructor(size:Vector2D) {
         this.fov = new ROT.FOV.DiscreteShadowcasting(this.getTileOpacityCallback.bind(this));
@@ -41,7 +48,7 @@ class Level  {
 
     public setActorSpawnSpot(position:Vector2D) {
         var self = this;
-        this.playerSpawnPoint = new SpawnPoint(position, 5, function(point:Vector2D):boolean {
+        this.playerSpawnPoint = new SpawnPoint(position, Level.SPAWN_RADIUS, function(point:Vector2D):boolean {
             return self.isValidSpawnPoint(point);
         });
     }
