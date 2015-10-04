@@ -18,7 +18,7 @@ class LevelGenerator {
         this.addRandomSticks(level, 100);
         return level;
     }
-g
+
     private getRandomTile():GameObject {
         if(!this.numberedTilesIndex.length) {
             return null;
