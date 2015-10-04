@@ -75,7 +75,6 @@ class GameServer {
 
         messageDispatcher.on('shout', function(message:Message) {
             var data = message.getData();
-            messageDispatcher.emit(new Message('sync', { viewpoint: self.level.getViewpoint(actor)}));
             messageDispatcher.broadcast(new Message('being-shouted', {
                 'id': actor.getBeing().getId(),
                 'name': actor.getBeing().getName(),
