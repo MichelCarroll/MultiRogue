@@ -25,7 +25,7 @@ class Disconnect implements Command, ServerAware {
         return '';
     }
 
-    public execute(messageClient:MessageClient) {
+    public dispatch(messageClient:MessageClient) {
         messageClient.disconnect();
     }
 }

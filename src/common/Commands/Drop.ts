@@ -34,7 +34,7 @@ class Drop implements Command, PlayerAware {
         return "You drop the "+go.getName()+".";
     }
 
-    public execute(messageClient:MessageClient) {
+    public dispatch(messageClient:MessageClient) {
         var go = this.player.getContainerComponent().getInventory().get(this.goId);
         messageClient.send(new Message('being-dropped', {
             'playerId': this.player.getId(),

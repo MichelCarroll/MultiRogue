@@ -33,7 +33,7 @@ class ArtificialClient {
         });
         var command = new ConnectCommand(ConnectCommand.AI);
         command.setMessageClient(this.messageClient);
-        command.execute(this.messageClient);
+        command.dispatch(this.messageClient);
     }
 
     private hookOnEvents() {
@@ -164,7 +164,7 @@ class ArtificialClient {
         var command = new ShoutCommand(text);
         var canDo = command.canExecute();
         if(canDo) {
-            command.execute(this.messageClient);
+            command.dispatch(this.messageClient);
         }
         return canDo;
     }
@@ -176,7 +176,7 @@ class ArtificialClient {
         command.setPlayer(this.viewpoint.getActor());
         var canDo = command.canExecute();
         if(canDo) {
-            command.execute(this.messageClient);
+            command.dispatch(this.messageClient);
         }
         return canDo;
     }

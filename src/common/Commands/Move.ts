@@ -49,7 +49,7 @@ class Move implements Command, GameObjectLayerAware, PlayerAware {
         return true;
     }
 
-    public execute(messageClient:MessageClient) {
+    public dispatch(messageClient:MessageClient) {
         var coord = this.player.getPosition().addVector(this.direction);
         messageClient.send(new Message('being-moved', {
             'id': this.player.getId(),

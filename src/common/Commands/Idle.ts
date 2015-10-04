@@ -17,7 +17,7 @@ class Idle implements Command {
         return "You do nothing.";
     }
 
-    public execute(messageClient:MessageClient) {
+    public dispatch(messageClient:MessageClient) {
         messageClient.send(new Message('idle'));
     }
 }

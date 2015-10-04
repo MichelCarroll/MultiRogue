@@ -24,7 +24,7 @@ class Shout implements Command {
         return "You shout \""+this.text+"\"!!";
     }
 
-    public execute(messageClient:MessageClient) {
+    public dispatch(messageClient:MessageClient) {
         messageClient.send(new Message('shout', {
             'text': this.text
         }));

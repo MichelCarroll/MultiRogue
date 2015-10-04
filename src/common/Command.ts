@@ -5,7 +5,7 @@ interface Command {
 
     getTurnsRequired():number;
     canExecute():boolean;
-    execute(messageClient:MessageClient);
+    dispatch(messageClient:MessageClient);
     getFeedbackMessage():string;
 
 }
