@@ -22,7 +22,6 @@ class Level  {
     static MAXIMUM_RANGE = 5;
 
     private size:Vector2D;
-    private numberedTilesIndex:GameObject[] = [];
     private goMap:Repository;
     private gameObjectLayer:GameObjectLayer;
     private playerSpawnPoint:SpawnPoint;
@@ -47,22 +46,9 @@ class Level  {
         });
     }
 
-    public getRandomTile():GameObject {
-        if(!this.numberedTilesIndex.length) {
-            return null;
-        }
-        var index = Math.floor(ROT.RNG.getUniform() * this.numberedTilesIndex.length);
-        return this.numberedTilesIndex[index];
-    }
-
     private isValidSpawnPoint(point:Vector2D):boolean {
         return this.gameObjectLayer.getWalkableGameObject(point) &&
             !this.getCollidedGameObjects(point);
-    }
-
-    public addTile(go:GameObject) {
-        this.addGameObject(go);
-        this.numberedTilesIndex.push(go);
     }
 
     public addGameObject(go:GameObject) {
