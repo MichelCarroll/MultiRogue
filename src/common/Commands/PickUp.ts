@@ -42,8 +42,7 @@ class PickUp implements Command, GameObjectLayerAware, PlayerAware {
     public dispatch(messageClient:MessageClient) {
         var go = this.goLayer.getTopPickupableGameObject(this.player.getPosition());
         messageClient.send(new Message('being-picked-up', {
-            'playerId': this.player.getId(),
-            'objectId': go.getId()
+            'object': go
         }));
     }
 }

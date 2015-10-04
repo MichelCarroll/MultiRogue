@@ -22,7 +22,7 @@ class Level  {
     static MAXIMUM_RANGE = 5;
 
     private size:Vector2D;
-    private goMap:Repository;
+    private goRepository:Repository;
     private gameObjectLayer:GameObjectLayer;
     private playerSpawnPoint:SpawnPoint;
     private fov:ROT.IFOV;
@@ -31,10 +31,10 @@ class Level  {
     private currentActor:Actor = null;
 
 
-    constructor(size:Vector2D) {
+    constructor(size:Vector2D, goRepository:Repository) {
         this.fov = new ROT.FOV.DiscreteShadowcasting(this.getTileOpacityCallback.bind(this));
         this.gameObjectLayer = new GameObjectLayer();
-        this.goMap = new Repository();
+        this.goRepository = goRepository;
         this.scheduler = new ROT.Scheduler.Simple();
         this.size = size;
     }
@@ -51,7 +51,7 @@ class Level  {
     }
 
     public addGameObject(go:GameObject) {
-        this.goMap.insert(go);
+        this.goRepository.insert(go);
         this.gameObjectLayer.add(go, go.getPosition());
     }
 
@@ -90,7 +90,7 @@ class Level  {
 
     public removeActor(actor:Actor) {
         var go = actor.getBeing();
-        this.goMap.delete(go.getId());
+        this.goRepository.delete(go.getId());
         this.gameObjectLayer.remove(go, go.getPosition());
         this.scheduler.remove(actor);
         if(actor.isPlayer()) {
@@ -108,7 +108,7 @@ class Level  {
         if(!this.gameObjectLayer.getWalkableGameObject(position)) {
             throw new Error('Cant move there, no tile there');
         }
-        if(this.getCollidedGameObjects(position)) {
+        if(this.positionHasCollidables(position)) {
             throw new Error('Cant move there, being in the way');
         }
         var go = player.getBeing();
@@ -117,9 +117,8 @@ class Level  {
         this.gameObjectLayer.add(go, position);
     }
 
-    public pickUpObject(player:Actor, goId:number) {
+    public pickUpObject(player:Actor, go:GameObject) {
         var being = player.getBeing();
-        var go = this.goMap.get(goId);
         if(!go.getPosition().equals(being.getPosition())) {
             throw new Error('Actor isn\'t on the same position as the GO');
         }
@@ -130,9 +129,8 @@ class Level  {
         this.gameObjectLayer.remove(go, go.getPosition());
     }
 
-    public dropObject(player:Actor, goId:number) {
+    public dropObject(player:Actor, go:GameObject) {
         var being = player.getBeing();
-        var go = being.getContainerComponent().getInventory().get(goId);
         being.getContainerComponent().removeFromInventory(go);
         go.setPosition(being.getPosition().copy());
         this.gameObjectLayer.add(go, go.getPosition());

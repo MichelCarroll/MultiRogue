@@ -11,6 +11,7 @@ import Vector2D = require('../common/Vector2D');
 import GameObject = require('../common/GameObject');
 import Playable = require('../common/Components/Playable');
 import Message = require('../common/Message');
+import Repository = require('../common/Repository');
 
 import ROT = require('./ROT');
 import LevelGenerator = require('./Generators/LevelGenerator');
@@ -27,11 +28,13 @@ class GameServer {
 
     private level:Level;
     private messageServer:MessageServer;
+    private goRepository:Repository;
 
     constructor(params:ServerParameters) {
         ROT.RNG.setSeed(params.randomSeed);
-        this.level = (new LevelGenerator()).create();
-        this.messageServer = new MessageServer(params.port);
+        this.goRepository = new Repository();
+        this.level = (new LevelGenerator(this.goRepository)).create();
+        this.messageServer = new MessageServer(this.goRepository, params.port);
         this.messageServer.start(this.onConnection.bind(this));
 
         var numBots = params.numberFollowBots ? params.numberFollowBots : 0;
@@ -114,7 +117,7 @@ class GameServer {
             }
 
             try {
-                self.level.pickUpObject(actor, parseInt(data.objectId));
+                self.level.pickUpObject(actor, data.object);
             } catch(error) {
                 self.handleError(actor, error, messageDispatcher);
                 return;
@@ -132,7 +135,7 @@ class GameServer {
             }
 
             try {
-                self.level.dropObject(actor, parseInt(data.objectId));
+                self.level.dropObject(actor, data.object);
             } catch(error) {
                 self.handleError(actor, error, messageDispatcher);
                 return;

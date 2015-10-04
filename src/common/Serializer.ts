@@ -20,7 +20,7 @@ class Serializer {
         }
         var object:Serializable = DynamicClassLoader(data.__className);
         if(!object) {
-            throw new Error('Cannot instanciate the class '+data.__className);
+            throw new Error('Cannot deserialize object with class '+data.__className);
         }
         object.deserialize(data.__properties);
         return object;

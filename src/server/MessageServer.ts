@@ -4,6 +4,8 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 import Message = require('../common/Message');
+import Repository = require('../common/Repository');
+import Referencer = require('../common/Referencer');
 
 import MessageDispatcher = require('./MessageDispatcher');
 import DirectMessageDispatcher = require('./DirectMessageDispatcher');
@@ -14,9 +16,11 @@ class MessageServer {
     private connections:MessageDispatcher[] = [];
     private connectionCallback:(messageDispatcher:MessageDispatcher)=>void;
     private port:number;
+    private repository:Repository;
 
-    constructor(port?:number) {
+    constructor(repository:Repository, port?:number) {
         this.port = port;
+        this.repository = repository;
     }
 
     public start(connectionCallback:(messageDispatcher:MessageDispatcher)=>void) {
@@ -38,6 +42,7 @@ class MessageServer {
         var self = this;
         if(isSocket) {
             dispatcher = new SocketIOMessageDispatcher(onMessage,
+                new Referencer(this.repository),
                 function(message:Message) { self.onBroadcast(dispatcher, message) },
                 function() { self.onDisconnect(indexToDelete) }
             );

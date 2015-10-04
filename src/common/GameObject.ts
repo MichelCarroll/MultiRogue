@@ -16,8 +16,9 @@ import Collidable = require('./Components/Collidable');
 import Renderable = require('./Components/Renderable');
 import Walkable = require('./Components/Walkable');
 import Allegiancable = require('./Components/Allegiancable');
+import Referenceable = require('./Referenceable');
 
-class GameObject implements Serializable {
+class GameObject implements Serializable, Referenceable {
 
     protected position:Vector2D;
     protected id:number;

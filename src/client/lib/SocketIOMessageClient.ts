@@ -75,7 +75,17 @@ class SocketIOMessageClient implements MessageClient {
             console.log('Sending:');
             console.log(message);
         }
-        this.socket.emit(message.getName(), message.getData());
+        var data = message.getData();
+        if(data) {
+            Object.getOwnPropertyNames(data).forEach(function(name) {
+                if(data[name].getId) {
+                    data[name] = {
+                      '__reference': data[name].getId()
+                    };
+                }
+            });
+        }
+        this.socket.emit(message.getName(), data);
     }
 
 }
