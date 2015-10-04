@@ -92,7 +92,7 @@ class GameServer {
             }
 
             try {
-                self.level.moveActor(actor, data.destination);
+                self.level.moveActor(actor, data.direction);
             } catch(error) {
                 self.handleError(actor, error, messageDispatcher);
                 return;

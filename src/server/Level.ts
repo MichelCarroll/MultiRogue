@@ -101,7 +101,8 @@ class Level  {
         }
     }
 
-    public moveActor(player:Actor, position:Vector2D) {
+    public moveActor(player:Actor, direction:Vector2D) {
+        var position = player.getBeing().getPosition().addVector(direction);
         if(position.distanceFrom(player.getBeing().getPosition()) >= 2) { //diag is ok, and it's 1.4
             throw new Error('Cant move that many spaces away');
         }
