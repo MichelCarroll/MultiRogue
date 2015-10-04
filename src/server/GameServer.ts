@@ -123,7 +123,7 @@ class GameServer {
 
             self.level.useTurns(actor, 1);
             messageDispatcher.emit(new Message('sync', { viewpoint: self.level.getViewpoint(actor)}));
-            messageDispatcher.broadcast(new Message('game-object-remove', { 'id': parseInt(data.objectId) }));
+            messageDispatcher.broadcast(new Message('game-object-remove'));
         });
 
         messageDispatcher.on('being-dropped', function(message:Message) {
@@ -141,7 +141,7 @@ class GameServer {
 
             self.level.useTurns(actor, 1);
             messageDispatcher.emit(new Message('sync', { viewpoint: self.level.getViewpoint(actor)}));
-            messageDispatcher.broadcast(new Message('game-object-add', { go: go }));
+            messageDispatcher.broadcast(new Message('game-object-add'));
         });
     }
 
