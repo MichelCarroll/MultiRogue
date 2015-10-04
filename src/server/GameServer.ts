@@ -92,7 +92,7 @@ class GameServer {
             }
 
             try {
-                self.level.moveActor(actor, new Vector2D(parseInt(data.x), parseInt(data.y)));
+                self.level.moveActor(actor, data.destination);
             } catch(error) {
                 self.handleError(actor, error, messageDispatcher);
                 return;

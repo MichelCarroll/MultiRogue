@@ -1,10 +1,12 @@
 
+import Serializable = require('./Serializable');
 
-class Vector2D {
+
+class Vector2D implements Serializable {
     public x:number;
     public y:number;
 
-    constructor(x:number, y:number) {
+    constructor(x?:number, y?:number) {
         this.x = x;
         this.y = y;
     }
@@ -85,6 +87,18 @@ class Vector2D {
 
     public distanceFrom(vector:Vector2D):number {
         return this.subVector(vector).length();
+    }
+
+    public serialize():any {
+        return {
+            x: this.x,
+            y: this.y
+        }
+    }
+
+    public deserialize(data:any) {
+        this.x = data.x;
+        this.y = data.y;
     }
 }
 
