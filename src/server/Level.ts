@@ -128,7 +128,6 @@ class Level  {
             throw new Error('This GO can\'t be picked up');
         }
         being.getContainerComponent().addToInventory(go);
-        this.goMap.delete(go.getId());
         this.gameObjectLayer.remove(go, go.getPosition());
     }
 
@@ -137,7 +136,6 @@ class Level  {
         var go = being.getContainerComponent().getInventory().get(goId);
         being.getContainerComponent().removeFromInventory(go);
         go.setPosition(being.getPosition().copy());
-        this.goMap.insert(go);
         this.gameObjectLayer.add(go, go.getPosition());
         return go;
     }
