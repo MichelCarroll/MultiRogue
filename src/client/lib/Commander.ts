@@ -17,7 +17,7 @@ class Commander {
     private inject(command:any)
     {
         if(command.setGameObjectLayer) {
-            command.setGameObjectLayer(this.context.getLevel().getGameObjectLayer());
+            command.setGameObjectLayer(this.context.getGameObjectLayer());
         }
         if(command.setPlayer) {
             command.setPlayer(this.context.getPlayer());

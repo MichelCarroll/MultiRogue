@@ -82,6 +82,8 @@ class SocketIOMessageClient implements MessageClient {
                     data[name] = {
                       '__reference': data[name].getId()
                     };
+                } else if(data[name].serialize) {
+                    data[name] = Serializer.serialize(data[name]);
                 }
             });
         }

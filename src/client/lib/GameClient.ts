@@ -12,7 +12,6 @@ import Playable = require('../../common/Components/Playable');
 import Viewpoint = require('../../common/Viewpoint');
 
 
-import Level = require('./Level');
 import UIAdapter = require('./UIAdapter');
 import DisplayAdapter = require('./DisplayAdapter');
 import Commander = require('./Commander');
@@ -123,7 +122,6 @@ class GameClient {
     }
 
     private connect(viewpoint:any, mapSize:Vector2D) {
-        this.context.setLevel(new Level());
         this.context.setPlayer(new GameObject());
         this.sync(viewpoint);
         this.context.getDisplayAdapter().reinitialize(mapSize);
@@ -145,7 +143,7 @@ class GameClient {
     }
 
     private sync(viewpoint:Viewpoint) {
-        this.context.getLevel().setViewpoint(viewpoint);
+        this.context.setGameObjectLayer(viewpoint.getLayer());
         this.context.setPlayer(viewpoint.getActor());
         this.syncInventory();
         this.context.getUIAdapter().setRemainingActionPoints(this.context.getPlayer().getPlayableComponent().getRemainingTurns());

@@ -43,7 +43,7 @@ class DisplayAdapter {
         var self = this;
 
         var getTileAppearance = function(coord:Vector2D) {
-            var gameObject = self.context.getLevel().getGameObjectLayer().getTopRenderableGameObject(coord);
+            var gameObject = self.context.getGameObjectLayer().getTopRenderableGameObject(coord);
 
             if(gameObject) {
                 return {

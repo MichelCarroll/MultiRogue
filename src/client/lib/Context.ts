@@ -1,9 +1,9 @@
 
 import MessageClient = require('../../common/MessageClient');
 import GameObject = require('../../common/GameObject');
+import GameObjectLayer = require('../../common/GameObjectLayer');
 
 import UIAdapter = require('./UIAdapter');
-import Level = require('./Level');
 import DisplayAdapter = require('./DisplayAdapter');
 
 
@@ -11,8 +11,12 @@ class Context {
     private uiAdapter:UIAdapter;
     private messageClient:MessageClient;
     private player:GameObject;
-    private level:Level;
     private displayAdapter:DisplayAdapter;
+    private goLayer:GameObjectLayer;
+
+    public setGameObjectLayer(a:GameObjectLayer) {
+        this.goLayer = a;
+    }
 
     public setDisplayAdapter(a:DisplayAdapter) {
         this.displayAdapter = a;
@@ -26,12 +30,12 @@ class Context {
         this.player = a;
     }
 
-    public setLevel(a:Level) {
-        this.level = a;
-    }
-
     public setUIAdapter(a:UIAdapter) {
         this.uiAdapter = a;
+    }
+
+    public getGameObjectLayer():GameObjectLayer {
+        return this.goLayer;
     }
 
     public getDisplayAdapter():DisplayAdapter {
@@ -44,10 +48,6 @@ class Context {
 
     public getPlayer():GameObject {
         return this.player;
-    }
-
-    public getLevel():Level {
-        return this.level;
     }
 
     public getUIAdapter():UIAdapter {

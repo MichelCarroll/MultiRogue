@@ -47,6 +47,9 @@ class SocketIOMessageDispatcher implements MessageDispatcher {
                 if(data[name].__reference) {
                     data[name] = self.referencer.dereference(data[name].__reference);
                 }
+                else if(data[name].__className) {
+                    data[name] = Serializer.deserialize(data[name]);
+                }
             });
             callback(new Message(name, data));
         });
