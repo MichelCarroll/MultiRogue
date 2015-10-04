@@ -70,27 +70,25 @@ class GameServer {
             }
         });
 
-        messageDispatcher.on('idle', function() {
-            if(!self.level.canPlay(actor)) {
-                return;
-            }
-            self.level.useTurns(actor, actor.getBeing().getPlayableComponent().getRemainingTurns());
-        });
-
         messageDispatcher.on('command', function(message:Message) {
             var command:Command = message.getData().command;
             self.inject(command, self.level.getGameObjectLayer(), actor.getBeing(), messageDispatcher);
-            if(command.getTurnsRequired() > 0 && !self.level.canPlay(actor)) {
-                self.handleError(actor, new Error('Not your turn'), messageDispatcher);
-            }
-            if(!command.canExecute()) {
-                self.handleError(actor, new Error('Can\'t execute'), messageDispatcher);
-            }
             var executor = command.getExecutor();
             self.inject(executor, self.level.getGameObjectLayer(), actor.getBeing(), messageDispatcher);
-            executor.execute();
-            if(command.getTurnsRequired() > 0) {
-                self.level.useTurns(actor, command.getTurnsRequired());
+
+            try {
+                if(command.getTurnsRequired() > 0 && !self.level.canPlay(actor)) {
+                    self.handleError(actor, new Error('Not your turn'), messageDispatcher);
+                }
+                if(!command.canExecute()) {
+                    self.handleError(actor, new Error('Can\'t execute'), messageDispatcher);
+                }
+                executor.execute();
+                if(command.getTurnsRequired() > 0) {
+                    self.level.useTurns(actor, command.getTurnsRequired());
+                }
+            } catch(error) {
+                self.handleError(actor, error, messageDispatcher);
             }
             messageDispatcher.emit(new Message('sync', { viewpoint: self.level.getViewpoint(actor)}));
         });

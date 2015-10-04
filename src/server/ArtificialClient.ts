@@ -9,6 +9,7 @@ import MessageClient = require('../common/MessageClient');
 import DirectMessageClient = require('../common/DirectMessageClient');
 import Viewpoint = require('../common/Viewpoint');
 
+import IdleCommand = require('../common/Command/Idle');
 import MoveCommand = require('../common/Command/Move');
 import ShoutCommand = require('../common/Command/Shout');
 
@@ -98,7 +99,7 @@ class ArtificialClient {
             } else {
                 self.moveInRandomDirection();
             }
-            self.messageClient.send(new Message('idle'));
+            self.idle();
         });
     }
 
@@ -158,6 +159,18 @@ class ArtificialClient {
                 return;
             }
         }
+    }
+
+    private idle():boolean {
+        var command = new IdleCommand();
+        var canDo = command.canExecute();
+        command.setPlayer(this.viewpoint.getActor());
+        if(canDo) {
+            this.messageClient.send(new Message('command', {
+                command: command
+            }));
+        }
+        return canDo;
     }
 
     private shout(text:string):boolean {
