@@ -4,6 +4,8 @@ import GameObject = require('../GameObject');
 import GameObjectLayer = require('../GameObjectLayer');
 import MessageClient = require('../MessageClient');
 import Message = require('../Message');
+import Executor = require('./Executor');
+import MoveExecutor = require('./Executor/MoveExecutor');
 import Vector2D = require('../Vector2D');
 
 import PlayerAware = require('../IOC/PlayerAware');
@@ -25,6 +27,10 @@ class Move implements Command, GameObjectLayerAware, PlayerAware {
 
     public setPlayer(player:GameObject) {
         this.player = player;
+    }
+
+    public getDirection():Vector2D {
+        return this.direction;
     }
 
     public getTurnsRequired():number {
@@ -49,12 +55,6 @@ class Move implements Command, GameObjectLayerAware, PlayerAware {
         return true;
     }
 
-    public dispatch(messageClient:MessageClient) {
-        messageClient.send(new Message('being-moved', {
-            'direction': this.direction
-        }));
-    }
-
     public serialize():any {
         return {
             direction: this.direction
@@ -63,6 +63,10 @@ class Move implements Command, GameObjectLayerAware, PlayerAware {
 
     public deserialize(data:any) {
         this.direction = data.direction;
+    }
+
+    public getExecutor():Executor {
+        return new MoveExecutor(this);
     }
 }
 

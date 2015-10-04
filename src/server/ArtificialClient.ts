@@ -9,9 +9,8 @@ import MessageClient = require('../common/MessageClient');
 import DirectMessageClient = require('../common/DirectMessageClient');
 import Viewpoint = require('../common/Viewpoint');
 
-import ConnectCommand = require('../common/Commands/Connect');
-import MoveCommand = require('../common/Commands/Move');
-import ShoutCommand = require('../common/Commands/Shout');
+import MoveCommand = require('../common/Command/Move');
+import ShoutCommand = require('../common/Command/Shout');
 
 import ROT = require('./ROT');
 import Actor = require('./Actor');
@@ -31,9 +30,10 @@ class ArtificialClient {
         this.messageClient = new DirectMessageClient(messageServer, function() {
             self.hookOnEvents();
         });
-        var command = new ConnectCommand(ConnectCommand.AI);
-        command.setMessageClient(this.messageClient);
-        command.dispatch(this.messageClient);
+        this.messageClient.connect();
+        this.messageClient.send(new Message('ready', {
+            'type': 'ai'
+        }));
     }
 
     private hookOnEvents() {
@@ -164,7 +164,9 @@ class ArtificialClient {
         var command = new ShoutCommand(text);
         var canDo = command.canExecute();
         if(canDo) {
-            command.dispatch(this.messageClient);
+            this.messageClient.send(new Message('command', {
+                command: command
+            }));
         }
         return canDo;
     }
@@ -176,7 +178,9 @@ class ArtificialClient {
         command.setPlayer(this.viewpoint.getActor());
         var canDo = command.canExecute();
         if(canDo) {
-            command.dispatch(this.messageClient);
+            this.messageClient.send(new Message('command', {
+                command: command
+            }));
         }
         return canDo;
     }

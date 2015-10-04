@@ -5,6 +5,8 @@ import MessageClient = require('../MessageClient');
 import Message = require('../Message');
 import Vector2D = require('../Vector2D');
 import GameObjectLayer = require('../GameObjectLayer');
+import Executor = require('./Executor');
+import PickUpExecutor = require('./Executor/PickUpExecutor');
 
 import PlayerAware = require('../IOC/PlayerAware');
 import GameObjectLayerAware = require('../IOC/GameObjectLayerAware');
@@ -29,7 +31,10 @@ class PickUp implements Command, GameObjectLayerAware, PlayerAware {
     public canExecute():boolean {
         var go = this.goLayer.getTopPickupableGameObject(this.player.getPosition());
         if(!go) {
-            return false;
+            throw new Error('There\'s nothing to pick up');
+        }
+        else if(!go.isContent()) {
+            throw new Error('This GO can\'t be picked up');
         }
         return true;
     }
@@ -39,19 +44,16 @@ class PickUp implements Command, GameObjectLayerAware, PlayerAware {
         return "You pick up the "+go.getName()+".";
     }
 
-    public dispatch(messageClient:MessageClient) {
-        var go = this.goLayer.getTopPickupableGameObject(this.player.getPosition());
-        messageClient.send(new Message('being-picked-up', {
-            'object': go
-        }));
-    }
-
     public serialize():any {
         return {};
     }
 
     public deserialize(data:any) {
 
+    }
+
+    public getExecutor():Executor {
+        return new PickUpExecutor(this);
     }
 }
 

@@ -4,7 +4,7 @@
 
 /// <reference path="../../../definitions/rot.d.ts"/>
 
-import DropCommand = require('../../common/Commands/Drop');
+import DropCommand = require('../../common/Command/Drop');
 import GameObject = require('../../common/GameObject');
 import Vector2D = require('../../common/Vector2D');
 import Command = require('../../common/Command');
@@ -48,13 +48,24 @@ class GameClient {
         this.commander = new Commander(this.context);
     }
 
+    public connect(connectionType:string) {
+        this.context.getMessageClient().connect();
+        this.context.getMessageClient().send(new Message('ready', {
+            'type': connectionType
+        }));
+    }
+
+    public disconnect() {
+        this.context.getMessageClient().disconnect();
+    }
+
     private hookSocketEvents()
     {
         var self = this;
 
         this.context.getMessageClient().on('initiate', function(message:Message) {
             var data = message.getData();
-            self.connect(data.viewpoint, new Vector2D(parseInt(data.level.width), parseInt(data.level.height)));
+            self.initiate(data.viewpoint, new Vector2D(parseInt(data.level.width), parseInt(data.level.height)));
             self.initializePlayerList(data.level.players, data.level.current_player_id);
             self.context.getUIAdapter().logOnUI("You're now connected as "+self.context.getPlayer().getName()+"!", CHAT_LOG_INFO);
         });
@@ -122,7 +133,7 @@ class GameClient {
         });
     }
 
-    private connect(viewpoint:any, mapSize:Vector2D) {
+    private initiate(viewpoint:any, mapSize:Vector2D) {
         this.context.setPlayer(new GameObject());
         this.sync(viewpoint);
         this.context.getDisplayAdapter().reinitialize(mapSize);

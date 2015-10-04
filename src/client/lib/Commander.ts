@@ -3,6 +3,7 @@
  */
 
 import Command = require('../../common/Command');
+import Message = require('../../common/Message');
 
 import Context = require('./Context');
 
@@ -57,7 +58,9 @@ class Commander {
         }
 
         var feedbackMessage = command.getFeedbackMessage(); //race condition
-        command.dispatch(this.context.getMessageClient());
+        this.context.getMessageClient().send(new Message('command', {
+            command: command
+        }));
 
         if(feedbackMessage.length > 0) {
             this.context.getUIAdapter().logOnUI(feedbackMessage);

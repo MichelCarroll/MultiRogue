@@ -3,6 +3,8 @@ import Command = require('../Command');
 import MessageClient = require('../MessageClient');
 import Message = require('../Message');
 import Vector2D = require('../Vector2D');
+import Executor = require('./Executor');
+import ShoutExecutor = require('./Executor/ShoutExecutor');
 
 class Shout implements Command {
 
@@ -10,6 +12,10 @@ class Shout implements Command {
 
     constructor(text:string) {
         this.text = text;
+    }
+
+    public getText():string {
+        return this.text;
     }
 
     public getTurnsRequired():number {
@@ -24,12 +30,6 @@ class Shout implements Command {
         return "You shout \""+this.text+"\"!!";
     }
 
-    public dispatch(messageClient:MessageClient) {
-        messageClient.send(new Message('shout', {
-            'text': this.text
-        }));
-    }
-
     public serialize():any {
         return {
             text: this.text
@@ -38,6 +38,10 @@ class Shout implements Command {
 
     public deserialize(data:any) {
         this.text = data.text;
+    }
+
+    public getExecutor():Executor {
+        return new ShoutExecutor(this);
     }
 }
 

@@ -1,13 +1,14 @@
 
 import MessageClient = require('./MessageClient');
 import Serializable = require('./Serializable');
+import Executor = require('./Command/Executor');
 
 interface Command extends Serializable {
 
     getTurnsRequired():number;
     canExecute():boolean;
-    dispatch(messageClient:MessageClient);
     getFeedbackMessage():string;
+    getExecutor():Executor;
 
 }
 

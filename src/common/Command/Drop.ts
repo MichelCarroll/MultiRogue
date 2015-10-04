@@ -4,6 +4,9 @@ import GameObject = require('../GameObject');
 import MessageClient = require('../MessageClient');
 import Message = require('../Message');
 import Container = require('../Components/Container');
+import Executor = require('./Executor');
+import DropExecutor = require('./Executor/DropExecutor');
+
 import Vector2D = require('../Vector2D');
 
 import PlayerAware = require('../IOC/PlayerAware');
@@ -25,6 +28,10 @@ class Drop implements Command, PlayerAware {
         return 1;
     }
 
+    public getTarget():GameObject {
+        return this.target;
+    }
+
     public canExecute():boolean {
         return this.player.getContainerComponent().getInventory().has(this.target.getId());
     }
@@ -33,10 +40,8 @@ class Drop implements Command, PlayerAware {
         return "You drop the "+this.target.getName()+".";
     }
 
-    public dispatch(messageClient:MessageClient) {
-        messageClient.send(new Message('being-dropped', {
-            'target': this.target
-        }));
+    public getExecutor():Executor {
+        return new DropExecutor(this);
     }
 
     public serialize():any {

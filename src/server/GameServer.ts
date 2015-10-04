@@ -18,6 +18,7 @@ import LevelGenerator = require('./Generators/LevelGenerator');
 import Actor = require('./Actor');
 import Level = require('./Level');
 import MessageServer = require('./MessageServer');
+import Command = require('../common/Command');
 import MessageDispatcher = require('../common/MessageDispatcher');
 import ServerParameters = require('./ServerParameters');
 
@@ -76,31 +77,22 @@ class GameServer {
             self.level.useTurns(actor, actor.getBeing().getPlayableComponent().getRemainingTurns());
         });
 
-        messageDispatcher.on('shout', function(message:Message) {
-            var data = message.getData();
-            messageDispatcher.broadcast(new Message('being-shouted', {
-                'id': actor.getBeing().getId(),
-                'name': actor.getBeing().getName(),
-                'text': data.text
-            }));
-        });
-
-        messageDispatcher.on('being-moved', function(message:Message) {
-            var data = message.getData();
-            if(!self.level.canPlay(actor)) {
-                return;
+        messageDispatcher.on('command', function(message:Message) {
+            var command:Command = message.getData().command;
+            if(command.getTurnsRequired() > 0 && !self.level.canPlay(actor)) {
+                self.handleError(actor, new Error('Not your turn'), messageDispatcher);
             }
-
-            try {
-                self.level.moveActor(actor, data.direction);
-            } catch(error) {
-                self.handleError(actor, error, messageDispatcher);
-                return;
+            self.inject(command, self.level.getGameObjectLayer(), actor.getBeing(), messageDispatcher);
+            if(!command.canExecute()) {
+                self.handleError(actor, new Error('Can\'t execute'), messageDispatcher);
             }
-
-            self.level.useTurns(actor, 1);
+            var executor = command.getExecutor();
+            self.inject(executor, self.level.getGameObjectLayer(), actor.getBeing(), messageDispatcher);
+            executor.execute();
+            if(command.getTurnsRequired() > 0) {
+                self.level.useTurns(actor, command.getTurnsRequired());
+            }
             messageDispatcher.emit(new Message('sync', { viewpoint: self.level.getViewpoint(actor)}));
-            messageDispatcher.broadcast(new Message('being-moved', { actor_id: actor.getBeing().getId()}));
         });
 
         messageDispatcher.on('sync-request', function() {
@@ -109,42 +101,20 @@ class GameServer {
             }
             messageDispatcher.emit(new Message('sync', { viewpoint: self.level.getViewpoint(actor)}));
         });
+    }
 
-        messageDispatcher.on('being-picked-up', function(message:Message) {
-            var data = message.getData();
-            if(!self.level.canPlay(actor)) {
-                return;
-            }
 
-            try {
-                self.level.pickUpObject(actor, data.object);
-            } catch(error) {
-                self.handleError(actor, error, messageDispatcher);
-                return;
-            }
-
-            self.level.useTurns(actor, 1);
-            messageDispatcher.emit(new Message('sync', { viewpoint: self.level.getViewpoint(actor)}));
-            messageDispatcher.broadcast(new Message('game-object-remove'));
-        });
-
-        messageDispatcher.on('being-dropped', function(message:Message) {
-            var data = message.getData();
-            if(!self.level.canPlay(actor)) {
-                return;
-            }
-
-            try {
-                self.level.dropObject(actor, data.target);
-            } catch(error) {
-                self.handleError(actor, error, messageDispatcher);
-                return;
-            }
-
-            self.level.useTurns(actor, 1);
-            messageDispatcher.emit(new Message('sync', { viewpoint: self.level.getViewpoint(actor)}));
-            messageDispatcher.broadcast(new Message('game-object-add'));
-        });
+    private inject(service:any, goLayer, player, messageDispatcher)
+    {
+        if(service.setGameObjectLayer) {
+            service.setGameObjectLayer(goLayer);
+        }
+        if(service.setPlayer) {
+            service.setPlayer(player);
+        }
+        if(service.setMessageDispatcher) {
+            service.setMessageDispatcher(messageDispatcher);
+        }
     }
 
     private generateActor(messageDispatcher:MessageDispatcher, isPlayer:boolean):Actor {

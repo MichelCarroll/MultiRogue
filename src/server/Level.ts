@@ -101,42 +101,6 @@ class Level  {
         }
     }
 
-    public moveActor(player:Actor, direction:Vector2D) {
-        var position = player.getBeing().getPosition().addVector(direction);
-        if(position.distanceFrom(player.getBeing().getPosition()) >= 2) { //diag is ok, and it's 1.4
-            throw new Error('Cant move that many spaces away');
-        }
-        if(!this.gameObjectLayer.getWalkableGameObject(position)) {
-            throw new Error('Cant move there, no tile there');
-        }
-        if(this.positionHasCollidables(position)) {
-            throw new Error('Cant move there, being in the way');
-        }
-        var go = player.getBeing();
-        this.gameObjectLayer.remove(go, go.getPosition());
-        go.setPosition(position);
-        this.gameObjectLayer.add(go, position);
-    }
-
-    public pickUpObject(player:Actor, go:GameObject) {
-        var being = player.getBeing();
-        if(!go.getPosition().equals(being.getPosition())) {
-            throw new Error('Actor isn\'t on the same position as the GO');
-        }
-        else if(!go.isContent()) {
-            throw new Error('This GO can\'t be picked up');
-        }
-        being.getContainerComponent().addToInventory(go);
-        this.gameObjectLayer.remove(go, go.getPosition());
-    }
-
-    public dropObject(player:Actor, go:GameObject) {
-        var being = player.getBeing();
-        being.getContainerComponent().removeFromInventory(go);
-        go.setPosition(being.getPosition().copy());
-        this.gameObjectLayer.add(go, go.getPosition());
-    }
-
     private positionHasCollidables(position:Vector2D):boolean {
         return !!this.gameObjectLayer.getCollidableGameObject(position);
     }
@@ -158,6 +122,10 @@ class Level  {
             this.currentActor.getBeing().getPlayableComponent().giveTurns(Level.TURNS_PER_ROUND);
             this.currentActor.askToTakeTurn();
         }
+    }
+
+    public getGameObjectLayer():GameObjectLayer {
+        return this.gameObjectLayer;
     }
 
     public getTileOpacityCallback(x:number, y:number):boolean {

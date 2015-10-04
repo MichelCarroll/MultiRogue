@@ -6,11 +6,10 @@ import BrowserAdapter = require('./BrowserAdapter');
 import GameDisplayAdapter = require('./GameDisplayAdapter');
 import Vector2D = require('../../common/Vector2D');
 
-import MoveCommand = require('../../common/Commands/Move');
-import ShoutCommand = require('../../common/Commands/Shout');
-import PickUpCommand = require('../../common/Commands/PickUp');
-import ConnectCommand = require('../../common/Commands/Connect');
-import IdleCommand = require('../../common/Commands/Idle');
+import MoveCommand = require('../../common/Command/Move');
+import ShoutCommand = require('../../common/Command/Shout');
+import PickUpCommand = require('../../common/Command/PickUp');
+import IdleCommand = require('../../common/Command/Idle');
 
 
 declare var $:any;
@@ -65,6 +64,6 @@ $(document).ready(function() {
         game.handleDropCommand(goId);
     });
 
-    game.handleCommand(new ConnectCommand(ConnectCommand.PLAYER));
+    game.connect('player');
 
 });

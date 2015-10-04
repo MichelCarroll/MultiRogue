@@ -6,13 +6,10 @@ var GameClient = require('./build/client/lib/GameClient');
 var TestUIAdapter = require('./build/client/lib/TestUIAdapter');
 var Vector2D = require('./build/common/Vector2D');
 
-var DropCommand = require('./build/common/Commands/Drop');
-var MoveCommand = require('./build/common/Commands/Move');
-var ShoutCommand = require('./build/common/Commands/Shout');
-var PickUpCommand = require('./build/common/Commands/PickUp');
-var ConnectCommand = require('./build/common/Commands/Connect');
-var DisconnectCommand = require('./build/common/Commands/Disconnect');
-var IdleCommand = require('./build/common/Commands/Idle');
+var MoveCommand = require('./build/common/Command/Move');
+var ShoutCommand = require('./build/common/Command/Shout');
+var PickUpCommand = require('./build/common/Command/PickUp');
+var IdleCommand = require('./build/common/Command/Idle');
 
 
 var UP = [0, -1];
@@ -32,12 +29,12 @@ var Simulator = {
             clientConnects: function() {
                 var testAdapter = new TestUIAdapter();
                 var client = new GameClient({ messagingServer: server.getMessageServer()}, testAdapter);
-                client.handleCommand(new ConnectCommand(ConnectCommand.PLAYER));
+                client.connect('player');
 
                 var obj = {};
 
                 obj.disconnect = function() {
-                    client.handleCommand(new DisconnectCommand());
+                    client.disconnect();
                 };
 
                 obj.wait = function() {
