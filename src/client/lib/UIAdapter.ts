@@ -23,4 +23,6 @@ interface UIAdapter {
 
 }
 
+declare var UIAdapter; //make IDE stop complaining
+
 export = UIAdapter;

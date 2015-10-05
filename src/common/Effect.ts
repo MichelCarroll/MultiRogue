@@ -9,4 +9,6 @@ interface Effect extends Serializable {
 
 }
 
+declare var Effect; //make IDE stop complaining
+
 export = Effect;

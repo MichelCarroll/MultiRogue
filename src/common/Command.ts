@@ -12,4 +12,6 @@ interface Command extends Serializable {
 
 }
 
+declare var Command; //make IDE stop complaining
+
 export = Command;

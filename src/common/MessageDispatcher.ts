@@ -7,4 +7,6 @@ interface MessageDispatcher {
     broadcast(message:Message):void;
 }
 
+declare var MessageDispatcher; //make IDE stop complaining
+
 export = MessageDispatcher;

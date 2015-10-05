@@ -6,5 +6,6 @@ interface ServerParameters {
     randomSeed:number;
 }
 
+declare var ServerParameters; //make IDE stop complaining
 
 export = ServerParameters;

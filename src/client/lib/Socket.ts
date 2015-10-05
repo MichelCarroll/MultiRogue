@@ -7,4 +7,6 @@ interface Socket {
     disconnect():void;
 }
 
+declare var Socket; //make IDE stop complaining
+
 export = Socket;
