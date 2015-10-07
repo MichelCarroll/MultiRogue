@@ -6,12 +6,17 @@ import Vector2D = require('./../../common/Vector2D');
 import Container = require('./../../common/Components/Container');
 import Playable = require('./../../common/Components/Playable');
 import Allegiancable = require('./../../common/Components/Allegiancable');
+import ZombieEffect = require('./../../common/Effect/ZombieEffect');
 import GameObject = require('./../../common/GameObject');
 
 class BeingGenerator {
 
     public createRobot():GameObject {
-        return this.createActor('Robot', '#888', 'robot');
+        var being = this.createActor('Robot', '#888', 'robot');
+        being.getCollidableComponent().setProperties({
+            effect: new ZombieEffect()
+        })
+        return being;
     }
 
     public createPlayer():GameObject {

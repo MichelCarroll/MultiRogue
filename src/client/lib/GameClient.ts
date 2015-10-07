@@ -74,6 +74,10 @@ class GameClient {
             self.requestSync();
         });
 
+        this.context.getMessageClient().on('effect', function(message:Message) {
+            self.context.getUIAdapter().logOnUI(message.getData().message, CHAT_LOG_INFO);
+        });
+
         this.context.getMessageClient().on('sync', function(message:Message) {
             self.sync(<Viewpoint>message.getData().viewpoint);
             self.context.getDisplayAdapter().draw();

@@ -35,10 +35,27 @@ class MoveExecutor implements Executor, PlayerAware, GameObjectLayerAware, Clien
 
     public execute() {
         var position = this.player.getPosition().addVector(this.command.getDirection());
-        this.goLayer.remove(this.player, this.player.getPosition());
-        this.player.setPosition(position);
-        this.goLayer.add(this.player, position);
-        this.messageDispatcher.broadcast(new Message('being-moved', { actor_id: this.player.getId()}));
+        var target = this.goLayer.blocked(position);
+        if(target) {
+            var effect = this.player.getCollidableComponent().getEffect();
+            if(effect) {
+                effect.apply(target);
+                var message = new Message('effect', {
+                    message: effect.getFeedbackMessage(target)
+                });
+                this.messageDispatcher.emit(message);
+                this.messageDispatcher.broadcast(message);
+            }
+            else {
+                this.messageDispatcher.emit(new Message('effect', { message: 'You bump into ' + target.getName() }));
+            }
+        }
+        else {
+            this.goLayer.remove(this.player, this.player.getPosition());
+            this.player.setPosition(position);
+            this.goLayer.add(this.player, position);
+            this.messageDispatcher.broadcast(new Message('being-moved', { actor_id: this.player.getId()}));
+        }
     }
 }
 

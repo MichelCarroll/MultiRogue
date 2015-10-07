@@ -34,12 +34,12 @@ describe('one client knocks into another', function() {
     });
     it('and gets a collision notification', function() {
         secondClient.moveLeft();
-        should(secondClient.hasInLog("You can't do that!")).be.true();
+        should(secondClient.hasInLog("You bump into Player #1051")).be.true();
     });
-    it('and should not have spent a turn', function() {
+    it('and should spend a turn', function() {
         should(secondClient.getActionPoints()).be.eql(3);
         secondClient.moveLeft();
-        should(secondClient.getActionPoints()).be.eql(3);
+        should(secondClient.getActionPoints()).be.eql(2);
     });
     it('and should not have collision notification before knocking into wall', function() {
         should(secondClient.hasInLog("You can't do that!")).be.false();

@@ -145,7 +145,13 @@ var Simulator = {
 
                 obj.isHighlightedPlayerId = function(playerId) {
                     return playerId === testAdapter.getHighlightedPlayerId();
-                }
+                };
+
+                obj.hasPlayerNameInList = function(playerName) {
+                    return testAdapter.getPlayers().filter(function (player) {
+                            return player.name === playerName;
+                        }).length > 0;
+                };
 
                 obj.hasPlayerIdInList = function(playerId) {
                     return testAdapter.getPlayers().filter(function (player) {

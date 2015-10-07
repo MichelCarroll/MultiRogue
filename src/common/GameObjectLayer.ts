@@ -51,17 +51,17 @@ class GameObjectLayer implements Serializable {
         }
     }
 
-    public blocked(position:Vector2D):boolean {
+    public blocked(position:Vector2D):GameObject {
         var stackKey = position.toString();
         if(!this.goStacks[stackKey]) {
-            return false;
+            return null;
         }
         for(var i = 0; i < this.goStacks[stackKey].length; i++) {
             if(this.goStacks[stackKey][i].isCollidable()) {
-                return true;
+                return this.goStacks[stackKey][i];
             }
         }
-        return false;
+        return null;
     }
 
     public findGameObject(goId:number):GameObject {

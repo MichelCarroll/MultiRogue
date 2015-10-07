@@ -1,0 +1,3167 @@
+buyables:
+  10w2_ghoul2015_her1_499:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        assets:
+          list: [ { name: f_hair_1987, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_torso_1987, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_legs_1000, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_feet_1842, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Fantine outfit no face'
+      fr_FR:
+        title: 'Tenue Fantine sans visage'
+      pt_BR:
+        title: 'Conjunto Fantasmina sem rosto'
+    prices:
+      USD: 4.99
+      EUR: 4.99
+      BRL: 20.99
+    sms_prices:
+      USD: 4.99
+      EUR: 5.59
+      BRL: 4.99
+    payment_methods:
+      - fake
+      - xsolla
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her1_499_en.jpg'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her1_499_fr.jpg'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her1_499_pt.jpg'
+  pt_10w2_ghoul2015_her1_499:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        assets:
+          list: [ { name: f_hair_1987, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_torso_1987, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_legs_1000, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_feet_1842, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Fantine outfit no face'
+      fr_FR:
+        title: 'Tenue Fantine sans visage'
+      pt_BR:
+        title: 'Conjunto Fantasmina sem rosto'
+    prices:
+      USD: 4.99
+      EUR: 4.99
+      BRL: 4.99
+    sms_prices:
+      USD: 4.99
+      EUR: 5.59
+      BRL: 1.24
+    payment_methods:
+      - fake
+      - xsolla
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her1_499_en.jpg'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her1_499_fr.jpg'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her1_499_pt.jpg'
+  aapl_generic_her1_499:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        assets:
+          list: [ { name: f_hair_1987, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_torso_1987, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_legs_1000, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_feet_1842, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Fantine outfit no face'
+      fr_FR:
+        title: 'Tenue Fantine sans visage'
+      pt_BR:
+        title: 'Conjunto Fantasmina sem rosto'
+    prices:
+      USD: 4.99
+      EUR: 4.99
+      BRL: 20.99
+    sms_prices:
+      USD: 4.99
+      EUR: 5.59
+      BRL: 4.99
+    payment_methods:
+      - fake
+      - mobileaapl
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her1_499_en.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her1_499_en_preview.png'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her1_499_fr.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her1_499_fr_preview.png'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her1_499_pt.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her1_499_pt_preview.png'
+  play_generic_her1_499:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        assets:
+          list: [ { name: f_hair_1987, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_torso_1987, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_legs_1000, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_feet_1842, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Fantine outfit no face'
+      fr_FR:
+        title: 'Tenue Fantine sans visage'
+      pt_BR:
+        title: 'Conjunto Fantasmina sem rosto'
+    prices:
+      USD: 4.99
+      EUR: 4.99
+      BRL: 20.99
+    sms_prices:
+      USD: 4.99
+      EUR: 5.59
+      BRL: 4.99
+    payment_methods:
+      - fake
+      - playstorepurchase
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her1_499_en.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her1_499_en_preview.png'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her1_499_fr.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her1_499_fr_preview.png'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her1_499_pt.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her1_499_pt_preview.png'
+  10w2_ghoul2015_her2_499:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        assets:
+          list: [ { name: f_hair_1988, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_torso_1988, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_legs_1771, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_feet_1975, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Leeuh outfit no face'
+      fr_FR:
+        title: 'Tenue Leargh sans visage'
+      pt_BR:
+        title: 'Conjunto Mortica sem rosto'
+    prices:
+      USD: 4.99
+      EUR: 4.99
+      BRL: 20.99
+    sms_prices:
+      USD: 4.99
+      EUR: 5.59
+      BRL: 4.99
+    payment_methods:
+      - fake
+      - xsolla
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her2_499_en.jpg'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her2_499_fr.jpg'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her2_499_pt.jpg'
+  pt_10w2_ghoul2015_her2_499:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        assets:
+          list: [ { name: f_hair_1988, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_torso_1988, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_legs_1771, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_feet_1975, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Leeuh outfit no face'
+      fr_FR:
+        title: 'Tenue Leargh sans visage'
+      pt_BR:
+        title: 'Conjunto Mortica sem rosto'
+    prices:
+      USD: 4.99
+      EUR: 4.99
+      BRL: 4.99
+    sms_prices:
+      USD: 4.99
+      EUR: 5.59
+      BRL: 1.24
+    payment_methods:
+      - fake
+      - xsolla
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her2_499_en.jpg'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her2_499_fr.jpg'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her2_499_pt.jpg'
+  aapl_generic_her2_499:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        assets:
+          list: [ { name: f_hair_1988, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_torso_1988, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_legs_1771, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_feet_1975, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Leeuh outfit no face'
+      fr_FR:
+        title: 'Tenue Leargh sans visage'
+      pt_BR:
+        title: 'Conjunto Mortica sem rosto'
+    prices:
+      USD: 4.99
+      EUR: 4.99
+      BRL: 20.99
+    sms_prices:
+      USD: 4.99
+      EUR: 5.59
+      BRL: 4.99
+    payment_methods:
+      - fake
+      - mobileaapl
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her2_499_en.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her2_499_en_preview.png'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her2_499_fr.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her2_499_fr_preview.png'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her2_499_pt.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her2_499_pt_preview.png'
+  play_generic_her2_499:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        assets:
+          list: [ { name: f_hair_1988, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_torso_1988, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_legs_1771, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_feet_1975, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Leeuh outfit no face'
+      fr_FR:
+        title: 'Tenue Leargh sans visage'
+      pt_BR:
+        title: 'Conjunto Mortica sem rosto'
+    prices:
+      USD: 4.99
+      EUR: 4.99
+      BRL: 20.99
+    sms_prices:
+      USD: 4.99
+      EUR: 5.59
+      BRL: 4.99
+    payment_methods:
+      - fake
+      - playstorepurchase
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her2_499_en.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her2_499_en_preview.png'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her2_499_fr.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her2_499_fr_preview.png'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her2_499_pt.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her2_499_pt_preview.png'
+  10w2_ghoul2015_his1_499:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        assets:
+          list: [ { name: m_hair_1989, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_torso_1989, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_legs_1613, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_feet_1568, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Evanesce outfit no face'
+      fr_FR:
+        title: 'Tenue Hectorplasme sans visage'
+      pt_BR:
+        title: 'Conjunto Hectorplasma sem rosto'
+    prices:
+      USD: 4.99
+      EUR: 4.99
+      BRL: 20.99
+    sms_prices:
+      USD: 4.99
+      EUR: 5.59
+      BRL: 4.99
+    payment_methods:
+      - fake
+      - xsolla
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his1_499_en.jpg'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his1_499_fr.jpg'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his1_499_pt.jpg'
+  pt_10w2_ghoul2015_his1_499:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        assets:
+          list: [ { name: m_hair_1989, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_torso_1989, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_legs_1613, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_feet_1568, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Evanesce outfit no face'
+      fr_FR:
+        title: 'Tenue Hectorplasme sans visage'
+      pt_BR:
+        title: 'Conjunto Hectorplasma sem rosto'
+    prices:
+      USD: 4.99
+      EUR: 4.99
+      BRL: 4.99
+    sms_prices:
+      USD: 4.99
+      EUR: 5.59
+      BRL: 1.24
+    payment_methods:
+      - fake
+      - xsolla
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his1_499_en.jpg'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his1_499_fr.jpg'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his1_499_pt.jpg'
+  aapl_generic_his1_499:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        assets:
+          list: [ { name: m_hair_1989, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_torso_1989, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_legs_1613, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_feet_1568, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Evanesce outfit no face'
+      fr_FR:
+        title: 'Tenue Hectorplasme sans visage'
+      pt_BR:
+        title: 'Conjunto Hectorplasma sem rosto'
+    prices:
+      USD: 4.99
+      EUR: 4.99
+      BRL: 20.99
+    sms_prices:
+      USD: 4.99
+      EUR: 5.59
+      BRL: 4.99
+    payment_methods:
+      - fake
+      - mobileaapl
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his1_499_en.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his1_499_en_preview.png'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his1_499_fr.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his1_499_fr_preview.png'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his1_499_pt.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his1_499_pt_preview.png'
+  play_generic_his1_499:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        assets:
+          list: [ { name: m_hair_1989, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_torso_1989, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_legs_1613, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_feet_1568, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Evanesce outfit no face'
+      fr_FR:
+        title: 'Tenue Hectorplasme sans visage'
+      pt_BR:
+        title: 'Conjunto Hectorplasma sem rosto'
+    prices:
+      USD: 4.99
+      EUR: 4.99
+      BRL: 20.99
+    sms_prices:
+      USD: 4.99
+      EUR: 5.59
+      BRL: 4.99
+    payment_methods:
+      - fake
+      - playstorepurchase
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his1_499_en.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his1_499_en_preview.png'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his1_499_fr.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his1_499_fr_preview.png'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his1_499_pt.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his1_499_pt_preview.png'
+  10w2_ghoul2015_his2_499:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        assets:
+          list: [ { name: m_hair_1990, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_torso_1990, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_legs_1772, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_feet_811, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Ewejean outfit no face'
+      fr_FR:
+        title: 'Tenue Eurghene sans visage'
+      pt_BR:
+        title: 'Conjunto Fredy Tumba sem rosto'
+    prices:
+      USD: 4.99
+      EUR: 4.99
+      BRL: 20.99
+    sms_prices:
+      USD: 4.99
+      EUR: 5.59
+      BRL: 4.99
+    payment_methods:
+      - fake
+      - xsolla
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his2_499_en.jpg'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his2_499_fr.jpg'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his2_499_pt.jpg'
+  pt_10w2_ghoul2015_his2_499:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        assets:
+          list: [ { name: m_hair_1990, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_torso_1990, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_legs_1772, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_feet_811, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Ewejean outfit no face'
+      fr_FR:
+        title: 'Tenue Eurghene sans visage'
+      pt_BR:
+        title: 'Conjunto Fredy Tumba sem rosto'
+    prices:
+      USD: 4.99
+      EUR: 4.99
+      BRL: 4.99
+    sms_prices:
+      USD: 4.99
+      EUR: 5.59
+      BRL: 1.24
+    payment_methods:
+      - fake
+      - xsolla
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his2_499_en.jpg'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his2_499_fr.jpg'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his2_499_pt.jpg'
+  aapl_generic_his2_499:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        assets:
+          list: [ { name: m_hair_1990, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_torso_1990, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_legs_1772, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_feet_811, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Ewejean outfit no face'
+      fr_FR:
+        title: 'Tenue Eurghene sans visage'
+      pt_BR:
+        title: 'Conjunto Fredy Tumba sem rosto'
+    prices:
+      USD: 4.99
+      EUR: 4.99
+      BRL: 20.99
+    sms_prices:
+      USD: 4.99
+      EUR: 5.59
+      BRL: 4.99
+    payment_methods:
+      - fake
+      - mobileaapl
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his2_499_en.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his2_499_en_preview.png'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his2_499_fr.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his2_499_fr_preview.png'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his2_499_pt.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his2_499_pt_preview.png'
+  play_generic_his2_499:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        assets:
+          list: [ { name: m_hair_1990, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_torso_1990, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_legs_1772, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_feet_811, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Ewejean outfit no face'
+      fr_FR:
+        title: 'Tenue Eurghene sans visage'
+      pt_BR:
+        title: 'Conjunto Fredy Tumba sem rosto'
+    prices:
+      USD: 4.99
+      EUR: 4.99
+      BRL: 20.99
+    sms_prices:
+      USD: 4.99
+      EUR: 5.59
+      BRL: 4.99
+    payment_methods:
+      - fake
+      - playstorepurchase
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his2_499_en.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his2_499_en_preview.png'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his2_499_fr.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his2_499_fr_preview.png'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his2_499_pt.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his2_499_pt_preview.png'
+  10w2_ghoul2015_her_wooz_999:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        point:
+          special: 1000
+        assets:
+          list: [ { name: f_hair_1987, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_face_244, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_torso_1987, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_legs_1000, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_feet_1842, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_hair_1988, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_face_242, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_torso_1988, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_legs_1771, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_feet_1975, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Fantine + Leeuh + Wooz with faces'
+      fr_FR:
+        title: 'Fantine + Leargh + Wooz avec visages'
+      pt_BR:
+        title: 'Fantasmina + Mortica + wooz com rostos'
+    prices:
+      USD: 9.99
+      EUR: 9.99
+      BRL: 40.99
+    sms_prices:
+      USD: 9.99
+      EUR: 11.18
+      BRL: 9.99
+    payment_methods:
+      - fake
+      - xsolla
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_wooz_999_en.jpg'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_wooz_999_fr.jpg'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_wooz_999_pt.jpg'
+  pt_10w2_ghoul2015_her_wooz_999:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        point:
+          special: 1000
+        assets:
+          list: [ { name: f_hair_1987, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_face_244, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_torso_1987, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_legs_1000, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_feet_1842, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_hair_1988, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_face_242, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_torso_1988, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_legs_1771, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_feet_1975, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Fantine + Leeuh + Wooz with faces'
+      fr_FR:
+        title: 'Fantine + Leargh + Wooz avec visages'
+      pt_BR:
+        title: 'Fantasmina + Mortica + wooz com rostos'
+    prices:
+      USD: 9.99
+      EUR: 9.99
+      BRL: 9.99
+    sms_prices:
+      USD: 9.99
+      EUR: 11.18
+      BRL: 2.49
+    payment_methods:
+      - fake
+      - xsolla
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_wooz_999_en.jpg'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_wooz_999_fr.jpg'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_wooz_999_pt.jpg'
+  aapl_generic_her_combo_wooz_999:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        point:
+          special: 1000
+        assets:
+          list: [ { name: f_hair_1987, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_face_244, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_torso_1987, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_legs_1000, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_feet_1842, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_hair_1988, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_face_242, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_torso_1988, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_legs_1771, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_feet_1975, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Fantine + Leeuh + Wooz with faces'
+      fr_FR:
+        title: 'Fantine + Leargh + Wooz avec visages'
+      pt_BR:
+        title: 'Fantasmina + Mortica + wooz com rostos'
+    prices:
+      USD: 9.99
+      EUR: 9.99
+      BRL: 40.99
+    sms_prices:
+      USD: 9.99
+      EUR: 11.18
+      BRL: 9.99
+    payment_methods:
+      - fake
+      - mobileaapl
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_wooz_999_en.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_wooz_999_en_preview.png'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_wooz_999_fr.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_wooz_999_fr_preview.png'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_wooz_999_pt.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_wooz_999_pt_preview.png'
+  play_generic_her_combo_wooz_999:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        point:
+          special: 1000
+        assets:
+          list: [ { name: f_hair_1987, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_face_244, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_torso_1987, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_legs_1000, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_feet_1842, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_hair_1988, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_face_242, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_torso_1988, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_legs_1771, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_feet_1975, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Fantine + Leeuh + Wooz with faces'
+      fr_FR:
+        title: 'Fantine + Leargh + Wooz avec visages'
+      pt_BR:
+        title: 'Fantasmina + Mortica + wooz com rostos'
+    prices:
+      USD: 9.99
+      EUR: 9.99
+      BRL: 40.99
+    sms_prices:
+      USD: 9.99
+      EUR: 11.18
+      BRL: 9.99
+    payment_methods:
+      - fake
+      - playstorepurchase
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_wooz_999_en.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_wooz_999_en_preview.png'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_wooz_999_fr.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_wooz_999_fr_preview.png'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_wooz_999_pt.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_wooz_999_pt_preview.png'
+  10w2_ghoul2015_his_wooz_999:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        point:
+          special: 1000
+        assets:
+          list: [ { name: m_hair_1989, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_face_245, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_torso_1989, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_legs_1613, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_feet_1568, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_hair_1990, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_face_243, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_torso_1990, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_legs_1772, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_feet_811, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Evanesce + Ewejean + Wooz with faces'
+      fr_FR:
+        title: 'Hectorplasme + Eurghene + Wooz avec visages'
+      pt_BR:
+        title: 'Hectorplasma + Fredy Tumba + wooz com rostos'
+    prices:
+      USD: 9.99
+      EUR: 9.99
+      BRL: 40.99
+    sms_prices:
+      USD: 9.99
+      EUR: 11.18
+      BRL: 9.99
+    payment_methods:
+      - fake
+      - xsolla
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_wooz_999_en.jpg'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_wooz_999_fr.jpg'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_wooz_999_pt.jpg'
+  pt_10w2_ghoul2015_his_wooz_999:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        point:
+          special: 1000
+        assets:
+          list: [ { name: m_hair_1989, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_face_245, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_torso_1989, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_legs_1613, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_feet_1568, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_hair_1990, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_face_243, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_torso_1990, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_legs_1772, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_feet_811, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Evanesce + Ewejean + Wooz with faces'
+      fr_FR:
+        title: 'Hectorplasme + Eurghene + Wooz avec visages'
+      pt_BR:
+        title: 'Hectorplasma + Fredy Tumba + wooz com rostos'
+    prices:
+      USD: 9.99
+      EUR: 9.99
+      BRL: 9.99
+    sms_prices:
+      USD: 9.99
+      EUR: 11.18
+      BRL: 2.49
+    payment_methods:
+      - fake
+      - xsolla
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_wooz_999_en.jpg'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_wooz_999_fr.jpg'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_wooz_999_pt.jpg'
+  aapl_generic_his_combo_wooz_999:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        point:
+          special: 1000
+        assets:
+          list: [ { name: m_hair_1989, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_face_245, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_torso_1989, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_legs_1613, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_feet_1568, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_hair_1990, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_face_243, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_torso_1990, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_legs_1772, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_feet_811, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Evanesce + Ewejean + Wooz with faces'
+      fr_FR:
+        title: 'Hectorplasme + Eurghene + Wooz avec visages'
+      pt_BR:
+        title: 'Hectorplasma + Fredy Tumba + wooz com rostos'
+    prices:
+      USD: 9.99
+      EUR: 9.99
+      BRL: 40.99
+    sms_prices:
+      USD: 9.99
+      EUR: 11.18
+      BRL: 9.99
+    payment_methods:
+      - fake
+      - mobileaapl
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_wooz_999_en.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_wooz_999_en_preview.png'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_wooz_999_fr.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_wooz_999_fr_preview.png'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_wooz_999_pt.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_wooz_999_pt_preview.png'
+  play_generic_his_combo_wooz_999:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        point:
+          special: 1000
+        assets:
+          list: [ { name: m_hair_1989, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_face_245, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_torso_1989, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_legs_1613, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_feet_1568, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_hair_1990, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_face_243, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_torso_1990, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_legs_1772, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_feet_811, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Evanesce + Ewejean + Wooz with faces'
+      fr_FR:
+        title: 'Hectorplasme + Eurghene + Wooz avec visages'
+      pt_BR:
+        title: 'Hectorplasma + Fredy Tumba + wooz com rostos'
+    prices:
+      USD: 9.99
+      EUR: 9.99
+      BRL: 40.99
+    sms_prices:
+      USD: 9.99
+      EUR: 11.18
+      BRL: 9.99
+    payment_methods:
+      - fake
+      - playstorepurchase
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_wooz_999_en.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_wooz_999_en_preview.png'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_wooz_999_fr.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_wooz_999_fr_preview.png'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_wooz_999_pt.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_wooz_999_pt_preview.png'
+  10w2_ghoul2015_her_vip_999:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        subscription: vip_pass_week
+        assets:
+          list: [ { name: f_hair_1987, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_face_244, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_torso_1987, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_legs_1000, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_feet_1842, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_hair_1988, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_face_242, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_torso_1988, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_legs_1771, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_feet_1975, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Fantine + Leeuh + VIP with faces'
+      fr_FR:
+        title: 'Fantine + Leargh + VIP avec visages'
+      pt_BR:
+        title: 'Fantasmina + Mortica + VIP com rostos'
+    prices:
+      USD: 9.99
+      EUR: 9.99
+      BRL: 40.99
+    sms_prices:
+      USD: 9.99
+      EUR: 11.18
+      BRL: 9.99
+    payment_methods:
+      - fake
+      - xsolla
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_vip_999_en.jpg'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_vip_999_fr.jpg'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_vip_999_pt.jpg'
+  pt_10w2_ghoul2015_her_vip_999:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        subscription: vip_pass_week
+        assets:
+          list: [ { name: f_hair_1987, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_face_244, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_torso_1987, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_legs_1000, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_feet_1842, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_hair_1988, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_face_242, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_torso_1988, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_legs_1771, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_feet_1975, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Fantine + Leeuh + VIP with faces'
+      fr_FR:
+        title: 'Fantine + Leargh + VIP avec visages'
+      pt_BR:
+        title: 'Fantasmina + Mortica + VIP com rostos'
+    prices:
+      USD: 9.99
+      EUR: 9.99
+      BRL: 9.99
+    sms_prices:
+      USD: 9.99
+      EUR: 11.18
+      BRL: 2.49
+    payment_methods:
+      - fake
+      - xsolla
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_vip_999_en.jpg'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_vip_999_fr.jpg'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_vip_999_pt.jpg'
+  aapl_generic_her_combo_vip_999:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        subscription: vip_pass_week
+        assets:
+          list: [ { name: f_hair_1987, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_face_244, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_torso_1987, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_legs_1000, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_feet_1842, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_hair_1988, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_face_242, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_torso_1988, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_legs_1771, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_feet_1975, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Fantine + Leeuh + VIP with faces'
+      fr_FR:
+        title: 'Fantine + Leargh + VIP avec visages'
+      pt_BR:
+        title: 'Fantasmina + Mortica + VIP com rostos'
+    prices:
+      USD: 9.99
+      EUR: 9.99
+      BRL: 40.99
+    sms_prices:
+      USD: 9.99
+      EUR: 11.18
+      BRL: 9.99
+    payment_methods:
+      - fake
+      - mobileaapl
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_vip_999_en.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_vip_999_en_preview.png'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_vip_999_fr.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_vip_999_fr_preview.png'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_vip_999_pt.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_vip_999_pt_preview.png'
+  play_generic_her_combo_vip_999:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        subscription: vip_pass_week
+        assets:
+          list: [ { name: f_hair_1987, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_face_244, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_torso_1987, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_legs_1000, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_feet_1842, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_hair_1988, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_face_242, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_torso_1988, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_legs_1771, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: f_feet_1975, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Fantine + Leeuh + VIP with faces'
+      fr_FR:
+        title: 'Fantine + Leargh + VIP avec visages'
+      pt_BR:
+        title: 'Fantasmina + Mortica + VIP com rostos'
+    prices:
+      USD: 9.99
+      EUR: 9.99
+      BRL: 40.99
+    sms_prices:
+      USD: 9.99
+      EUR: 11.18
+      BRL: 9.99
+    payment_methods:
+      - fake
+      - playstorepurchase
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_vip_999_en.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_vip_999_en_preview.png'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_vip_999_fr.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_vip_999_fr_preview.png'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_vip_999_pt.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_vip_999_pt_preview.png'
+  10w2_ghoul2015_his_vip_999:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        subscription: vip_pass_week
+        assets:
+          list: [ { name: m_hair_1989, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_face_245, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_torso_1989, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_legs_1613, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_feet_1568, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_hair_1990, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_face_243, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_torso_1990, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_legs_1772, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_feet_811, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Evanesce + Ewejean + VIP with faces'
+      fr_FR:
+        title: 'Hectorplasme + Eurghene + VIP avec visages'
+      pt_BR:
+        title: 'Hectorplasma + Fredy Tumba + VIP com rostos'
+    prices:
+      USD: 9.99
+      EUR: 9.99
+      BRL: 40.99
+    sms_prices:
+      USD: 9.99
+      EUR: 11.18
+      BRL: 9.99
+    payment_methods:
+      - fake
+      - xsolla
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_vip_999_en.jpg'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_vip_999_fr.jpg'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_vip_999_pt.jpg'
+  pt_10w2_ghoul2015_his_vip_999:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        subscription: vip_pass_week
+        assets:
+          list: [ { name: m_hair_1989, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_face_245, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_torso_1989, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_legs_1613, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_feet_1568, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_hair_1990, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_face_243, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_torso_1990, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_legs_1772, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_feet_811, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Evanesce + Ewejean + VIP with faces'
+      fr_FR:
+        title: 'Hectorplasme + Eurghene + VIP avec visages'
+      pt_BR:
+        title: 'Hectorplasma + Fredy Tumba + VIP com rostos'
+    prices:
+      USD: 9.99
+      EUR: 9.99
+      BRL: 9.99
+    sms_prices:
+      USD: 9.99
+      EUR: 11.18
+      BRL: 2.49
+    payment_methods:
+      - fake
+      - xsolla
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_vip_999_en.jpg'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_vip_999_fr.jpg'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_vip_999_pt.jpg'
+  aapl_generic_his_combo_vip_999:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        subscription: vip_pass_week
+        assets:
+          list: [ { name: m_hair_1989, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_face_245, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_torso_1989, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_legs_1613, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_feet_1568, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_hair_1990, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_face_243, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_torso_1990, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_legs_1772, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_feet_811, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Evanesce + Ewejean + VIP with faces'
+      fr_FR:
+        title: 'Hectorplasme + Eurghene + VIP avec visages'
+      pt_BR:
+        title: 'Hectorplasma + Fredy Tumba + VIP com rostos'
+    prices:
+      USD: 9.99
+      EUR: 9.99
+      BRL: 40.99
+    sms_prices:
+      USD: 9.99
+      EUR: 11.18
+      BRL: 9.99
+    payment_methods:
+      - fake
+      - mobileaapl
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_vip_999_en.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_vip_999_en_preview.png'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_vip_999_fr.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_vip_999_fr_preview.png'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_vip_999_pt.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_vip_999_pt_preview.png'
+  play_generic_his_combo_vip_999:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        subscription: vip_pass_week
+        assets:
+          list: [ { name: m_hair_1989, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_face_245, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_torso_1989, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_legs_1613, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_feet_1568, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_hair_1990, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_face_243, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_torso_1990, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_legs_1772, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } },{ name: m_feet_811, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Evanesce + Ewejean + VIP with faces'
+      fr_FR:
+        title: 'Hectorplasme + Eurghene + VIP avec visages'
+      pt_BR:
+        title: 'Hectorplasma + Fredy Tumba + VIP com rostos'
+    prices:
+      USD: 9.99
+      EUR: 9.99
+      BRL: 40.99
+    sms_prices:
+      USD: 9.99
+      EUR: 11.18
+      BRL: 9.99
+    payment_methods:
+      - fake
+      - playstorepurchase
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_vip_999_en.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_vip_999_en_preview.png'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_vip_999_fr.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_vip_999_fr_preview.png'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_vip_999_pt.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_vip_999_pt_preview.png'
+  10w2_ghoul2015_her_999:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        assets:
+          list: [ { name: f_hair_1987, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: f_face_244, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: f_torso_1987, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: f_legs_1000, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: f_feet_1842, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: f_hair_1988, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: f_face_242, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: f_torso_1988, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: f_legs_1771, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: f_feet_1975, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Fantine + Leeuh x2 with faces'
+      fr_FR:
+        title: 'Fantine + Leargh x2 avec visages'
+      pt_BR:
+        title: 'Fantasmina + Mortica x2 com rostos'
+    prices:
+      USD: 9.99
+      EUR: 9.99
+      BRL: 40.99
+    sms_prices:
+      USD: 9.99
+      EUR: 11.18
+      BRL: 9.99
+    payment_methods:
+      - fake
+      - xsolla
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_999_en.jpg'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_999_fr.jpg'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_999_pt.jpg'
+  pt_10w2_ghoul2015_her_999:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        assets:
+          list: [ { name: f_hair_1987, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: f_face_244, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: f_torso_1987, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: f_legs_1000, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: f_feet_1842, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: f_hair_1988, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: f_face_242, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: f_torso_1988, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: f_legs_1771, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: f_feet_1975, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Fantine + Leeuh x2 with faces'
+      fr_FR:
+        title: 'Fantine + Leargh x2 avec visages'
+      pt_BR:
+        title: 'Fantasmina + Mortica x2 com rostos'
+    prices:
+      USD: 9.99
+      EUR: 9.99
+      BRL: 9.99
+    sms_prices:
+      USD: 9.99
+      EUR: 11.18
+      BRL: 2.49
+    payment_methods:
+      - fake
+      - xsolla
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_999_en.jpg'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_999_fr.jpg'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_999_pt.jpg'
+  aapl_generic_her_4_999:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        assets:
+          list: [ { name: f_hair_1987, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: f_face_244, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: f_torso_1987, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: f_legs_1000, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: f_feet_1842, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: f_hair_1988, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: f_face_242, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: f_torso_1988, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: f_legs_1771, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: f_feet_1975, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Fantine + Leeuh x2 with faces'
+      fr_FR:
+        title: 'Fantine + Leargh x2 avec visages'
+      pt_BR:
+        title: 'Fantasmina + Mortica x2 com rostos'
+    prices:
+      USD: 9.99
+      EUR: 9.99
+      BRL: 40.99
+    sms_prices:
+      USD: 9.99
+      EUR: 11.18
+      BRL: 9.99
+    payment_methods:
+      - fake
+      - mobileaapl
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_999_en.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_999_en_preview.png'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_999_fr.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_999_fr_preview.png'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_999_pt.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_999_pt_preview.png'
+  play_generic_her_4_999:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        assets:
+          list: [ { name: f_hair_1987, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: f_face_244, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: f_torso_1987, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: f_legs_1000, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: f_feet_1842, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: f_hair_1988, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: f_face_242, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: f_torso_1988, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: f_legs_1771, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: f_feet_1975, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Fantine + Leeuh x2 with faces'
+      fr_FR:
+        title: 'Fantine + Leargh x2 avec visages'
+      pt_BR:
+        title: 'Fantasmina + Mortica x2 com rostos'
+    prices:
+      USD: 9.99
+      EUR: 9.99
+      BRL: 40.99
+    sms_prices:
+      USD: 9.99
+      EUR: 11.18
+      BRL: 9.99
+    payment_methods:
+      - fake
+      - playstorepurchase
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_999_en.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_999_en_preview.png'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_999_fr.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_999_fr_preview.png'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_999_pt.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_999_pt_preview.png'
+  10w2_ghoul2015_his_999:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        assets:
+          list: [ { name: m_hair_1989, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: m_face_245, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: m_torso_1989, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: m_legs_1613, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: m_feet_1568, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: m_hair_1990, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: m_face_243, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: m_torso_1990, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: m_legs_1772, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: m_feet_811, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Evanesce + Ewejean x2 with faces'
+      fr_FR:
+        title: 'Hectorplasme + Eurghene x2 avec visages'
+      pt_BR:
+        title: 'Hectorplasma + Fredy Tumba x2 com rostos'
+    prices:
+      USD: 9.99
+      EUR: 9.99
+      BRL: 40.99
+    sms_prices:
+      USD: 9.99
+      EUR: 11.18
+      BRL: 9.99
+    payment_methods:
+      - fake
+      - xsolla
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_999_en.jpg'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_999_fr.jpg'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_999_pt.jpg'
+  pt_10w2_ghoul2015_his_999:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        assets:
+          list: [ { name: m_hair_1989, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: m_face_245, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: m_torso_1989, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: m_legs_1613, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: m_feet_1568, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: m_hair_1990, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: m_face_243, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: m_torso_1990, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: m_legs_1772, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: m_feet_811, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Evanesce + Ewejean x2 with faces'
+      fr_FR:
+        title: 'Hectorplasme + Eurghene x2 avec visages'
+      pt_BR:
+        title: 'Hectorplasma + Fredy Tumba x2 com rostos'
+    prices:
+      USD: 9.99
+      EUR: 9.99
+      BRL: 9.99
+    sms_prices:
+      USD: 9.99
+      EUR: 11.18
+      BRL: 2.49
+    payment_methods:
+      - fake
+      - xsolla
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_999_en.jpg'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_999_fr.jpg'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_999_pt.jpg'
+  aapl_generic_his_4_999:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        assets:
+          list: [ { name: m_hair_1989, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: m_face_245, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: m_torso_1989, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: m_legs_1613, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: m_feet_1568, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: m_hair_1990, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: m_face_243, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: m_torso_1990, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: m_legs_1772, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: m_feet_811, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Evanesce + Ewejean x2 with faces'
+      fr_FR:
+        title: 'Hectorplasme + Eurghene x2 avec visages'
+      pt_BR:
+        title: 'Hectorplasma + Fredy Tumba x2 com rostos'
+    prices:
+      USD: 9.99
+      EUR: 9.99
+      BRL: 40.99
+    sms_prices:
+      USD: 9.99
+      EUR: 11.18
+      BRL: 9.99
+    payment_methods:
+      - fake
+      - mobileaapl
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_999_en.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_999_en_preview.png'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_999_fr.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_999_fr_preview.png'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_999_pt.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_999_pt_preview.png'
+  play_generic_his_4_999:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        assets:
+          list: [ { name: m_hair_1989, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: m_face_245, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: m_torso_1989, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: m_legs_1613, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: m_feet_1568, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: m_hair_1990, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: m_face_243, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: m_torso_1990, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: m_legs_1772, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } },{ name: m_feet_811, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 2 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Evanesce + Ewejean x2 with faces'
+      fr_FR:
+        title: 'Hectorplasme + Eurghene x2 avec visages'
+      pt_BR:
+        title: 'Hectorplasma + Fredy Tumba x2 com rostos'
+    prices:
+      USD: 9.99
+      EUR: 9.99
+      BRL: 40.99
+    sms_prices:
+      USD: 9.99
+      EUR: 11.18
+      BRL: 9.99
+    payment_methods:
+      - fake
+      - playstorepurchase
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_999_en.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_999_en_preview.png'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_999_fr.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_999_fr_preview.png'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_999_pt.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_999_pt_preview.png'
+  10w2_ghoul2015_her_1999:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        assets:
+          list: [ { name: f_hair_1987, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: f_face_244, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 10 } },{ name: f_torso_1987, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: f_legs_1000, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: f_feet_1842, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: f_hair_1988, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: f_face_242, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 10 } },{ name: f_torso_1988, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: f_legs_1771, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: f_feet_1975, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Fantine + Leeuh x5 with faces'
+      fr_FR:
+        title: 'Fantine + Leargh x5 avec visages'
+      pt_BR:
+        title: 'Fantasmina + Mortica x5 com rostos'
+    prices:
+      USD: 19.99
+      EUR: 19.99
+      BRL: 80.99
+    sms_prices:
+      USD: 19.99
+      EUR: 22.38
+      BRL: 19.99
+    payment_methods:
+      - fake
+      - xsolla
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_1999_en.jpg'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_1999_fr.jpg'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_1999_pt.jpg'
+  pt_10w2_ghoul2015_her_1999:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        assets:
+          list: [ { name: f_hair_1987, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: f_face_244, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 10 } },{ name: f_torso_1987, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: f_legs_1000, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: f_feet_1842, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: f_hair_1988, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: f_face_242, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 10 } },{ name: f_torso_1988, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: f_legs_1771, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: f_feet_1975, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Fantine + Leeuh x5 with faces'
+      fr_FR:
+        title: 'Fantine + Leargh x5 avec visages'
+      pt_BR:
+        title: 'Fantasmina + Mortica x5 com rostos'
+    prices:
+      USD: 19.99
+      EUR: 19.99
+      BRL: 19.99
+    sms_prices:
+      USD: 19.99
+      EUR: 22.38
+      BRL: 4.99
+    payment_methods:
+      - fake
+      - xsolla
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_1999_en.jpg'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_1999_fr.jpg'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_1999_pt.jpg'
+  aapl_generic_her_10_1999:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        assets:
+          list: [ { name: f_hair_1987, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: f_face_244, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 10 } },{ name: f_torso_1987, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: f_legs_1000, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: f_feet_1842, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: f_hair_1988, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: f_face_242, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 10 } },{ name: f_torso_1988, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: f_legs_1771, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: f_feet_1975, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Fantine + Leeuh x5 with faces'
+      fr_FR:
+        title: 'Fantine + Leargh x5 avec visages'
+      pt_BR:
+        title: 'Fantasmina + Mortica x5 com rostos'
+    prices:
+      USD: 19.99
+      EUR: 19.99
+      BRL: 80.99
+    sms_prices:
+      USD: 19.99
+      EUR: 22.38
+      BRL: 19.99
+    payment_methods:
+      - fake
+      - mobileaapl
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_1999_en.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_1999_en_preview.png'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_1999_fr.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_1999_fr_preview.png'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_1999_pt.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_1999_pt_preview.png'
+  play_generic_her_10_1999:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        assets:
+          list: [ { name: f_hair_1987, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: f_face_244, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 10 } },{ name: f_torso_1987, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: f_legs_1000, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: f_feet_1842, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: f_hair_1988, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: f_face_242, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 10 } },{ name: f_torso_1988, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: f_legs_1771, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: f_feet_1975, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Fantine + Leeuh x5 with faces'
+      fr_FR:
+        title: 'Fantine + Leargh x5 avec visages'
+      pt_BR:
+        title: 'Fantasmina + Mortica x5 com rostos'
+    prices:
+      USD: 19.99
+      EUR: 19.99
+      BRL: 80.99
+    sms_prices:
+      USD: 19.99
+      EUR: 22.38
+      BRL: 19.99
+    payment_methods:
+      - fake
+      - playstorepurchase
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_1999_en.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_1999_en_preview.png'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_1999_fr.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_1999_fr_preview.png'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_1999_pt.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_her_1999_pt_preview.png'
+  10w2_ghoul2015_his_1999:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        assets:
+          list: [ { name: m_hair_1989, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: m_face_245, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 10 } },{ name: m_torso_1989, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: m_legs_1613, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: m_feet_1568, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: m_hair_1990, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: m_face_243, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 10 } },{ name: m_torso_1990, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: m_legs_1772, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: m_feet_811, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Evanesce + Ewejean x5 with faces'
+      fr_FR:
+        title: 'Hectorplasme + Eurghene x5 avec visages'
+      pt_BR:
+        title: 'Hectorplasma + Fredy Tumba x5 com rostos'
+    prices:
+      USD: 19.99
+      EUR: 19.99
+      BRL: 80.99
+    sms_prices:
+      USD: 19.99
+      EUR: 22.38
+      BRL: 19.99
+    payment_methods:
+      - fake
+      - xsolla
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_1999_en.jpg'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_1999_fr.jpg'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_1999_pt.jpg'
+  pt_10w2_ghoul2015_his_1999:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        assets:
+          list: [ { name: m_hair_1989, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: m_face_245, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 10 } },{ name: m_torso_1989, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: m_legs_1613, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: m_feet_1568, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: m_hair_1990, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: m_face_243, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 10 } },{ name: m_torso_1990, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: m_legs_1772, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: m_feet_811, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Evanesce + Ewejean x5 with faces'
+      fr_FR:
+        title: 'Hectorplasme + Eurghene x5 avec visages'
+      pt_BR:
+        title: 'Hectorplasma + Fredy Tumba x5 com rostos'
+    prices:
+      USD: 19.99
+      EUR: 19.99
+      BRL: 19.99
+    sms_prices:
+      USD: 19.99
+      EUR: 22.38
+      BRL: 4.99
+    payment_methods:
+      - fake
+      - xsolla
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_1999_en.jpg'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_1999_fr.jpg'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_1999_pt.jpg'
+  aapl_generic_his_10_1999:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        assets:
+          list: [ { name: m_hair_1989, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: m_face_245, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 10 } },{ name: m_torso_1989, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: m_legs_1613, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: m_feet_1568, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: m_hair_1990, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: m_face_243, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 10 } },{ name: m_torso_1990, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: m_legs_1772, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: m_feet_811, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Evanesce + Ewejean x5 with faces'
+      fr_FR:
+        title: 'Hectorplasme + Eurghene x5 avec visages'
+      pt_BR:
+        title: 'Hectorplasma + Fredy Tumba x5 com rostos'
+    prices:
+      USD: 19.99
+      EUR: 19.99
+      BRL: 80.99
+    sms_prices:
+      USD: 19.99
+      EUR: 22.38
+      BRL: 19.99
+    payment_methods:
+      - fake
+      - mobileaapl
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_1999_en.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_1999_en_preview.png'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_1999_fr.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_1999_fr_preview.png'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_1999_pt.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_1999_pt_preview.png'
+  play_generic_his_10_1999:
+    type: KidPack
+    codename: 10w2
+    reward_data:
+      user:
+        assets:
+          list: [ { name: m_hair_1989, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: m_face_245, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 10 } },{ name: m_torso_1989, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: m_legs_1613, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: m_feet_1568, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: m_hair_1990, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: m_face_243, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 10 } },{ name: m_torso_1990, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: m_legs_1772, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } },{ name: m_feet_811, type: KidGarmentDescriptor, parameters: { is_level_restricted: 0, stack_amount: 5 } } ]
+    kid_pack_i18ns:
+      en_WD:
+        title: 'Evanesce + Ewejean x5 with faces'
+      fr_FR:
+        title: 'Hectorplasme + Eurghene x5 avec visages'
+      pt_BR:
+        title: 'Hectorplasma + Fredy Tumba x5 com rostos'
+    prices:
+      USD: 19.99
+      EUR: 19.99
+      BRL: 80.99
+    sms_prices:
+      USD: 19.99
+      EUR: 22.38
+      BRL: 19.99
+    payment_methods:
+      - fake
+      - playstorepurchase
+    kid_buyable_i18ns:
+      en_WD:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_1999_en.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_1999_en_preview.png'
+      fr_FR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_1999_fr.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_1999_fr_preview.png'
+      pt_BR:
+        new_image_image: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_1999_pt.png'
+        new_image_details: 'http://woozworld.s3.amazonaws.com/store_migrate/2015_10w2/10w2_ghoul2015_his_1999_pt_preview.png'
+storefronts:
+  qa_all_new_buyables:
+    list_sections:
+      main-images:
+        tab: main_blank
+        is_sms: false
+        contents: {}
+  new_boy:
+    layout: storefront-lite
+    template: storefront-lite-classic
+    specialized_currency: null
+    list_sections:
+      main-images:
+        tab: main_standard
+        is_sms: false
+        contents:
+          - { type: KidPack, name: 03w3_250wooz_199 }
+          - { type: KidPack, name: 03w3_1000wooz_499 }
+          - { type: KidPack, name: 03w3_2250wooz_999 }
+          - { type: KidPack, name: 03w3_5000wooz_1999 }
+          - { type: KidPack, name: 03w3_15000wooz_4999 }
+          - { type: KidPack, name: 03w3_33000wooz_9999 }
+      goods-images:
+        tab: goodz_goods
+        is_sms: false
+        contents:
+          - { type: KidPack, name: 10w1_birthstone_october_199 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_1999 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_vip_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_vip_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_her1_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_her2_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_his1_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_his2_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_wooz_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_wooz_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_1999 }
+          - { type: KidPack, name: 06w1_june2015_monkey_999 }
+          - { type: KidPack, name: 06w1_june2015_elephant_999 }
+          - { type: KidPack, name: 10w2_starter_m_jock_699 }
+          - { type: KidPack, name: 10w2_starter_m_prep_699 }
+          - { type: KidPack, name: 10w2_starter_m_rebel_699 }
+          - { type: KidPack, name: 10w2_starter_m_nerd_699 }
+          - { type: KidPack, name: 10w2_starter_m_spirit_699 }
+          - { type: KidPack, name: 08w1_starter_m_party_699 }
+          - { type: KidPack, name: 08w1_starter_m_game_699 }
+          - { type: KidPack, name: 08w1_starter_m_sport_699 }
+          - { type: KidPack, name: 08w1_starter_m_business_699 }
+          - { type: KidPack, name: 08w1_starter_m_fashion_699 }
+      vip-images:
+        tab: vip_promo
+        is_sms: false
+        contents:
+          - { type: KidOffer, name: 08w3_vip_30_795 }
+          - { type: KidPack, name: 09w4_vip_90_1995 }
+          - { type: KidPack, name: 09w4_vip_180_2495 }
+          - { type: KidPack, name: 09w4_vip_365_3995 }
+      sms-images:
+        tab: sms_blank
+        is_sms: true
+        contents:
+          - { type: KidPack, name: 07w4_vip_sms_999 }
+          - { type: KidPack, name: 10w1_birthstone_october_199 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_1999 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_vip_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_vip_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_her1_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_her2_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_his1_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_his2_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_wooz_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_wooz_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_1999 }
+          - { type: KidPack, name: 06w1_june2015_monkey_999 }
+          - { type: KidPack, name: 06w1_june2015_elephant_999 }
+          - { type: KidPack, name: jan2014_sms_150wooz_199 }
+          - { type: KidPack, name: jan2014_sms_600wooz_499 }
+          - { type: KidPack, name: jan2014_sms_1350wooz_999 }
+          - { type: KidPack, name: jan2014_sms_3000wooz_1999 }
+          - { type: KidPack, name: 10w2_starter_m_jock_699 }
+          - { type: KidPack, name: 10w2_starter_m_prep_699 }
+          - { type: KidPack, name: 10w2_starter_m_rebel_699 }
+          - { type: KidPack, name: 10w2_starter_m_nerd_699 }
+          - { type: KidPack, name: 10w2_starter_m_spirit_699 }
+          - { type: KidPack, name: 08w1_starter_m_party_699 }
+          - { type: KidPack, name: 08w1_starter_m_game_699 }
+          - { type: KidPack, name: 08w1_starter_m_sport_699 }
+          - { type: KidPack, name: 08w1_starter_m_business_699 }
+          - { type: KidPack, name: 08w1_starter_m_fashion_699 }
+  new_girl:
+    layout: storefront-lite
+    template: storefront-lite-classic
+    specialized_currency: null
+    list_sections:
+      main-images:
+        tab: main_standard
+        is_sms: false
+        contents:
+          - { type: KidPack, name: 03w3_250wooz_199 }
+          - { type: KidPack, name: 03w3_1000wooz_499 }
+          - { type: KidPack, name: 03w3_2250wooz_999 }
+          - { type: KidPack, name: 03w3_5000wooz_1999 }
+          - { type: KidPack, name: 03w3_15000wooz_4999 }
+          - { type: KidPack, name: 03w3_33000wooz_9999 }
+      goods-images:
+        tab: goodz_goods
+        is_sms: false
+        contents:
+          - { type: KidPack, name: 10w1_birthstone_october_199 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_1999 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_vip_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_vip_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_her1_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_her2_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_his1_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_his2_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_wooz_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_wooz_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_1999 }
+          - { type: KidPack, name: 06w1_june2015_monkey_999 }
+          - { type: KidPack, name: 06w1_june2015_elephant_999 }
+          - { type: KidPack, name: 10w2_starter_f_prep_699 }
+          - { type: KidPack, name: 10w2_starter_f_rebel_699 }
+          - { type: KidPack, name: 10w2_starter_f_spirit_699 }
+          - { type: KidPack, name: 10w2_starter_f_nerd_699 }
+          - { type: KidPack, name: 10w2_starter_f_jock_699 }
+          - { type: KidPack, name: 08w1_starter_f_party_699 }
+          - { type: KidPack, name: 08w1_starter_f_fashion_699 }
+          - { type: KidPack, name: 08w1_starter_f_business_699 }
+          - { type: KidPack, name: 08w1_starter_f_game_699 }
+          - { type: KidPack, name: 08w1_starter_f_sport_699 }
+      vip-images:
+        tab: vip_promo
+        is_sms: false
+        contents:
+          - { type: KidOffer, name: 08w3_vip_30_795 }
+          - { type: KidPack, name: 09w4_vip_90_1995 }
+          - { type: KidPack, name: 09w4_vip_180_2495 }
+          - { type: KidPack, name: 09w4_vip_365_3995 }
+      sms-images:
+        tab: sms_blank
+        is_sms: true
+        contents:
+          - { type: KidPack, name: 07w4_vip_sms_999 }
+          - { type: KidPack, name: 10w1_birthstone_october_199 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_1999 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_vip_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_vip_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_her1_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_her2_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_his1_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_his2_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_wooz_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_wooz_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_1999 }
+          - { type: KidPack, name: 06w1_june2015_monkey_999 }
+          - { type: KidPack, name: 06w1_june2015_elephant_999 }
+          - { type: KidPack, name: jan2014_sms_150wooz_199 }
+          - { type: KidPack, name: jan2014_sms_600wooz_499 }
+          - { type: KidPack, name: jan2014_sms_1350wooz_999 }
+          - { type: KidPack, name: jan2014_sms_3000wooz_1999 }
+          - { type: KidPack, name: 10w2_starter_f_prep_699 }
+          - { type: KidPack, name: 10w2_starter_f_rebel_699 }
+          - { type: KidPack, name: 10w2_starter_f_spirit_699 }
+          - { type: KidPack, name: 10w2_starter_f_nerd_699 }
+          - { type: KidPack, name: 10w2_starter_f_jock_699 }
+          - { type: KidPack, name: 08w1_starter_f_party_699 }
+          - { type: KidPack, name: 08w1_starter_f_fashion_699 }
+          - { type: KidPack, name: 08w1_starter_f_business_699 }
+          - { type: KidPack, name: 08w1_starter_f_game_699 }
+          - { type: KidPack, name: 08w1_starter_f_sport_699 }
+  pt_new_boy:
+    layout: storefront-lite
+    template: storefront-lite-classic
+    specialized_currency: null
+    list_sections:
+      main-images:
+        tab: main_standard
+        is_sms: false
+        contents:
+          - { type: KidPack, name: pt_br_03w3_375wooz_299 }
+          - { type: KidPack, name: pt_br_03w3_1500wooz_899 }
+          - { type: KidPack, name: pt_br_03w3_3300wooz_1999 }
+          - { type: KidPack, name: pt_br_03w3_7250wooz_4499 }
+          - { type: KidPack, name: pt_br_03w3_16000wooz_11499 }
+          - { type: KidPack, name: pt_br_03w3_35000wooz_22999 }
+      goods-images:
+        tab: goodz_goods
+        is_sms: false
+        contents:
+          - { type: KidPack, name: pt_10w1_birthstone_october_199 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_1999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_vip_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_vip_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her1_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her2_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his1_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his2_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_wooz_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_wooz_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_1999 }
+          - { type: KidPack, name: pt_06w1_june2015_monkey_999 }
+          - { type: KidPack, name: pt_06w1_june2015_elephant_999 }
+          - { type: KidPack, name: pt_10w2_starter_m_jock_699 }
+          - { type: KidPack, name: pt_10w2_starter_m_prep_699 }
+          - { type: KidPack, name: pt_10w2_starter_m_rebel_699 }
+          - { type: KidPack, name: pt_10w2_starter_m_nerd_699 }
+          - { type: KidPack, name: pt_10w2_starter_m_spirit_699 }
+          - { type: KidPack, name: pt_08w1_starter_m_party_699 }
+          - { type: KidPack, name: pt_08w1_starter_m_game_699 }
+          - { type: KidPack, name: pt_08w1_starter_m_sport_699 }
+          - { type: KidPack, name: pt_08w1_starter_m_business_699 }
+          - { type: KidPack, name: pt_08w1_starter_m_fashion_699 }
+      vip-images:
+        tab: vip_promo
+        is_sms: false
+        contents:
+          - { type: KidPack, name: pt_08w3_vip_30_795 }
+          - { type: KidPack, name: pt_08w3_vip_90_1995 }
+          - { type: KidPack, name: pt_08w3_vip_180_2495 }
+          - { type: KidPack, name: pt_08w3_vip_365_3995 }
+      sms-images:
+        tab: sms_blank
+        is_sms: true
+        contents:
+          - { type: KidPack, name: pt_10w1_birthstone_october_199 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_1999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_vip_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_vip_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her1_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her2_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his1_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his2_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_wooz_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_wooz_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_1999 }
+          - { type: KidPack, name: pt_06w1_june2015_monkey_999 }
+          - { type: KidPack, name: pt_06w1_june2015_elephant_999 }
+          - { type: KidPack, name: pt_feb2014_sms_450wooz_572 }
+          - { type: KidPack, name: pt_feb2014_sms_1000wooz_999 }
+          - { type: KidPack, name: pt_08w3_vip_7days_sms_572 }
+          - { type: KidPack, name: pt_10w2_starter_m_jock_699 }
+          - { type: KidPack, name: pt_10w2_starter_m_prep_699 }
+          - { type: KidPack, name: pt_10w2_starter_m_rebel_699 }
+          - { type: KidPack, name: pt_10w2_starter_m_nerd_699 }
+          - { type: KidPack, name: pt_10w2_starter_m_spirit_699 }
+          - { type: KidPack, name: pt_08w1_starter_m_party_699 }
+          - { type: KidPack, name: pt_08w1_starter_m_game_699 }
+          - { type: KidPack, name: pt_08w1_starter_m_sport_699 }
+          - { type: KidPack, name: pt_08w1_starter_m_business_699 }
+          - { type: KidPack, name: pt_08w1_starter_m_fashion_699 }
+  pt_new_girl:
+    layout: storefront-lite
+    template: storefront-lite-classic
+    specialized_currency: null
+    list_sections:
+      main-images:
+        tab: main_standard
+        is_sms: false
+        contents:
+          - { type: KidPack, name: pt_br_03w3_375wooz_299 }
+          - { type: KidPack, name: pt_br_03w3_1500wooz_899 }
+          - { type: KidPack, name: pt_br_03w3_3300wooz_1999 }
+          - { type: KidPack, name: pt_br_03w3_7250wooz_4499 }
+          - { type: KidPack, name: pt_br_03w3_16000wooz_11499 }
+          - { type: KidPack, name: pt_br_03w3_35000wooz_22999 }
+      goods-images:
+        tab: goodz_goods
+        is_sms: false
+        contents:
+          - { type: KidPack, name: pt_10w1_birthstone_october_199 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_1999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_vip_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_vip_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her1_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her2_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his1_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his2_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_wooz_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_wooz_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_1999 }
+          - { type: KidPack, name: pt_06w1_june2015_monkey_999 }
+          - { type: KidPack, name: pt_06w1_june2015_elephant_999 }
+          - { type: KidPack, name: pt_10w2_starter_f_prep_699 }
+          - { type: KidPack, name: pt_10w2_starter_f_rebel_699 }
+          - { type: KidPack, name: pt_10w2_starter_f_spirit_699 }
+          - { type: KidPack, name: pt_10w2_starter_f_nerd_699 }
+          - { type: KidPack, name: pt_10w2_starter_f_jock_699 }
+          - { type: KidPack, name: pt_08w1_starter_f_party_699 }
+          - { type: KidPack, name: pt_08w1_starter_f_fashion_699 }
+          - { type: KidPack, name: pt_08w1_starter_f_business_699 }
+          - { type: KidPack, name: pt_08w1_starter_f_game_699 }
+          - { type: KidPack, name: pt_08w1_starter_f_sport_699 }
+      vip-images:
+        tab: vip_promo
+        is_sms: false
+        contents:
+          - { type: KidPack, name: pt_08w3_vip_30_795 }
+          - { type: KidPack, name: pt_08w3_vip_90_1995 }
+          - { type: KidPack, name: pt_08w3_vip_180_2495 }
+          - { type: KidPack, name: pt_08w3_vip_365_3995 }
+      sms-images:
+        tab: sms_blank
+        is_sms: true
+        contents:
+          - { type: KidPack, name: pt_10w1_birthstone_october_199 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_1999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_vip_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_vip_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her1_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her2_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his1_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his2_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_wooz_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_wooz_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_1999 }
+          - { type: KidPack, name: pt_06w1_june2015_monkey_999 }
+          - { type: KidPack, name: pt_06w1_june2015_elephant_999 }
+          - { type: KidPack, name: pt_feb2014_sms_450wooz_572 }
+          - { type: KidPack, name: pt_feb2014_sms_1000wooz_999 }
+          - { type: KidPack, name: pt_08w3_vip_7days_sms_572 }
+          - { type: KidPack, name: pt_10w2_starter_f_prep_699 }
+          - { type: KidPack, name: pt_10w2_starter_f_rebel_699 }
+          - { type: KidPack, name: pt_10w2_starter_f_spirit_699 }
+          - { type: KidPack, name: pt_10w2_starter_f_nerd_699 }
+          - { type: KidPack, name: pt_10w2_starter_f_jock_699 }
+          - { type: KidPack, name: pt_08w1_starter_f_party_699 }
+          - { type: KidPack, name: pt_08w1_starter_f_fashion_699 }
+          - { type: KidPack, name: pt_08w1_starter_f_business_699 }
+          - { type: KidPack, name: pt_08w1_starter_f_game_699 }
+          - { type: KidPack, name: pt_08w1_starter_f_sport_699 }
+  purch:
+    layout: storefront-lite
+    template: storefront-lite-classic
+    specialized_currency: null
+    list_sections:
+      main-images:
+        tab: main_standard
+        is_sms: false
+        contents:
+          - { type: KidPack, name: 03w3_250wooz_199 }
+          - { type: KidPack, name: 03w3_1000wooz_499 }
+          - { type: KidPack, name: 03w3_2250wooz_999 }
+          - { type: KidPack, name: 03w3_5000wooz_1999 }
+          - { type: KidPack, name: 03w3_15000wooz_4999 }
+          - { type: KidPack, name: 03w3_33000wooz_9999 }
+      goods-images:
+        tab: goodz_goods
+        is_sms: false
+        contents:
+          - { type: KidPack, name: 10w1_birthstone_october_199 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_1999 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_vip_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_vip_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_her1_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_her2_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_his1_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_his2_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_wooz_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_wooz_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_1999 }
+          - { type: KidPack, name: 06w1_june2015_monkey_999 }
+          - { type: KidPack, name: 06w1_june2015_elephant_999 }
+      vip-images:
+        tab: vip_promo
+        is_sms: false
+        contents:
+          - { type: KidOffer, name: 08w3_vip_30_795 }
+          - { type: KidPack, name: 09w4_vip_90_1995 }
+          - { type: KidPack, name: 09w4_vip_180_2495 }
+          - { type: KidPack, name: 09w4_vip_365_3995 }
+      sms-images:
+        tab: sms_blank
+        is_sms: true
+        contents:
+          - { type: KidPack, name: 07w4_vip_sms_999 }
+          - { type: KidPack, name: 10w1_birthstone_october_199 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_1999 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_vip_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_vip_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_her1_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_her2_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_his1_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_his2_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_wooz_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_wooz_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_1999 }
+          - { type: KidPack, name: 06w1_june2015_monkey_999 }
+          - { type: KidPack, name: 06w1_june2015_elephant_999 }
+          - { type: KidPack, name: jan2014_sms_150wooz_199 }
+          - { type: KidPack, name: jan2014_sms_600wooz_499 }
+          - { type: KidPack, name: jan2014_sms_1350wooz_999 }
+          - { type: KidPack, name: jan2014_sms_3000wooz_1999 }
+  purch_10before:
+    layout: storefront-lite
+    template: storefront-lite-classic
+    specialized_currency: null
+    list_sections:
+      main-images:
+        tab: main_10before
+        is_sms: false
+        contents:
+          - { type: KidPack, name: 03w3_250wooz_199 }
+          - { type: KidPack, name: 03w3_1000wooz_499 }
+          - { type: KidPack, name: 03w3_2250wooz_999 }
+          - { type: KidPack, name: 03w3_5000wooz_1999 }
+          - { type: KidPack, name: 03w3_15000wooz_4999 }
+          - { type: KidPack, name: 03w3_33000wooz_9999 }
+      goods-images:
+        tab: goods_10before
+        is_sms: false
+        contents:
+          - { type: KidPack, name: 10w1_birthstone_october_199 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_1999 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_vip_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_vip_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_her1_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_her2_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_his1_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_his2_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_wooz_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_wooz_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_1999 }
+          - { type: KidPack, name: 06w1_june2015_monkey_999 }
+          - { type: KidPack, name: 06w1_june2015_elephant_999 }
+      vip-images:
+        tab: vip_promo
+        is_sms: false
+        contents:
+          - { type: KidOffer, name: 08w3_vip_30_795 }
+          - { type: KidPack, name: 09w4_vip_90_1995 }
+          - { type: KidPack, name: 09w4_vip_180_2495 }
+          - { type: KidPack, name: 09w4_vip_365_3995 }
+      sms-images:
+        tab: sms_10before
+        is_sms: true
+        contents:
+          - { type: KidPack, name: 07w4_vip_sms_999 }
+          - { type: KidPack, name: 10w1_birthstone_october_199 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_1999 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_vip_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_vip_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_her1_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_her2_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_his1_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_his2_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_wooz_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_wooz_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_1999 }
+          - { type: KidPack, name: 06w1_june2015_monkey_999 }
+          - { type: KidPack, name: 06w1_june2015_elephant_999 }
+          - { type: KidPack, name: jan2014_sms_150wooz_199 }
+          - { type: KidPack, name: jan2014_sms_600wooz_499 }
+          - { type: KidPack, name: jan2014_sms_1350wooz_999 }
+          - { type: KidPack, name: jan2014_sms_3000wooz_1999 }
+  purch_10after:
+    layout: storefront-lite
+    template: storefront-lite-classic
+    specialized_currency: null
+    list_sections:
+      main-images:
+        tab: main_10after
+        is_sms: false
+        contents:
+          - { type: KidPack, name: 03w3_250wooz_199 }
+          - { type: KidPack, name: 03w3_1000wooz_499 }
+          - { type: KidPack, name: 03w3_2250wooz_999 }
+          - { type: KidPack, name: 03w3_5000wooz_1999 }
+          - { type: KidPack, name: 03w3_15000wooz_4999 }
+          - { type: KidPack, name: 03w3_33000wooz_9999 }
+      goods-images:
+        tab: goods_10after
+        is_sms: false
+        contents:
+          - { type: KidPack, name: 10w1_birthstone_october_199 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_1999 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_vip_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_vip_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_her1_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_her2_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_his1_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_his2_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_wooz_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_wooz_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_1999 }
+          - { type: KidPack, name: 06w1_june2015_monkey_999 }
+          - { type: KidPack, name: 06w1_june2015_elephant_999 }
+      vip-images:
+        tab: vip_promo
+        is_sms: false
+        contents:
+          - { type: KidOffer, name: 08w3_vip_30_795 }
+          - { type: KidPack, name: 09w4_vip_90_1995 }
+          - { type: KidPack, name: 09w4_vip_180_2495 }
+          - { type: KidPack, name: 09w4_vip_365_3995 }
+      sms-images:
+        tab: sms_10after
+        is_sms: true
+        contents:
+          - { type: KidPack, name: 07w4_vip_sms_999 }
+          - { type: KidPack, name: 10w1_birthstone_october_199 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_1999 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_vip_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_vip_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_her1_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_her2_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_his1_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_his2_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_wooz_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_wooz_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_1999 }
+          - { type: KidPack, name: 06w1_june2015_monkey_999 }
+          - { type: KidPack, name: 06w1_june2015_elephant_999 }
+          - { type: KidPack, name: jan2014_sms_150wooz_199 }
+          - { type: KidPack, name: jan2014_sms_600wooz_499 }
+          - { type: KidPack, name: jan2014_sms_1350wooz_999 }
+          - { type: KidPack, name: jan2014_sms_3000wooz_1999 }
+  pt_purch:
+    layout: storefront-lite
+    template: storefront-lite-classic
+    specialized_currency: null
+    list_sections:
+      main-images:
+        tab: main_standard
+        is_sms: false
+        contents:
+          - { type: KidPack, name: pt_br_03w3_375wooz_299 }
+          - { type: KidPack, name: pt_br_03w3_1500wooz_899 }
+          - { type: KidPack, name: pt_br_03w3_3300wooz_1999 }
+          - { type: KidPack, name: pt_br_03w3_7250wooz_4499 }
+          - { type: KidPack, name: pt_br_03w3_16000wooz_11499 }
+          - { type: KidPack, name: pt_br_03w3_35000wooz_22999 }
+      goods-images:
+        tab: goodz_goods
+        is_sms: false
+        contents:
+          - { type: KidPack, name: pt_10w1_birthstone_october_199 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_1999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_vip_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_vip_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her1_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her2_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his1_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his2_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_wooz_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_wooz_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_1999 }
+          - { type: KidPack, name: pt_06w1_june2015_monkey_999 }
+          - { type: KidPack, name: pt_06w1_june2015_elephant_999 }
+      vip-images:
+        tab: vip_promo
+        is_sms: false
+        contents:
+          - { type: KidPack, name: pt_08w3_vip_30_795 }
+          - { type: KidPack, name: pt_08w3_vip_90_1995 }
+          - { type: KidPack, name: pt_08w3_vip_180_2495 }
+          - { type: KidPack, name: pt_08w3_vip_365_3995 }
+      sms-images:
+        tab: sms_blank
+        is_sms: true
+        contents:
+          - { type: KidPack, name: pt_10w1_birthstone_october_199 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_1999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_vip_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_vip_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her1_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her2_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his1_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his2_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_wooz_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_wooz_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_1999 }
+          - { type: KidPack, name: pt_06w1_june2015_monkey_999 }
+          - { type: KidPack, name: pt_06w1_june2015_elephant_999 }
+          - { type: KidPack, name: pt_feb2014_sms_450wooz_572 }
+          - { type: KidPack, name: pt_feb2014_sms_1000wooz_999 }
+          - { type: KidPack, name: pt_08w3_vip_7days_sms_572 }
+  pt_purch_10before:
+    layout: storefront-lite
+    template: storefront-lite-classic
+    specialized_currency: null
+    list_sections:
+      main-images:
+        tab: main_10before
+        is_sms: false
+        contents:
+          - { type: KidPack, name: pt_br_03w3_375wooz_299 }
+          - { type: KidPack, name: pt_br_03w3_1500wooz_899 }
+          - { type: KidPack, name: pt_br_03w3_3300wooz_1999 }
+          - { type: KidPack, name: pt_br_03w3_7250wooz_4499 }
+          - { type: KidPack, name: pt_br_03w3_16000wooz_11499 }
+          - { type: KidPack, name: pt_br_03w3_35000wooz_22999 }
+      goods-images:
+        tab: goods_10before
+        is_sms: false
+        contents:
+          - { type: KidPack, name: pt_10w1_birthstone_october_199 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_1999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_vip_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_vip_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her1_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her2_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his1_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his2_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_wooz_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_wooz_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_1999 }
+          - { type: KidPack, name: pt_06w1_june2015_monkey_999 }
+          - { type: KidPack, name: pt_06w1_june2015_elephant_999 }
+      vip-images:
+        tab: vip_promo
+        is_sms: false
+        contents:
+          - { type: KidPack, name: pt_08w3_vip_30_795 }
+          - { type: KidPack, name: pt_08w3_vip_90_1995 }
+          - { type: KidPack, name: pt_08w3_vip_180_2495 }
+          - { type: KidPack, name: pt_08w3_vip_365_3995 }
+      sms-images:
+        tab: sms_10before
+        is_sms: true
+        contents:
+          - { type: KidPack, name: pt_10w1_birthstone_october_199 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_1999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_vip_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_vip_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her1_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her2_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his1_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his2_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_wooz_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_wooz_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_1999 }
+          - { type: KidPack, name: pt_06w1_june2015_monkey_999 }
+          - { type: KidPack, name: pt_06w1_june2015_elephant_999 }
+          - { type: KidPack, name: pt_feb2014_sms_450wooz_572 }
+          - { type: KidPack, name: pt_feb2014_sms_1000wooz_999 }
+          - { type: KidPack, name: pt_08w3_vip_7days_sms_572 }
+  pt_purch_10after:
+    layout: storefront-lite
+    template: storefront-lite-classic
+    specialized_currency: null
+    list_sections:
+      main-images:
+        tab: main_10after
+        is_sms: false
+        contents:
+          - { type: KidPack, name: pt_br_03w3_375wooz_299 }
+          - { type: KidPack, name: pt_br_03w3_1500wooz_899 }
+          - { type: KidPack, name: pt_br_03w3_3300wooz_1999 }
+          - { type: KidPack, name: pt_br_03w3_7250wooz_4499 }
+          - { type: KidPack, name: pt_br_03w3_16000wooz_11499 }
+          - { type: KidPack, name: pt_br_03w3_35000wooz_22999 }
+      goods-images:
+        tab: goods_10after
+        is_sms: false
+        contents:
+          - { type: KidPack, name: pt_10w1_birthstone_october_199 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_1999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_vip_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_vip_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her1_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her2_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his1_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his2_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_wooz_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_wooz_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_1999 }
+          - { type: KidPack, name: pt_06w1_june2015_monkey_999 }
+          - { type: KidPack, name: pt_06w1_june2015_elephant_999 }
+      vip-images:
+        tab: vip_promo
+        is_sms: false
+        contents:
+          - { type: KidPack, name: pt_08w3_vip_30_795 }
+          - { type: KidPack, name: pt_08w3_vip_90_1995 }
+          - { type: KidPack, name: pt_08w3_vip_180_2495 }
+          - { type: KidPack, name: pt_08w3_vip_365_3995 }
+      sms-images:
+        tab: sms_10after
+        is_sms: true
+        contents:
+          - { type: KidPack, name: pt_10w1_birthstone_october_199 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_1999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_vip_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_vip_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her1_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her2_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his1_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his2_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_wooz_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_wooz_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_1999 }
+          - { type: KidPack, name: pt_06w1_june2015_monkey_999 }
+          - { type: KidPack, name: pt_06w1_june2015_elephant_999 }
+          - { type: KidPack, name: pt_feb2014_sms_450wooz_572 }
+          - { type: KidPack, name: pt_feb2014_sms_1000wooz_999 }
+          - { type: KidPack, name: pt_08w3_vip_7days_sms_572 }
+  recur:
+    layout: storefront-lite
+    template: storefront-lite-classic
+    specialized_currency: null
+    list_sections:
+      main-images:
+        tab: main_standard
+        is_sms: false
+        contents:
+          - { type: KidPack, name: 03w3_250wooz_199 }
+          - { type: KidPack, name: 03w3_1000wooz_499 }
+          - { type: KidPack, name: 03w3_2250wooz_999 }
+          - { type: KidPack, name: 03w3_5000wooz_1999 }
+          - { type: KidPack, name: 03w3_15000wooz_4999 }
+          - { type: KidPack, name: 03w3_33000wooz_9999 }
+      goods-images:
+        tab: goodz_goods
+        is_sms: false
+        contents:
+          - { type: KidPack, name: 10w1_birthstone_october_199 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_1999 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_her1_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_her2_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_his1_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_his2_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_wooz_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_wooz_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_1999 }
+          - { type: KidPack, name: 06w1_june2015_monkey_999 }
+          - { type: KidPack, name: 06w1_june2015_elephant_999 }
+      sms-images:
+        tab: sms_blank
+        is_sms: true
+        contents:
+          - { type: KidPack, name: 10w1_birthstone_october_199 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_1999 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_her1_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_her2_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_his1_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_his2_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_wooz_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_wooz_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_1999 }
+          - { type: KidPack, name: 06w1_june2015_monkey_999 }
+          - { type: KidPack, name: 06w1_june2015_elephant_999 }
+          - { type: KidPack, name: jan2014_sms_150wooz_199 }
+          - { type: KidPack, name: jan2014_sms_600wooz_499 }
+          - { type: KidPack, name: jan2014_sms_1350wooz_999 }
+          - { type: KidPack, name: jan2014_sms_3000wooz_1999 }
+  recur_10before:
+    layout: storefront-lite
+    template: storefront-lite-classic
+    specialized_currency: null
+    list_sections:
+      main-images:
+        tab: main_10before
+        is_sms: false
+        contents:
+          - { type: KidPack, name: 03w3_250wooz_199 }
+          - { type: KidPack, name: 03w3_1000wooz_499 }
+          - { type: KidPack, name: 03w3_2250wooz_999 }
+          - { type: KidPack, name: 03w3_5000wooz_1999 }
+          - { type: KidPack, name: 03w3_15000wooz_4999 }
+          - { type: KidPack, name: 03w3_33000wooz_9999 }
+      goods-images:
+        tab: goods_10before
+        is_sms: false
+        contents:
+          - { type: KidPack, name: 10w1_birthstone_october_199 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_1999 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_her1_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_her2_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_his1_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_his2_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_wooz_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_wooz_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_1999 }
+          - { type: KidPack, name: 06w1_june2015_monkey_999 }
+          - { type: KidPack, name: 06w1_june2015_elephant_999 }
+      sms-images:
+        tab: sms_10before
+        is_sms: true
+        contents:
+          - { type: KidPack, name: 10w1_birthstone_october_199 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_1999 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_her1_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_her2_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_his1_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_his2_499 }
+          - { type: KidPack, name: 10w2_ghoul2015_her_wooz_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_wooz_999 }
+          - { type: KidPack, name: 10w2_ghoul2015_his_1999 }
+          - { type: KidPack, name: 06w1_june2015_monkey_999 }
+          - { type: KidPack, name: 06w1_june2015_elephant_999 }
+          - { type: KidPack, name: jan2014_sms_150wooz_199 }
+          - { type: KidPack, name: jan2014_sms_600wooz_499 }
+          - { type: KidPack, name: jan2014_sms_1350wooz_999 }
+          - { type: KidPack, name: jan2014_sms_3000wooz_1999 }
+  pt_recur:
+    layout: storefront-lite
+    template: storefront-lite-classic
+    specialized_currency: null
+    list_sections:
+      main-images:
+        tab: main_standard
+        is_sms: false
+        contents:
+          - { type: KidPack, name: pt_br_03w3_375wooz_299 }
+          - { type: KidPack, name: pt_br_03w3_1500wooz_899 }
+          - { type: KidPack, name: pt_br_03w3_3300wooz_1999 }
+          - { type: KidPack, name: pt_br_03w3_7250wooz_4499 }
+          - { type: KidPack, name: pt_br_03w3_16000wooz_11499 }
+          - { type: KidPack, name: pt_br_03w3_35000wooz_22999 }
+      goods-images:
+        tab: goodz_goods
+        is_sms: false
+        contents:
+          - { type: KidPack, name: pt_10w1_birthstone_october_199 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_1999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her1_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her2_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his1_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his2_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_wooz_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_wooz_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_1999 }
+          - { type: KidPack, name: pt_06w1_june2015_monkey_999 }
+          - { type: KidPack, name: pt_06w1_june2015_elephant_999 }
+      sms-images:
+        tab: sms_blank
+        is_sms: true
+        contents:
+          - { type: KidPack, name: pt_10w1_birthstone_october_199 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_1999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her1_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her2_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his1_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his2_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_wooz_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_wooz_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_1999 }
+          - { type: KidPack, name: pt_06w1_june2015_monkey_999 }
+          - { type: KidPack, name: pt_06w1_june2015_elephant_999 }
+          - { type: KidPack, name: pt_feb2014_sms_450wooz_572 }
+          - { type: KidPack, name: pt_feb2014_sms_1000wooz_999 }
+  pt_recur_10before:
+    layout: storefront-lite
+    template: storefront-lite-classic
+    specialized_currency: null
+    list_sections:
+      main-images:
+        tab: main_10before
+        is_sms: false
+        contents:
+          - { type: KidPack, name: pt_br_03w3_375wooz_299 }
+          - { type: KidPack, name: pt_br_03w3_1500wooz_899 }
+          - { type: KidPack, name: pt_br_03w3_3300wooz_1999 }
+          - { type: KidPack, name: pt_br_03w3_7250wooz_4499 }
+          - { type: KidPack, name: pt_br_03w3_16000wooz_11499 }
+          - { type: KidPack, name: pt_br_03w3_35000wooz_22999 }
+      goods-images:
+        tab: goods_10before
+        is_sms: false
+        contents:
+          - { type: KidPack, name: pt_10w1_birthstone_october_199 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_1999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her1_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her2_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his1_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his2_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_wooz_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_wooz_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_1999 }
+          - { type: KidPack, name: pt_06w1_june2015_monkey_999 }
+          - { type: KidPack, name: pt_06w1_june2015_elephant_999 }
+      sms-images:
+        tab: sms_10before
+        is_sms: true
+        contents:
+          - { type: KidPack, name: pt_10w1_birthstone_october_199 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_1999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her1_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her2_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his1_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his2_499 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_her_wooz_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_wooz_999 }
+          - { type: KidPack, name: pt_10w2_ghoul2015_his_1999 }
+          - { type: KidPack, name: pt_06w1_june2015_monkey_999 }
+          - { type: KidPack, name: pt_06w1_june2015_elephant_999 }
+          - { type: KidPack, name: pt_feb2014_sms_450wooz_572 }
+          - { type: KidPack, name: pt_feb2014_sms_1000wooz_999 }
+  mobileaapl_store_recur:
+    layout: storefront-lite
+    template: storefront-lite-classic
+    specialized_currency: null
+    list_sections:
+      goods-images:
+        tab: main-goods
+        is_sms: false
+        contents:
+          - { type: KidPack, name: aapl_generic_birthstone_199 }
+          - { type: KidPack, name: aapl_generic_her_10_1999 }
+          - { type: KidPack, name: aapl_generic_her_4_999 }
+          - { type: KidPack, name: aapl_generic_his_4_999 }
+          - { type: KidPack, name: aapl_generic_her1_499 }
+          - { type: KidPack, name: aapl_generic_her2_499 }
+          - { type: KidPack, name: aapl_generic_his1_499 }
+          - { type: KidPack, name: aapl_generic_his2_499 }
+          - { type: KidPack, name: aapl_generic_her_combo_wooz_999 }
+          - { type: KidPack, name: aapl_generic_his_combo_wooz_999 }
+          - { type: KidPack, name: aapl_generic_his_10_1999 }
+      woozpack-images:
+        tab: woozpack-wooz
+        is_sms: false
+        contents:
+          - { type: KidPack, name: mobile_wooz_aapl_250 }
+          - { type: KidPack, name: mobile_wooz_aapl_1000 }
+          - { type: KidPack, name: mobile_wooz_aapl_2250 }
+          - { type: KidPack, name: mobile_wooz_aapl_5000 }
+  mobileaapl_store_purch:
+    layout: storefront-lite
+    template: storefront-lite-classic
+    specialized_currency: null
+    list_sections:
+      goods-images:
+        tab: main-goods
+        is_sms: false
+        contents:
+          - { type: KidPack, name: aapl_generic_birthstone_199 }
+          - { type: KidPack, name: aapl_generic_her_10_1999 }
+          - { type: KidPack, name: aapl_generic_her_4_999 }
+          - { type: KidPack, name: aapl_generic_his_4_999 }
+          - { type: KidPack, name: aapl_generic_her_combo_vip_999 }
+          - { type: KidPack, name: aapl_generic_his_combo_vip_999 }
+          - { type: KidPack, name: aapl_generic_her1_499 }
+          - { type: KidPack, name: aapl_generic_her2_499 }
+          - { type: KidPack, name: aapl_generic_his1_499 }
+          - { type: KidPack, name: aapl_generic_his2_499 }
+          - { type: KidPack, name: aapl_generic_her_combo_wooz_999 }
+          - { type: KidPack, name: aapl_generic_his_combo_wooz_999 }
+          - { type: KidPack, name: aapl_generic_his_10_1999 }
+      woozpack-images:
+        tab: woozpack-wooz
+        is_sms: false
+        contents:
+          - { type: KidPack, name: mobile_wooz_aapl_250 }
+          - { type: KidPack, name: mobile_wooz_aapl_1000 }
+          - { type: KidPack, name: mobile_wooz_aapl_2250 }
+          - { type: KidPack, name: mobile_wooz_aapl_5000 }
+      vip-images:
+        tab: vip-wooz
+        is_sms: false
+        contents:
+          - { type: KidPack, name: aapl_1502w2_vip_30_799 }
+          - { type: KidPack, name: aapl_1502w2_vip_90_1999 }
+          - { type: KidPack, name: aapl_1502w2_vip_180_2499 }
+          - { type: KidPack, name: aapl_1502w2_vip_365_3999 }
+  mobileaapl_store_new_boy:
+    layout: storefront-lite
+    template: storefront-lite-classic
+    specialized_currency: null
+    list_sections:
+      goods-images:
+        tab: main-goods
+        is_sms: false
+        contents:
+          - { type: KidPack, name: aapl_generic_birthstone_199 }
+          - { type: KidPack, name: aapl_generic_her_10_1999 }
+          - { type: KidPack, name: aapl_generic_her_4_999 }
+          - { type: KidPack, name: aapl_generic_his_4_999 }
+          - { type: KidPack, name: aapl_generic_her_combo_vip_999 }
+          - { type: KidPack, name: aapl_generic_his_combo_vip_999 }
+          - { type: KidPack, name: aapl_generic_her1_499 }
+          - { type: KidPack, name: aapl_generic_her2_499 }
+          - { type: KidPack, name: aapl_generic_his1_499 }
+          - { type: KidPack, name: aapl_generic_his2_499 }
+          - { type: KidPack, name: aapl_generic_her_combo_wooz_999 }
+          - { type: KidPack, name: aapl_generic_his_combo_wooz_999 }
+          - { type: KidPack, name: aapl_generic_his_10_1999 }
+          - { type: KidPack, name: aapl_10w2_starter_m_jock_699 }
+          - { type: KidPack, name: aapl_10w2_starter_m_prep_699 }
+          - { type: KidPack, name: aapl_10w2_starter_m_rebel_699 }
+          - { type: KidPack, name: aapl_10w2_starter_m_nerd_699 }
+          - { type: KidPack, name: aapl_10w2_starter_m_spirit_699 }
+          - { type: KidPack, name: aapl_08w1_starter_m_fashion_699 }
+          - { type: KidPack, name: aapl_08w1_starter_m_business_699 }
+          - { type: KidPack, name: aapl_08w1_starter_m_party_699 }
+          - { type: KidPack, name: aapl_08w1_starter_m_sport_699 }
+          - { type: KidPack, name: aapl_08w1_starter_m_game_699 }
+      woozpack-images:
+        tab: woozpack-wooz
+        is_sms: false
+        contents:
+          - { type: KidPack, name: mobile_wooz_aapl_250 }
+          - { type: KidPack, name: mobile_wooz_aapl_1000 }
+          - { type: KidPack, name: mobile_wooz_aapl_2250 }
+          - { type: KidPack, name: mobile_wooz_aapl_5000 }
+      vip-images:
+        tab: vip-wooz
+        is_sms: false
+        contents:
+          - { type: KidPack, name: aapl_1502w2_vip_30_799 }
+          - { type: KidPack, name: aapl_1502w2_vip_90_1999 }
+          - { type: KidPack, name: aapl_1502w2_vip_180_2499 }
+          - { type: KidPack, name: aapl_1502w2_vip_365_3999 }
+  mobileaapl_store_new_girl:
+    layout: storefront-lite
+    template: storefront-lite-classic
+    specialized_currency: null
+    list_sections:
+      goods-images:
+        tab: main-goods
+        is_sms: false
+        contents:
+          - { type: KidPack, name: aapl_generic_birthstone_199 }
+          - { type: KidPack, name: aapl_generic_her_10_1999 }
+          - { type: KidPack, name: aapl_generic_her_4_999 }
+          - { type: KidPack, name: aapl_generic_his_4_999 }
+          - { type: KidPack, name: aapl_generic_her_combo_vip_999 }
+          - { type: KidPack, name: aapl_generic_his_combo_vip_999 }
+          - { type: KidPack, name: aapl_generic_her1_499 }
+          - { type: KidPack, name: aapl_generic_her2_499 }
+          - { type: KidPack, name: aapl_generic_his1_499 }
+          - { type: KidPack, name: aapl_generic_his2_499 }
+          - { type: KidPack, name: aapl_generic_her_combo_wooz_999 }
+          - { type: KidPack, name: aapl_generic_his_combo_wooz_999 }
+          - { type: KidPack, name: aapl_generic_his_10_1999 }
+          - { type: KidPack, name: aapl_10w2_starter_f_prep_699 }
+          - { type: KidPack, name: aapl_10w2_starter_f_rebel_699 }
+          - { type: KidPack, name: aapl_10w2_starter_f_spirit_699 }
+          - { type: KidPack, name: aapl_10w2_starter_f_nerd_699 }
+          - { type: KidPack, name: aapl_10w2_starter_f_jock_699 }
+          - { type: KidPack, name: aapl_08w1_starter_f_fashion_699 }
+          - { type: KidPack, name: aapl_08w1_starter_f_business_699 }
+          - { type: KidPack, name: aapl_08w1_starter_f_party_699 }
+          - { type: KidPack, name: aapl_08w1_starter_f_sport_699 }
+          - { type: KidPack, name: aapl_08w1_starter_f_game_699 }
+      woozpack-images:
+        tab: woozpack-wooz
+        is_sms: false
+        contents:
+          - { type: KidPack, name: mobile_wooz_aapl_250 }
+          - { type: KidPack, name: mobile_wooz_aapl_1000 }
+          - { type: KidPack, name: mobile_wooz_aapl_2250 }
+          - { type: KidPack, name: mobile_wooz_aapl_5000 }
+      vip-images:
+        tab: vip-wooz
+        is_sms: false
+        contents:
+          - { type: KidPack, name: aapl_1502w2_vip_30_799 }
+          - { type: KidPack, name: aapl_1502w2_vip_90_1999 }
+          - { type: KidPack, name: aapl_1502w2_vip_180_2499 }
+          - { type: KidPack, name: aapl_1502w2_vip_365_3999 }
+  mobileplay_store_recur:
+    layout: storefront-lite
+    template: storefront-lite-classic
+    specialized_currency: null
+    list_sections:
+      goods-images:
+        tab: main-goods
+        is_sms: false
+        contents:
+          - { type: KidPack, name: play_generic_birthstone_199 }
+          - { type: KidPack, name: play_generic_her_10_1999 }
+          - { type: KidPack, name: play_generic_her_4_999 }
+          - { type: KidPack, name: play_generic_his_4_999 }
+          - { type: KidPack, name: play_generic_her1_499 }
+          - { type: KidPack, name: play_generic_her2_499 }
+          - { type: KidPack, name: play_generic_his1_499 }
+          - { type: KidPack, name: play_generic_his2_499 }
+          - { type: KidPack, name: play_generic_her_combo_wooz_999 }
+          - { type: KidPack, name: play_generic_his_combo_wooz_999 }
+          - { type: KidPack, name: play_generic_his_10_1999 }
+      woozpack-images:
+        tab: woozpack-wooz
+        is_sms: false
+        contents:
+          - { type: KidPack, name: mobile_wooz_play_250 }
+          - { type: KidPack, name: mobile_wooz_play_1000 }
+          - { type: KidPack, name: mobile_wooz_play_2250 }
+          - { type: KidPack, name: mobile_wooz_play_5000 }
+  mobileplay_store_purch:
+    layout: storefront-lite
+    template: storefront-lite-classic
+    specialized_currency: null
+    list_sections:
+      goods-images:
+        tab: main-goods
+        is_sms: false
+        contents:
+          - { type: KidPack, name: play_generic_birthstone_199 }
+          - { type: KidPack, name: play_generic_her_10_1999 }
+          - { type: KidPack, name: play_generic_her_4_999 }
+          - { type: KidPack, name: play_generic_his_4_999 }
+          - { type: KidPack, name: play_generic_her_combo_vip_999 }
+          - { type: KidPack, name: play_generic_his_combo_vip_999 }
+          - { type: KidPack, name: play_generic_her1_499 }
+          - { type: KidPack, name: play_generic_her2_499 }
+          - { type: KidPack, name: play_generic_his1_499 }
+          - { type: KidPack, name: play_generic_his2_499 }
+          - { type: KidPack, name: play_generic_her_combo_wooz_999 }
+          - { type: KidPack, name: play_generic_his_combo_wooz_999 }
+          - { type: KidPack, name: play_generic_his_10_1999 }
+      woozpack-images:
+        tab: woozpack-wooz
+        is_sms: false
+        contents:
+          - { type: KidPack, name: mobile_wooz_play_250 }
+          - { type: KidPack, name: mobile_wooz_play_1000 }
+          - { type: KidPack, name: mobile_wooz_play_2250 }
+          - { type: KidPack, name: mobile_wooz_play_5000 }
+      vip-images:
+        tab: vip-wooz
+        is_sms: false
+        contents:
+          - { type: KidPack, name: play_1502w2_vip_30_799 }
+          - { type: KidPack, name: play_1502w2_vip_90_1999 }
+          - { type: KidPack, name: play_1502w2_vip_180_2499 }
+          - { type: KidPack, name: play_1502w2_vip_365_3999 }
+  mobileplay_store_new_boy:
+    layout: storefront-lite
+    template: storefront-lite-classic
+    specialized_currency: null
+    list_sections:
+      goods-images:
+        tab: main-goods
+        is_sms: false
+        contents:
+          - { type: KidPack, name: play_generic_birthstone_199 }
+          - { type: KidPack, name: play_generic_her_10_1999 }
+          - { type: KidPack, name: play_generic_her_4_999 }
+          - { type: KidPack, name: play_generic_his_4_999 }
+          - { type: KidPack, name: play_generic_her_combo_vip_999 }
+          - { type: KidPack, name: play_generic_his_combo_vip_999 }
+          - { type: KidPack, name: play_generic_her1_499 }
+          - { type: KidPack, name: play_generic_her2_499 }
+          - { type: KidPack, name: play_generic_his1_499 }
+          - { type: KidPack, name: play_generic_his2_499 }
+          - { type: KidPack, name: play_generic_her_combo_wooz_999 }
+          - { type: KidPack, name: play_generic_his_combo_wooz_999 }
+          - { type: KidPack, name: play_generic_his_10_1999 }
+          - { type: KidPack, name: play_10w2_starter_m_jock_699 }
+          - { type: KidPack, name: play_10w2_starter_m_prep_699 }
+          - { type: KidPack, name: play_10w2_starter_m_rebel_699 }
+          - { type: KidPack, name: play_10w2_starter_m_nerd_699 }
+          - { type: KidPack, name: play_10w2_starter_m_spirit_699 }
+          - { type: KidPack, name: play_08w1_starter_m_fashion_699 }
+          - { type: KidPack, name: play_08w1_starter_m_business_699 }
+          - { type: KidPack, name: play_08w1_starter_m_party_699 }
+          - { type: KidPack, name: play_08w1_starter_m_sport_699 }
+          - { type: KidPack, name: play_08w1_starter_m_game_699 }
+      woozpack-images:
+        tab: woozpack-wooz
+        is_sms: false
+        contents:
+          - { type: KidPack, name: mobile_wooz_play_250 }
+          - { type: KidPack, name: mobile_wooz_play_1000 }
+          - { type: KidPack, name: mobile_wooz_play_2250 }
+          - { type: KidPack, name: mobile_wooz_play_5000 }
+      vip-images:
+        tab: vip-wooz
+        is_sms: false
+        contents:
+          - { type: KidPack, name: play_1502w2_vip_30_799 }
+          - { type: KidPack, name: play_1502w2_vip_90_1999 }
+          - { type: KidPack, name: play_1502w2_vip_180_2499 }
+          - { type: KidPack, name: play_1502w2_vip_365_3999 }
+  mobileplay_store_new_girl:
+    layout: storefront-lite
+    template: storefront-lite-classic
+    specialized_currency: null
+    list_sections:
+      goods-images:
+        tab: main-goods
+        is_sms: false
+        contents:
+          - { type: KidPack, name: play_generic_birthstone_199 }
+          - { type: KidPack, name: play_generic_her_10_1999 }
+          - { type: KidPack, name: play_generic_her_4_999 }
+          - { type: KidPack, name: play_generic_his_4_999 }
+          - { type: KidPack, name: play_generic_her_combo_vip_999 }
+          - { type: KidPack, name: play_generic_his_combo_vip_999 }
+          - { type: KidPack, name: play_generic_her1_499 }
+          - { type: KidPack, name: play_generic_her2_499 }
+          - { type: KidPack, name: play_generic_his1_499 }
+          - { type: KidPack, name: play_generic_his2_499 }
+          - { type: KidPack, name: play_generic_her_combo_wooz_999 }
+          - { type: KidPack, name: play_generic_his_combo_wooz_999 }
+          - { type: KidPack, name: play_generic_his_10_1999 }
+          - { type: KidPack, name: play_10w2_starter_f_prep_699 }
+          - { type: KidPack, name: play_10w2_starter_f_rebel_699 }
+          - { type: KidPack, name: play_10w2_starter_f_spirit_699 }
+          - { type: KidPack, name: play_10w2_starter_f_nerd_699 }
+          - { type: KidPack, name: play_10w2_starter_f_jock_699 }
+          - { type: KidPack, name: play_08w1_starter_f_fashion_699 }
+          - { type: KidPack, name: play_08w1_starter_f_business_699 }
+          - { type: KidPack, name: play_08w1_starter_f_party_699 }
+          - { type: KidPack, name: play_08w1_starter_f_sport_699 }
+          - { type: KidPack, name: play_08w1_starter_f_game_699 }
+      woozpack-images:
+        tab: woozpack-wooz
+        is_sms: false
+        contents:
+          - { type: KidPack, name: mobile_wooz_play_250 }
+          - { type: KidPack, name: mobile_wooz_play_1000 }
+          - { type: KidPack, name: mobile_wooz_play_2250 }
+          - { type: KidPack, name: mobile_wooz_play_5000 }
+      vip-images:
+        tab: vip-wooz
+        is_sms: false
+        contents:
+          - { type: KidPack, name: play_1502w2_vip_30_799 }
+          - { type: KidPack, name: play_1502w2_vip_90_1999 }
+          - { type: KidPack, name: play_1502w2_vip_180_2499 }
+          - { type: KidPack, name: play_1502w2_vip_365_3999 }
+segments:
+  mobileaapl_store_recur:
+    storefront_name: mobileaapl_store_recur
+    promotion_by_name: mobileaapl_store
+    weight: 90021
+    enabled: true
+    credentials: '["mobile_ios","subscriber_recurring"]'
+  mobileaapl_store_purch:
+    storefront_name: mobileaapl_store_purch
+    promotion_by_name: mobileaapl_store
+    weight: 90011
+    enabled: true
+    credentials: '["mobile_ios",["ach_visit_4","purchaser"]]'
+  mobileaapl_store_new_boy_visit2:
+    storefront_name: mobileaapl_store_new_boy
+    promotion_by_name: mobile_promo_new
+    weight: 90007
+    enabled: false
+    credentials: '["mobile_ios","!ach_visit_4","ach_visit_2","gender_m"]'
+  mobileaapl_store_new_girl_visit2:
+    storefront_name: mobileaapl_store_new_girl
+    promotion_by_name: mobile_promo_new
+    weight: 90005
+    enabled: false
+    credentials: '["mobile_ios","!ach_visit_4","ach_visit_2","gender_f"]'
+  mobileaapl_store_new_boy:
+    storefront_name: mobileaapl_store_new_boy
+    promotion_by_name: mobile_promo_new
+    weight: 90003
+    enabled: true
+    credentials: '["mobile_ios","!ach_visit_4","gender_m"]'
+  mobileaapl_store_new_girl:
+    storefront_name: mobileaapl_store_new_girl
+    promotion_by_name: mobile_promo_new
+    weight: 90001
+    enabled: true
+    credentials: '["mobile_ios","!ach_visit_4","gender_f"]'
+  pt_recur_10before:
+    storefront_name: pt_recur_10before
+    promotion_by_name: standard
+    weight: 139
+    enabled: true
+    credentials: '["community_pt","subscriber_recurring","subscriber_expires_soon"]'
+  pt_recur:
+    storefront_name: pt_recur
+    promotion_by_name: standard
+    weight: 137
+    enabled: true
+    credentials: '["community_pt","subscriber_recurring"]'
+  recur_10before:
+    storefront_name: recur_10before
+    promotion_by_name: standard
+    weight: 135
+    enabled: true
+    credentials: '["!community_pt","subscriber_recurring","subscriber_expires_soon"]'
+  recur:
+    storefront_name: recur
+    promotion_by_name: standard
+    weight: 133
+    enabled: true
+    credentials: '["!community_pt","subscriber_recurring"]'
+  pt_purch_10after:
+    storefront_name: pt_purch_10after
+    promotion_by_name: standard
+    weight: 131
+    enabled: true
+    credentials: '["community_pt",["ach_visit_4","purchaser"],"!subscriber_recurring","subscriber_expired_short"]'
+  pt_purch_10before:
+    storefront_name: pt_purch_10before
+    promotion_by_name: standard
+    weight: 129
+    enabled: true
+    credentials: '["community_pt",["ach_visit_4","purchaser"],"!subscriber_recurring","subscriber_expires_soon"]'
+  pt_purch:
+    storefront_name: pt_purch
+    promotion_by_name: standard
+    weight: 127
+    enabled: true
+    credentials: '["community_pt",["ach_visit_4","purchaser"],"!subscriber_recurring"]'
+  purch_10after:
+    storefront_name: purch_10after
+    promotion_by_name: standard
+    weight: 125
+    enabled: true
+    credentials: '["!community_pt",["ach_visit_4","purchaser"],"!subscriber_recurring","subscriber_expired_short"]'
+  purch_10before:
+    storefront_name: purch_10before
+    promotion_by_name: standard
+    weight: 123
+    enabled: true
+    credentials: '["!community_pt",["ach_visit_4","purchaser"],"!subscriber_recurring","subscriber_expires_soon"]'
+  purch:
+    storefront_name: purch
+    promotion_by_name: standard
+    weight: 121
+    enabled: true
+    credentials: '["!community_pt",["ach_visit_4","purchaser"],"!subscriber_recurring"]'
+  mobileaapl_store_recur_vip:
+    storefront_name: mobileaapl_store_recur
+    promotion_by_name: mobileaapl_store_vip
+    weight: 90221
+    enabled: true
+    credentials: '["subscriber","mobile_ios","subscriber_recurring"]'
+  mobileaapl_store_purch_vip:
+    storefront_name: mobileaapl_store_purch
+    promotion_by_name: mobileaapl_store_vip
+    weight: 90211
+    enabled: true
+    credentials: '["subscriber","mobile_ios",["ach_visit_4","purchaser"]]'
+  pt_recur_10before_vip:
+    storefront_name: pt_recur_10before
+    promotion_by_name: standard_vip
+    weight: 239
+    enabled: true
+    credentials: '["subscriber","community_pt","subscriber_recurring","subscriber_expires_soon"]'
+  pt_recur_vip:
+    storefront_name: pt_recur
+    promotion_by_name: standard_vip
+    weight: 237
+    enabled: true
+    credentials: '["subscriber","community_pt","subscriber_recurring"]'
+  recur_10before_vip:
+    storefront_name: recur_10before
+    promotion_by_name: standard_vip
+    weight: 235
+    enabled: true
+    credentials: '["subscriber","!community_pt","subscriber_recurring","subscriber_expires_soon"]'
+  recur_vip:
+    storefront_name: recur
+    promotion_by_name: standard_vip
+    weight: 233
+    enabled: true
+    credentials: '["subscriber","!community_pt","subscriber_recurring"]'
+  pt_purch_10after_vip:
+    storefront_name: pt_purch_10after
+    promotion_by_name: standard_vip
+    weight: 231
+    enabled: true
+    credentials: '["subscriber","community_pt",["ach_visit_4","purchaser"],"!subscriber_recurring","subscriber_expired_short"]'
+  pt_purch_10before_vip:
+    storefront_name: pt_purch_10before
+    promotion_by_name: standard_vip
+    weight: 229
+    enabled: true
+    credentials: '["subscriber","community_pt",["ach_visit_4","purchaser"],"!subscriber_recurring","subscriber_expires_soon"]'
+  pt_purch_vip:
+    storefront_name: pt_purch
+    promotion_by_name: standard_vip
+    weight: 227
+    enabled: true
+    credentials: '["subscriber","community_pt",["ach_visit_4","purchaser"],"!subscriber_recurring"]'
+  purch_10after_vip:
+    storefront_name: purch_10after
+    promotion_by_name: standard_vip
+    weight: 225
+    enabled: true
+    credentials: '["subscriber","!community_pt",["ach_visit_4","purchaser"],"!subscriber_recurring","subscriber_expired_short"]'
+  purch_10before_vip:
+    storefront_name: purch_10before
+    promotion_by_name: standard_vip
+    weight: 223
+    enabled: true
+    credentials: '["subscriber","!community_pt",["ach_visit_4","purchaser"],"!subscriber_recurring","subscriber_expires_soon"]'
+  purch_vip:
+    storefront_name: purch
+    promotion_by_name: standard_vip
+    weight: 221
+    enabled: true
+    credentials: '["subscriber","!community_pt",["ach_visit_4","purchaser"],"!subscriber_recurring"]'
+  pt_new_boy_visit2:
+    storefront_name: pt_new_boy
+    promotion_by_name: promo_new
+    weight: 117
+    enabled: false
+    credentials: '["community_pt","!ach_visit_4","ach_visit_2","!purchaser","gender_m"]'
+  pt_new_girl_visit2:
+    storefront_name: pt_new_girl
+    promotion_by_name: promo_new
+    weight: 115
+    enabled: false
+    credentials: '["community_pt","!ach_visit_4","ach_visit_2","!purchaser","gender_f"]'
+  pt_new_boy:
+    storefront_name: pt_new_boy
+    promotion_by_name: promo_new
+    weight: 113
+    enabled: true
+    credentials: '["community_pt","!ach_visit_4","!purchaser","gender_m"]'
+  pt_new_girl:
+    storefront_name: pt_new_girl
+    promotion_by_name: promo_new
+    weight: 111
+    enabled: true
+    credentials: '["community_pt","!ach_visit_4","!purchaser","gender_f"]'
+  new_boy_visit2:
+    storefront_name: new_boy
+    promotion_by_name: promo_new
+    weight: 107
+    enabled: false
+    credentials: '["!community_pt","!ach_visit_4","ach_visit_2","!purchaser","gender_m"]'
+  new_girl_visit2:
+    storefront_name: new_girl
+    promotion_by_name: promo_new
+    weight: 105
+    enabled: false
+    credentials: '["!community_pt","!ach_visit_4","ach_visit_2","!purchaser","gender_f"]'
+  new_boy:
+    storefront_name: new_boy
+    promotion_by_name: promo_new
+    weight: 103
+    enabled: true
+    credentials: '["!community_pt","!ach_visit_4","!purchaser","gender_m"]'
+  new_girl:
+    storefront_name: new_girl
+    promotion_by_name: promo_new
+    weight: 101
+    enabled: true
+    credentials: '["!community_pt","!ach_visit_4","!purchaser","gender_f"]'
+  mobileplay_store_recur:
+    storefront_name: mobileplay_store_recur
+    promotion_by_name: mobileplay_store
+    weight: 90021
+    enabled: true
+    credentials: '["mobile_android","subscriber_recurring"]'
+  mobileplay_store_purch:
+    storefront_name: mobileplay_store_purch
+    promotion_by_name: mobileplay_store
+    weight: 90011
+    enabled: true
+    credentials: '["mobile_android",["ach_visit_4","purchaser"]]'
+  mobileplay_store_new_boy_visit2:
+    storefront_name: mobileplay_store_new_boy
+    promotion_by_name: mobile_promo_new
+    weight: 90007
+    enabled: false
+    credentials: '["mobile_android","!ach_visit_4","ach_visit_2","gender_m"]'
+  mobileplay_store_new_girl_visit2:
+    storefront_name: mobileplay_store_new_girl
+    promotion_by_name: mobile_promo_new
+    weight: 90005
+    enabled: false
+    credentials: '["mobile_android","!ach_visit_4","ach_visit_2","gender_f"]'
+  mobileplay_store_new_boy:
+    storefront_name: mobileplay_store_new_boy
+    promotion_by_name: mobile_promo_new
+    weight: 90003
+    enabled: true
+    credentials: '["mobile_android","!ach_visit_4","gender_m"]'
+  mobileplay_store_new_girl:
+    storefront_name: mobileplay_store_new_girl
+    promotion_by_name: mobile_promo_new
+    weight: 90001
+    enabled: true
+    credentials: '["mobile_android","!ach_visit_4","gender_f"]'
+  mobileplay_store_recur_vip:
+    storefront_name: mobileplay_store_recur
+    promotion_by_name: mobileplay_store_vip
+    weight: 90221
+    enabled: true
+    credentials: '["subscriber","mobile_android","subscriber_recurring"]'
+  mobileplay_store_purch_vip:
+    storefront_name: mobileplay_store_purch
+    promotion_by_name: mobileplay_store_vip
+    weight: 90211
+    enabled: true
+    credentials: '["subscriber","mobile_android",["ach_visit_4","purchaser"]]'
