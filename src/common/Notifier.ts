@@ -12,6 +12,9 @@ class Notifier {
     }
 
     public notifyByRadius(message:string, center:Vector2D, radius:number, exceptIds:number[] = []) {
+        if(!message.length) {
+            return;
+        }
         this.container.getAll().forEach(function(go:GameObject) {
             if(exceptIds.indexOf(go.getId()) !== -1) {
                 return;
