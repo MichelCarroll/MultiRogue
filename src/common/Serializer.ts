@@ -1,7 +1,7 @@
 
 ///<reference path='../../definitions/dynamicClassLoader.d.ts' />
 
-import Serializable = require('./Serializable');
+import Serializable from './Serializable';
 
 var DynamicClassLoader:any;
 

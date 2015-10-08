@@ -4,6 +4,4 @@ interface ClientParameters {
     serverAddress?:string;
 }
 
-declare var ClientParameters; //make IDE stop complaining
-
-export = ClientParameters;
+export default ClientParameters;

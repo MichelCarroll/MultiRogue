@@ -1,10 +1,10 @@
 
-import Command = require('../Command');
+import Command from '../Command';
 import MessageClient = require('../MessageClient');
 import Message = require('../Message');
-import Executor = require('./Executor');
+import Executor from './Executor';
 import IdleExecutor = require('./Executor/IdleExecutor');
-import PlayerAware = require('../IOC/PlayerAware');
+import PlayerAware from '../IOC/PlayerAware';
 import GameObject = require('../GameObject');
 
 class Idle implements Command, PlayerAware {

@@ -1,7 +1,7 @@
 
 ///<reference path='../../definitions/dynamicClassLoader.d.ts' />
 
-import Referenceable = require('./Referenceable');
+import Referenceable from './Referenceable';
 import Repository = require('./Repository');
 
 class Referencer {

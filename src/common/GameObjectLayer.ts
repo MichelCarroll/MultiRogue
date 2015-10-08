@@ -5,7 +5,7 @@
 import GameObject = require('./GameObject');
 import Vector2D = require('./Vector2D');
 import Serializer = require('./Serializer');
-import Serializable = require('./Serializable');
+import Serializable from './Serializable';
 
 class GameObjectLayer implements Serializable {
 

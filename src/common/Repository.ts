@@ -1,6 +1,6 @@
 
 import Map = require('./Map')
-import Serializable = require('./Serializable');
+import Serializable from './Serializable';
 import GameObject = require('./GameObject');
 
 class Repository {

@@ -1,5 +1,5 @@
 
-import Serializable = require('./Serializable');
+import Serializable from './Serializable';
 
 
 class Vector2D implements Serializable {

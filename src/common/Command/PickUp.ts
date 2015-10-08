@@ -1,15 +1,15 @@
 
-import Command = require('../Command');
+import Command from '../Command';
 import GameObject = require('../GameObject');
 import MessageClient = require('../MessageClient');
 import Message = require('../Message');
 import Vector2D = require('../Vector2D');
 import GameObjectLayer = require('../GameObjectLayer');
-import Executor = require('./Executor');
+import Executor from './Executor';
 import PickUpExecutor = require('./Executor/PickUpExecutor');
 
-import PlayerAware = require('../IOC/PlayerAware');
-import GameObjectLayerAware = require('../IOC/GameObjectLayerAware');
+import PlayerAware from '../IOC/PlayerAware';
+import GameObjectLayerAware from '../IOC/GameObjectLayerAware';
 
 class PickUp implements Command, GameObjectLayerAware, PlayerAware {
 

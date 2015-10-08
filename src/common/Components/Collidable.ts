@@ -1,6 +1,6 @@
 
 import Component = require('./Component');
-import Effect = require('../Effect');
+import Effect from '../Effect';
 
 class Collidable extends Component {
 

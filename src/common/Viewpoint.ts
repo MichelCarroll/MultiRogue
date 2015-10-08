@@ -2,7 +2,7 @@
 import Map = require('./Map');
 import GameObject = require('./GameObject');
 import GameObjectLayer = require('./GameObjectLayer');
-import Serializable = require('./Serializable');
+import Serializable from './Serializable';
 import Serializer = require('./Serializer');
 
 class Viewpoint implements Serializable {

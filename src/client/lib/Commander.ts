@@ -2,7 +2,7 @@
  * Created by michelcarroll on 15-04-03.
  */
 
-import Command = require('../../common/Command');
+import Command from '../../common/Command';
 import Message = require('../../common/Message');
 
 import Context = require('./Context');

@@ -2,7 +2,7 @@
 import Vector2D = require('../../common/Vector2D');
 
 import GameDisplayAdapter = require('./GameDisplayAdapter');
-import UIAdapter = require('./UIAdapter');
+import UIAdapter from './UIAdapter';
 
 class TestUIAdapter implements UIAdapter {
 
@@ -15,6 +15,7 @@ class TestUIAdapter implements UIAdapter {
     private highlightedPlayer = null;
     private items:any = [];
     private log:any[] = [];
+    private activatedActionButtons:string[] = [];
 
     public emptyItems() {
         this.items = [];
@@ -77,6 +78,23 @@ class TestUIAdapter implements UIAdapter {
     public clearMap() {}
     public drawMap() {}
 
+
+    public activateActionButton(commandName:string) {
+        if(this.activatedActionButtons.indexOf(commandName) === -1) {
+            this.activatedActionButtons.push(commandName);
+        }
+    }
+
+    public disactivateActionButton(commandName:string) {
+        var index = this.activatedActionButtons.indexOf(commandName);
+        if(index !== -1) {
+            this.activatedActionButtons.splice(index, -1);
+        }
+    }
+
+    public getActivatedActionButtons():string[] {
+        return this.activatedActionButtons;
+    }
 
     public getPlayers() {
         return this.players;

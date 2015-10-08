@@ -1,6 +1,6 @@
 
 import Serializer = require('./Serializer');
-import Serializable = require('./Serializable');
+import Serializable from './Serializable';
 
 class Map<V extends Serializable> implements Serializable {
 

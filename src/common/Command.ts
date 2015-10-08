@@ -1,7 +1,7 @@
 
-import MessageClient = require('./MessageClient');
-import Serializable = require('./Serializable');
-import Executor = require('./Command/Executor');
+import MessageClient  from './MessageClient';
+import Serializable from './Serializable';
+import Executor from './Command/Executor';
 
 interface Command extends Serializable {
 
@@ -12,6 +12,4 @@ interface Command extends Serializable {
 
 }
 
-declare var Command; //make IDE stop complaining
-
-export = Command;
+export default Command;

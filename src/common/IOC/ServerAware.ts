@@ -1,11 +1,9 @@
 
 
-import MessageClient = require('../MessageClient');
+import MessageClient from '../MessageClient';
 
 interface ServerAware {
     setMessageClient(messageClient:MessageClient):void;
 }
 
-declare var ServerAware; //make IDE stop complaining
-
-export = ServerAware;
+export default ServerAware;

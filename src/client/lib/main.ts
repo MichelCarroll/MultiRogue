@@ -25,6 +25,18 @@ $(document).ready(function() {
 
     var game = new GameClient({serverAddress:url+':3000'}, new BrowserAdapter());
 
+    $('#commands-container li').click(function() {
+        var commandName = $(this).data('command');
+        switch(commandName) {
+            case 'connect':
+                game.connect('player');
+                break;
+            case 'disconnect':
+                game.disconnect();
+                break;
+        }
+    });
+
     $('#game-chat-button').click(function() {
         var text = $('#game-chat').val();
         $('#game-chat').val('');
@@ -63,7 +75,5 @@ $(document).ready(function() {
         var goId = parseInt($(this).attr('goid'));
         game.handleDropCommand(goId);
     });
-
-    game.connect('player');
 
 });

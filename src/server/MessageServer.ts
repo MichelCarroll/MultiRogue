@@ -7,7 +7,7 @@ import Message = require('../common/Message');
 import Repository = require('../common/Repository');
 import Referencer = require('../common/Referencer');
 
-import MessageDispatcher = require('../common/MessageDispatcher');
+import MessageDispatcher from '../common/MessageDispatcher';
 import DirectMessageDispatcher = require('./DirectMessageDispatcher');
 import SocketIOMessageDispatcher = require('./SocketIOMessageDispatcher');
 

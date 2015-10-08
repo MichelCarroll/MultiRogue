@@ -5,7 +5,7 @@
 ///<reference path='../../definitions/dynamicClassLoader.d.ts' />
 
 import Serializer = require('./Serializer');
-import Serializable = require('./Serializable');
+import Serializable from './Serializable';
 import Vector2D = require('./Vector2D');
 import Map = require('./Map');
 import Component = require('./Components/Component');
@@ -16,7 +16,7 @@ import Collidable = require('./Components/Collidable');
 import Renderable = require('./Components/Renderable');
 import Walkable = require('./Components/Walkable');
 import Allegiancable = require('./Components/Allegiancable');
-import Referenceable = require('./Referenceable');
+import Referenceable from './Referenceable';
 
 class GameObject implements Serializable, Referenceable {
 

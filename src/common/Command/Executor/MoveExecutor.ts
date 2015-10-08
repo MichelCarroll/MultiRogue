@@ -1,14 +1,14 @@
 
-import Command = require('../../Command');
-import MessageDispatcher = require('../../MessageDispatcher');
+import Command from '../../Command';
+import MessageDispatcher from '../../MessageDispatcher';
 import Message = require('../../Message');
 import GameObject = require('../../GameObject');
 import GameObjectLayer = require('../../GameObjectLayer');
-import ClientAware = require('../../IOC/ClientAware');
-import PlayerAware = require('../../IOC/PlayerAware');
-import GameObjectLayerAware = require('../../IOC/GameObjectLayerAware');
+import ClientAware from '../../IOC/ClientAware';
+import PlayerAware from '../../IOC/PlayerAware';
+import GameObjectLayerAware from '../../IOC/GameObjectLayerAware';
 import MoveCommand = require('../Move');
-import Executor = require('../Executor');
+import Executor  from '../Executor';
 
 class MoveExecutor implements Executor, PlayerAware, GameObjectLayerAware, ClientAware {
 

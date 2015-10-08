@@ -1,15 +1,15 @@
 
-import Command = require('../Command');
+import Command from '../Command';
 import GameObject = require('../GameObject');
 import GameObjectLayer = require('../GameObjectLayer');
 import MessageClient = require('../MessageClient');
 import Message = require('../Message');
-import Executor = require('./Executor');
+import Executor from './Executor';
 import MoveExecutor = require('./Executor/MoveExecutor');
 import Vector2D = require('../Vector2D');
 
-import PlayerAware = require('../IOC/PlayerAware');
-import GameObjectLayerAware = require('../IOC/GameObjectLayerAware');
+import PlayerAware from '../IOC/PlayerAware';
+import GameObjectLayerAware from '../IOC/GameObjectLayerAware';
 
 class Move implements Command, GameObjectLayerAware, PlayerAware {
 

@@ -1,9 +1,9 @@
 
-import Command = require('../Command');
+import Command from '../Command';
 import MessageClient = require('../MessageClient');
 import Message = require('../Message');
 import Vector2D = require('../Vector2D');
-import Executor = require('./Executor');
+import Executor from './Executor';
 import ShoutExecutor = require('./Executor/ShoutExecutor');
 
 class Shout implements Command {

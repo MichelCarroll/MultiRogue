@@ -1,13 +1,13 @@
 
-import Command = require('../../Command');
+import Command from '../../Command';
 import GameObject = require('../../GameObject');
-import MessageDispatcher = require('../../MessageDispatcher');
+import MessageDispatcher from '../../MessageDispatcher';
 import Message = require('../../Message');
 
-import ClientAware = require('../../IOC/ClientAware');
-import PlayerAware = require('../../IOC/PlayerAware');
+import ClientAware from '../../IOC/ClientAware';
+import PlayerAware from '../../IOC/PlayerAware';
 import ShoutCommand = require('../Shout');
-import Executor = require('../Executor');
+import Executor  from '../Executor';
 
 class ShoutExecutor implements Executor, ClientAware, PlayerAware {
 

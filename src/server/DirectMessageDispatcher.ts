@@ -1,6 +1,6 @@
 
 import Message = require('../common/Message');
-import MessageDispatcher = require('../common/MessageDispatcher');
+import MessageDispatcher from '../common/MessageDispatcher';
 
 class DirectMessageDispatcher implements MessageDispatcher {
 

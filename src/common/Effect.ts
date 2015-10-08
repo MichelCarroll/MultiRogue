@@ -1,6 +1,6 @@
 
 import GameObject = require('./GameObject');
-import Serializable = require('./Serializable');
+import Serializable from './Serializable';
 
 interface Effect extends Serializable {
 
@@ -9,6 +9,4 @@ interface Effect extends Serializable {
 
 }
 
-declare var Effect; //make IDE stop complaining
-
-export = Effect;
+export default Effect;

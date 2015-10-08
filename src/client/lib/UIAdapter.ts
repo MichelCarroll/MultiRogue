@@ -20,9 +20,9 @@ interface UIAdapter {
     removeItemFromUI(itemId:number):void;
     setRemainingActionPoints(actionPoints:number):void;
     emptyItems():void;
+    activateActionButton(commandName:string):void;
+    disactivateActionButton(commandName:string):void;
 
 }
 
-declare var UIAdapter; //make IDE stop complaining
-
-export = UIAdapter;
+export default UIAdapter;

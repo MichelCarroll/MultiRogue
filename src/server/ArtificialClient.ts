@@ -5,7 +5,7 @@ import GameObject = require('../common/GameObject');
 import GameObjectLayer = require('../common/GameObjectLayer');
 import Vector2D = require('../common/Vector2D');
 import Message = require('../common/Message');
-import MessageClient = require('../common/MessageClient');
+import MessageClient from '../common/MessageClient';
 import DirectMessageClient = require('../common/DirectMessageClient');
 import Viewpoint = require('../common/Viewpoint');
 

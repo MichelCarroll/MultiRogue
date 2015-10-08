@@ -4,10 +4,10 @@
 var io:SocketIO = require('socket.io-client');
 
 import Message = require('../../common/Message');
-import MessageClient = require('../../common/MessageClient');
+import MessageClient from '../../common/MessageClient';
 import Serializer = require('../../common/Serializer');
 
-import Socket = require('./Socket');
+import Socket from './Socket';
 
 declare class SocketIO {
     connect(url: string): Socket;
@@ -28,17 +28,20 @@ class SocketIOMessageClient implements MessageClient {
     }
 
     public connect() {
-        this.socket = io.connect(this.serverAddress);
+        if(this.socket) {
+            this.socket.connect();
+        } else {
+            this.socket = io.connect(this.serverAddress);
+        }
         this.onConnect();
     }
 
     public disconnect() {
         this.socket.disconnect();
-        this.socket = null;
     }
 
     public isConnected():boolean {
-        return !!this.socket;
+        return this.socket && this.socket.connected();
     }
 
     public on(name, callback:(message:Message) => void)
@@ -49,7 +52,7 @@ class SocketIOMessageClient implements MessageClient {
 
         var self = this;
         this.socket.on(name, function(data:any) {
-            if(data) {
+            if(data &&  typeof data === 'object') {
                 Object.getOwnPropertyNames(data).forEach(function(name) {
                     if(data[name].__className) {
                         data[name] = Serializer.deserialize(data[name]);
@@ -76,7 +79,7 @@ class SocketIOMessageClient implements MessageClient {
             console.log(message);
         }
         var data = message.getData();
-        if(data) {
+        if(data && typeof data === 'object') {
             Object.getOwnPropertyNames(data).forEach(function(name) {
                 if(data[name].getId) {
                     data[name] = {

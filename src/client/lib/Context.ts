@@ -1,9 +1,9 @@
 
-import MessageClient = require('../../common/MessageClient');
+import MessageClient from '../../common/MessageClient';
 import GameObject = require('../../common/GameObject');
 import GameObjectLayer = require('../../common/GameObjectLayer');
 
-import UIAdapter = require('./UIAdapter');
+import UIAdapter from './UIAdapter';
 import DisplayAdapter = require('./DisplayAdapter');
 
 

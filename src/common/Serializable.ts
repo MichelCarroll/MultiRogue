@@ -6,6 +6,4 @@ interface Serializable {
     deserialize(data:any);
 }
 
-declare var Serializable; //make IDE stop complaining
-
-export = Serializable;
+export default Serializable;

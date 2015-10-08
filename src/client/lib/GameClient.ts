@@ -7,19 +7,19 @@
 import DropCommand = require('../../common/Command/Drop');
 import GameObject = require('../../common/GameObject');
 import Vector2D = require('../../common/Vector2D');
-import Command = require('../../common/Command');
+import Command from '../../common/Command';
 import Message = require('../../common/Message');
 import Playable = require('../../common/Components/Playable');
 import Viewpoint = require('../../common/Viewpoint');
 
 
-import UIAdapter = require('./UIAdapter');
+import UIAdapter from './UIAdapter';
 import DisplayAdapter = require('./DisplayAdapter');
 import Commander = require('./Commander');
-import MessageClient = require('../../common/MessageClient');
+import MessageClient from '../../common/MessageClient';
 import SocketIOMessageClient = require('./SocketIOMessageClient');
 import DirectMessageClient = require('../../common/DirectMessageClient');
-import ClientParameters = require('./ClientParameters');
+import ClientParameters from './ClientParameters';
 import Context = require('./Context');
 
 
@@ -50,13 +50,20 @@ class GameClient {
 
     public connect(connectionType:string) {
         this.context.getMessageClient().connect();
+        this.context.getUIAdapter().disactivateActionButton('connect');
+        this.context.getUIAdapter().activateActionButton('disconnect');
         this.context.getMessageClient().send(new Message('ready', {
             'type': connectionType
         }));
     }
 
     public disconnect() {
+        this.context.getUIAdapter().disactivateActionButton('disconnect');
+        this.context.getUIAdapter().activateActionButton('connect');
         this.context.getMessageClient().disconnect();
+        this.context.setPlayer(null);
+        this.context.setGameObjectLayer(null);
+        this.context.getDisplayAdapter().clear();
     }
 
     private hookSocketEvents()

@@ -4,7 +4,7 @@ declare var $:any;
 import Vector2D = require('../../common/Vector2D');
 
 import GameDisplayAdapter = require('./GameDisplayAdapter');
-import UIAdapter = require('./UIAdapter');
+import UIAdapter from './UIAdapter';
 
 class BrowserAdapter implements UIAdapter {
 
@@ -111,6 +111,14 @@ class BrowserAdapter implements UIAdapter {
             $('.action-points-row').removeClass('hidden');
             $('.action-points').text(actionPoints.toString());    
         }
+    }
+
+    public activateActionButton(commandName:string) {
+        $('#commands-container li[data-command="'+commandName+'"]').removeClass('hidden');
+    }
+
+    public disactivateActionButton(commandName:string) {
+        $('#commands-container li[data-command="'+commandName+'"]').addClass('hidden');
     }
 
 }

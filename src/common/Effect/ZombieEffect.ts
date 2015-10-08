@@ -1,6 +1,6 @@
 
 
-import Effect = require('../Effect');
+import Effect from '../Effect';
 import GameObject = require('../GameObject');
 
 class ZombieEffect implements Effect {

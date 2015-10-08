@@ -4,4 +4,4 @@ interface Executor {
     execute();
 }
 
-export = Executor;
+export default Executor;

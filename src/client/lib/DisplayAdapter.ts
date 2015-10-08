@@ -3,7 +3,7 @@
 
 import Vector2D = require('../../common/Vector2D');
 
-import UIAdapter = require('./UIAdapter');
+import UIAdapter from './UIAdapter';
 import Context = require('./Context');
 import GameDisplayAdapter = require('./GameDisplayAdapter');
 

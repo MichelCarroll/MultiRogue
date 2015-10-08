@@ -1,15 +1,15 @@
 
-import Command = require('../Command');
+import Command from '../Command';
 import GameObject = require('../GameObject');
 import MessageClient = require('../MessageClient');
 import Message = require('../Message');
 import Container = require('../Components/Container');
-import Executor = require('./Executor');
+import Executor from './Executor';
 import DropExecutor = require('./Executor/DropExecutor');
 
 import Vector2D = require('../Vector2D');
 
-import PlayerAware = require('../IOC/PlayerAware');
+import PlayerAware from '../IOC/PlayerAware';
 
 class Drop implements Command, PlayerAware {
 

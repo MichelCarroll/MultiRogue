@@ -1,11 +1,11 @@
 
-import Command = require('../../Command');
-import MessageDispatcher = require('../../MessageDispatcher');
+import Command from '../../Command';
+import MessageDispatcher from '../../MessageDispatcher';
 import Message = require('../../Message');
 
-import ClientAware = require('../../IOC/ClientAware');
+import ClientAware from '../../IOC/ClientAware';
 import IdleCommand = require('../Idle');
-import Executor = require('../Executor');
+import Executor  from '../Executor';
 
 class IdleExecutor implements Executor {
 

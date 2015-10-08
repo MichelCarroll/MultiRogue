@@ -13,6 +13,4 @@ interface MessageClient {
 
 }
 
-declare var MessageClient; //make IDE stop complaining
-
-export = MessageClient;
+export default MessageClient;
