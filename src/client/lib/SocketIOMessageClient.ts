@@ -28,20 +28,28 @@ class SocketIOMessageClient implements MessageClient {
     }
 
     public connect() {
+        if(this.isConnected()) {
+            return;
+        }
+
         if(this.socket) {
             this.socket.connect();
         } else {
             this.socket = io.connect(this.serverAddress);
+            this.onConnect();
         }
-        this.onConnect();
     }
 
     public disconnect() {
+        if(!this.isConnected()) {
+            return;
+        }
+
         this.socket.disconnect();
     }
 
     public isConnected():boolean {
-        return this.socket && this.socket.connected();
+        return (this.socket && this.socket.connected);
     }
 
     public on(name, callback:(message:Message) => void)

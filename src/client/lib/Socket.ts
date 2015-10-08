@@ -6,7 +6,7 @@ interface Socket {
     emit(event: string, data: any);
     disconnect():void;
     io:any;
-    connected():boolean;
+    connected:boolean;
     connect():void;
 }
 

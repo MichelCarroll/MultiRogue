@@ -60,7 +60,7 @@ $(document).ready(function() {
 
     window.addEventListener("keydown", function(e:any) {
         var command = getKeyCommandMap()[e.keyCode];
-        if(command) {
+        if(command && game.connected()) {
             game.handleCommand(command);
         }
     });

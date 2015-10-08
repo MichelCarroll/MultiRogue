@@ -48,6 +48,10 @@ class GameClient {
         this.commander = new Commander(this.context);
     }
 
+    public connected():boolean {
+        return this.context.getMessageClient().isConnected();
+    }
+
     public connect(connectionType:string) {
         this.context.getMessageClient().connect();
         this.context.getUIAdapter().disactivateActionButton('connect');
@@ -63,6 +67,8 @@ class GameClient {
         this.context.getMessageClient().disconnect();
         this.context.setPlayer(null);
         this.context.setGameObjectLayer(null);
+        this.context.getUIAdapter().clearPlayerList();
+        this.context.getUIAdapter().setRemainingActionPoints(0);
         this.context.getDisplayAdapter().clear();
     }
 
