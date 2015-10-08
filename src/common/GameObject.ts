@@ -8,12 +8,13 @@ import Serializer = require('./Serializer');
 import Serializable from './Serializable';
 import Vector2D = require('./Vector2D');
 import Map = require('./Map');
-import Component = require('./Components/Component');
+import Component = require('./Component');
 import Playable = require('./Components/Playable');
 import Content = require('./Components/Content');
 import Container = require('./Components/Container');
 import Collidable = require('./Components/Collidable');
 import Renderable = require('./Components/Renderable');
+import Health = require('./Components/Health');
 import Walkable = require('./Components/Walkable');
 import Allegiancable = require('./Components/Allegiancable');
 import Referenceable from './Referenceable';
@@ -56,6 +57,9 @@ class GameObject implements Serializable, Referenceable {
     public isPlayable():boolean {
         return this.hasComponent('Playable');
     }
+    public isHealthed():boolean {
+        return this.hasComponent('Health');
+    }
     public isRenderable():boolean {
         return this.hasComponent('Renderable');
     }
@@ -73,6 +77,9 @@ class GameObject implements Serializable, Referenceable {
     }
     public getContentComponent():Content {
         return <Content>this.getComponent('Content');
+    }
+    public getHealthComponent():Health {
+        return <Health>this.getComponent('Health');
     }
     public getContainerComponent():Container {
         return <Container>this.getComponent('Container');

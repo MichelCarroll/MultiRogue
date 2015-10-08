@@ -33,16 +33,21 @@ class MoveExecutor implements Executor, PlayerAware, GameObjectLayerAware, Clien
         this.messageDispatcher = messageDispatcher;
     }
 
+    private isOfSameAlliegiance(go:GameObject):boolean {
+        return go &&
+            go.isAllegiancable() &&
+            this.player.isAllegiancable() &&
+            go.getAllegiancableComponent().getName() == this.player.getAllegiancableComponent().getName();
+    }
+g
     public execute() {
         var position = this.player.getPosition().addVector(this.command.getDirection());
         var target = this.goLayer.blocked(position);
         if(target) {
             var effect = this.player.getCollidableComponent().getEffect();
-            if(effect) {
+            if(effect && !this.isOfSameAlliegiance(target)) {
                 effect.apply(target);
-                var message = new Message('effect', {
-                    message: effect.getFeedbackMessage(target)
-                });
+                var message = new Message('effect', { message: effect.getFeedbackMessage(target) });
                 this.messageDispatcher.emit(message);
                 this.messageDispatcher.broadcast(message);
             }

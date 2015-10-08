@@ -1,6 +1,6 @@
 
-import GameObject = require('../GameObject');
-import Serializable from '../Serializable';
+import GameObject = require('./GameObject');
+import Serializable from './Serializable';
 
 class Component implements Serializable {
 

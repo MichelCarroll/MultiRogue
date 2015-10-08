@@ -1,5 +1,5 @@
 
-import Component = require('./Component');
+import Component = require('../Component');
 
 class Content extends Component {
 
