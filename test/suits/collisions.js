@@ -34,6 +34,7 @@ describe('one client knocks into another', function() {
     });
     it('and gets a collision notification', function() {
         secondClient.moveLeft();
+        should(client.hasInLog("Player #1052 bumps into you")).be.true();
         should(secondClient.hasInLog("You bump into Player #1051")).be.true();
     });
     it('and should spend a turn', function() {

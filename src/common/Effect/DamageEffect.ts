@@ -1,24 +1,38 @@
 
 
-import Effect from '../Effect';
+import Effect from '../Effect' ;
 import GameObject = require('../GameObject');
 
 class DamageEffect implements Effect {
 
     private damage:number;
+    private source:GameObject;
 
-    constructor(damage:number) {
+    constructor(damage:number, source:GameObject) {
         this.damage = damage;
+        this.source = source;
     }
 
     public apply(target:GameObject) {
-        if(target.isHealthed()) {
+        if (target.isHealthed()) {
             target.getHealthComponent().reduce(this.damage);
         }
     }
 
-    public getFeedbackMessage(target:GameObject):string {
-        return 'You take '+this.damage+' damage!';
+    public getFeedbackRadius():number {
+        return 5;
+    }
+
+    public getObserverFeedbackMessage(target:GameObject):string {
+        return target.getName() + ' gets damaged into a zombie by '+this.source.getName()+'!';
+    }
+
+    public getSelfFeedbackMessage(target:GameObject):string {
+        return 'You damage '+target.getName()+'!';
+    }
+
+    public getTargetFeedbackMessage(target:GameObject):string {
+        return 'You get damaged by '+this.source.getName()+'!';
     }
 
     public serialize():any {

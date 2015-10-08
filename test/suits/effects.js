@@ -20,14 +20,14 @@ describe('client connects in a level with a follow bot in it', function() {
 
     it('and client should become a zombie', function(done) {
         client.wait().then(function() {
-            should(client.hasInLog("You turn into a zombie!")).be.false();
+            should(client.hasInLog("Robot #1051 turns you into a zombie!")).be.false();
             return client.moveLeft().moveLeft().moveLeft().moveLeft().wait();
         }).then(function() {
             return client.idle().wait();
         }).then(function() {
             return client.idle().wait();
         }).then(function() {
-            should(client.hasInLog("You turn into a zombie!")).be.true();
+            should(client.hasInLog("Robot #1051 turns you into a zombie!")).be.true();
         }).done(done, done);
     });
 

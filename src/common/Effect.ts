@@ -1,11 +1,15 @@
 
 import GameObject = require('./GameObject');
+import Notifier = require('./Notifier');
 import Serializable from './Serializable';
 
 interface Effect extends Serializable {
 
     apply(target:GameObject);
-    getFeedbackMessage(target:GameObject):string;
+    getObserverFeedbackMessage(target:GameObject):string;
+    getSelfFeedbackMessage(target:GameObject):string;
+    getTargetFeedbackMessage(target:GameObject):string;
+    getFeedbackRadius():number;
 
 }
 

@@ -25,10 +25,21 @@ class GameObject implements Serializable, Referenceable {
     protected id:number;
     protected name:string = '';
     protected description:string = '';
+    private notificationListener;
     private components:Map<Component>;
 
     constructor() {
         this.components = new Map<Component>();
+    }
+
+    public setNotificationListener(callback:(msg:string)=>void) {
+        this.notificationListener = callback;
+    }
+
+    public notify(message:string) {
+        if(this.notificationListener) {
+            this.notificationListener(message);
+        }
     }
 
     public addComponent(component:Component) {

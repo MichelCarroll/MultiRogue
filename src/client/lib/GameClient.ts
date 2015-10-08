@@ -87,7 +87,7 @@ class GameClient {
             self.requestSync();
         });
 
-        this.context.getMessageClient().on('effect', function(message:Message) {
+        this.context.getMessageClient().on('notification', function(message:Message) {
             self.context.getUIAdapter().logOnUI(message.getData().message, CHAT_LOG_INFO);
         });
 

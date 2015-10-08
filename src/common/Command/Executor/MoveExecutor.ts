@@ -7,18 +7,29 @@ import GameObjectLayer = require('../../GameObjectLayer');
 import ClientAware from '../../IOC/ClientAware';
 import PlayerAware from '../../IOC/PlayerAware';
 import GameObjectLayerAware from '../../IOC/GameObjectLayerAware';
+import NotifierAware from '../../IOC/NotifierAware';
 import MoveCommand = require('../Move');
 import Executor  from '../Executor';
+import Notifier = require('../../Notifier');
+import Effect  from '../../Effect';
+import BumpEffect = require('../../Effect/BumpEffect');
 
-class MoveExecutor implements Executor, PlayerAware, GameObjectLayerAware, ClientAware {
+class MoveExecutor implements Executor, PlayerAware, GameObjectLayerAware, ClientAware, NotifierAware {
+
+    public static BUMP_NOTIFICATION_RADIUS:number = 5;
 
     private command:MoveCommand;
     private messageDispatcher:MessageDispatcher;
     private player:GameObject;
     private goLayer:GameObjectLayer;
+    private notifier:Notifier;
 
     constructor(command:MoveCommand) {
         this.command = command;
+    }
+
+    public setNotifier(notifier:Notifier) {
+        this.notifier = notifier;
     }
 
     public setPlayer(player:GameObject) {
@@ -39,21 +50,28 @@ class MoveExecutor implements Executor, PlayerAware, GameObjectLayerAware, Clien
             this.player.isAllegiancable() &&
             go.getAllegiancableComponent().getName() == this.player.getAllegiancableComponent().getName();
     }
-g
+
+    private notify(effect:Effect, target:GameObject) {
+        this.notifier.notifyByRadius(
+            effect.getObserverFeedbackMessage(target),
+            target.getPosition(),
+            effect.getFeedbackRadius(),
+            [target.getId(), this.player.getId()]
+        );
+        target.notify(effect.getTargetFeedbackMessage(target));
+        this.player.notify(effect.getSelfFeedbackMessage(target));
+    }
+
     public execute() {
         var position = this.player.getPosition().addVector(this.command.getDirection());
         var target = this.goLayer.blocked(position);
         if(target) {
             var effect = this.player.getCollidableComponent().getEffect();
-            if(effect && !this.isOfSameAlliegiance(target)) {
-                effect.apply(target);
-                var message = new Message('effect', { message: effect.getFeedbackMessage(target) });
-                this.messageDispatcher.emit(message);
-                this.messageDispatcher.broadcast(message);
+            if(!effect || this.isOfSameAlliegiance(target)) {
+                effect = new BumpEffect(this.player);
             }
-            else {
-                this.messageDispatcher.emit(new Message('effect', { message: 'You bump into ' + target.getName() }));
-            }
+            this.notify(effect, target);
+            effect.apply(target);
         }
         else {
             this.goLayer.remove(this.player, this.player.getPosition());

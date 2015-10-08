@@ -3,7 +3,7 @@
 import Effect from '../Effect' ;
 import GameObject = require('../GameObject');
 
-class ZombieEffect implements Effect {
+class BumpEffect implements Effect {
 
     private source:GameObject;
 
@@ -12,23 +12,23 @@ class ZombieEffect implements Effect {
     }
 
     public apply(target:GameObject) {
-        target.setName('Zombie');
+
     }
 
     public getFeedbackRadius():number {
-        return 5;
+        return 2;
     }
 
     public getObserverFeedbackMessage(target:GameObject):string {
-        return target.getName() + ' gets turned into a zombie by '+this.source.getName()+'!';
+        return this.source.getName() + ' bumps into '+ target.getName();
     }
 
     public getSelfFeedbackMessage(target:GameObject):string {
-        return 'You turn '+target.getName()+' into a zombie!';
+        return 'You bump into '+target.getName();
     }
 
     public getTargetFeedbackMessage(target:GameObject):string {
-        return this.source.getName()+ ' turns you into a zombie!';
+        return this.source.getName()+' bumps into you';
     }
 
     public serialize():any {
@@ -41,4 +41,4 @@ class ZombieEffect implements Effect {
 
 }
 
-export = ZombieEffect;
+export = BumpEffect;

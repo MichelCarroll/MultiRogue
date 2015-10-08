@@ -21,6 +21,7 @@ import MessageServer = require('./MessageServer');
 import Command from '../common/Command';
 import MessageDispatcher from '../common/MessageDispatcher';
 import ServerParameters from './ServerParameters';
+import Notifier = require('../common/Notifier');
 
 import ArtificialClient = require('./ArtificialClient');
 import DirectMessageDispatcher = require('./DirectMessageDispatcher');
@@ -30,9 +31,11 @@ class GameServer {
     private level:Level;
     private messageServer:MessageServer;
     private goRepository:Repository;
+    private notifier:Notifier;
 
     constructor(params:ServerParameters) {
         ROT.RNG.setSeed(params.randomSeed);
+        this.notifier = new Notifier();
         this.goRepository = new Repository();
         this.level = (new LevelGenerator(this.goRepository)).create();
         this.messageServer = new MessageServer(this.goRepository, params.port);
@@ -60,6 +63,7 @@ class GameServer {
 
         messageDispatcher.on('disconnect', function() {
             if(actor) {
+                self.notifier.container.delete(actor.getBeing().getId());
                 self.level.removeActor(actor);
 
                 if(actor.isPlayer()) {
@@ -72,9 +76,9 @@ class GameServer {
 
         messageDispatcher.on('command', function(message:Message) {
             var command:Command = message.getData().command;
-            self.inject(command, self.level.getGameObjectLayer(), actor.getBeing(), messageDispatcher);
+            self.inject(command, self.level.getGameObjectLayer(), actor.getBeing(), messageDispatcher, self.notifier);
             var executor = command.getExecutor();
-            self.inject(executor, self.level.getGameObjectLayer(), actor.getBeing(), messageDispatcher);
+            self.inject(executor, self.level.getGameObjectLayer(), actor.getBeing(), messageDispatcher, self.notifier);
 
             try {
                 if(command.getTurnsRequired() > 0 && !self.level.canPlay(actor)) {
@@ -102,10 +106,13 @@ class GameServer {
     }
 
 
-    private inject(service:any, goLayer, player, messageDispatcher)
+    private inject(service:any, goLayer, player, messageDispatcher,notifier)
     {
         if(service.setGameObjectLayer) {
             service.setGameObjectLayer(goLayer);
+        }
+        if(service.setNotifier) {
+            service.setNotifier(notifier);
         }
         if(service.setPlayer) {
             service.setPlayer(player);
@@ -126,6 +133,10 @@ class GameServer {
             'player': actor.getBeing()
         }));
         if(isPlayer) {
+            this.notifier.container.set(actor.getBeing().getId(), actor.getBeing());
+            actor.getBeing().setNotificationListener(function(message:string) {
+                messageDispatcher.emit(new Message('notification', {  message: message }));
+            });
             messageDispatcher.broadcast(new Message('player-came', {  player: actor.getBeing() }));
         } else {
             messageDispatcher.broadcast(new Message('actor-came', {  actor: actor.getBeing() }));
@@ -138,6 +149,7 @@ class GameServer {
         console.log(error);
         messageDispatcher.emit(new Message('debug', error.message));
         if(actor.isPlayer()) {
+            this.notifier.container.delete(actor.getBeing().getId());
             messageDispatcher.broadcast(new Message('player-left', {  player: actor.getBeing() }));
         } else {
             messageDispatcher.broadcast(new Message('actor-left', {  actor: actor.getBeing() }));
