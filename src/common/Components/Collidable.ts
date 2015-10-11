@@ -1,5 +1,6 @@
 
 import Component = require('../Component');
+import Serializer = require('../Serializer');
 import Effect from '../Effect' ;
 
 class Collidable extends Component {
@@ -20,12 +21,13 @@ class Collidable extends Component {
 
     public serialize():any {
         return {
-            effect: this.effect
+            effect: Serializer.serialize(this.effect)
         };
     }
 
     public deserialize(data:any) {
-        this.effect = data.effect;
+        this.effect = (<Effect>Serializer.deserialize(data.effect));
+        this.effect.setSource(this.target);
     }
 
 }

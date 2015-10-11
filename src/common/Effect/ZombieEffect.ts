@@ -7,7 +7,7 @@ class ZombieEffect implements Effect {
 
     private source:GameObject;
 
-    constructor(source:GameObject) {
+    public setSource(source:GameObject) {
         this.source = source;
     }
 

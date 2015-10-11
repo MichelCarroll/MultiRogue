@@ -8,9 +8,12 @@ class DamageEffect implements Effect {
     private damage:number;
     private source:GameObject;
 
-    constructor(damage:number, source:GameObject) {
-        this.damage = damage;
+    public setSource(source:GameObject) {
         this.source = source;
+    }
+
+    public setDamage(damage:number) {
+        this.damage = damage;
     }
 
     public apply(target:GameObject) {

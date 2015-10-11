@@ -68,7 +68,8 @@ class MoveExecutor implements Executor, PlayerAware, GameObjectLayerAware, Clien
         if(target) {
             var effect = this.player.getCollidableComponent().getEffect();
             if(!effect || this.isOfSameAlliegiance(target)) {
-                effect = new BumpEffect(this.player);
+                effect = new BumpEffect();
+                effect.setSource(this.player);
             }
             this.notify(effect, target);
             effect.apply(target);

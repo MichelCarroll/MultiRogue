@@ -5,6 +5,7 @@ import Serializable from './Serializable';
 
 interface Effect extends Serializable {
 
+    setSource(source:GameObject);
     apply(target:GameObject);
     getObserverFeedbackMessage(target:GameObject):string;
     getSelfFeedbackMessage(target:GameObject):string;

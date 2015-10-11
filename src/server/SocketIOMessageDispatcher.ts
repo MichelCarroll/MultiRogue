@@ -30,6 +30,7 @@ class SocketIOMessageDispatcher implements MessageDispatcher {
                 data[name] = Serializer.serialize(data[name]);
             }
         });
+        //console.log(util.inspect(data, {showHidden: false, depth: null}));
         return data;
     }
 
@@ -37,12 +38,12 @@ class SocketIOMessageDispatcher implements MessageDispatcher {
         this.socket.emit(message.getName(), this.serializeData(message.getData()));
     }
 
-    public on(name:string, callback:(message:Message)=>void) {
+    public on(messageName:string, callback:(message:Message)=>void) {
         var self = this;
         this.socket.on('disconnect', function() {
            self.onDisconnect();
         });
-        this.socket.on(name, function(data:any) {
+        this.socket.on(messageName, function(data:any) {
             Object.getOwnPropertyNames(data).forEach(function(name) {
                 if(data[name].__reference) {
                     data[name] = self.referencer.dereference(data[name].__reference);
@@ -51,7 +52,7 @@ class SocketIOMessageDispatcher implements MessageDispatcher {
                     data[name] = Serializer.deserialize(data[name]);
                 }
             });
-            callback(new Message(name, data));
+            callback(new Message(messageName, data));
         });
     }
 

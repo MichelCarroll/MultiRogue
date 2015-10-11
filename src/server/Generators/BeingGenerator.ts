@@ -15,16 +15,21 @@ class BeingGenerator {
 
     public createRobot():GameObject {
         var being = this.createActor('Robot', '#888', 'robot');
+        var zombie = new ZombieEffect();
+        zombie.setSource(being);
         being.getCollidableComponent().setProperties({
-            effect: new ZombieEffect(being)
+            effect: zombie
         });
         return being;
     }
 
     public createPlayer():GameObject {
         var being = this.createActor('Player', '#FF0', 'player');
+        var damage = new DamageEffect();
+        damage.setDamage(1);
+        damage.setSource(being);
         being.getCollidableComponent().setProperties({
-            effect: new DamageEffect(1, being)
+            effect: damage
         });
         return being;
     }
