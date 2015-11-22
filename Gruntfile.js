@@ -70,6 +70,13 @@ module.exports = function (grunt) {
                 }
             }
         },
+        sass: {
+            client: {
+                files: {
+                    'dist/client/styles/new_design.css': 'src/client/web/styles/new_design.scss'
+}
+            }
+        },
         copy: {
             pretranspile: {
                 files: [{
@@ -125,6 +132,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-typescript');
+    grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-browserify');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-clean');
@@ -175,7 +183,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('transpile', ['clean:tmp', 'copy:pretranspile', 'dynamic_class_loader', 'typescript']);
 
-    grunt.registerTask('_client', ['browserify:client', 'uglify:client', 'copy:client']);
+    grunt.registerTask('_client', ['browserify:client', 'uglify:client', 'sass:client', 'copy:client']);
     grunt.registerTask('_server', ['copy:server']);
 
     grunt.registerTask('client', ['clean:client', 'transpile', '_client']);

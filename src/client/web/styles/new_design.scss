@@ -1,0 +1,96 @@
+
+.game-container {
+  background: black;
+  height: 100%;
+}
+
+.chat-container {
+  position: absolute;
+  bottom: 0;
+}
+
+#game {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0 0 34px 0;
+}
+
+#game canvas {
+  display: block;
+  margin: 0 auto;
+
+  /* VALIGN */
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.game-side {
+  height: 100%;
+  position: relative;
+}
+
+.side-section {
+  height: 12.5%;
+  &.double {
+     height: 25%;
+  }
+  &.triple {
+     height: 37.5%;
+  }
+}
+
+.list-group-item {
+  padding-top: 3px;
+  padding-bottom: 3px;
+
+  &:first-child {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+  }
+}
+
+.list-group {
+  overflow-y: scroll;
+  height: calc(100% - 42px);
+  margin-bottom: 0;
+}
+
+.items-listing {
+  margin: 0;
+  padding: 0;
+
+  li {
+    float: left;
+  }
+}
+
+.item {
+  width: 20px;
+  line-height: 20px;
+  display: inline-block;
+  box-sizing: border-box;
+  text-align: center;
+  border: 1px solid white;
+  color: white;
+  font-family: monospace;
+  cursor: pointer;
+}
+
+.equipment-listing {
+  position: relative;
+  height: 60px;
+  width: 60px;
+}
+
+.equipment-container {
+  position: absolute;
+
+  .helm {
+
+  }
+}

@@ -1,0 +1,50 @@
+<html>
+<head>
+    <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../../bower_components/rot.js/rot.js"></script>
+    <script src="scripts/script.js"></script>
+    <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="styles/main.css" />
+</head>
+    <body>
+        <div class="container-fluid">
+            <div class="game-container row">
+                <div class="game-column col-md-8">
+                    <div id="game"></div>
+                </div>
+                <div class="game-side col-md-4">
+                    <div id="commands-container">
+                        <ul class="list-group">
+                            <li class="list-group-item" data-command="connect">Connect</li>
+                            <li class="list-group-item hidden" data-command="disconnect">Disconnect</li>
+                        </ul>
+                    </div>
+                    <div id="attributes-container">
+                        <ul class="list-group">
+                            <li class="list-group-item action-points-row hidden">
+                                Actions Remaining: <span class="action-points">0</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="game-log-container">
+                        <ul id="game-log" class="list-group"></ul>
+                    </div>
+                    <div id="game-players-container">
+                        <ul id="game-players" class="list-group"></ul>
+                    </div>
+                    <div id="game-items-container">
+                        <ul id="game-items" class="list-group"></ul>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-container row">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="game-chat" placeholder="Type here...">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" id="game-chat-button" type="button">Chat!</button>
+                </span>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

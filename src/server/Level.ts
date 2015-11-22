@@ -39,6 +39,10 @@ class Level  {
         this.size = size;
     }
 
+    public getNumberOfPlayers() {
+        return this.players.length;
+    }
+
     public setActorSpawnSpot(position:Vector2D) {
         var self = this;
         this.playerSpawnPoint = new SpawnPoint(position, Level.SPAWN_RADIUS, function(point:Vector2D):boolean {
