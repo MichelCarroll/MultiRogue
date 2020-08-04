@@ -8,9 +8,7 @@ the gameplay emergent and spontaneous. It has a focus on cooperation and competi
 Development
 -----------
 
-The game is currently in its very early stages. If you want to follow it, you can keep an eye out on the development log at http://michelcarroll.com/category/multirogue/. 
-
-If you want to join its development, you can send me (MichelCarroll) a private message on Github to see how best to get involved.
+The game is currently in its very early stages. If you want to join its development, you can send me (MichelCarroll) a private message on Github to see how best to get involved.
 
 Build Instructions
 ------------------
